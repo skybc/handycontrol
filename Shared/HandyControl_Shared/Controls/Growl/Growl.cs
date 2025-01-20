@@ -365,9 +365,17 @@ public class Growl : Control
                         if (growlItem.Message == (growl as Growl).Message)
                         {
                             growlItem.Close(false);
-                            i--;
                             // 
                         }
+                    }
+                }
+                for (int i = panel.Children.Count - 1; i > 10; i--)
+                {
+                    // 关闭前面的
+                    var panel2 = panel.Children[i];
+                    if (panel2 is Growl growl1)
+                    {
+                        growl1.Close(false);
                     }
                 }
             }
