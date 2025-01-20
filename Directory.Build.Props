@@ -1,0 +1,13 @@
+﻿<Project>
+    <PropertyGroup>
+        <UseWPF>true</UseWPF>
+        <Version>4.0.9.0</Version>
+        <FileVersion>4.0.9.0</FileVersion>
+        <AssemblyVersion>4.0.9.0</AssemblyVersion>
+        <LangVersion>latest</LangVersion>
+        <Copyright>Copyright © HandyOrg 2018-2024</Copyright>
+        <Authors>HandyOrg</Authors>
+        <RepositoryUrl>https://github.com/HandyOrg/HandyControl</RepositoryUrl>
+        <PackageProjectUrl>https://handyorg.github.io/</PackageProjectUrl>
+    </PropertyGroup>
+</Project>
