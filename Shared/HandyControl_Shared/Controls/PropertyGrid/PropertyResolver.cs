@@ -30,6 +30,37 @@ public class PropertyResolver
         [typeof(ImageSource)] = EditorTypeCode.ImageSource
     };
 
+    private static Dictionary<Type, Type> TypeEditorBaseDic = new()
+    {
+
+    };
+    /// <summary>
+    /// 注册类型编辑器
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="editor"></param>
+    public static void RegisterTypeEditor(Type type, Type editor)
+    {
+        if (type == null || editor == null)
+        {
+            return;
+        }
+        // 判定editor是否继承自PropertyEditorBase
+        if (!editor.IsSubclassOf(typeof(PropertyEditorBase)))
+        {
+            throw new ArgumentException("editor必须继承PropertyEditorBase");
+        }
+        if (TypeEditorBaseDic.ContainsKey(type))
+        {
+            TypeEditorBaseDic[type] = editor;
+        }
+        else
+        {
+            TypeEditorBaseDic.Add(type, editor);
+        }
+    }
+
+
     public string ResolveCategory(PropertyDescriptor propertyDescriptor)
     {
         var categoryAttribute = propertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
@@ -75,37 +106,88 @@ public class PropertyResolver
 
         var editorAttribute = propertyDescriptor.Attributes.OfType<EditorAttribute>().FirstOrDefault();
         var editor = editorAttribute == null || string.IsNullOrEmpty(editorAttribute.EditorTypeName)
-            ? CreateDefaultEditor(propertyDescriptor.PropertyType)
+            ? CreateDefaultEditor(propertyDescriptor)
             : CreateEditor(Type.GetType(editorAttribute.EditorTypeName));
 
         return editor;
     }
 
-    public virtual PropertyEditorBase CreateDefaultEditor(Type type) =>
-        TypeCodeDic.TryGetValue(type, out var editorType)
-            ? editorType switch
+    /// <summary>
+    /// 创建默认的编辑器
+    /// </summary>
+    /// <param name="propertyDescriptor"></param>
+    /// <returns></returns>
+    public virtual PropertyEditorBase CreateDefaultEditor(PropertyDescriptor propertyDescriptor)
+    {
+        var type = propertyDescriptor.PropertyType;
+        // 优先使用注册的编辑器
+        if (TypeEditorBaseDic.TryGetValue(type, out var editor))
+        {
+            return CreateEditor(editor);
+        }
+        // 获取NumberRangeAttribute
+        var numberRange = propertyDescriptor.Attributes.OfType<NumberRangeAttribute>().FirstOrDefault();
+        if (numberRange != null)
+        {
+
+        }
+
+        // 根据类型选择编辑器
+        if (TypeCodeDic.TryGetValue(type, out var editorType))
+        {
+            if (numberRange != null)
             {
-                EditorTypeCode.PlainText => new PlainTextPropertyEditor(),
-                EditorTypeCode.SByteNumber => new NumberPropertyEditor(sbyte.MinValue, sbyte.MaxValue),
-                EditorTypeCode.ByteNumber => new NumberPropertyEditor(byte.MinValue, byte.MaxValue),
-                EditorTypeCode.Int16Number => new NumberPropertyEditor(short.MinValue, short.MaxValue),
-                EditorTypeCode.UInt16Number => new NumberPropertyEditor(ushort.MinValue, ushort.MaxValue),
-                EditorTypeCode.Int32Number => new NumberPropertyEditor(int.MinValue, int.MaxValue),
-                EditorTypeCode.UInt32Number => new NumberPropertyEditor(uint.MinValue, uint.MaxValue),
-                EditorTypeCode.Int64Number => new NumberPropertyEditor(long.MinValue, long.MaxValue),
-                EditorTypeCode.UInt64Number => new NumberPropertyEditor(ulong.MinValue, ulong.MaxValue),
-                EditorTypeCode.SingleNumber => new NumberPropertyEditor(float.MinValue, float.MaxValue),
-                EditorTypeCode.DoubleNumber => new NumberPropertyEditor(double.MinValue, double.MaxValue),
-                EditorTypeCode.Switch => new SwitchPropertyEditor(),
-                EditorTypeCode.DateTime => new DateTimePropertyEditor(),
-                EditorTypeCode.HorizontalAlignment => new HorizontalAlignmentPropertyEditor(),
-                EditorTypeCode.VerticalAlignment => new VerticalAlignmentPropertyEditor(),
-                EditorTypeCode.ImageSource => new ImagePropertyEditor(),
-                _ => new ReadOnlyTextPropertyEditor()
+                // 如果是数字类型，并且有NumberRangeAttribute，则使用范围
+                if (editorType == EditorTypeCode.SByteNumber
+                    || editorType == EditorTypeCode.ByteNumber
+                    || editorType == EditorTypeCode.Int16Number
+                    || editorType == EditorTypeCode.UInt16Number
+                    || editorType == EditorTypeCode.Int32Number
+                    || editorType == EditorTypeCode.UInt32Number
+                    || editorType == EditorTypeCode.Int64Number
+                    || editorType == EditorTypeCode.UInt64Number
+                    || editorType == EditorTypeCode.SingleNumber
+                    || editorType == EditorTypeCode.DoubleNumber
+                    )
+                {
+                    return new NumberPropertyEditor(numberRange.Minimum, numberRange.Maximum)
+                    {
+                        // 小数点位数
+                        DecimalPlaces = numberRange.DecimalPlaces
+                    };
+                }
             }
-            : type.IsSubclassOf(typeof(Enum))
-                ? new EnumPropertyEditor()
-                : new ReadOnlyTextPropertyEditor();
+
+            switch (editorType)
+            {
+                case EditorTypeCode.PlainText:
+                    return new PlainTextPropertyEditor();
+                case EditorTypeCode.SByteNumber:
+                    return new NumberPropertyEditor(sbyte.MinValue, sbyte.MaxValue);
+                case EditorTypeCode.ByteNumber: return new NumberPropertyEditor(byte.MinValue, byte.MaxValue);
+                case EditorTypeCode.Int16Number: return new NumberPropertyEditor(short.MinValue, short.MaxValue);
+                case EditorTypeCode.UInt16Number: return new NumberPropertyEditor(ushort.MinValue, ushort.MaxValue);
+                case EditorTypeCode.Int32Number: return new NumberPropertyEditor(int.MinValue, int.MaxValue);
+                case EditorTypeCode.UInt32Number: return new NumberPropertyEditor(uint.MinValue, uint.MaxValue);
+                case EditorTypeCode.Int64Number: return new NumberPropertyEditor(long.MinValue, long.MaxValue);
+                case EditorTypeCode.UInt64Number: return new NumberPropertyEditor(ulong.MinValue, ulong.MaxValue);
+                case EditorTypeCode.SingleNumber: return new NumberPropertyEditor(float.MinValue, float.MaxValue);
+                case EditorTypeCode.DoubleNumber: return new NumberPropertyEditor(double.MinValue, double.MaxValue);
+                case EditorTypeCode.Switch: return new SwitchPropertyEditor();
+                case EditorTypeCode.DateTime: return new DateTimePropertyEditor();
+                case EditorTypeCode.HorizontalAlignment: return new HorizontalAlignmentPropertyEditor();
+                case EditorTypeCode.VerticalAlignment: return new VerticalAlignmentPropertyEditor();
+                case EditorTypeCode.ImageSource: return new ImagePropertyEditor();
+                default: return new ReadOnlyTextPropertyEditor();
+            }
+        }
+        else
+        {
+
+            return type.IsSubclassOf(typeof(Enum)) ? new EnumPropertyEditor() : new ReadOnlyTextPropertyEditor();
+        }
+
+    }
 
     public virtual PropertyEditorBase CreateEditor(Type type) => Activator.CreateInstance(type) as PropertyEditorBase ?? new ReadOnlyTextPropertyEditor();
 

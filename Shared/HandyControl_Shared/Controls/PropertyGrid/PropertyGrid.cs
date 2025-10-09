@@ -210,10 +210,14 @@ public class PropertyGrid : Control
             }
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="propertyDescriptor"></param>
+    /// <returns></returns>
     protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor)
     {
-        return new()
+        return new PropertyItem()
         {
             Category = PropertyResolver.ResolveCategory(propertyDescriptor),
             DisplayName = PropertyResolver.ResolveDisplayName(propertyDescriptor),

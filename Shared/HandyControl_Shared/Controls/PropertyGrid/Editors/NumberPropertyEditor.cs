@@ -18,13 +18,24 @@ public class NumberPropertyEditor : PropertyEditorBase
     public double Minimum { get; set; }
 
     public double Maximum { get; set; }
+    public int DecimalPlaces { get; set; } = -1;
 
-    public override FrameworkElement CreateElement(PropertyItem propertyItem) => new NumericUpDown
+    public override FrameworkElement CreateElement(PropertyItem propertyItem)
     {
-        IsReadOnly = propertyItem.IsReadOnly,
-        Minimum = Minimum,
-        Maximum = Maximum
-    };
+        var numeric = new NumericUpDown
+        {
+            IsReadOnly = propertyItem.IsReadOnly,
+            Minimum = Minimum,
+            Maximum = Maximum
+        };
+
+        if (DecimalPlaces >= 0)
+        {
+            numeric.DecimalPlaces = DecimalPlaces;
+        }
+
+        return numeric;
+    }
 
     public override DependencyProperty GetDependencyProperty() => NumericUpDown.ValueProperty;
 }

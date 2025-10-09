@@ -393,7 +393,10 @@ public class Growl : Control
             panel.Children.Add(growl);
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="growlInfo"></param>
     private static void ShowGlobal(GrowlInfo growlInfo)
     {
         Application.Current.Dispatcher?.Invoke(
@@ -485,6 +488,10 @@ public class Growl : Control
         );
     }
 
+    /// <summary>
+    ///    创建默认的面板
+    /// </summary>
+    /// <returns></returns>
     private static Panel CreateDefaultPanel()
     {
         FrameworkElement element = WindowHelper.GetActiveWindow();

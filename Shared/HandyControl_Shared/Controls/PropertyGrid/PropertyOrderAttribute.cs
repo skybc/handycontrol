@@ -25,4 +25,26 @@ namespace HandyControl.Controls
 
         public GridLength Width { get; set; }
     }
+
+    public class PropertyAttribute : Attribute
+    {
+        public PropertyAttribute(string category, string displayName = "")
+        {
+            this.Category = category;
+            this.DisplayName = displayName;
+        }
+        public string Category { get; set; }
+        public string DisplayName { get; set; }
+        /// <summary>
+        /// 使能
+        /// </summary>
+        public string EnableProperty { get; set; }
+
+        /// <summary>
+        /// visible
+        /// </summary>
+        public string VisibleProperty { get; set; } = "";
+    }
+
+
 }
