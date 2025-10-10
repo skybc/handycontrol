@@ -49,7 +49,8 @@ public class ImagePropertyEditor : PropertyEditorBase
     }
 
     public override void CreateBinding(PropertyItem propertyItem, DependencyObject element)
-        => BindingOperations.SetBinding(this, GetDependencyProperty(),
+    {
+        BindingOperations.SetBinding(this, GetDependencyProperty(),
             new Binding($"({propertyItem.PropertyName})")
             {
                 Source = propertyItem.Value,
@@ -57,6 +58,6 @@ public class ImagePropertyEditor : PropertyEditorBase
                 UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem),
                 Converter = GetConverter(propertyItem)
             });
-
+    }
     public override DependencyProperty GetDependencyProperty() => SourceProperty;
 }

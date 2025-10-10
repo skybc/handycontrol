@@ -22,7 +22,9 @@ public class VerticalAlignmentPropertyEditor : PropertyEditorBase
 
     public override DependencyProperty GetDependencyProperty() => Selector.SelectedValueProperty;
 }
-
+/// <summary>
+/// 模版选择
+/// </summary>
 public class VerticalAlignmentPathTemplateSelector : DataTemplateSelector
 {
     public override DataTemplate SelectTemplate(object item, DependencyObject container)

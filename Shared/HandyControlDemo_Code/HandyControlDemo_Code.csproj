@@ -3,7 +3,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>HandyControlDemoCode</AssemblyName>
     <RootNamespace>HandyControlDemoCode</RootNamespace>
-    <TargetFrameworks>net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <NoWarn>MSB3026;MSB3061</NoWarn>
     <MSBuildWarningsAsMessages>NETSDK1138</MSBuildWarningsAsMessages>
   </PropertyGroup>

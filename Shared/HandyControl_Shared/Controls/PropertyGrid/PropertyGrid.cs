@@ -217,15 +217,22 @@ public class PropertyGrid : Control
     /// <returns></returns>
     protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor)
     {
+
+        PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
+
         return new PropertyItem()
         {
-            Category = PropertyResolver.ResolveCategory(propertyDescriptor),
-            DisplayName = PropertyResolver.ResolveDisplayName(propertyDescriptor),
-            Description = PropertyResolver.ResolveDescription(propertyDescriptor),
+            Category = property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor),
+            DisplayName = property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor),
+            Description = property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor),
             IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
-            DefaultValue = PropertyResolver.ResolveDefaultValue(propertyDescriptor),
+            DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
             Editor = PropertyResolver.ResolveEditor(propertyDescriptor),
             Value = SelectedObject,
+            VisiableName = property?.VisibleProperty ?? "",
+            CommandPropertyName = property?.CommandProperty ?? "",
+            CommandContent = property?.CommandContentName ?? "",
+            ButtonWidth = PropertyResolver.ResolveButtonWidth(propertyDescriptor),
             PropertyName = propertyDescriptor.Name,
             PropertyType = propertyDescriptor.PropertyType,
             PropertyTypeName = $"{propertyDescriptor.PropertyType.Namespace}.{propertyDescriptor.PropertyType.Name}",
