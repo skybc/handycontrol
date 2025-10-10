@@ -329,6 +329,36 @@ public class ColorPicker : Control, ISingleOpen
         set => SetValue(ShowListProperty, value);
     }
 
+    /// <summary>
+    ///     是否显示确定按钮
+    /// </summary>
+    public static readonly DependencyProperty ShowConfirmButtonProperty = DependencyProperty.Register(
+        nameof(ShowConfirmButton), typeof(bool), typeof(ColorPicker), new PropertyMetadata(ValueBoxes.TrueBox));
+
+    /// <summary>
+    ///     是否显示确定按钮
+    /// </summary>
+    public bool ShowConfirmButton
+    {
+        get => (bool) GetValue(ShowConfirmButtonProperty);
+        set => SetValue(ShowConfirmButtonProperty, ValueBoxes.BooleanBox(value));
+    }
+
+    /// <summary>
+    ///     是否显示取消按钮
+    /// </summary>
+    public static readonly DependencyProperty ShowCancelButtonProperty = DependencyProperty.Register(
+        nameof(ShowCancelButton), typeof(bool), typeof(ColorPicker), new PropertyMetadata(ValueBoxes.TrueBox));
+
+    /// <summary>
+    ///     是否显示取消按钮
+    /// </summary>
+    public bool ShowCancelButton
+    {
+        get => (bool) GetValue(ShowCancelButtonProperty);
+        set => SetValue(ShowCancelButtonProperty, ValueBoxes.BooleanBox(value));
+    }
+
     #endregion Properties
 
     /// <summary>
@@ -705,13 +735,24 @@ public class ColorPicker : Control, ISingleOpen
 
     private void ButtonConfirm_OnClick(object sender, RoutedEventArgs e)
     {
-        RaiseEvent(new FunctionEventArgs<Color>(ConfirmedEvent, this)
+        // 仅在显示确定按钮时触发 Confirmed 事件
+        if (ShowConfirmButton)
         {
-            Info = SelectedBrush.Color
-        });
+            RaiseEvent(new FunctionEventArgs<Color>(ConfirmedEvent, this)
+            {
+                Info = SelectedBrush.Color
+            });
+        }
     }
 
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(CanceledEvent));
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        // 仅在显示取消按钮时触发 Canceled 事件
+        if (ShowCancelButton)
+        {
+            RaiseEvent(new RoutedEventArgs(CanceledEvent));
+        }
+    }
 
     private void ToggleButtonDropper_Click(object sender, RoutedEventArgs e)
     {

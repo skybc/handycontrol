@@ -76,6 +76,7 @@ Styles\Base\CardBaseStyle.xaml
 Styles\Base\ChatBubbleBaseStyle.xaml
 ..\..\..\Net_40\HandyControl_Net_40\Themes\Styles\Base\CheckComboBoxBaseStyle.xaml
 Styles\Base\ColorPickerBaseStyle.xaml
+Styles\Base\ColorPopupBaseStyle.xaml
 Styles\Base\ContextMenuBaseStyle.xaml
 Styles\Base\CoverFlowBaseStyle.xaml
 Styles\Base\CoverViewBaseStyle.xaml
@@ -131,6 +132,7 @@ Styles\CheckComboBox.xaml
 Styles\Clock.xaml
 Styles\Col.xaml
 Styles\ColorPicker.xaml
+Styles\ColorPopup.xaml
 Styles\ContextMenu.xaml
 Styles\CoverFlow.xaml
 Styles\CoverView.xaml

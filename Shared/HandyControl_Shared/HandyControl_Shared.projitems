@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Block\RunningBlock\RunningBorder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Button\SplitButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Carousel\CarouselItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ColorPicker\ColorPopup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ComboBoxTree\ComboBoxTree.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Dialog\DialogContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Drawer\DrawerContainer.cs" />
@@ -926,6 +927,14 @@
     <None Include="$(MSBuildThisFileDirectory)Themes\Styles\Empty.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\Base\ColorPopupBaseStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\ColorPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Theme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

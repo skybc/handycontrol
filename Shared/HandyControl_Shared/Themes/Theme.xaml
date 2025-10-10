@@ -8003,7 +8003,7 @@
               <RowDefinition Height="122" />
               <RowDefinition Height="110" />
               <RowDefinition Height="62" />
-              <RowDefinition Height="62" />
+              <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}" Grid.RowSpan="4" Background="{TemplateBinding Background}" />
             <hc:SimplePanel Margin="1" Grid.Row="0">
@@ -8089,13 +8089,111 @@
             <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderBrush}">
               <WrapPanel Name="PART_PanelColor" Margin="6" HorizontalAlignment="Center" />
             </Border>
-            <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderBrush}">
+            <Border Name="PART_BorderButtons" Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderBrush}" Height="62">
+              <Border.Style>
+                <Style TargetType="Border">
+                  <Setter Property="Visibility" Value="Visible" />
+                  <Style.Triggers>
+                    <MultiDataTrigger>
+                      <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ShowConfirmButton,RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                        <Condition Binding="{Binding ShowCancelButton,RelativeSource={RelativeSource TemplatedParent}}" Value="False" />
+                      </MultiDataTrigger.Conditions>
+                      <Setter Property="Visibility" Value="Collapsed" />
+                    </MultiDataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Border.Style>
               <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Command="interactivity:ControlCommands.Cancel" Content="{ex:Lang Key={x:Static langs:LangKeys.Cancel}}" Width="80" Margin="0,0,16,0" />
-                <Button Command="interactivity:ControlCommands.Confirm" Content="{ex:Lang Key={x:Static langs:LangKeys.Confirm}}" Width="80" Style="{StaticResource ButtonPrimary}" />
+                <Button Command="interactivity:ControlCommands.Cancel" Content="{ex:Lang Key={x:Static langs:LangKeys.Cancel}}" Width="80" Margin="0,0,16,0" Visibility="{Binding ShowCancelButton,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" />
+                <Button Command="interactivity:ControlCommands.Confirm" Content="{ex:Lang Key={x:Static langs:LangKeys.Confirm}}" Width="80" Style="{StaticResource ButtonPrimary}" Visibility="{Binding ShowConfirmButton,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" />
               </StackPanel>
             </Border>
           </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ColorPopupBaseStyle" TargetType="hc:ColorPopup" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="MinWidth" Value="80" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Padding" Value="6,0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="hc:ColorPopup">
+          <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border x:Name="border" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+              <Button x:Name="PART_Button" Padding="{TemplateBinding Padding}" HorizontalAlignment="Stretch" Content="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="Stretch" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Background="{Binding SelectedBrush, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="0" Foreground="{DynamicResource PrimaryTextBrush}">
+                <!--<Grid
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Background="Black">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    -->
+                <!--  颜色预览区域  -->
+                <!--
+
+                                    <Border
+                                        Grid.Column="0"
+                                        Margin="0,0,8,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{Binding SelectedBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="2" />
+
+                                    -->
+                <!--  占位符或颜色文本  -->
+                <!--
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                        Text="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                    -->
+                <!--  下拉箭头  -->
+                <!--
+                                    <Path
+                                        Grid.Column="2"
+                                        Width="10"
+                                        Height="6"
+                                        Margin="8,0,0,0"
+                                        Data="M0,0 L5,5 L10,0"
+                                        Stroke="{DynamicResource PrimaryTextBrush}"
+                                        StrokeThickness="1" />
+                                </Grid>-->
+              </Button>
+            </Border>
+            <!--  Popup 弹出面板  -->
+            <Popup x:Name="PART_Popup" AllowsTransparency="True" IsOpen="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Placement="Bottom" PlacementTarget="{Binding ElementName=border}" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" StaysOpen="False">
+              <Border Background="{DynamicResource RegionBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="4" Effect="{StaticResource EffectShadow2}">
+                <hc:ColorPicker x:Name="PART_ColorPicker" SelectedBrush="{Binding SelectedBrush, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" ShowCancelButton="False" ShowConfirmButton="False" />
+              </Border>
+            </Popup>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value="0.4" />
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -12592,6 +12690,7 @@
   </Style>
   <Style TargetType="hc:ListClock" BasedOn="{StaticResource ListClockBaseStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource ColorPickerBaseStyle}" TargetType="hc:ColorPicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+  <Style BasedOn="{StaticResource ColorPopupBaseStyle}" TargetType="hc:ColorPopup" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource ContextMenuBaseStyle}" TargetType="ContextMenu" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="ContextMenu.Small" BasedOn="{StaticResource ContextMenuBaseStyle}" TargetType="ContextMenu" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="hc:MenuAttach.ItemPadding" Value="6,0" />

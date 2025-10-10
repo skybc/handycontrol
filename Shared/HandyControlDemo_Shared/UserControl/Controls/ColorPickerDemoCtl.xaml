@@ -1,8 +1,38 @@
-﻿<UserControl x:Class="HandyControlDemo.UserControl.ColorPickerDemoCtl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:hc="https://handyorg.github.io/handycontrol">
+﻿<UserControl
+    x:Class="HandyControlDemo.UserControl.ColorPickerDemoCtl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="https://handyorg.github.io/handycontrol">
     <hc:TransitioningContentControl>
-        <hc:ColorPicker Name="ColorPicker" Margin="32"/>
+        <hc:ScrollViewer>
+            <StackPanel Margin="32">
+                <!--  原始 ColorPicker（带确定和取消按钮）  -->
+                <GroupBox Header="ColorPicker with Buttons">
+                    <hc:ColorPicker Name="ColorPicker" Margin="16" />
+                </GroupBox>
+
+                <!--  ColorPicker（隐藏确定和取消按钮，实时更新）  -->
+                <GroupBox Header="ColorPicker without Buttons (Real-time)">
+                    <hc:ColorPicker
+                        Name="ColorPickerNoButtons"
+                        Margin="16"
+                        ShowCancelButton="False"
+                        ShowConfirmButton="False" />
+                </GroupBox>
+
+                <!--  ColorPopup 控件  -->
+                <GroupBox Header="ColorPopup (Click to Open)">
+                    <StackPanel Margin="16">
+                        <hc:ColorPopup
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Placeholder=""
+                            SelectedBrush="Red" />
+
+                        <hc:ColorPopup Placeholder="" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </hc:ScrollViewer>
     </hc:TransitioningContentControl>
 </UserControl>

@@ -74,9 +74,7 @@ public class PropertyResolver
     /// 如果属性没有 CategoryAttribute 或者 Category 为空，则返回默认的本地化“Miscellaneous”。
     /// </summary>
     public string ResolveCategory(PropertyDescriptor propertyDescriptor)
-    {
-    
-
+    { 
         var categoryAttribute = propertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
 
         return categoryAttribute == null ?
