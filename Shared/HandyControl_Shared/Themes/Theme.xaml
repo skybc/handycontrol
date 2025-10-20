@@ -8130,54 +8130,7 @@
         <ControlTemplate TargetType="hc:ColorPopup">
           <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border x:Name="border" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
-              <Button x:Name="PART_Button" Padding="{TemplateBinding Padding}" HorizontalAlignment="Stretch" Content="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="Stretch" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Background="{Binding SelectedBrush, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="0" Foreground="{DynamicResource PrimaryTextBrush}">
-                <!--<Grid
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Background="Black">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    -->
-                <!--  颜色预览区域  -->
-                <!--
-
-                                    <Border
-                                        Grid.Column="0"
-                                        Margin="0,0,8,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{Binding SelectedBrush, RelativeSource={RelativeSource TemplatedParent}}"
-                                        BorderBrush="{DynamicResource BorderBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="2" />
-
-                                    -->
-                <!--  占位符或颜色文本  -->
-                <!--
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}" />
-
-                                    -->
-                <!--  下拉箭头  -->
-                <!--
-                                    <Path
-                                        Grid.Column="2"
-                                        Width="10"
-                                        Height="6"
-                                        Margin="8,0,0,0"
-                                        Data="M0,0 L5,5 L10,0"
-                                        Stroke="{DynamicResource PrimaryTextBrush}"
-                                        StrokeThickness="1" />
-                                </Grid>-->
-              </Button>
+              <Button x:Name="PART_Button" Padding="{TemplateBinding Padding}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Background="{Binding SelectedBrush, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="0" Content="{Binding Placeholder, RelativeSource={RelativeSource TemplatedParent}}" Foreground="{DynamicResource PrimaryTextBrush}" />
             </Border>
             <!--  Popup 弹出面板  -->
             <Popup x:Name="PART_Popup" AllowsTransparency="True" IsOpen="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Placement="Bottom" PlacementTarget="{Binding ElementName=border}" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" StaysOpen="False">

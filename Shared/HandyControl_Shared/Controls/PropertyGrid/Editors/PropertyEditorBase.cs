@@ -18,11 +18,10 @@ public abstract class PropertyEditorBase : DependencyObject
                 UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem),
                 Converter = GetConverter(propertyItem)
             });
-      
     }
 
     public abstract DependencyProperty GetDependencyProperty();
-
+    ///
     public virtual BindingMode GetBindingMode(PropertyItem propertyItem) => propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
 
     public virtual UpdateSourceTrigger GetUpdateSourceTrigger(PropertyItem propertyItem) => UpdateSourceTrigger.PropertyChanged;

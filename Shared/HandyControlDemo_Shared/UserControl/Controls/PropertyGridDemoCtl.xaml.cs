@@ -15,7 +15,9 @@ public partial class PropertyGridDemoCtl
             Enum = Gender.Female,
             Boolean = true,
             Integer = 98,
-            VerticalAlignment = VerticalAlignment.Stretch
+            VerticalAlignment = VerticalAlignment.Stretch,
+            MediaColor = System.Windows.Media.Colors.Red,
+            DrawingColor = System.Drawing.Color.Blue
         };
     }
 

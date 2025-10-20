@@ -12,7 +12,5 @@ namespace HandyControl.Controls
         }
 
         public int Index { get; set; }
-    }
-
-
+    } 
 }

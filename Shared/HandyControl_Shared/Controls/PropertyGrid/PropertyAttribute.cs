@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace HandyControl.Controls
 {
@@ -14,6 +15,9 @@ namespace HandyControl.Controls
             this.Category = category;
             this.DisplayName = displayName;
         }
+        /// <summary>
+        /// 类型
+        /// </summary>
         public string Category { get; set; }
         public string DisplayName { get; set; }
         /// <summary>
@@ -29,7 +33,7 @@ namespace HandyControl.Controls
         /// 是否忽略该属性
         /// </summary>
         public bool IsIgnore { get; set; } = false;
-#region  按钮
+        #region  按钮
         /// <summary>
         /// 指令属性
         /// </summary>
@@ -42,8 +46,13 @@ namespace HandyControl.Controls
         /// 按钮宽度
         /// </summary>
         public int ButtonWidth { get; set; } = 0;
-        public string Description { get;   set; }
-        public object DefaultValue { get;   set; }
+        public string Description { get; set; }
+        public object DefaultValue { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Index { get; set; } = 0;
+        public GridLength TitleWidth { get; set; } = new GridLength(1, GridUnitType.Star);
         #endregion
     }
 

@@ -23,7 +23,7 @@ public class ImagePropertyEditor : PropertyEditorBase
             Source = imageSelector,
             Mode = BindingMode.OneWay
         });
-
+        
         return imageSelector;
     }
 

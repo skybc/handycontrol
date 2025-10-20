@@ -4,6 +4,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using HandyControl.Controls;
+using DrawingColor = System.Drawing.Color;
+using MediaColor = System.Windows.Media.Color;
 
 namespace HandyControlDemo.Data;
 
@@ -42,6 +44,17 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
 
     [PropertyOrder(1)]
     public VerticalAlignment VerticalAlignment { get; set; }
+
+    [Category("颜色")]
+    [DisplayName("媒体颜色")]
+    [PropertyOrder(100)]
+    public MediaColor MediaColor { get; set; }
+
+    [Category("颜色")]
+    [DisplayName("绘图颜色")]
+    [PropertyOrder(101)]
+    public DrawingColor DrawingColor { get; set; }
+
     [Property(CommandContentName = "...", CommandProperty = nameof(SelectFile))]
     public string Path { get; set; }
     public ICommand SelectFile

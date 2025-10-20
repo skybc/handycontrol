@@ -32,7 +32,9 @@ public class PropertyResolver
         [typeof(DateTime)] = EditorTypeCode.DateTime,
         [typeof(HorizontalAlignment)] = EditorTypeCode.HorizontalAlignment,
         [typeof(VerticalAlignment)] = EditorTypeCode.VerticalAlignment,
-        [typeof(ImageSource)] = EditorTypeCode.ImageSource
+        [typeof(ImageSource)] = EditorTypeCode.ImageSource,
+        [typeof(System.Windows.Media.Color)] = EditorTypeCode.MediaColor,
+        [typeof(System.Drawing.Color)] = EditorTypeCode.DrawingColor
     };
 
     private static Dictionary<Type, Type> TypeEditorBaseDic = new()
@@ -231,6 +233,8 @@ public class PropertyResolver
                 case EditorTypeCode.HorizontalAlignment: return new HorizontalAlignmentPropertyEditor();
                 case EditorTypeCode.VerticalAlignment: return new VerticalAlignmentPropertyEditor();
                 case EditorTypeCode.ImageSource: return new ImagePropertyEditor();
+                case EditorTypeCode.MediaColor: return new ColorPropertyEditor(); // System.Windows.Media.Color
+                case EditorTypeCode.DrawingColor: return new ColorPropertyEditor(); // System.Drawing.Color
                 default: return new ReadOnlyTextPropertyEditor(); // 默认回退为只读文本编辑器
             }
         }
@@ -302,6 +306,8 @@ public class PropertyResolver
         DateTime,
         HorizontalAlignment,
         VerticalAlignment,
-        ImageSource
+        ImageSource,
+        MediaColor,
+        DrawingColor
     }
 }

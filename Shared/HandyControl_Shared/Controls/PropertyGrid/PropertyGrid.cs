@@ -236,8 +236,8 @@ public class PropertyGrid : Control
             PropertyName = propertyDescriptor.Name,
             PropertyType = propertyDescriptor.PropertyType,
             PropertyTypeName = $"{propertyDescriptor.PropertyType.Namespace}.{propertyDescriptor.PropertyType.Name}",
-            SortIndex = propertyDescriptor.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? 0,
-            TitleWidth = propertyDescriptor.Attributes.OfType<TitleWidthAttribute>().FirstOrDefault()?.Width ?? new GridLength(0.5, GridUnitType.Star),
+            SortIndex = propertyDescriptor.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? (property?.Index ?? 0),
+            TitleWidth = propertyDescriptor.Attributes.OfType<TitleWidthAttribute>().FirstOrDefault()?.Width ?? (property?.TitleWidth ?? new GridLength(0.5, GridUnitType.Star)),
         };
     }
 
