@@ -156,8 +156,15 @@ public class PropertyGrid : Control
         }
         else
         {
+            // obj 获取title width
+            var titleWidthAttribute = obj.GetType().GetCustomAttributes(typeof(TitleWidthAttribute), true).OfType<TitleWidthAttribute>().FirstOrDefault();
+            TitleWidthAttribute titleWidth = new TitleWidthAttribute(80, GridUnitType.Pixel);
+            if (titleWidthAttribute != null)
+            {
+                titleWidth = titleWidthAttribute;
+            }
             _dataView = CollectionViewSource.GetDefaultView(TypeDescriptor.GetProperties(obj.GetType()).OfType<PropertyDescriptor>()
-                .Where(item => PropertyResolver.ResolveIsBrowsable(item)).Select(CreatePropertyItem)
+                .Where(item => PropertyResolver.ResolveIsBrowsable(item)).Select(r => CreatePropertyItem(r, titleWidth))
                 .Do(item => item.InitElement()));
             SortByCategory(null, null);
             _itemsControl.ItemsSource = _dataView;
@@ -215,7 +222,7 @@ public class PropertyGrid : Control
     /// </summary>
     /// <param name="propertyDescriptor"></param>
     /// <returns></returns>
-    protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor)
+    protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor, TitleWidthAttribute titleWidth)
     {
 
         PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
@@ -237,7 +244,7 @@ public class PropertyGrid : Control
             PropertyType = propertyDescriptor.PropertyType,
             PropertyTypeName = $"{propertyDescriptor.PropertyType.Namespace}.{propertyDescriptor.PropertyType.Name}",
             SortIndex = propertyDescriptor.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? (property?.Index ?? 0),
-            TitleWidth = propertyDescriptor.Attributes.OfType<TitleWidthAttribute>().FirstOrDefault()?.Width ?? (property?.TitleWidth ?? new GridLength(0.5, GridUnitType.Star)),
+            TitleWidth = propertyDescriptor.Attributes.OfType<TitleWidthAttribute>().FirstOrDefault()?.Width ?? (property?.TitleWidth ?? titleWidth.Width),
         };
     }
 

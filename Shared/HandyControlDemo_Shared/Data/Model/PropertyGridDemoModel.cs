@@ -9,6 +9,7 @@ using MediaColor = System.Windows.Media.Color;
 
 namespace HandyControlDemo.Data;
 
+[TitleWidth(100, GridUnitType.Pixel)]
 public class PropertyGridDemoModel : INotifyPropertyChanged
 {
     private bool isShowEnum = false;

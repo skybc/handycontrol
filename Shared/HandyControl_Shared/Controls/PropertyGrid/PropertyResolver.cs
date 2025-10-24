@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using HandyControl.Properties.Langs;
 
@@ -34,7 +35,8 @@ public class PropertyResolver
         [typeof(VerticalAlignment)] = EditorTypeCode.VerticalAlignment,
         [typeof(ImageSource)] = EditorTypeCode.ImageSource,
         [typeof(System.Windows.Media.Color)] = EditorTypeCode.MediaColor,
-        [typeof(System.Drawing.Color)] = EditorTypeCode.DrawingColor
+        [typeof(System.Drawing.Color)] = EditorTypeCode.DrawingColor,
+        [typeof(ICommand)] = EditorTypeCode.Command
     };
 
     private static Dictionary<Type, Type> TypeEditorBaseDic = new()
@@ -180,12 +182,7 @@ public class PropertyResolver
         }
         // 获取NumberRangeAttribute
         var numberRange = propertyDescriptor.Attributes.OfType<NumberRangeAttribute>().FirstOrDefault();
-        // 如果存在 NumberRangeAttribute，可用于构造带范围约束的数字编辑器
-        if (numberRange != null)
-        {
-
-        }
-
+     
         // 根据类型选择编辑器
         if (TypeCodeDic.TryGetValue(type, out var editorType))
         {
@@ -233,8 +230,9 @@ public class PropertyResolver
                 case EditorTypeCode.HorizontalAlignment: return new HorizontalAlignmentPropertyEditor();
                 case EditorTypeCode.VerticalAlignment: return new VerticalAlignmentPropertyEditor();
                 case EditorTypeCode.ImageSource: return new ImagePropertyEditor();
-                case EditorTypeCode.MediaColor: return new ColorPropertyEditor(); // System.Windows.Media.Color
-                case EditorTypeCode.DrawingColor: return new ColorPropertyEditor(); // System.Drawing.Color
+                case EditorTypeCode.MediaColor: return new ColorPropertyEditor();  
+                case EditorTypeCode.DrawingColor: return new ColorPropertyEditor();  
+                case EditorTypeCode.Command: return new CommandPropertyEditor();
                 default: return new ReadOnlyTextPropertyEditor(); // 默认回退为只读文本编辑器
             }
         }
@@ -308,6 +306,7 @@ public class PropertyResolver
         VerticalAlignment,
         ImageSource,
         MediaColor,
-        DrawingColor
+        DrawingColor,
+        Command
     }
 }

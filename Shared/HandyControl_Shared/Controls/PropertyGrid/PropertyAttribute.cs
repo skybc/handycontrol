@@ -52,7 +52,7 @@ namespace HandyControl.Controls
         /// 
         /// </summary>
         public int Index { get; set; } = 0;
-        public GridLength TitleWidth { get; set; } = new GridLength(1, GridUnitType.Star);
+        public GridLength? TitleWidth { get; set; } = null;// new GridLength(1, GridUnitType.Star);
         #endregion
     }
 

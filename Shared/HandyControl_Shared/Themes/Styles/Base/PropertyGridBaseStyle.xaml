@@ -80,7 +80,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ContentPresenter x:Name="Presenter" Margin="0,0,0,10" />
+                            <ContentPresenter x:Name="Presenter" Margin="0,0,0,2" />
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
                                 <TextBlock FontWeight="Bold" Text="{Binding PropertyTypeName, RelativeSource={RelativeSource AncestorType=hc:PropertyItem}}" />
                                 <TextBlock Margin="6,0,0,0" Text="{Binding PropertyName, RelativeSource={RelativeSource AncestorType=hc:PropertyItem}}" />
@@ -185,7 +185,7 @@
 
     <Style x:Key="PropertyGridBaseStyle" TargetType="hc:PropertyGrid">
         <Setter Property="MaxTitleWidth" Value="200" />
-        <Setter Property="MinTitleWidth" Value="120" />
+        <Setter Property="MinTitleWidth" Value="60" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />

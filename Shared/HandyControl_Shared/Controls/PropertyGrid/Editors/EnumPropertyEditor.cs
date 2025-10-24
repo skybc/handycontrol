@@ -22,6 +22,7 @@ public class EnumPropertyEditor : PropertyEditorBase
             IsEnabled = !propertyItem.IsReadOnly,
 
         };
+
         var enums = Enum.GetValues(propertyItem.PropertyType);
         List<KV> list = new List<KV>();
         foreach (var item in enums)
@@ -36,10 +37,7 @@ public class EnumPropertyEditor : PropertyEditorBase
             else
             {
                 descrption = item.ToString();
-            }
-
-
-
+            } 
             list.Add(new KV { Key = descrption, Value = item });
         }
         cb.DisplayMemberPath = "Key";
