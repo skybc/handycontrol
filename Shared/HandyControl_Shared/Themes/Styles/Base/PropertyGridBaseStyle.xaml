@@ -102,7 +102,7 @@
 
     <Style x:Key="PropertyItemBaseStyle" TargetType="hc:PropertyItem">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Margin" Value="0,0,0,6" />
+        <Setter Property="Margin" Value="0,0,0,2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:PropertyItem">
@@ -164,7 +164,7 @@
     </Style>
 
     <Style x:Key="PropertyGroupItemBaseStyle" TargetType="GroupItem">
-        <Setter Property="Margin" Value="0,0,0,6" />
+        <Setter Property="Margin" Value="0,0,0,4" />
         <Setter Property="Padding" Value="10,6,6,0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -202,9 +202,9 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <DockPanel Margin="0,0,0,6" LastChildFill="True">
+                            <DockPanel Margin="0,0,0,2" LastChildFill="True">
                                 <hc:ButtonGroup
-                                    Margin="0,0,6,0"
+                                    Margin="0,0,4,0"
                                     Style="{StaticResource ButtonGroupSolid}"
                                     Visibility="{Binding ShowSortButton, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}">
                                     <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="True">

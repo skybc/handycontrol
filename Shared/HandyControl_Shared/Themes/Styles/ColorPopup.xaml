@@ -8,4 +8,9 @@
 
     <Style BasedOn="{StaticResource ColorPopupBaseStyle}" TargetType="hc:ColorPopup"/>
 
+    <Style
+        x:Key="ColorPopupExtend"
+        BasedOn="{StaticResource ColorPopupExtendBaseStyle}"
+        TargetType="hc:ColorPopup" />
+
 </ResourceDictionary>

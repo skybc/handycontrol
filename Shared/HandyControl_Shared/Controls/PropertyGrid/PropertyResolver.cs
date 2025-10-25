@@ -160,9 +160,18 @@ public class PropertyResolver
 
         // 优先检查 EditorAttribute，如果存在则根据指定的类型名创建编辑器实例；否则使用默认编辑器策略
         var editorAttribute = propertyDescriptor.Attributes.OfType<EditorAttribute>().FirstOrDefault();
-        var editor = editorAttribute == null || string.IsNullOrEmpty(editorAttribute.EditorTypeName)
-            ? CreateDefaultEditor(propertyDescriptor)
-            : CreateEditor(Type.GetType(editorAttribute.EditorTypeName));
+        var editor = CreateDefaultEditor(propertyDescriptor);
+        if(editor is ReadOnlyTextPropertyEditor)
+        {
+            if (editorAttribute != null && !string.IsNullOrEmpty(editorAttribute.EditorTypeName))
+            {
+                editor = CreateEditor(Type.GetType(editorAttribute.EditorTypeName));
+            }
+        }
+        
+        //var editor = editorAttribute == null || string.IsNullOrEmpty(editorAttribute.EditorTypeName)
+        //    ? CreateDefaultEditor(propertyDescriptor)
+        //    : CreateEditor(Type.GetType(editorAttribute.EditorTypeName));
 
         return editor;
     }
@@ -180,6 +189,7 @@ public class PropertyResolver
         {
             return CreateEditor(editor);
         }
+
         // 获取NumberRangeAttribute
         var numberRange = propertyDescriptor.Attributes.OfType<NumberRangeAttribute>().FirstOrDefault();
      
