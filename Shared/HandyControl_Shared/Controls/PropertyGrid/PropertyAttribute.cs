@@ -46,13 +46,29 @@ namespace HandyControl.Controls
         /// 按钮宽度
         /// </summary>
         public int ButtonWidth { get; set; } = 0;
+        /// <summary>
+        /// 描述
+        /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// 默认值
+        /// </summary>
         public object DefaultValue { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public int Index { get; set; } = 0;
-        public GridLength? TitleWidth { get; set; } = null;// new GridLength(1, GridUnitType.Star);
+        public GridLength? TitleWidth { get; set; } = null;
+
+        // KV Property
+
+        public string DisplayMemberPathProperty { get; set; } = "";
+        public string SelectedValuePathProperty { get; set; } = "";
+
+        public string ComboBoxItemsSourceProperty { get; set; } = "";
+
+
+
         #endregion
     }
 

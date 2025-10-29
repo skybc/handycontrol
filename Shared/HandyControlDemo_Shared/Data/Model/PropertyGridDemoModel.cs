@@ -28,7 +28,6 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
 
     [Category("Category1")]
     [PropertyOrder(3)]
-    [Property(VisibleProperty = nameof(IsShowEnum))]
     public Gender Enum { get; set; }
 
     [Property(IsIgnore = true)]
@@ -83,6 +82,8 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
 
 public enum Gender
 {
+    [Description("男")]
     Male,
+    [Description("女")]
     Female
 }

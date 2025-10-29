@@ -78,7 +78,7 @@ public class PropertyResolver
     /// 如果属性没有 CategoryAttribute 或者 Category 为空，则返回默认的本地化“Miscellaneous”。
     /// </summary>
     public string ResolveCategory(PropertyDescriptor propertyDescriptor)
-    { 
+    {
         var categoryAttribute = propertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();
 
         return categoryAttribute == null ?
@@ -161,14 +161,14 @@ public class PropertyResolver
         // 优先检查 EditorAttribute，如果存在则根据指定的类型名创建编辑器实例；否则使用默认编辑器策略
         var editorAttribute = propertyDescriptor.Attributes.OfType<EditorAttribute>().FirstOrDefault();
         var editor = CreateDefaultEditor(propertyDescriptor);
-        if(editor is ReadOnlyTextPropertyEditor)
+        if (editor is ReadOnlyTextPropertyEditor)
         {
             if (editorAttribute != null && !string.IsNullOrEmpty(editorAttribute.EditorTypeName))
             {
                 editor = CreateEditor(Type.GetType(editorAttribute.EditorTypeName));
             }
         }
-        
+
         //var editor = editorAttribute == null || string.IsNullOrEmpty(editorAttribute.EditorTypeName)
         //    ? CreateDefaultEditor(propertyDescriptor)
         //    : CreateEditor(Type.GetType(editorAttribute.EditorTypeName));
@@ -190,9 +190,12 @@ public class PropertyResolver
             return CreateEditor(editor);
         }
 
+        PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
+        // 
+
         // 获取NumberRangeAttribute
         var numberRange = propertyDescriptor.Attributes.OfType<NumberRangeAttribute>().FirstOrDefault();
-     
+
         // 根据类型选择编辑器
         if (TypeCodeDic.TryGetValue(type, out var editorType))
         {
@@ -223,7 +226,15 @@ public class PropertyResolver
             {
                 case EditorTypeCode.PlainText:
                     // 普通文本编辑器
-                    return new PlainTextPropertyEditor();
+                    {
+                        // 如果 property存在
+                        if (property != null && !string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty))
+                        {
+                            return new CommboxPropertyEditor(property);
+                        }
+
+                        return new PlainTextPropertyEditor();
+                    }
                 case EditorTypeCode.SByteNumber:
                     return new NumberPropertyEditor(sbyte.MinValue, sbyte.MaxValue);
                 case EditorTypeCode.ByteNumber: return new NumberPropertyEditor(byte.MinValue, byte.MaxValue);
@@ -240,8 +251,8 @@ public class PropertyResolver
                 case EditorTypeCode.HorizontalAlignment: return new HorizontalAlignmentPropertyEditor();
                 case EditorTypeCode.VerticalAlignment: return new VerticalAlignmentPropertyEditor();
                 case EditorTypeCode.ImageSource: return new ImagePropertyEditor();
-                case EditorTypeCode.MediaColor: return new ColorPropertyEditor();  
-                case EditorTypeCode.DrawingColor: return new ColorPropertyEditor();  
+                case EditorTypeCode.MediaColor: return new ColorPropertyEditor();
+                case EditorTypeCode.DrawingColor: return new ColorPropertyEditor();
                 case EditorTypeCode.Command: return new CommandPropertyEditor();
                 default: return new ReadOnlyTextPropertyEditor(); // 默认回退为只读文本编辑器
             }
@@ -250,7 +261,7 @@ public class PropertyResolver
         {
 
             // 非内置 TypeCode 的情况：如果是枚举类型，使用枚举编辑器，否则使用只读文本编辑器
-            return type.IsSubclassOf(typeof(Enum)) ? new EnumPropertyEditor() : new ReadOnlyTextPropertyEditor();
+            return type.IsSubclassOf(typeof(Enum)) ? new EnumPropertyEditor(property) : new ReadOnlyTextPropertyEditor();
         }
 
     }
