@@ -33,9 +33,7 @@ public class EnumPropertyEditor : PropertyEditorBase
             IsEnabled = !propertyItem.IsReadOnly,
 
         };
-        //PropertyAttribute property = propertyItem.Value .Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
 
-        // ComboBoxItemsSourceProperty
         if (property != null)
         {
             // 是否有指定枚举列表来源
@@ -87,7 +85,9 @@ public class EnumPropertyEditor : PropertyEditorBase
 
     public override DependencyProperty GetDependencyProperty()
     {
-        if (property != null && string.IsNullOrWhiteSpace(property.SelectedValuePathProperty))
+        if (property != null
+            && !string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty)
+            && string.IsNullOrWhiteSpace(property.SelectedValuePathProperty))
         {
             return Selector.SelectedItemProperty;
         }

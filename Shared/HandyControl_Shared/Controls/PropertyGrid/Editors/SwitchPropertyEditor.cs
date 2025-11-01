@@ -19,7 +19,10 @@ public class SwitchPropertyEditor : PropertyEditorBase
         {
             //Style = ResourceHelper.GetResourceInternal<Style>("CheckBoxSwitch"),
             HorizontalAlignment = HorizontalAlignment.Left,
-            IsEnabled = !propertyItem.IsReadOnly
+            IsEnabled = !propertyItem.IsReadOnly,
+            MinHeight = 24,
+            VerticalAlignment = VerticalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center
         };
     }
 
