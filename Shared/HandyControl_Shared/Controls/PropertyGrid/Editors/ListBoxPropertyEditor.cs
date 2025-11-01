@@ -32,12 +32,12 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(_height) });
 
         // 创建标题栏（包含折叠按钮和添加/删除按钮）
-        var header = CreateHeader(propertyItem);
+        var listBox = CreateListBox(propertyItem);
+        var header = CreateHeader(propertyItem,listBox);
         Grid.SetRow(header, 0);
         container.Children.Add(header);
 
         // 创建ListBox
-        var listBox = CreateListBox(propertyItem);
         Grid.SetRow(listBox, 1);
         container.Children.Add(listBox);
 
@@ -54,7 +54,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         return container;
     }
 
-    private FrameworkElement CreateHeader(PropertyItem propertyItem)
+    private FrameworkElement CreateHeader(PropertyItem propertyItem, ListBox listBox)
     {
         var grid = new Grid();
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -116,10 +116,18 @@ public class ListBoxPropertyEditor : PropertyEditorBase
                     MinWidth = 30,
                     ToolTip = "删除选中项"
                 };
+                //  listBox.SelectedItem 作为命令参数传递
+                deleteButton.SetBinding(Button.CommandParameterProperty, new Binding
+                {
+                    Source = listBox,
+                    Path = new PropertyPath(ListBox.SelectedItemProperty)
+                });
+
                 deleteButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
                 {
                     Source = propertyItem.Value
                 });
+
                 buttonPanel.Children.Add(deleteButton);
             }
 
