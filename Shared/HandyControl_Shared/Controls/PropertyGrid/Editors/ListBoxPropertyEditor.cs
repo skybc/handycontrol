@@ -29,7 +29,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
     {
         var container = new Grid();
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-        container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(_height) });
+        container.RowDefinitions.Add(new RowDefinition { MaxHeight =  _height  });
 
         // 创建标题栏（包含折叠按钮和添加/删除按钮）
         var listBox = CreateListBox(propertyItem);
@@ -59,6 +59,8 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         var grid = new Grid();
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+        grid.Margin= new Thickness(0, -20, 0, 0);
 
         // 折叠按钮
         _toggleButton = new ToggleButton

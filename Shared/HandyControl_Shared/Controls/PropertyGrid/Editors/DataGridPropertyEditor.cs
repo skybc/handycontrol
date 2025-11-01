@@ -32,8 +32,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
     {
         var container = new Grid();
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-        container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(_height) });
-
+        container.RowDefinitions.Add(new RowDefinition { MaxHeight = _height });
         // 创建标题栏和按钮
         var header = CreateHeader(propertyItem);
         Grid.SetRow(header, 0);
@@ -77,6 +76,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         var grid = new Grid();
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        grid.Margin = new Thickness(0, -20, 0, 0);
 
         // 创建折叠按钮
         _toggleButton = new ToggleButton
@@ -173,7 +173,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         var validProperties = properties.Where(p =>
         {
             var propAttr = p.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
-            
+
             // 如果有PropertyAttribute.IsIgnore，则忽略
             if (propAttr?.IsIgnore == true)
             {
@@ -198,7 +198,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         foreach (var property in validProperties)
         {
             var propAttr = property.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
-            
+
             // 检查是否可见
             if (!string.IsNullOrWhiteSpace(propAttr?.VisibleProperty))
             {
@@ -217,8 +217,8 @@ public class DataGridPropertyEditor : PropertyEditorBase
     private DataGridColumn CreateColumn(PropertyDescriptor property, PropertyAttribute propAttr)
     {
         var displayName = propAttr?.DisplayName ?? property.DisplayName ?? property.Name;
-        var isReadOnly = propAttr != null && !string.IsNullOrWhiteSpace(propAttr.EnableProperty) 
-            ? false 
+        var isReadOnly = propAttr != null && !string.IsNullOrWhiteSpace(propAttr.EnableProperty)
+            ? false
             : property.IsReadOnly;
 
         Type propertyType = property.PropertyType;
@@ -235,7 +235,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
             // 设置数据源绑定
             comboColumn.ItemsSource = null; // 需要在运行时从对象上获取
-            
+
             return comboColumn;
         }
 
@@ -284,7 +284,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         }
     }
 
-    private DataGridTemplateColumn CreateTemplateColumn(PropertyDescriptor property, PropertyAttribute propAttr, 
+    private DataGridTemplateColumn CreateTemplateColumn(PropertyDescriptor property, PropertyAttribute propAttr,
         string displayName, bool isReadOnly, PropertyEditorBase editor)
     {
         var column = new DataGridTemplateColumn
@@ -307,7 +307,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         {
             var editingTemplate = new DataTemplate();
             var contentPresenterFactory = new FrameworkElementFactory(typeof(ContentPresenter));
-            contentPresenterFactory.AddHandler(FrameworkElement.LoadedEvent, 
+            contentPresenterFactory.AddHandler(FrameworkElement.LoadedEvent,
                 new RoutedEventHandler((sender, e) => OnEditingElementLoaded(sender, e, property, editor)));
             editingTemplate.VisualTree = contentPresenterFactory;
             column.CellEditingTemplate = editingTemplate;
@@ -372,7 +372,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         // 处理实现了IEnumerable<T>的类型
         var enumerableInterface = collectionType.GetInterfaces()
             .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
-        
+
         if (enumerableInterface != null)
         {
             return enumerableInterface.GetGenericArguments()[0];
