@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -191,7 +192,21 @@ public class PropertyResolver
         }
 
         PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
-        // 
+        
+        // 检查是否为集合类型
+        if (IsCollectionType(type))
+        {
+            int height = property?.Height ?? 150;
+            
+            // 如果指定使用ListBox，则使用ListBoxPropertyEditor
+            if (property?.IsListBox == true)
+            {
+                return new ListBoxPropertyEditor(property, height);
+            }
+            
+            // 否则使用DataGrid编辑器
+            return new DataGridPropertyEditor(property, height);
+        }
 
         // 获取NumberRangeAttribute
         var numberRange = propertyDescriptor.Attributes.OfType<NumberRangeAttribute>().FirstOrDefault();
@@ -270,6 +285,32 @@ public class PropertyResolver
     /// 根据编辑器类型创建实例。若创建失败则回退为只读文本编辑器。
     /// </summary>
     public virtual PropertyEditorBase CreateEditor(Type type) => Activator.CreateInstance(type) as PropertyEditorBase ?? new ReadOnlyTextPropertyEditor();
+
+    /// <summary>
+    /// 检查类型是否为集合类型
+    /// </summary>
+    private bool IsCollectionType(Type type)
+    {
+        // 排除字符串（虽然实现了IEnumerable<char>）
+        if (type == typeof(string))
+        {
+            return false;
+        }
+
+        // 检查是否为数组
+        if (type.IsArray)
+        {
+            return true;
+        }
+
+        // 检查是否实现了IEnumerable接口（泛型或非泛型）
+        if (typeof(IEnumerable).IsAssignableFrom(type))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     /// <summary>
     /// 解析属性的可见性绑定属性名（VisibleProperty），用于动态控制属性是否可见。

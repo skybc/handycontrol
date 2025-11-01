@@ -112,8 +112,9 @@
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Padding="0,0,10,0"
-                            VerticalAlignment="Center"
+                            Margin="{TemplateBinding TitleMargin}"
+                            Padding="0,0,4,0"
+                            VerticalAlignment="{TemplateBinding TitleVerticalAlignment}"
                             Text="{TemplateBinding DisplayName}"
                             TextTrimming="CharacterEllipsis">
                             <TextBlock.ToolTip>

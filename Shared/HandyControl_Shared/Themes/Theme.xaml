@@ -10345,7 +10345,7 @@
               <ColumnDefinition Width="{TemplateBinding TitleWidth}" />
               <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Padding="0,0,10,0" VerticalAlignment="Center" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis">
+            <TextBlock Margin="{TemplateBinding TitleMargin}" Padding="0,0,4,0" VerticalAlignment="{TemplateBinding TitleVerticalAlignment}" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis">
               <TextBlock.ToolTip>
                 <ToolTip Content="{TemplateBinding Description}" Style="{StaticResource PropertyItemToolTipBaseStyle}" />
               </TextBlock.ToolTip>

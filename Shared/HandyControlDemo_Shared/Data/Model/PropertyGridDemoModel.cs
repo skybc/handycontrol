@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -72,6 +73,77 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
     //[PropertyOrder(0)]
     //public ImageSource ImageSource { get; set; }
 
+    private ObservableCollection<PersonItem> _persons; 
+    [Category("集合编辑")]
+    [DisplayName("人员列表")]
+    [Property(Height = 200, AddCommandProperty = nameof(AddPersonCommand), DeleteCommandProperty = nameof(DeletePersonCommand), TitleVerticalAlignment = VerticalAlignment.Top ,TitleTop = 8  )]
+    [PropertyOrder(200)]
+    public ObservableCollection<PersonItem> Persons
+    {
+        get => _persons;
+        set
+        {
+            _persons = value;
+            OnPropertyChanged(nameof(Persons));
+        }
+    }
+
+    private ObservableCollection<string> _tags;
+    [Category("集合编辑")]
+    [DisplayName("标签列表")]
+    [Property(IsListBox = true, Height = 150, AddCommandProperty = nameof(AddTagCommand), DeleteCommandProperty = nameof(DeleteTagCommand), TitleVerticalAlignment = VerticalAlignment.Top, TitleTop = 8)]
+    [PropertyOrder(201)]
+    public ObservableCollection<string> Tags
+    {
+        get => _tags;
+        set
+        {
+            _tags = value;
+            OnPropertyChanged(nameof(Tags));
+        }
+    }
+
+    public ICommand AddPersonCommand => new RelayCommand(() =>
+    {
+        if (Persons == null)
+        {
+            Persons = new ObservableCollection<PersonItem>();
+        }
+        Persons.Add(new PersonItem
+        {
+            Name = "新员工",
+            Age = 25,
+            Type = PersonType.Employee,
+            IsActive = true,
+            Salary = 5000
+        });
+    });
+
+    public ICommand DeletePersonCommand => new RelayCommand(() =>
+    {
+        if (Persons != null && Persons.Count > 0)
+        {
+            Persons.RemoveAt(Persons.Count - 1);
+        }
+    });
+
+    public ICommand AddTagCommand => new RelayCommand(() =>
+    {
+        if (Tags == null)
+        {
+            Tags = new ObservableCollection<string>();
+        }
+        Tags.Add($"标签{Tags.Count + 1}");
+    });
+
+    public ICommand DeleteTagCommand => new RelayCommand(() =>
+    {
+        if (Tags != null && Tags.Count > 0)
+        {
+            Tags.RemoveAt(Tags.Count - 1);
+        }
+    });
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
@@ -86,4 +158,95 @@ public enum Gender
     Male,
     [Description("女")]
     Female
+}
+
+/// <summary>
+/// 演示 DataGrid 编辑的示例类
+/// </summary>
+public class PersonItem : INotifyPropertyChanged
+{
+    private string _name;
+    private int _age;
+    private PersonType _type;
+    private bool _isActive;
+    private double _salary;
+
+    [Property(DisplayName = "姓名")]
+    [PropertyOrder(1)]
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            OnPropertyChanged(nameof(Name));
+        }
+    }
+
+    [Property(DisplayName = "年龄")]
+    [PropertyOrder(2)]
+    [NumberRange(0, 150)]
+    public int Age
+    {
+        get => _age;
+        set
+        {
+            _age = value;
+            OnPropertyChanged(nameof(Age));
+        }
+    }
+
+    [Property(DisplayName = "类型")]
+    [PropertyOrder(3)]
+    public PersonType Type
+    {
+        get => _type;
+        set
+        {
+            _type = value;
+            OnPropertyChanged(nameof(Type));
+        }
+    }
+
+    [Property(DisplayName = "激活")]
+    [PropertyOrder(4)]
+    public bool IsActive
+    {
+        get => _isActive;
+        set
+        {
+            _isActive = value;
+            OnPropertyChanged(nameof(IsActive));
+        }
+    }
+
+    [Property(DisplayName = "薪资")]
+    [PropertyOrder(5)]
+    [NumberRange(0, 1000000, DecimalPlaces = 2)]
+    public double Salary
+    {
+        get => _salary;
+        set
+        {
+            _salary = value;
+            OnPropertyChanged(nameof(Salary));
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+
+public enum PersonType
+{
+    [Description("员工")]
+    Employee,
+    [Description("经理")]
+    Manager,
+    [Description("主管")]
+    Director
 }

@@ -52,7 +52,7 @@ public class PropertyGrid : Control
 
     private static void OnSelectedObjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var ctl = (PropertyGrid) d;
+        var ctl = (PropertyGrid)d;
         ctl.OnSelectedObjectChanged(e.OldValue, e.NewValue);
     }
 
@@ -73,7 +73,7 @@ public class PropertyGrid : Control
 
     public string Description
     {
-        get => (string) GetValue(DescriptionProperty);
+        get => (string)GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
     }
 
@@ -82,7 +82,7 @@ public class PropertyGrid : Control
 
     public double MaxTitleWidth
     {
-        get => (double) GetValue(MaxTitleWidthProperty);
+        get => (double)GetValue(MaxTitleWidthProperty);
         set => SetValue(MaxTitleWidthProperty, value);
     }
 
@@ -91,7 +91,7 @@ public class PropertyGrid : Control
 
     public double MinTitleWidth
     {
-        get => (double) GetValue(MinTitleWidthProperty);
+        get => (double)GetValue(MinTitleWidthProperty);
         set => SetValue(MinTitleWidthProperty, value);
     }
 
@@ -100,7 +100,7 @@ public class PropertyGrid : Control
 
     public bool ShowSortButton
     {
-        get => (bool) GetValue(ShowSortButtonProperty);
+        get => (bool)GetValue(ShowSortButtonProperty);
         set => SetValue(ShowSortButtonProperty, ValueBoxes.BooleanBox(value));
     }
 
@@ -245,6 +245,8 @@ public class PropertyGrid : Control
             PropertyTypeName = $"{propertyDescriptor.PropertyType.Namespace}.{propertyDescriptor.PropertyType.Name}",
             SortIndex = propertyDescriptor.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? (property?.Index ?? 0),
             TitleWidth = propertyDescriptor.Attributes.OfType<TitleWidthAttribute>().FirstOrDefault()?.Width ?? (property?.TitleWidth ?? titleWidth.Width),
+            TitleVerticalAlignment = property?.TitleVerticalAlignment ?? VerticalAlignment.Center,
+            TitleMargin = property != null && property?.TitleTop != 0 ? new Thickness(0, property.TitleTop, 0, 0) : new Thickness(0, 0, 4, 0)
         };
     }
 

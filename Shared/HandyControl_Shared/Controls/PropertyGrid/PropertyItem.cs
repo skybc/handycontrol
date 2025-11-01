@@ -185,6 +185,28 @@ public class PropertyItem : ListBoxItem
         set => SetValue(TitleWidthProperty, value);
     }
 
+    // TitleVerticalAlignment,依赖属性
+    public static readonly DependencyProperty TitleVerticalAlignmentProperty = DependencyProperty.Register(
+        nameof(TitleVerticalAlignment), typeof(VerticalAlignment), typeof(PropertyItem), new PropertyMetadata(VerticalAlignment.Center));
+
+    // TitleVerticalAlignment
+    public VerticalAlignment TitleVerticalAlignment
+    {
+        get => (VerticalAlignment) GetValue(TitleVerticalAlignmentProperty);
+        set => SetValue(TitleVerticalAlignmentProperty, value);
+    }
+
+    // TitleMargin,依赖属性
+    public static readonly DependencyProperty TitleMarginProperty = DependencyProperty.Register(
+        nameof(TitleMargin), typeof(Thickness), typeof(PropertyItem), new PropertyMetadata(new Thickness(0)));
+
+    // TitleMargin
+    public Thickness TitleMargin
+    {
+        get => (Thickness) GetValue(TitleMarginProperty);
+        set => SetValue(TitleMarginProperty, value);
+    }
+
     /// <summary>
     /// 对应的 PropertyDescriptor（在需要获取额外元数据时使用）。
     /// </summary>
