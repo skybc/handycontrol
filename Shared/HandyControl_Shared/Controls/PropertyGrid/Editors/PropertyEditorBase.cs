@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -27,4 +28,9 @@ public abstract class PropertyEditorBase : DependencyObject
     public virtual UpdateSourceTrigger GetUpdateSourceTrigger(PropertyItem propertyItem) => UpdateSourceTrigger.PropertyChanged;
 
     protected virtual IValueConverter GetConverter(PropertyItem propertyItem) => null;
+
+    public virtual void SetDeflautValue(FrameworkElementFactory factory, PropertyItem propertyItem)
+    {
+        
+    }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -192,15 +192,15 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         var dataTemplate = new DataTemplate();
         
         // 创建临时PropertyItem用于生成编辑器元素
-        var tempPropertyItem = new PropertyItem
-        {
-            PropertyType = elementType,
-            PropertyName = ".",
-            IsReadOnly = propertyItem.IsReadOnly
-        };
+        //var propertyItem = new PropertyItem
+        //{
+        //    PropertyType = elementType,
+        //    PropertyName = ".",
+        //    IsReadOnly = propertyItem.IsReadOnly
+        //};
 
         // 创建编辑器元素
-        var element = editor.CreateElement(tempPropertyItem);
+        var element = editor.CreateElement(propertyItem);
         if (element == null)
         {
             return CreateBasicTypeTemplate(elementType, propertyItem);
@@ -223,7 +223,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
         }
-
+        editor.SetDeflautValue(factory, propertyItem);
         dataTemplate.VisualTree = factory;
         return dataTemplate;
     }
