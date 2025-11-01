@@ -10341,17 +10341,30 @@
       <Setter.Value>
         <ControlTemplate TargetType="hc:PropertyItem">
           <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="{TemplateBinding TitleWidth}" />
               <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Margin="{TemplateBinding TitleMargin}" Padding="0,0,4,0" VerticalAlignment="{TemplateBinding TitleVerticalAlignment}" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis">
+            <TextBlock x:Name="PART_TitleTextBlock" Margin="{TemplateBinding TitleMargin}" Padding="0,0,4,0" VerticalAlignment="{TemplateBinding TitleVerticalAlignment}" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis">
               <TextBlock.ToolTip>
                 <ToolTip Content="{TemplateBinding Description}" Style="{StaticResource PropertyItemToolTipBaseStyle}" />
               </TextBlock.ToolTip>
             </TextBlock>
-            <ContentPresenter Grid.Column="1" ContentSource="EditorElement" Visibility="{TemplateBinding Visibility}" />
+            <ContentPresenter x:Name="PART_ContentPresenter" Grid.Column="1" ContentSource="EditorElement" Visibility="{TemplateBinding Visibility}" />
           </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="EditorOnNewLine" Value="True">
+              <Setter TargetName="PART_TitleTextBlock" Property="Grid.ColumnSpan" Value="2" />
+              <Setter TargetName="PART_TitleTextBlock" Property="Margin" Value="0,0,0,4" />
+              <Setter TargetName="PART_ContentPresenter" Property="Grid.Row" Value="1" />
+              <Setter TargetName="PART_ContentPresenter" Property="Grid.Column" Value="0" />
+              <Setter TargetName="PART_ContentPresenter" Property="Grid.ColumnSpan" Value="2" />
+            </Trigger>
+          </ControlTemplate.Triggers>
           <!--<GroupBox hc:TitleElement.TitlePlacement="Left" Style="{StaticResource GroupBoxOriginal}">
                         <GroupBox.Header>
                             <TextBlock

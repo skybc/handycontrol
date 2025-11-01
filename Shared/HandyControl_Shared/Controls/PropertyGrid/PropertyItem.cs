@@ -207,6 +207,17 @@ public class PropertyItem : ListBoxItem
         set => SetValue(TitleMarginProperty, value);
     }
 
+    // EditorOnNewLine,依赖属性
+    public static readonly DependencyProperty EditorOnNewLineProperty = DependencyProperty.Register(
+        nameof(EditorOnNewLine), typeof(bool), typeof(PropertyItem), new PropertyMetadata(ValueBoxes.FalseBox));
+
+    // EditorOnNewLine - 控制编辑器是否换行显示（占满整行）
+    public bool EditorOnNewLine
+    {
+        get => (bool) GetValue(EditorOnNewLineProperty);
+        set => SetValue(EditorOnNewLineProperty, ValueBoxes.BooleanBox(value));
+    }
+
     /// <summary>
     /// 对应的 PropertyDescriptor（在需要获取额外元数据时使用）。
     /// </summary>
@@ -304,7 +315,7 @@ public class PropertyItem : ListBoxItem
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Right
             };
-            if(this.ButtonWidth>10)
+            if (this.ButtonWidth > 10)
             {
                 button.Width = this.ButtonWidth;
             }

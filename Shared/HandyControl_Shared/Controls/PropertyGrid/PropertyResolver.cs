@@ -201,7 +201,7 @@ public class PropertyResolver
             // 如果指定使用ListBox，则使用ListBoxPropertyEditor
             if (property?.IsListBox == true)
             {
-                return new ListBoxPropertyEditor(property, height);
+                return new ListBoxPropertyEditor(property, height) ;
             }
             
             // 否则使用DataGrid编辑器

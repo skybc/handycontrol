@@ -227,14 +227,16 @@ public class PropertyGrid : Control
 
         PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
 
-        return new PropertyItem()
+        var editor = PropertyResolver.ResolveEditor(propertyDescriptor);
+
+        var propertyItem = new PropertyItem()
         {
             Category = property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor),
             DisplayName = property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor),
             Description = property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor),
             IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
             DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
-            Editor = PropertyResolver.ResolveEditor(propertyDescriptor),
+            Editor = editor,
             Value = SelectedObject,
             VisiableName = property?.VisibleProperty ?? "",
             CommandPropertyName = property?.CommandProperty ?? "",
@@ -248,6 +250,14 @@ public class PropertyGrid : Control
             TitleVerticalAlignment = property?.TitleVerticalAlignment ?? VerticalAlignment.Center,
             TitleMargin = property != null && property?.TitleTop != 0 ? new Thickness(0, property.TitleTop, 0, 0) : new Thickness(0, 0, 4, 0)
         };
+
+        // 如果编辑器是ListBoxPropertyEditor或DataGridPropertyEditor，默认换行显示
+        if (editor is ListBoxPropertyEditor || editor is DataGridPropertyEditor)
+        {
+            propertyItem.EditorOnNewLine = true;
+        }
+
+        return propertyItem;
     }
 
     protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
