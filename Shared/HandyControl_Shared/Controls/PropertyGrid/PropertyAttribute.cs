@@ -67,6 +67,8 @@ namespace HandyControl.Controls
 
         public string ComboBoxItemsSourceProperty { get; set; } = "";
 
+        public Type ConverterType { get; set; } = null;
+
         // DataGrid相关属性
         /// <summary>
         /// 集合编辑器高度，用于集合属性（适用于DataGrid和ListBox）
@@ -106,7 +108,8 @@ namespace HandyControl.Controls
         /// <summary>
         /// 标题的边距
         /// </summary>
-        public  int TitleTop { get; set; }  
+        public  int TitleTop { get; set; }
+        public Type GridColumnConverter { get;   set; }
 
         #endregion
     }

@@ -23,15 +23,24 @@ public class CommboxPropertyEditor : PropertyEditorBase
         var cb = new System.Windows.Controls.ComboBox
         {
             IsEnabled = !propertyItem.IsReadOnly,
-
         };
 
+        var strinStrs = property.ComboBoxItemsSourceProperty.Split(";", StringSplitOptions.RemoveEmptyEntries);
 
-        cb.SetBinding(ComboBox.ItemsSourceProperty, new Binding(property.ComboBoxItemsSourceProperty)
+        if (strinStrs.Length > 1)
         {
-            Source = propertyItem.Value,
-            Mode = BindingMode.OneWay
-        });
+            cb.ItemsSource = strinStrs;
+        }
+        else
+        {
+            cb.SetBinding(ComboBox.ItemsSourceProperty, new Binding(property.ComboBoxItemsSourceProperty)
+            {
+                Source = propertyItem.Value,
+                Mode = BindingMode.OneWay
+            });
+        }
+        
+
         if (!string.IsNullOrWhiteSpace(property.DisplayMemberPathProperty))
         {
             cb.DisplayMemberPath = property.DisplayMemberPathProperty;
@@ -39,17 +48,17 @@ public class CommboxPropertyEditor : PropertyEditorBase
         if (!string.IsNullOrWhiteSpace(property.SelectedValuePathProperty))
         {
             cb.SelectedValuePath = property.SelectedValuePathProperty;
-        } 
+        }
         return cb;
     }
 
     public override DependencyProperty GetDependencyProperty()
     {
-        if(string.IsNullOrWhiteSpace(property.SelectedValuePathProperty))
+        if (!string.IsNullOrWhiteSpace(property.SelectedValuePathProperty))
         {
-            return Selector.SelectedItemProperty;
+            return ComboBox.SelectedValueProperty;
         }
-        return Selector.SelectedItemProperty;
+        return ComboBox.SelectedItemProperty;
     }
 
 }

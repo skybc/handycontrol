@@ -9,17 +9,35 @@ using System.Windows.Shapes;
 namespace HandyControl.Controls
 {
     /// <summary>
-    /// 文件夹选择编辑器，由文本框和浏览按钮组成
+    /// 文件夹选择编辑器，为PropertyGrid提供文件夹路径输入功能。
+    /// 由文本框和浏览按钮组成，用户可以直接输入路径或通过文件夹浏览对话框选择目录。
     /// </summary>
+    /// <remarks>
+    /// 此编辑器用于PropertyGrid中带有<see cref="PropertyFolderAttribute"/>特性的字符串属性。
+    /// 支持自定义对话框描述文本和初始路径设置。
+    /// </remarks>
     public class FolderSelectPropertyEditor : PropertyEditorBase
     {
+        /// <summary>
+        /// 文件夹选择特性，包含对话框描述等配置信息。
+        /// </summary>
         private readonly PropertyFolderAttribute _folderAttribute;
 
+        /// <summary>
+        /// 初始化 <see cref="FolderSelectPropertyEditor"/> 类的新实例。
+        /// </summary>
+        /// <param name="folderAttribute">文件夹选择特性，可以为null使用默认配置。</param>
         public FolderSelectPropertyEditor(PropertyFolderAttribute folderAttribute = null)
         {
             _folderAttribute = folderAttribute;
         }
 
+        /// <summary>
+        /// 创建编辑器的用户界面元素。
+        /// </summary>
+        /// <param name="propertyItem">属性项，包含属性的元数据和状态。</param>
+        /// <returns>返回包含文本框和浏览按钮的Grid容器。</returns>
+        /// <exception cref="ArgumentNullException">当propertyItem为null时抛出。</exception>
         public override FrameworkElement CreateElement(PropertyItem propertyItem)
         {
             // 创建Grid容器，两列：文本框和按钮
@@ -107,6 +125,14 @@ namespace HandyControl.Controls
             return grid;
         }
 
+        /// <summary>
+        /// 为编辑器元素创建数据绑定。
+        /// </summary>
+        /// <param name="propertyItem">属性项，包含绑定的源对象和属性名。</param>
+        /// <param name="element">要绑定的界面元素，应为包含TextBox的Grid。</param>
+        /// <remarks>
+        /// 此方法将TextBox的Text属性与源对象的指定属性进行双向绑定。
+        /// </remarks>
         public override void CreateBinding(PropertyItem propertyItem, DependencyObject element)
         {
             if (element is Grid grid && grid.Children.Count > 0 && grid.Children[0] is TextBox textBox)
@@ -121,6 +147,10 @@ namespace HandyControl.Controls
             }
         }
 
+        /// <summary>
+        /// 获取编辑器绑定的依赖属性。
+        /// </summary>
+        /// <returns>返回TextBox.TextProperty，用于数据绑定。</returns>
         public override DependencyProperty GetDependencyProperty() => TextBox.TextProperty;
     }
 }

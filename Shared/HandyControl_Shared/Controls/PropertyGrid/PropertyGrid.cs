@@ -104,6 +104,21 @@ public class PropertyGrid : Control
         set => SetValue(ShowSortButtonProperty, ValueBoxes.BooleanBox(value));
     }
 
+    /// <summary>
+    /// 获取或设置是否显示搜索栏。
+    /// </summary>
+    public static readonly DependencyProperty ShowSearchBarProperty = DependencyProperty.Register(
+        nameof(ShowSearchBar), typeof(bool), typeof(PropertyGrid), new PropertyMetadata(ValueBoxes.TrueBox));
+
+    /// <summary>
+    /// 获取或设置是否显示搜索栏。
+    /// </summary>
+    public bool ShowSearchBar
+    {
+        get => (bool)GetValue(ShowSearchBarProperty);
+        set => SetValue(ShowSearchBarProperty, ValueBoxes.BooleanBox(value));
+    }
+
     public override void OnApplyTemplate()
     {
         if (_searchBar != null)
@@ -231,6 +246,7 @@ public class PropertyGrid : Control
 
         var propertyItem = new PropertyItem()
         {
+            Property=property,
             Category = property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor),
             DisplayName = property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor),
             Description = property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor),

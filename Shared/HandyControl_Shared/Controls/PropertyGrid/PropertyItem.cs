@@ -257,6 +257,8 @@ public class PropertyItem : ListBoxItem
         get => (int) GetValue(ButtonWidthProperty);
         set => SetValue(ButtonWidthProperty, value);
     }
+    //public IValueConverter Converter { get; internal set; }
+    public PropertyAttribute Property { get;   set; }
 
     public static readonly DependencyProperty ButtonWidthProperty = DependencyProperty.Register(
         nameof(ButtonWidth), typeof(int), typeof(PropertyItem), new PropertyMetadata(20));

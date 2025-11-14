@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HandyControl.Tools.Converter;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,85 +14,6 @@ using System.Windows.Input;
 
 namespace HandyControl.Controls;
 
-/// <summary>
-/// 编辑对话框窗口
-/// </summary>
-internal class PropertyEditDialog : Window
-{
-    private readonly PropertyGrid _propertyGrid;
-    private bool _dialogResult = false;
-
-    public PropertyEditDialog(object targetObject, string title = "编辑")
-    {
-        Title = title;
-        Width = 400;
-        MaxHeight = 600;
-        SizeToContent = SizeToContent.Height;
-        WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        ResizeMode = ResizeMode.NoResize;
-
-        var mainGrid = new Grid();
-        mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-        mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-        // 创建 PropertyGrid
-        _propertyGrid = new PropertyGrid
-        {
-            SelectedObject = targetObject,
-            Margin = new Thickness(10)
-        };
-        Grid.SetRow(_propertyGrid, 0);
-        mainGrid.Children.Add(_propertyGrid);
-
-        // 创建按钮面板
-        var buttonPanel = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            Margin = new Thickness(10)
-        };
-
-        var cancelButton = new Button
-        {
-            Content = "取消",
-            Width = 80,
-            Height = 30,
-            Margin = new Thickness(0, 0, 10, 0)
-        };
-        cancelButton.Click += (s, e) =>
-       {
-           _dialogResult = false;
-           Close();
-       };
-
-        var confirmButton = new Button
-        {
-            Content = "确定",
-            Width = 80,
-            Height = 30,
-            IsDefault = true
-        };
-        confirmButton.Click += (s, e) =>
-        {
-            _dialogResult = true;
-            Close();
-        };
-
-        buttonPanel.Children.Add(cancelButton);
-        buttonPanel.Children.Add(confirmButton);
-
-        Grid.SetRow(buttonPanel, 1);
-        mainGrid.Children.Add(buttonPanel);
-
-        Content = mainGrid;
-    }
-
-    public new bool? ShowDialog()
-    {
-        base.ShowDialog();
-        return _dialogResult;
-    }
-}
 
 /// <summary>
 /// DataGrid属性编辑器，用于编辑集合类型的属性
@@ -430,6 +352,21 @@ public class DataGridPropertyEditor : PropertyEditorBase
              {
                  var propAttr = p.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
                  return propAttr == null || !propAttr.IsIgnore;
+             }).OrderBy(r =>
+             {
+                 var propAttr = r.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+                 if (propAttr != null)
+                 {
+                     return propAttr.Index;
+                 }
+                 // 是否有order
+                 var order = r.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault();
+                 if (order != null)
+                 {
+                     return order.Index;
+                 }
+                 return int.MaxValue;
+
              }).ToList();
         }
 
@@ -475,7 +412,11 @@ public class DataGridPropertyEditor : PropertyEditorBase
         var isReadOnly = propAttr != null && !string.IsNullOrWhiteSpace(propAttr.EnableProperty)
                    ? false
             : property.IsReadOnly;
-
+        IValueConverter valueConverter = null;
+        if (propAttr.ConverterType != null)
+        {
+            valueConverter = Activator.CreateInstance(propAttr.ConverterType) as IValueConverter;
+        }
         Type propertyType = property.PropertyType;
 
         // 如果指定了ComboBoxItemsSourceProperty，使用ComboBox列
@@ -487,11 +428,20 @@ public class DataGridPropertyEditor : PropertyEditorBase
                 IsReadOnly = isReadOnly
             };
 
-            var propertySouce = propertyItem.Value.GetType().GetProperty(propAttr.ComboBoxItemsSourceProperty);
-            if (propertySouce != null)
+
+            string[] strs = propAttr.ComboBoxItemsSourceProperty.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            if (strs.Length > 1)
             {
-                var itemsSource = propertySouce.GetValue(propertyItem.Value);
-                comboColumn.ItemsSource = itemsSource as IEnumerable;
+                comboColumn.ItemsSource = strs;
+            }
+            else
+            {
+                var propertySouce = propertyItem.Value.GetType().GetProperty(propAttr.ComboBoxItemsSourceProperty);
+                if (propertySouce != null)
+                {
+                    var itemsSource = propertySouce.GetValue(propertyItem.Value);
+                    comboColumn.ItemsSource = itemsSource as IEnumerable;
+                }
             }
             if (!string.IsNullOrWhiteSpace(propAttr.DisplayMemberPathProperty))
             {
@@ -500,11 +450,19 @@ public class DataGridPropertyEditor : PropertyEditorBase
             if (!string.IsNullOrWhiteSpace(propAttr.SelectedValuePathProperty))
             {
                 comboColumn.SelectedValuePath = propAttr.SelectedValuePathProperty;
-                comboColumn.SelectedValueBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay };
+                comboColumn.SelectedValueBinding = new Binding(property.Name)
+                {
+                    Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                    Converter = valueConverter
+                };
             }
             else
             {
-                comboColumn.SelectedItemBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay };
+                comboColumn.SelectedItemBinding = new Binding(property.Name)
+                {
+                    Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                    Converter = valueConverter,
+                };
             }
 
             return comboColumn;
@@ -516,7 +474,11 @@ public class DataGridPropertyEditor : PropertyEditorBase
             return new DataGridCheckBoxColumn
             {
                 Header = displayName,
-                Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+                Binding = new Binding(property.Name)
+                {
+                    Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                    Converter = valueConverter
+                },
                 IsReadOnly = isReadOnly
             };
         }
@@ -536,16 +498,23 @@ public class DataGridPropertyEditor : PropertyEditorBase
             comboColumn.ItemsSource = sourceList;
             comboColumn.DisplayMemberPath = "Key";
             comboColumn.SelectedValuePath = "Value";
-            comboColumn.SelectedValueBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay };
+            comboColumn.SelectedValueBinding = new Binding(property.Name)
+            {
+                Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                Converter = valueConverter
+            };
             return comboColumn;
         }
-
         if (propertyType == typeof(string))
         {
             return new DataGridTextColumn
             {
                 Header = displayName,
-                Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+                Binding = new Binding(property.Name)
+                {
+                    Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                    Converter = valueConverter
+                },
                 IsReadOnly = isReadOnly
             };
         }
@@ -557,33 +526,56 @@ public class DataGridPropertyEditor : PropertyEditorBase
                 return new DataGridTextColumn
                 {
                     Header = displayName,
-                    Binding = new Binding(property.Name) { Mode = BindingMode.OneWay },
+                    Binding = new Binding(property.Name)
+                    {
+                        Mode = BindingMode.OneWay,
+                        Converter = valueConverter
+                    },
                     IsReadOnly = true
                 };
             }
             // 是否是数字类型
             if (propertyType == typeof(byte)
-                         || propertyType == typeof(short)
-                    || propertyType == typeof(int)
+                || propertyType == typeof(short)
+                || propertyType == typeof(int)
                 || propertyType == typeof(uint)
-             || propertyType == typeof(long)
-                  || propertyType == typeof(ulong)
-               || propertyType == typeof(float)
+                || propertyType == typeof(long)
+                || propertyType == typeof(ulong)
+                || propertyType == typeof(float)
                 || propertyType == typeof(double)
-                    || propertyType == typeof(decimal))
+                || propertyType == typeof(decimal))
             {
                 return new DataGridTextColumn
                 {
                     Header = displayName,
-                    Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay, StringFormat = "N0" },
+                    Binding = new Binding(property.Name)
+                    {
+                        Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                        StringFormat = "N0",
+                        Converter = valueConverter
+                    },
                     IsReadOnly = isReadOnly
                 };
             }
+
+            if (propAttr.GridColumnConverter != null)
+            {
+                valueConverter = Activator.CreateInstance(propAttr.GridColumnConverter) as IValueConverter;
+            }
+            if (valueConverter == null)
+            {
+                valueConverter = new Object2StringConverter();
+            }
+
             // 否则使用文本列
             return new DataGridTextColumn
             {
                 Header = displayName,
-                Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+                Binding = new Binding(property.Name)
+                {
+                    Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                    Converter = valueConverter
+                },
                 IsReadOnly = true
             };
         }

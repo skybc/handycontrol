@@ -107,7 +107,7 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
     private ObservableCollection<PersonItem> _persons;
     [Category("集合编辑")]
     [DisplayName("人员列表")]
-    [Property(Height = 200, AddCommandProperty = nameof(AddPersonCommand), DeleteCommandProperty = nameof(DeletePersonCommand), TitleVerticalAlignment = VerticalAlignment.Top ,TitleTop = 8  )]
+    [Property(Height = 200, AddCommandProperty = nameof(AddPersonCommand), DeleteCommandProperty = nameof(DeletePersonCommand), TitleVerticalAlignment = VerticalAlignment.Top, TitleTop = 8)]
     [PropertyOrder(200)]
     public ObservableCollection<PersonItem> Persons
     {
@@ -310,14 +310,14 @@ public class ProductItem : INotifyPropertyChanged
     private ProductStatus _status;
 
     [Property(DisplayName = "产品名称")]
-[PropertyOrder(1)]
+    [PropertyOrder(1)]
     public string Name
     {
-      get => _name;
+        get => _name;
         set
-  {
+        {
             _name = value;
-          OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Name));
         }
     }
 
@@ -327,7 +327,7 @@ public class ProductItem : INotifyPropertyChanged
     {
         get => _category;
         set
-      {
+        {
             _category = value;
             OnPropertyChanged(nameof(Category));
         }
@@ -341,22 +341,22 @@ public class ProductItem : INotifyPropertyChanged
         get => _price;
         set
         {
-_price = value;
-   OnPropertyChanged(nameof(Price));
-  }
+            _price = value;
+            OnPropertyChanged(nameof(Price));
+        }
     }
 
     [Property(DisplayName = "库存")]
     [PropertyOrder(4)]
     [NumberRange(0, 9999)]
-public int Stock
+    public int Stock
     {
-     get => _stock;
-   set
-     {
+        get => _stock;
+        set
+        {
             _stock = value;
             OnPropertyChanged(nameof(Stock));
-   }
+        }
     }
 
     [Property(DisplayName = "可用")]
@@ -366,8 +366,8 @@ public int Stock
         get => _isAvailable;
         set
         {
-       _isAvailable = value;
- OnPropertyChanged(nameof(IsAvailable));
+            _isAvailable = value;
+            OnPropertyChanged(nameof(IsAvailable));
         }
     }
 
@@ -375,19 +375,22 @@ public int Stock
     [PropertyOrder(6)]
     public ProductStatus Status
     {
-    get => _status;
+        get => _status;
         set
         {
-      _status = value;
+            _status = value;
             OnPropertyChanged(nameof(Status));
         }
- }
+    }
+    [PropertyOrder(7)]
+    [Property(DisplayName ="按钮属性")]
+    public TextBox Txt { get; set; } = new TextBox();
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-  protected virtual void OnPropertyChanged(string propertyName)
+    protected virtual void OnPropertyChanged(string propertyName)
     {
-    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
 
