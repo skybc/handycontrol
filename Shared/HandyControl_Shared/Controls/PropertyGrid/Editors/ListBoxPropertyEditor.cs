@@ -27,19 +27,26 @@ public class ListBoxPropertyEditor : PropertyEditorBase
 
     public override FrameworkElement CreateElement(PropertyItem propertyItem)
     {
-        var container = new Grid();
+        var container = new Grid()
+        {
+            VerticalAlignment = VerticalAlignment.Stretch,
+            HorizontalAlignment = HorizontalAlignment.Stretch
+
+        };
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-        container.RowDefinitions.Add(new RowDefinition { MaxHeight =  _height  });
+        container.RowDefinitions.Add(new RowDefinition { MaxHeight = _height });
 
         // 创建标题栏（包含折叠按钮和添加/删除按钮）
         var listBox = CreateListBox(propertyItem);
-        var header = CreateHeader(propertyItem,listBox);
+        listBox.MaxHeight = _height;
+        var header = CreateHeader(propertyItem, listBox);
         Grid.SetRow(header, 0);
         container.Children.Add(header);
 
         // 创建ListBox
         Grid.SetRow(listBox, 1);
         container.Children.Add(listBox);
+
 
         // 绑定折叠按钮和ListBox的可见性
         if (_toggleButton != null)
@@ -60,7 +67,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-        grid.Margin= new Thickness(0, -20, 0, 0);
+        grid.Margin = new Thickness(0, -20, 0, 0);
 
         // 折叠按钮
         _toggleButton = new ToggleButton
@@ -104,6 +111,11 @@ public class ListBoxPropertyEditor : PropertyEditorBase
                 addButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
                 {
                     Source = propertyItem.Value
+                });
+                addButton.SetBinding(Button.CommandParameterProperty, new Binding
+                {
+                    Source = listBox,
+                    Path = new PropertyPath(ListBox.SelectedItemProperty)
                 });
                 buttonPanel.Children.Add(addButton);
             }
@@ -154,8 +166,9 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         var listBox = new ListBox
         {
             SelectionMode = SelectionMode.Single,
-            Margin = new Thickness(0, 2, 0, 0),
-            HorizontalContentAlignment = HorizontalAlignment.Stretch
+            Margin = new Thickness(0, 0, 0, 0),
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            VerticalAlignment = VerticalAlignment.Stretch
         };
 
         // 获取集合元素类型
@@ -179,10 +192,10 @@ public class ListBoxPropertyEditor : PropertyEditorBase
 
         // 使用 PropertyResolver 解析编辑器
         var resolver = new PropertyResolver();
-        
+
         // 创建一个临时的PropertyDescriptor用于元素类型
         var tempDescriptor = new SimpleTypePropertyDescriptor(elementType);
-        
+
         PropertyEditorBase editor = resolver.CreateDefaultEditor(tempDescriptor);
 
         // 如果解析到有效的编辑器（非只读文本编辑器），使用对应控件
@@ -200,14 +213,6 @@ public class ListBoxPropertyEditor : PropertyEditorBase
     private DataTemplate CreateEditorTemplate(PropertyEditorBase editor, PropertyItem propertyItem, Type elementType)
     {
         var dataTemplate = new DataTemplate();
-        
-        // 创建临时PropertyItem用于生成编辑器元素
-        //var propertyItem = new PropertyItem
-        //{
-        //    PropertyType = elementType,
-        //    PropertyName = ".",
-        //    IsReadOnly = propertyItem.IsReadOnly
-        //};
 
         // 创建编辑器元素
         var element = editor.CreateElement(propertyItem);
@@ -218,7 +223,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
 
         // 使用FrameworkElementFactory构建模板
         var factory = new FrameworkElementFactory(element.GetType());
-        
+
         // 设置基本属性
         factory.SetValue(FrameworkElement.MarginProperty, new Thickness(2));
         factory.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
@@ -245,7 +250,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
     {
         private readonly Type _propertyType;
 
-        public SimpleTypePropertyDescriptor(Type propertyType) 
+        public SimpleTypePropertyDescriptor(Type propertyType)
             : base("Item", new Attribute[0])
         {
             _propertyType = propertyType;
@@ -264,7 +269,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
     private DataTemplate CreateBasicTypeTemplate(Type elementType, PropertyItem propertyItem)
     {
         var dataTemplate = new DataTemplate();
-        
+
         if (elementType == typeof(string))
         {
             var factory = new FrameworkElementFactory(typeof(TextBox));
@@ -332,7 +337,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         // 处理实现了IEnumerable<T>的类型
         var enumerableInterface = collectionType.GetInterfaces()
             .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(System.Collections.Generic.IEnumerable<>));
-        
+
         if (enumerableInterface != null)
         {
             return enumerableInterface.GetGenericArguments()[0];

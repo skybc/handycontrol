@@ -30,6 +30,13 @@ public partial class PropertyGridDemoCtl
                 "标签1",
                 "标签2",
                 "标签3"
+            },
+            Products = new ObservableCollection<ProductItem>
+            {
+                new ProductItem { Name = "笔记本电脑", Category = "电子产品", Price = 5999.99, Stock = 50, IsAvailable = true, Status = ProductStatus.Normal },
+                new ProductItem { Name = "机械键盘", Category = "外设", Price = 399.00, Stock = 0, IsAvailable = false, Status = ProductStatus.OutOfStock },
+                new ProductItem { Name = "显示器", Category = "电子产品", Price = 1999.00, Stock = 30, IsAvailable = true, Status = ProductStatus.Normal },
+                new ProductItem { Name = "鼠标垫", Category = "配件", Price = 59.90, Stock = 100, IsAvailable = true, Status = ProductStatus.PreOrder }
             }
         };
     }

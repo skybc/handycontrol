@@ -11,7 +11,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <hc:PropertyGrid Width="500" SelectedObject="{Binding DemoModel}" />
+            <ScrollViewer Height="400">
+                <hc:PropertyGrid Width="500" SelectedObject="{Binding DemoModel}" />
+            </ScrollViewer>
             <StackPanel
                 Grid.Row="1"
                 Margin="20,16,17,10"

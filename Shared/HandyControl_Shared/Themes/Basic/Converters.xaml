@@ -32,4 +32,8 @@
     <converter:Object2StringConverter x:Key="Object2StringConverter" />
     <converter:DataGridSelectAllButtonVisibilityConverter x:Key="DataGridSelectAllButtonVisibilityConverter" />
     <converter:ObjectNull2BooleanConverter x:Key="ObjectNull2BooleanConverter" />
+    <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    <converter:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter"></converter:EnumToVisibilityConverter>
+    <converter:DrawingColorToBrushConverter x:Key="DrawingColorToBrushConverter"></converter:DrawingColorToBrushConverter>
+    <converter:MediaColorToBrushConverter x:Key="MediaColorToBrushConverter"></converter:MediaColorToBrushConverter>
 </ResourceDictionary>

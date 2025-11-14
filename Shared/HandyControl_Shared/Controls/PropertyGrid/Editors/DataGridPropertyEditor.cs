@@ -1,17 +1,97 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace HandyControl.Controls;
 
+/// <summary>
+/// 编辑对话框窗口
+/// </summary>
+internal class PropertyEditDialog : Window
+{
+    private readonly PropertyGrid _propertyGrid;
+    private bool _dialogResult = false;
 
+    public PropertyEditDialog(object targetObject, string title = "编辑")
+    {
+        Title = title;
+        Width = 400;
+        MaxHeight = 600;
+        SizeToContent = SizeToContent.Height;
+        WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        ResizeMode = ResizeMode.NoResize;
 
+        var mainGrid = new Grid();
+        mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+        mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+        // 创建 PropertyGrid
+        _propertyGrid = new PropertyGrid
+        {
+            SelectedObject = targetObject,
+            Margin = new Thickness(10)
+        };
+        Grid.SetRow(_propertyGrid, 0);
+        mainGrid.Children.Add(_propertyGrid);
+
+        // 创建按钮面板
+        var buttonPanel = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            Margin = new Thickness(10)
+        };
+
+        var cancelButton = new Button
+        {
+            Content = "取消",
+            Width = 80,
+            Height = 30,
+            Margin = new Thickness(0, 0, 10, 0)
+        };
+        cancelButton.Click += (s, e) =>
+       {
+           _dialogResult = false;
+           Close();
+       };
+
+        var confirmButton = new Button
+        {
+            Content = "确定",
+            Width = 80,
+            Height = 30,
+            IsDefault = true
+        };
+        confirmButton.Click += (s, e) =>
+        {
+            _dialogResult = true;
+            Close();
+        };
+
+        buttonPanel.Children.Add(cancelButton);
+        buttonPanel.Children.Add(confirmButton);
+
+        Grid.SetRow(buttonPanel, 1);
+        mainGrid.Children.Add(buttonPanel);
+
+        Content = mainGrid;
+    }
+
+    public new bool? ShowDialog()
+    {
+        base.ShowDialog();
+        return _dialogResult;
+    }
+}
 
 /// <summary>
 /// DataGrid属性编辑器，用于编辑集合类型的属性
@@ -33,10 +113,6 @@ public class DataGridPropertyEditor : PropertyEditorBase
         var container = new Grid();
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
         container.RowDefinitions.Add(new RowDefinition { MaxHeight = _height });
-        // 创建标题栏和按钮
-        var header = CreateHeader(propertyItem);
-        Grid.SetRow(header, 0);
-        container.Children.Add(header);
 
         // 创建DataGrid
         var dataGrid = new DataGrid
@@ -49,8 +125,14 @@ public class DataGridPropertyEditor : PropertyEditorBase
             HeadersVisibility = DataGridHeadersVisibility.Column,
             GridLinesVisibility = DataGridGridLinesVisibility.None,
             SelectionMode = DataGridSelectionMode.Single,
-            Margin = new Thickness(0, 2, 0, 0)
+            Margin = new Thickness(0, 2, 0, 0),
+            Height = _height
         };
+
+        // 创建标题栏和按钮
+        var header = CreateHeader(dataGrid, propertyItem);
+        Grid.SetRow(header, 0);
+        container.Children.Add(header);
 
         Grid.SetRow(dataGrid, 1);
         container.Children.Add(dataGrid);
@@ -68,10 +150,27 @@ public class DataGridPropertyEditor : PropertyEditorBase
             });
         }
 
+        // 判断是否需要添加双击编辑功能
+        bool hasAddCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.AddCommandProperty);
+        bool hasDeleteCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.DeleteCommandProperty);
+
+        if (!hasAddCommand && !hasDeleteCommand)
+        {
+            // 当没有配置命令时，DataGrid设置为只读，只能通过按钮进行操作
+            dataGrid.IsReadOnly = true;
+            dataGrid.MouseDoubleClick += (s, e) =>
+            {
+                if (dataGrid.SelectedItem != null)
+                {
+                    ShowEditDialog(dataGrid.SelectedItem, propertyItem, "编辑", false);
+                }
+            };
+        }
+
         return container;
     }
 
-    private FrameworkElement CreateHeader(PropertyItem propertyItem)
+    private FrameworkElement CreateHeader(DataGrid dataGrid, PropertyItem propertyItem)
     {
         var grid = new Grid();
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -98,63 +197,203 @@ public class DataGridPropertyEditor : PropertyEditorBase
         bool hasAddCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.AddCommandProperty);
         bool hasDeleteCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.DeleteCommandProperty);
 
-        if (hasAddCommand || hasDeleteCommand)
+        var buttonPanel = new StackPanel
         {
-            var buttonPanel = new StackPanel
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        var addButton = new Button
+        {
+            Content = "+",
+            Padding = new Thickness(8, 2, 8, 2),
+            Margin = new Thickness(2, 0, 2, 0),
+            MinWidth = 30,
+            ToolTip = "添加"
+        };
+
+        if (hasAddCommand)
+        {
+            addButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
             {
-                Orientation = Orientation.Horizontal,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            if (hasAddCommand)
+                Source = propertyItem.Value
+            });
+            addButton.SetBinding(Button.CommandParameterProperty, new Binding
             {
-                var addButton = new Button
-                {
-                    Content = "+",
-                    Padding = new Thickness(8, 2, 8, 2),
-                    Margin = new Thickness(2, 0, 2, 0),
-                    MinWidth = 30,
-                    ToolTip = "添加"
-                };
-                addButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
-                {
-                    Source = propertyItem.Value
-                });
-                buttonPanel.Children.Add(addButton);
-            }
-
-            if (hasDeleteCommand)
-            {
-                var deleteButton = new Button
-                {
-                    Content = "-",
-                    Padding = new Thickness(8, 2, 8, 2),
-                    Margin = new Thickness(2, 0, 2, 0),
-                    MinWidth = 30,
-                    ToolTip = "删除"
-                };
-                deleteButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
-                {
-                    Source = propertyItem.Value
-                });
-                buttonPanel.Children.Add(deleteButton);
-            }
-
-            // 添加折叠按钮
-            buttonPanel.Children.Add(_toggleButton);
-
-            Grid.SetColumn(buttonPanel, 1);
-            grid.Children.Add(buttonPanel);
+                Source = dataGrid,
+                Path = new PropertyPath(DataGrid.SelectedItemProperty)
+            });
         }
         else
         {
-            // 没有命令按钮，只显示折叠按钮
-            Grid.SetColumn(_toggleButton, 1);
-            grid.Children.Add(_toggleButton);
+            // 没有配置命令，使用默认的添加逻辑
+            addButton.Click += (s, e) =>
+           {
+               var elementType = GetCollectionElementType(propertyItem.PropertyType);
+               if (elementType != null)
+               {
+                   object newItem;
+                   // 如果有选中项，复制选中项的值
+                   if (dataGrid.SelectedItem != null)
+                   {
+                       newItem = CloneObject(dataGrid.SelectedItem, elementType);
+                   }
+                   else
+                   {
+                       newItem = Activator.CreateInstance(elementType);
+                   }
+
+                   if (ShowEditDialog(newItem, propertyItem, "新增", true))
+                   {
+                       AddItemToCollection(propertyItem, newItem);
+                       dataGrid.Items.Refresh();
+                   }
+               }
+           };
         }
 
+        buttonPanel.Children.Add(addButton);
+
+        var deleteButton = new Button
+        {
+            Content = "-",
+            Padding = new Thickness(8, 2, 8, 2),
+            Margin = new Thickness(2, 0, 2, 0),
+            MinWidth = 30,
+            ToolTip = "删除"
+        };
+
+        if (hasDeleteCommand)
+        {
+            deleteButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
+            {
+                Source = propertyItem.Value
+            });
+            deleteButton.SetBinding(Button.CommandParameterProperty, new Binding
+            {
+                Source = dataGrid,
+                Path = new PropertyPath(DataGrid.SelectedItemProperty)
+            });
+        }
+        else
+        {
+            // 没有配置命令，使用默认的删除逻辑
+            deleteButton.Click += (s, e) =>
+                {
+                    if (dataGrid.SelectedItem != null)
+                    {
+                        var result = System.Windows.MessageBox.Show("确定要删除选中的项吗？", "确认删除",
+                      MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            RemoveItemFromCollection(propertyItem, dataGrid.SelectedItem);
+                            dataGrid.Items.Refresh();
+                        }
+                    }
+                };
+        }
+
+        buttonPanel.Children.Add(deleteButton);
+
+        // 添加折叠按钮
+        buttonPanel.Children.Add(_toggleButton);
+
+        Grid.SetColumn(buttonPanel, 1);
+        grid.Children.Add(buttonPanel);
+
         return grid;
+    }
+
+    /// <summary>
+    /// 显示编辑对话框
+    /// </summary>
+    private bool ShowEditDialog(object item, PropertyItem propertyItem, string title, bool isNew)
+    {
+        var dialog = new PropertyEditDialog(item, title);
+        var owner = Window.GetWindow(propertyItem);
+        if (owner != null)
+        {
+            dialog.Owner = owner;
+        }
+        var result = dialog.ShowDialog();
+        return result == true;
+    }
+
+    /// <summary>
+    /// 克隆对象
+    /// </summary>
+    private object CloneObject(object source, Type targetType)
+    {
+        if (source == null)
+        {
+            return Activator.CreateInstance(targetType);
+        }
+
+
+        var newItem = Activator.CreateInstance(targetType);
+        var properties = TypeDescriptor.GetProperties(targetType);
+
+        foreach (PropertyDescriptor prop in properties)
+        {
+            if (!prop.IsReadOnly)
+            {
+                try
+                {
+                    var value = prop.GetValue(source);
+                    prop.SetValue(newItem, value);
+                }
+                catch
+                {
+                    // 忽略无法复制的属性
+                }
+            }
+        }
+
+        return newItem;
+    }
+
+    /// <summary>
+    /// 添加项到集合
+    /// </summary>
+    private void AddItemToCollection(PropertyItem propertyItem, object item)
+    {
+        var collection = GetCollectionFromPropertyItem(propertyItem);
+        if (collection != null)
+        {
+            collection.Add(item);
+        }
+    }
+
+    /// <summary>
+    /// 从集合删除项
+    /// </summary>
+    private void RemoveItemFromCollection(PropertyItem propertyItem, object item)
+    {
+        var collection = GetCollectionFromPropertyItem(propertyItem);
+        if (collection != null)
+        {
+            collection.Remove(item);
+        }
+    }
+
+    /// <summary>
+    /// 从 PropertyItem 获取集合对象
+    /// </summary>
+    private IList GetCollectionFromPropertyItem(PropertyItem propertyItem)
+    {
+        if (propertyItem?.Value == null || string.IsNullOrEmpty(propertyItem.PropertyName))
+            return null;
+
+        var property = propertyItem.Value.GetType().GetProperty(propertyItem.PropertyName);
+        if (property != null)
+        {
+            var collection = property.GetValue(propertyItem.Value) as IList;
+            return collection;
+        }
+
+        return null;
     }
 
     private void GenerateColumns(DataGrid dataGrid, PropertyItem propertyItem)
@@ -171,27 +410,27 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
         // 筛选需要显示的属性
         var validProperties = properties.Where(p =>
-        {
-            var propAttr = p.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
-
-            // 如果有PropertyAttribute.IsIgnore，则忽略
-            if (propAttr?.IsIgnore == true)
             {
-                return false;
-            }
+                var propAttr = p.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
 
-            // 只生成带有PropertyAttribute的属性
-            return propAttr != null;
-        }).ToList();
+                // 如果有PropertyAttribute.IsIgnore，则忽略
+                if (propAttr?.IsIgnore == true)
+                {
+                    return false;
+                }
+
+                // 只生成带有PropertyAttribute的属性
+                return propAttr != null;
+            }).ToList();
 
         // 如果没有任何带PropertyAttribute的属性，则使用所有公共属性
         if (validProperties.Count == 0)
         {
             validProperties = properties.Where(p =>
-            {
-                var propAttr = p.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
-                return propAttr == null || !propAttr.IsIgnore;
-            }).ToList();
+             {
+                 var propAttr = p.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+                 return propAttr == null || !propAttr.IsIgnore;
+             }).ToList();
         }
 
         // 为每个属性创建列
@@ -206,7 +445,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
                 continue;
             }
 
-            var column = CreateColumn(property, propAttr);
+            var column = CreateColumn(property, propAttr, propertyItem);
             if (column != null)
             {
                 dataGrid.Columns.Add(column);
@@ -214,11 +453,27 @@ public class DataGridPropertyEditor : PropertyEditorBase
         }
     }
 
-    private DataGridColumn CreateColumn(PropertyDescriptor property, PropertyAttribute propAttr)
+    /// <summary>
+    /// 获取枚举值的Description
+    /// </summary>
+    public string GetDescription(Enum value)
+    {
+        string result = value.ToString();
+        FieldInfo info = value.GetType().GetField(value.ToString());
+        var attributes = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
+        if (attributes != null && attributes.FirstOrDefault() != null)
+        {
+            result = (attributes.First() as DescriptionAttribute).Description;
+        }
+
+        return result;
+    }
+
+    private DataGridColumn CreateColumn(PropertyDescriptor property, PropertyAttribute propAttr, PropertyItem propertyItem)
     {
         var displayName = propAttr?.DisplayName ?? property.DisplayName ?? property.Name;
         var isReadOnly = propAttr != null && !string.IsNullOrWhiteSpace(propAttr.EnableProperty)
-            ? false
+                   ? false
             : property.IsReadOnly;
 
         Type propertyType = property.PropertyType;
@@ -229,12 +484,28 @@ public class DataGridPropertyEditor : PropertyEditorBase
             var comboColumn = new DataGridComboBoxColumn
             {
                 Header = displayName,
-                SelectedValueBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
                 IsReadOnly = isReadOnly
             };
 
-            // 设置数据源绑定
-            comboColumn.ItemsSource = null; // 需要在运行时从对象上获取
+            var propertySouce = propertyItem.Value.GetType().GetProperty(propAttr.ComboBoxItemsSourceProperty);
+            if (propertySouce != null)
+            {
+                var itemsSource = propertySouce.GetValue(propertyItem.Value);
+                comboColumn.ItemsSource = itemsSource as IEnumerable;
+            }
+            if (!string.IsNullOrWhiteSpace(propAttr.DisplayMemberPathProperty))
+            {
+                comboColumn.DisplayMemberPath = propAttr.DisplayMemberPathProperty;
+            }
+            if (!string.IsNullOrWhiteSpace(propAttr.SelectedValuePathProperty))
+            {
+                comboColumn.SelectedValuePath = propAttr.SelectedValuePathProperty;
+                comboColumn.SelectedValueBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay };
+            }
+            else
+            {
+                comboColumn.SelectedItemBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay };
+            }
 
             return comboColumn;
         }
@@ -254,26 +525,35 @@ public class DataGridPropertyEditor : PropertyEditorBase
             var comboColumn = new DataGridComboBoxColumn
             {
                 Header = displayName,
-                SelectedItemBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
-                ItemsSource = Enum.GetValues(propertyType),
                 IsReadOnly = isReadOnly
             };
+            // 获取枚举值的描述列表
+            List<KV> sourceList = new List<KV>();
+            foreach (var enumValue in Enum.GetValues(propertyType))
+            {
+                sourceList.Add(new KV { Key = GetDescription((Enum)enumValue), Value = enumValue });
+            }
+            comboColumn.ItemsSource = sourceList;
+            comboColumn.DisplayMemberPath = "Key";
+            comboColumn.SelectedValuePath = "Value";
+            comboColumn.SelectedValueBinding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay };
             return comboColumn;
+        }
+
+        if (propertyType == typeof(string))
+        {
+            return new DataGridTextColumn
+            {
+                Header = displayName,
+                Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+                IsReadOnly = isReadOnly
+            };
         }
         else
         {
-            // 使用 PropertyResolver 解析编辑器
-            var resolver = new PropertyResolver();
-            var editor = resolver.CreateDefaultEditor(property);
-
-            // 如果解析到有效的编辑器（非只读文本编辑器），使用模板列
-            if (editor != null && !(editor is ReadOnlyTextPropertyEditor))
+            // 是否为只读属性
+            if (property.IsReadOnly)
             {
-                return CreateTemplateColumn(property, propAttr, displayName, isReadOnly, editor);
-            }
-            else
-            {
-                // 否则使用只读的文本列
                 return new DataGridTextColumn
                 {
                     Header = displayName,
@@ -281,73 +561,31 @@ public class DataGridPropertyEditor : PropertyEditorBase
                     IsReadOnly = true
                 };
             }
-        }
-    }
-
-    private DataGridTemplateColumn CreateTemplateColumn(PropertyDescriptor property, PropertyAttribute propAttr,
-        string displayName, bool isReadOnly, PropertyEditorBase editor)
-    {
-        var column = new DataGridTemplateColumn
-        {
-            Header = displayName,
-            IsReadOnly = isReadOnly
-        };
-
-        // 创建显示模板（CellTemplate）
-        var cellTemplate = new DataTemplate();
-        var textBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-        textBlockFactory.SetBinding(TextBlock.TextProperty, new Binding(property.Name));
-        textBlockFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-        textBlockFactory.SetValue(TextBlock.MarginProperty, new Thickness(4, 2, 4, 2));
-        cellTemplate.VisualTree = textBlockFactory;
-        column.CellTemplate = cellTemplate;
-
-        // 创建编辑模板（CellEditingTemplate）
-        if (!isReadOnly)
-        {
-            var editingTemplate = new DataTemplate();
-            var contentPresenterFactory = new FrameworkElementFactory(typeof(ContentPresenter));
-            contentPresenterFactory.AddHandler(FrameworkElement.LoadedEvent,
-                new RoutedEventHandler((sender, e) => OnEditingElementLoaded(sender, e, property, editor)));
-            editingTemplate.VisualTree = contentPresenterFactory;
-            column.CellEditingTemplate = editingTemplate;
-        }
-
-        return column;
-    }
-
-    private void OnEditingElementLoaded(object sender, RoutedEventArgs e, PropertyDescriptor property, PropertyEditorBase editor)
-    {
-        if (sender is ContentPresenter presenter && presenter.DataContext != null)
-        {
-            // 创建临时的 PropertyItem
-            var tempPropertyItem = new PropertyItem
+            // 是否是数字类型
+            if (propertyType == typeof(byte)
+                         || propertyType == typeof(short)
+                    || propertyType == typeof(int)
+                || propertyType == typeof(uint)
+             || propertyType == typeof(long)
+                  || propertyType == typeof(ulong)
+               || propertyType == typeof(float)
+                || propertyType == typeof(double)
+                    || propertyType == typeof(decimal))
             {
-                PropertyName = property.Name,
-                PropertyType = property.PropertyType,
-                Value = presenter.DataContext,
-                IsReadOnly = property.IsReadOnly,
-                DisplayName = property.DisplayName ?? property.Name,
-                Description = property.Description,
-                Category = property.Category
-            };
-
-            // 使用编辑器创建控件
-            var element = editor.CreateElement(tempPropertyItem);
-            if (element != null)
-            {
-                // 设置内容
-                presenter.Content = element;
-
-                // 创建绑定
-                editor.CreateBinding(tempPropertyItem, element);
-
-                // 自动聚焦到编辑控件
-                element.Loaded += (s, args) =>
+                return new DataGridTextColumn
                 {
-                    element.Focus();
+                    Header = displayName,
+                    Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay, StringFormat = "N0" },
+                    IsReadOnly = isReadOnly
                 };
             }
+            // 否则使用文本列
+            return new DataGridTextColumn
+            {
+                Header = displayName,
+                Binding = new Binding(property.Name) { Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+                IsReadOnly = true
+            };
         }
     }
 
@@ -391,12 +629,12 @@ public class DataGridPropertyEditor : PropertyEditorBase
         if (element is Grid grid && grid.Children.Count > 1 && grid.Children[1] is DataGrid dataGrid)
         {
             BindingOperations.SetBinding(dataGrid, DataGrid.ItemsSourceProperty,
-                new Binding(propertyItem.PropertyName)
-                {
-                    Source = propertyItem.Value,
-                    Mode = GetBindingMode(propertyItem),
-                    UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem)
-                });
+         new Binding(propertyItem.PropertyName)
+         {
+             Source = propertyItem.Value,
+             Mode = GetBindingMode(propertyItem),
+             UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem)
+         });
         }
     }
 }

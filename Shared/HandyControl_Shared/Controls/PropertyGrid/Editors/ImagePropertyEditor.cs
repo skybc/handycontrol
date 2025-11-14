@@ -51,12 +51,12 @@ public class ImagePropertyEditor : PropertyEditorBase
     public override void CreateBinding(PropertyItem propertyItem, DependencyObject element)
     {
         BindingOperations.SetBinding(this, GetDependencyProperty(),
-            new Binding($"({propertyItem.PropertyName})")
+            new Binding(propertyItem.PropertyName)  // 移除括号
             {
                 Source = propertyItem.Value,
                 Mode = GetBindingMode(propertyItem),
                 UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem),
-                Converter = GetConverter(propertyItem)
+                //Converter = GetConverter(propertyItem)
             });
     }
     public override DependencyProperty GetDependencyProperty() => SourceProperty;

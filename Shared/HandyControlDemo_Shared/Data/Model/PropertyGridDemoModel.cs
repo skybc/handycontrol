@@ -70,10 +70,41 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
         }
     });
     }
-    //[PropertyOrder(0)]
-    //public ImageSource ImageSource { get; set; }
 
-    private ObservableCollection<PersonItem> _persons; 
+    [Category("文件选择")]
+    [DisplayName("配置文件")]
+    [PropertyFile(Extension = ".txt|.json|.xml|.config")]
+    [PropertyOrder(102)]
+    public string ConfigFilePath { get; set; }
+
+    [Category("文件选择")]
+    [DisplayName("图片文件")]
+    [PropertyFile(Extension = ".jpg|.png|.gif|.bmp")]
+    [PropertyOrder(103)]
+    public string ImageFilePath { get; set; }
+
+    [Category("文件选择")]
+    [DisplayName("任意文件")]
+    [PropertyFile]
+    [PropertyOrder(104)]
+    public string AnyFilePath { get; set; }
+
+    [Category("文件选择")]
+    [DisplayName("输出目录")]
+    [PropertyFolder(Description = "请选择输出目录")]
+    [PropertyOrder(105)]
+    public string OutputFolder { get; set; }
+
+    [Category("文件选择")]
+    [DisplayName("工作目录")]
+    [PropertyFolder]
+    [PropertyOrder(106)]
+    public string WorkingDirectory { get; set; }
+
+    [PropertyOrder(0)]
+    public ImageSource ImageSource { get; set; }
+
+    private ObservableCollection<PersonItem> _persons;
     [Category("集合编辑")]
     [DisplayName("人员列表")]
     [Property(Height = 200, AddCommandProperty = nameof(AddPersonCommand), DeleteCommandProperty = nameof(DeletePersonCommand), TitleVerticalAlignment = VerticalAlignment.Top ,TitleTop = 8  )]
@@ -100,6 +131,21 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
         {
             _tags = value;
             OnPropertyChanged(nameof(Tags));
+        }
+    }
+
+    private ObservableCollection<ProductItem> _products;
+    [Category("集合编辑")]
+    [DisplayName("产品列表（内置编辑）")]
+    [Property(Height = 200, TitleVerticalAlignment = VerticalAlignment.Top, TitleTop = 8)]
+    [PropertyOrder(202)]
+    public ObservableCollection<ProductItem> Products
+    {
+        get => _products;
+        set
+        {
+            _products = value;
+            OnPropertyChanged(nameof(Products));
         }
     }
 
@@ -249,4 +295,110 @@ public enum PersonType
     Manager,
     [Description("主管")]
     Director
+}
+
+/// <summary>
+/// 演示内置 DataGrid 编辑功能的产品类（无需自定义命令）
+/// </summary>
+public class ProductItem : INotifyPropertyChanged
+{
+    private string _name;
+    private string _category;
+    private double _price;
+    private int _stock;
+    private bool _isAvailable;
+    private ProductStatus _status;
+
+    [Property(DisplayName = "产品名称")]
+[PropertyOrder(1)]
+    public string Name
+    {
+      get => _name;
+        set
+  {
+            _name = value;
+          OnPropertyChanged(nameof(Name));
+        }
+    }
+
+    [Property(DisplayName = "分类")]
+    [PropertyOrder(2)]
+    public string Category
+    {
+        get => _category;
+        set
+      {
+            _category = value;
+            OnPropertyChanged(nameof(Category));
+        }
+    }
+
+    [Property(DisplayName = "价格")]
+    [PropertyOrder(3)]
+    [NumberRange(0, 99999.99, DecimalPlaces = 2)]
+    public double Price
+    {
+        get => _price;
+        set
+        {
+_price = value;
+   OnPropertyChanged(nameof(Price));
+  }
+    }
+
+    [Property(DisplayName = "库存")]
+    [PropertyOrder(4)]
+    [NumberRange(0, 9999)]
+public int Stock
+    {
+     get => _stock;
+   set
+     {
+            _stock = value;
+            OnPropertyChanged(nameof(Stock));
+   }
+    }
+
+    [Property(DisplayName = "可用")]
+    [PropertyOrder(5)]
+    public bool IsAvailable
+    {
+        get => _isAvailable;
+        set
+        {
+       _isAvailable = value;
+ OnPropertyChanged(nameof(IsAvailable));
+        }
+    }
+
+    [Property(DisplayName = "状态")]
+    [PropertyOrder(6)]
+    public ProductStatus Status
+    {
+    get => _status;
+        set
+        {
+      _status = value;
+            OnPropertyChanged(nameof(Status));
+        }
+ }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+  protected virtual void OnPropertyChanged(string propertyName)
+    {
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+
+public enum ProductStatus
+{
+    [Description("正常")]
+    Normal,
+    [Description("缺货")]
+    OutOfStock,
+    [Description("停产")]
+    Discontinued,
+    [Description("预售")]
+    PreOrder
 }

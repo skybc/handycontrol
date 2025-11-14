@@ -15,8 +15,7 @@ public class SimplePanel : Panel
     protected override Size MeasureOverride(Size constraint)
     {
         var maxSize = new Size();
-
-
+      
         foreach (UIElement child in InternalChildren)
         {
             if (child != null)

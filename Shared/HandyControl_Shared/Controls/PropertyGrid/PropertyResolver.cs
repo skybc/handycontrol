@@ -17,7 +17,7 @@ namespace HandyControl.Controls;
 /// </summary>
 public class PropertyResolver
 {
-    private static readonly Dictionary<Type, EditorTypeCode> TypeCodeDic = new()
+    internal static readonly Dictionary<Type, EditorTypeCode> TypeCodeDic = new()
     {
         [typeof(string)] = EditorTypeCode.PlainText,
         [typeof(sbyte)] = EditorTypeCode.SByteNumber,
@@ -177,6 +177,17 @@ public class PropertyResolver
         return editor;
     }
 
+    // TypeEditorBaseDic create
+    public PropertyEditorBase CreateBasedEditor(Type type)
+    {
+        if (TypeEditorBaseDic.TryGetValue(type, out var editor))
+        {
+            return CreateEditor(editor);
+        }
+        return null;
+    }
+
+
     /// <summary>
     /// 创建默认的编辑器
     /// </summary>
@@ -192,18 +203,18 @@ public class PropertyResolver
         }
 
         PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
-        
+
         // 检查是否为集合类型
         if (IsCollectionType(type))
         {
             int height = property?.Height ?? 150;
-            
+
             // 如果指定使用ListBox，则使用ListBoxPropertyEditor
             if (property?.IsListBox == true)
             {
-                return new ListBoxPropertyEditor(property, height) ;
+                return new ListBoxPropertyEditor(property, height);
             }
-            
+
             // 否则使用DataGrid编辑器
             return new DataGridPropertyEditor(property, height);
         }
@@ -229,6 +240,16 @@ public class PropertyResolver
                     || editorType == EditorTypeCode.DoubleNumber
                     )
                 {
+                    if (numberRange.IsSlider)
+                    {
+                        return new SliderNumberPropertyEditor(numberRange.Minimum, numberRange.Maximum)
+                        {
+                            // 小数点位数
+                            DecimalPlaces = numberRange.DecimalPlaces,
+                            SmallChange = numberRange.SmallChange,
+                        };
+                    }
+
                     return new NumberPropertyEditor(numberRange.Minimum, numberRange.Maximum)
                     {
                         // 小数点位数
@@ -237,11 +258,30 @@ public class PropertyResolver
                 }
             }
 
+            if (property != null && !string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty))
+            {
+                return new CommboxPropertyEditor(property);
+            }
+
             switch (editorType)
             {
                 case EditorTypeCode.PlainText:
                     // 普通文本编辑器
                     {
+                        // 文件选择
+                        var fileAttribute = propertyDescriptor.Attributes.OfType<PropertyFileAttribute>().FirstOrDefault();
+                        if (fileAttribute != null)
+                        {
+                            return new FileSelectPropertyEditor(fileAttribute);
+                        }
+
+                        // 目录选择
+                        var folderAttribute = propertyDescriptor.Attributes.OfType<PropertyFolderAttribute>().FirstOrDefault();
+                        if (folderAttribute != null)
+                        {
+                            return new FolderSelectPropertyEditor(folderAttribute);
+                        }
+
                         // 如果 property存在
                         if (property != null && !string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty))
                         {
@@ -349,7 +389,7 @@ public class PropertyResolver
         return commandAttribute?.ButtonWidth ?? 0;
     }
 
-    private enum EditorTypeCode
+    internal enum EditorTypeCode
     {
         PlainText,
         SByteNumber,
