@@ -122,6 +122,8 @@ Styles\Base\TransferBaseStyle.xaml
 Styles\Base\WatermarkBaseStyle.xaml
 Styles\Base\AutoCompleteTextBoxBaseStyle.xaml
 Styles\Base\DataGridBaseStyle.xaml
+Styles\Base\TextBoxEditorBaseStyle.xaml
+
 # --------------------------------------
 Styles\Badge.xaml
 Styles\CalendarWithClock.xaml
@@ -186,6 +188,10 @@ Styles\StepBar.xaml
 Styles\TabControl.xaml
 Styles\TimeBar.xaml
 Styles\TimePicker.xaml
+Styles\TextBoxEditor.xaml
+Styles\TextBoxEditorWindow.xaml
+Styles\TreeEditor.xaml
+Styles\TreeEditorWindow.xaml
 Styles\ToolBar.xaml
 Styles\ToolTip.xaml
 Styles\Transfer.xaml

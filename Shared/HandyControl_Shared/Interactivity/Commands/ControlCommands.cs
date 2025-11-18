@@ -188,4 +188,14 @@ public static class ControlCommands
     public static RoutedCommand More { get; } = new(nameof(More), typeof(ControlCommands));
 
     public static RoutedCommand Toggle { get; } = new(nameof(Toggle), typeof(ControlCommands));
+
+    /// <summary>
+    ///     新增
+    /// </summary>
+    public static RoutedCommand Add { get; } = new(nameof(Add), typeof(ControlCommands));
+
+    /// <summary>
+    ///     删除
+    /// </summary>
+    public static RoutedCommand Delete { get; } = new(nameof(Delete), typeof(ControlCommands));
 }

@@ -55,6 +55,8 @@
       [ "Poptip", "PoptipDemoCtl", "Brush.ToolTip", "", "DataDisplay" ],
       [ "NumericUpDown", "NumericUpDownDemoCtl", "Brush.NumericListBox", "", "DataEntry" ],
       [ "TextBox", "TextBoxDemoCtl", "Brush.TextBox", "", "DataEntry" ],
+      [ "TextBoxEditor", "TextBoxEditorDemoCtl", "Brush.TextBox", "", "DataEntry" ],
+      [ "TreeEditor", "TreeEditorDemoCtl", "Brush.TextBox", "", "DataEntry" ],
       [ "ComboBox", "ComboBoxDemoCtl", "Brush.ComboBox", "", "DataEntry" ],
       [ "CheckComboBox", "CheckComboBoxDemoCtl", "Brush.CheckBoxList", "", "DataEntry" ],
       [ "AutoCompleteTextBox", "AutoCompleteTextBoxDemoCtl", "Brush.AutoComplete", "1", "DataEntry" ],

@@ -250,6 +250,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\TextBoxDemoCtl.xaml.cs">
       <DependentUpon>TextBoxDemoCtl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\TextBoxEditorDemoCtl.xaml.cs">
+      <DependentUpon>TextBoxEditorDemoCtl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\TreeEditorDemoCtl.xaml.cs">
+      <DependentUpon>TreeEditorDemoCtl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\TimeBarDemoCtl.xaml.cs">
       <DependentUpon>TimeBarDemoCtl.xaml</DependentUpon>
     </Compile>
@@ -796,6 +802,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\TextBoxDemoCtl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\TextBoxEditorDemoCtl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\TreeEditorDemoCtl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

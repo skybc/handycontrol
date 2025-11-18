@@ -56,6 +56,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\PropertyFolderAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\PropertyOrderAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\TitleWidthAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TextBoxEditor\TextBoxEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TextBoxEditor\TextBoxEditorWindow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TreeEditor\TreeEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\TreeEditor\TreeEditorWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\DrawingColorToBrushConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\EnumToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\EnumToVisibilityConverter.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Enum\NotifyIconInfoType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Enum\StrokePosition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Enum\TransitionMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TreeNode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\GlowWindow\ChangeScope.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\GlowWindow\GlowBitmap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\GlowWindow\GlowBitmapPart.cs" />
@@ -948,6 +953,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\ColorPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\Base\TextBoxEditorBaseStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\TextBoxEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\TextBoxEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\TreeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Styles\TreeEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
