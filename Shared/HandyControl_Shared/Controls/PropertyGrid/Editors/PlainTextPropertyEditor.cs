@@ -44,7 +44,7 @@ public class PlainTextPropertyEditor : PropertyEditorBase
         grid.Children.Add(textBox);
 
         // 右侧：按钮
-        var button = new Button
+        var button = new System.Windows.Controls.Button
         {
             Content = propertyItem.CommandContent ?? "...",
             Padding = new Thickness(5, 0, 5, 0),
@@ -86,14 +86,14 @@ public class PlainTextPropertyEditor : PropertyEditorBase
     /// </remarks>
     public override void CreateBinding(PropertyItem propertyItem, DependencyObject element)
     {
-        TextBox textBox = null;
+        System.Windows.Controls.TextBox textBox = null;
 
         // 如果是 Grid，获取其中的 TextBox；否则直接使用该元素
         if (element is Grid grid && grid.Children.Count > 0 && grid.Children[0] is TextBox)
         {
-            textBox = (TextBox)grid.Children[0];
+            textBox = (System.Windows.Controls.TextBox)grid.Children[0];
         }
-        else if (element is TextBox tb)
+        else if (element is System.Windows.Controls.TextBox tb)
         {
             textBox = tb;
         }
