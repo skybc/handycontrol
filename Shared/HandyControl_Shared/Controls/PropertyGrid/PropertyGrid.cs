@@ -246,10 +246,10 @@ public class PropertyGrid : Control
 
         var propertyItem = new PropertyItem()
         {
-            Property=property,
-            Category = property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor),
-            DisplayName = property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor),
-            Description = property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor),
+            Property = property,
+            Category = (property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor)).ToLanguage(),
+            DisplayName = (property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor)).ToLanguage(),
+            Description = (property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor)).ToLanguage(),
             IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
             DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
             Editor = editor,

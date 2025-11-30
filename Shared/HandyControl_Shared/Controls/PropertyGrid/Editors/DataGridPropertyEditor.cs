@@ -424,7 +424,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         {
             var comboColumn = new DataGridComboBoxColumn
             {
-                Header = displayName,
+                Header = displayName.ToLanguage(),
                 IsReadOnly = isReadOnly
             };
 

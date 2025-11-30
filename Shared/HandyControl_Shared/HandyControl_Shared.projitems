@@ -63,9 +63,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\DrawingColorToBrushConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\EnumToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\EnumToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\LanguageConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\MediaColorToBrushConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\Object2VisibilityReConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\ObjectNull2BooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\Language.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\LocalizeExtension.cs" />
     <Compile Include="..\..\Shared\HandyControl_Shared\Controls\Image\HcImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Image\ImageBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Input\AutoCompleteTextBox\AutoCompleteTextBox.cs" />
