@@ -249,7 +249,7 @@ public class PropertyGrid : Control
             Property = property,
             Category = (property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor)).ToLanguage(),
             DisplayName = (property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor)).ToLanguage(),
-            Description = (property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor)).ToLanguage(),
+            //Description = DisplayName,// (property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor)).ToLanguage(),
             IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
             DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
             Editor = editor,
@@ -266,7 +266,7 @@ public class PropertyGrid : Control
             TitleVerticalAlignment = property?.TitleVerticalAlignment ?? VerticalAlignment.Center,
             TitleMargin = property != null && property?.TitleTop != 0 ? new Thickness(0, property.TitleTop, 0, 0) : new Thickness(0, 0, 4, 0)
         };
-
+        propertyItem.Description = propertyItem.DisplayName;
         // 如果编辑器是ListBoxPropertyEditor或DataGridPropertyEditor，默认换行显示
         if (editor is ListBoxPropertyEditor || editor is DataGridPropertyEditor)
         {

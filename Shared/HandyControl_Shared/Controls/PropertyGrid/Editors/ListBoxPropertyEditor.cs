@@ -39,6 +39,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         // 创建标题栏（包含折叠按钮和添加/删除按钮）
         var listBox = CreateListBox(propertyItem);
         listBox.MaxHeight = _height;
+        listBox.Height = _height;
         var header = CreateHeader(propertyItem, listBox);
         Grid.SetRow(header, 0);
         container.Children.Add(header);

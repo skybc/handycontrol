@@ -429,7 +429,7 @@
                     Visibility="{Binding Path=(hc:InfoElement.Necessary), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
                 <TextBlock
                     hc:TextBlockAttach.AutoTooltip="True"
-                    Text="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}}"
+                    Text="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource LanguageConverter}}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap" />
             </DockPanel>
@@ -604,7 +604,7 @@
                     Visibility="{Binding Path=(hc:InfoElement.Necessary), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
                 <TextBlock
                     hc:TextBlockAttach.AutoTooltip="True"
-                    Text="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}}"
+                    Text="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource LanguageConverter}}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap" />
             </DockPanel>
@@ -804,7 +804,7 @@
                     Visibility="{Binding Path=(hc:InfoElement.Necessary), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
                 <TextBlock
                     hc:TextBlockAttach.AutoTooltip="True"
-                    Text="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}}"
+                    Text="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource LanguageConverter}}"
                     TextTrimming="CharacterEllipsis"
                     TextWrapping="NoWrap" />
             </DockPanel>
