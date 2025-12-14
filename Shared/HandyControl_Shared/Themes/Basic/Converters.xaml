@@ -37,4 +37,5 @@
     <converter:DrawingColorToBrushConverter x:Key="DrawingColorToBrushConverter" />
     <converter:MediaColorToBrushConverter x:Key="MediaColorToBrushConverter" />
     <converter:LanguageConverter x:Key="LanguageConverter" />
+    <converter:Enum2StringConverter x:Key="Enum2StringConverter"></converter:Enum2StringConverter>
 </ResourceDictionary>

@@ -228,17 +228,46 @@ public class DataGridPropertyEditor : PropertyEditorBase
         return grid;
     }
 
+    // cache
+    Dictionary<Type, PropertyEditDialog> _editDialogCache = new Dictionary<Type, PropertyEditDialog>();
+
     /// <summary>
     /// 显示编辑对话框
     /// </summary>
     private bool ShowEditDialog(object item, PropertyItem propertyItem, string title, bool isNew)
     {
-        var dialog = new PropertyEditDialog(item, title);
+        //PropertyEditDialog dialog = new PropertyEditDialog(item, title);
+        _editDialogCache.TryGetValue(item.GetType(), out var dialog);
+        if (dialog == null)
+        {
+            dialog = new PropertyEditDialog(item);
+            _editDialogCache[item.GetType()] = dialog;
+        }
+        else
+        {
+            dialog._propertyGrid.SelectedObject= item;
+        }
+
+            System.Windows.Window window = new System.Windows.Window();
+        window.Content = dialog;
+        window.Title = title;
+        window.Width = 400;
+        window.MaxHeight = 600;
+        window.SizeToContent = SizeToContent.Height;
+        window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        window.ResizeMode = ResizeMode.NoResize;
+
         var owner = Window.GetWindow(propertyItem);
         if (owner != null)
         {
-            dialog.Owner = owner;
+            window.Owner = owner;
         }
+        window.Closed += (s, e) =>
+        {
+            // 清理内容，避免内存泄漏
+            window.Content = null; 
+            dialog._propertyGrid.SelectedObject = null;
+        };
         var result = dialog.ShowDialog();
         return result == true;
     }

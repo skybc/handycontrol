@@ -34,6 +34,7 @@
   <converter:DrawingColorToBrushConverter x:Key="DrawingColorToBrushConverter" />
   <converter:MediaColorToBrushConverter x:Key="MediaColorToBrushConverter" />
   <converter:LanguageConverter x:Key="LanguageConverter" />
+  <converter:Enum2StringConverter x:Key="Enum2StringConverter" />
   <Color x:Key="EffectShadowColor" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">#88000000</Color>
   <system:Double x:Key="LargeFontSize">24</system:Double>
   <system:Double x:Key="HeadFontSize">20</system:Double>

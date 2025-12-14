@@ -18,6 +18,11 @@
                 Grid.Row="1"
                 Margin="20,16,17,10"
                 hc:TitleElement.TitleWidth="168">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <Button Content="更新同类型对象" Click="OnUpdateSameType" Width="120" Margin="0,0,12,0" />
+                    <Button Content="切换到不同类型" Click="OnSwitchDifferentType" Width="120" Margin="0,0,12,0" />
+                    <Button Content="恢复默认对象" Click="OnRestoreDefault" Width="120" />
+                </StackPanel>
                 <TextBox
                     hc:TitleElement.Title="String"
                     hc:TitleElement.TitlePlacement="Left"

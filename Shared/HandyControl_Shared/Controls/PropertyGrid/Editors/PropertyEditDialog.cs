@@ -9,19 +9,14 @@ namespace HandyControl.Controls;
 /// <summary>
 /// 编辑对话框窗口
 /// </summary>
-public class PropertyEditDialog : Window
+public class PropertyEditDialog : UserControl
 {
-    private readonly PropertyGrid _propertyGrid;
+    internal PropertyGrid _propertyGrid;
     private bool _dialogResult = false;
 
-    public PropertyEditDialog(object targetObject, string title = "编辑")
+    public PropertyEditDialog(object targetObject)
     {
-        Title = title;
-        Width = 400;
-        MaxHeight = 600;
-        SizeToContent = SizeToContent.Height;
-        WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        ResizeMode = ResizeMode.NoResize;
+
 
         var mainGrid = new Grid();
         mainGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -34,7 +29,7 @@ public class PropertyEditDialog : Window
             Margin = new Thickness(4)
         };
         //_propertyGrid.ShowSortButton = false;
-        
+
         Grid.SetRow(_propertyGrid, 0);
         mainGrid.Children.Add(_propertyGrid);
 
@@ -56,7 +51,7 @@ public class PropertyEditDialog : Window
         cancelButton.Click += (s, e) =>
         {
             _dialogResult = false;
-            Close();
+            (this.Parent as System.Windows.Window)?.Close();
         };
 
         var confirmButton = new Button
@@ -69,7 +64,7 @@ public class PropertyEditDialog : Window
         confirmButton.Click += (s, e) =>
         {
             _dialogResult = true;
-            Close();
+            (this.Parent as System.Windows.Window)?.Close();
         };
 
         buttonPanel.Children.Add(cancelButton);
@@ -83,7 +78,13 @@ public class PropertyEditDialog : Window
 
     public new bool? ShowDialog()
     {
-        base.ShowDialog();
+        //base.ShowDialog();
+        // 获取他的父窗口并显示对话框
+        if (this.Parent is System.Windows.Window parentWindow)
+        {
+            parentWindow.ShowDialog();
+        }
+
         return _dialogResult;
     }
 }

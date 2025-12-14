@@ -61,6 +61,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TreeEditor\TreeEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\TreeEditor\TreeEditorWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\DrawingColorToBrushConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\Enum2StringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\EnumToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\EnumToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\LanguageConverter.cs" />

@@ -29,6 +29,10 @@ public class PropertyGrid : Control
 
     private string _searchKey;
 
+    private Type _lastObjectType;
+
+    private List<PropertyItem> _cachedPropertyItems;
+
     public PropertyGrid()
     {
         CommandBindings.Add(new CommandBinding(ControlCommands.SortByCategory, SortByCategory, (s, e) => e.CanExecute = ShowSortButton));
@@ -143,6 +147,18 @@ public class PropertyGrid : Control
     {
         if (obj == null || _itemsControl == null)
         {
+            foreach (var propertyItem in _cachedPropertyItems)
+            {
+                propertyItem.Value = obj;
+                try
+                {
+                    propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
+                }catch(Exception ex)
+                {
+
+                }
+            }
+            _itemsControl.ItemsSource = _dataView;
             return;
         }
 
@@ -168,19 +184,44 @@ public class PropertyGrid : Control
             _dataView = CollectionViewSource.GetDefaultView(items);
             SortByCategory(null, null);
             _itemsControl.ItemsSource = _dataView;
+            _lastObjectType = null;
+            _cachedPropertyItems = null;
         }
         else
         {
+            var currentType = obj.GetType();
+            
+            // 如果类型与上次相同，只更新数据不重建界面
+            if (_lastObjectType == currentType && _cachedPropertyItems != null)
+            {
+                foreach (var propertyItem in _cachedPropertyItems)
+                {
+                    propertyItem.Value = obj; 
+                    propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
+
+                } 
+                _itemsControl.ItemsSource = _dataView;
+                return;
+            }
+            
+            // 类型不同，重新构建界面
+            _lastObjectType = currentType;
+            
             // obj 获取title width
-            var titleWidthAttribute = obj.GetType().GetCustomAttributes(typeof(TitleWidthAttribute), true).OfType<TitleWidthAttribute>().FirstOrDefault();
+            var titleWidthAttribute = currentType.GetCustomAttributes(typeof(TitleWidthAttribute), true).OfType<TitleWidthAttribute>().FirstOrDefault();
             TitleWidthAttribute titleWidth = new TitleWidthAttribute(80, GridUnitType.Pixel);
             if (titleWidthAttribute != null)
             {
                 titleWidth = titleWidthAttribute;
             }
-            _dataView = CollectionViewSource.GetDefaultView(TypeDescriptor.GetProperties(obj.GetType()).OfType<PropertyDescriptor>()
-                .Where(item => PropertyResolver.ResolveIsBrowsable(item)).Select(r => CreatePropertyItem(r, titleWidth))
-                .Do(item => item.InitElement()));
+            
+            _cachedPropertyItems = TypeDescriptor.GetProperties(currentType).OfType<PropertyDescriptor>()
+                .Where(item => PropertyResolver.ResolveIsBrowsable(item))
+                .Select(r => CreatePropertyItem(r, titleWidth))
+                .Do(item => item.InitElement())
+                .ToList();
+            
+            _dataView = CollectionViewSource.GetDefaultView(_cachedPropertyItems);
             SortByCategory(null, null);
             _itemsControl.ItemsSource = _dataView;
         }
@@ -249,7 +290,7 @@ public class PropertyGrid : Control
             Property = property,
             Category = (property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor)).ToLanguage(),
             DisplayName = (property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor)).ToLanguage(),
-            //Description = DisplayName,// (property?.Description ?? PropertyResolver.ResolveDescription(propertyDescriptor)).ToLanguage(),
+           
             IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
             DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
             Editor = editor,
