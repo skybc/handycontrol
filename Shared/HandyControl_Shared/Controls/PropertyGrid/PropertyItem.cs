@@ -38,7 +38,7 @@ public class PropertyItem : ListBoxItem
 
     public string DisplayName
     {
-        get => (string) GetValue(DisplayNameProperty);
+        get => (string)GetValue(DisplayNameProperty);
         set => SetValue(DisplayNameProperty, value);
     }
 
@@ -50,7 +50,7 @@ public class PropertyItem : ListBoxItem
 
     public string PropertyName
     {
-        get => (string) GetValue(PropertyNameProperty);
+        get => (string)GetValue(PropertyNameProperty);
         set => SetValue(PropertyNameProperty, value);
     }
 
@@ -62,7 +62,7 @@ public class PropertyItem : ListBoxItem
 
     public Type PropertyType
     {
-        get => (Type) GetValue(PropertyTypeProperty);
+        get => (Type)GetValue(PropertyTypeProperty);
         set => SetValue(PropertyTypeProperty, value);
     }
 
@@ -74,7 +74,7 @@ public class PropertyItem : ListBoxItem
 
     public string PropertyTypeName
     {
-        get => (string) GetValue(PropertyTypeNameProperty);
+        get => (string)GetValue(PropertyTypeNameProperty);
         set => SetValue(PropertyTypeNameProperty, value);
     }
 
@@ -86,7 +86,7 @@ public class PropertyItem : ListBoxItem
 
     public string Description
     {
-        get => (string) GetValue(DescriptionProperty);
+        get => (string)GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
     }
 
@@ -98,7 +98,7 @@ public class PropertyItem : ListBoxItem
 
     public bool IsReadOnly
     {
-        get => (bool) GetValue(IsReadOnlyProperty);
+        get => (bool)GetValue(IsReadOnlyProperty);
         set => SetValue(IsReadOnlyProperty, ValueBoxes.BooleanBox(value));
     }
 
@@ -122,7 +122,7 @@ public class PropertyItem : ListBoxItem
 
     public string Category
     {
-        get => (string) GetValue(CategoryProperty);
+        get => (string)GetValue(CategoryProperty);
         set => SetValue(CategoryProperty, value);
     }
 
@@ -134,7 +134,7 @@ public class PropertyItem : ListBoxItem
 
     public PropertyEditorBase Editor
     {
-        get => (PropertyEditorBase) GetValue(EditorProperty);
+        get => (PropertyEditorBase)GetValue(EditorProperty);
         set => SetValue(EditorProperty, value);
     }
 
@@ -146,7 +146,7 @@ public class PropertyItem : ListBoxItem
 
     public FrameworkElement EditorElement
     {
-        get => (FrameworkElement) GetValue(EditorElementProperty);
+        get => (FrameworkElement)GetValue(EditorElementProperty);
         set => SetValue(EditorElementProperty, value);
     }
 
@@ -158,7 +158,7 @@ public class PropertyItem : ListBoxItem
 
     public bool IsExpandedEnabled
     {
-        get => (bool) GetValue(IsExpandedEnabledProperty);
+        get => (bool)GetValue(IsExpandedEnabledProperty);
         set => SetValue(IsExpandedEnabledProperty, ValueBoxes.BooleanBox(value));
     }
 
@@ -170,7 +170,7 @@ public class PropertyItem : ListBoxItem
     // 排序序号
     public int SortIndex
     {
-        get => (int) GetValue(SortIndexProperty);
+        get => (int)GetValue(SortIndexProperty);
         set => SetValue(SortIndexProperty, value);
     }
 
@@ -181,7 +181,7 @@ public class PropertyItem : ListBoxItem
     // TitleWidth
     public GridLength TitleWidth
     {
-        get => (GridLength) GetValue(TitleWidthProperty);
+        get => (GridLength)GetValue(TitleWidthProperty);
         set => SetValue(TitleWidthProperty, value);
     }
 
@@ -192,7 +192,7 @@ public class PropertyItem : ListBoxItem
     // TitleVerticalAlignment
     public VerticalAlignment TitleVerticalAlignment
     {
-        get => (VerticalAlignment) GetValue(TitleVerticalAlignmentProperty);
+        get => (VerticalAlignment)GetValue(TitleVerticalAlignmentProperty);
         set => SetValue(TitleVerticalAlignmentProperty, value);
     }
 
@@ -203,7 +203,7 @@ public class PropertyItem : ListBoxItem
     // TitleMargin
     public Thickness TitleMargin
     {
-        get => (Thickness) GetValue(TitleMarginProperty);
+        get => (Thickness)GetValue(TitleMarginProperty);
         set => SetValue(TitleMarginProperty, value);
     }
 
@@ -214,7 +214,7 @@ public class PropertyItem : ListBoxItem
     // EditorOnNewLine - 控制编辑器是否换行显示（占满整行）
     public bool EditorOnNewLine
     {
-        get => (bool) GetValue(EditorOnNewLineProperty);
+        get => (bool)GetValue(EditorOnNewLineProperty);
         set => SetValue(EditorOnNewLineProperty, ValueBoxes.BooleanBox(value));
     }
 
@@ -229,17 +229,17 @@ public class PropertyItem : ListBoxItem
     // VisiableName
     public string VisiableName
     {
-        get => (string) GetValue(VisiableNameProperty);
+        get => (string)GetValue(VisiableNameProperty);
         set => SetValue(VisiableNameProperty, value);
     }
     public string CommandPropertyName
     {
-        get => (string) GetValue(CommandPropertyNameProperty);
+        get => (string)GetValue(CommandPropertyNameProperty);
         set => SetValue(CommandPropertyNameProperty, value);
     }
     public string CommandContent
     {
-        get => (string) GetValue(CommandContentProperty);
+        get => (string)GetValue(CommandContentProperty);
         set => SetValue(CommandContentProperty, value);
     }
 
@@ -254,11 +254,12 @@ public class PropertyItem : ListBoxItem
     // ButtonWidth
     public int ButtonWidth
     {
-        get => (int) GetValue(ButtonWidthProperty);
+        get => (int)GetValue(ButtonWidthProperty);
         set => SetValue(ButtonWidthProperty, value);
     }
     //public IValueConverter Converter { get; internal set; }
-    public PropertyAttribute Property { get;   set; }
+    public PropertyAttribute Property { get; set; }
+    public string EnableName { get; internal set; }
 
     public static readonly DependencyProperty ButtonWidthProperty = DependencyProperty.Register(
         nameof(ButtonWidth), typeof(int), typeof(PropertyItem), new PropertyMetadata(20));
@@ -266,7 +267,7 @@ public class PropertyItem : ListBoxItem
 
 
 
-
+    bool isFirstInit = true;
 
     /// <summary>
     /// 根据当前的 Editor 创建并初始化 EditorElement（创建 UI 元素并建立绑定）。
@@ -291,7 +292,25 @@ public class PropertyItem : ListBoxItem
                     Source = this.Value,
                     Converter = new BooleanToVisibilityConverter()
                 });
+
         }
+        if (!string.IsNullOrWhiteSpace(this.EnableName))
+        {
+            BindingOperations.SetBinding(this, PropertyItem.IsEnabledProperty,
+                new Binding($"{this.EnableName}")
+                {
+                    Source = this.Value,
+                });
+        }
+        if(isFirstInit==false)
+        {
+            if(element.Parent is Grid gridParent)
+            {
+                // 移除旧的 EditorElement
+                gridParent.Children.Remove(EditorElement);
+            }
+        }
+        EditorElement = null;
         if (string.IsNullOrWhiteSpace(this.CommandPropertyName))
         {
 
@@ -299,6 +318,7 @@ public class PropertyItem : ListBoxItem
         }
         else
         {
+
             // Grid 包裹，前面放编辑器，后面放按钮
             var grid = new Grid();
             // 两列，编辑器占剩余空间，按钮自适应
@@ -325,7 +345,8 @@ public class PropertyItem : ListBoxItem
             Grid.SetColumn(button, 1);
             grid.Children.Add(button);
             EditorElement = grid;
-        }
+        } 
+        isFirstInit = false;
 
     }
 

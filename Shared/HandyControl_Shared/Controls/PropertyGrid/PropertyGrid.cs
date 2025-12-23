@@ -147,18 +147,25 @@ public class PropertyGrid : Control
     {
         if (obj == null || _itemsControl == null)
         {
-            foreach (var propertyItem in _cachedPropertyItems)
+            if (_cachedPropertyItems != null)
             {
-                propertyItem.Value = obj;
-                try
+                foreach (var propertyItem in _cachedPropertyItems)
                 {
-                    propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
-                }catch(Exception ex)
-                {
+                    try
+                    {
+                        propertyItem.Value = obj;
+                        propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
+                    }
+                    catch (Exception ex)
+                    {
 
+                    }
                 }
             }
-            _itemsControl.ItemsSource = _dataView;
+            if (_itemsControl != null)
+            {
+                _itemsControl.ItemsSource = _dataView;
+            }
             return;
         }
 
@@ -190,23 +197,24 @@ public class PropertyGrid : Control
         else
         {
             var currentType = obj.GetType();
-            
+
             // 如果类型与上次相同，只更新数据不重建界面
             if (_lastObjectType == currentType && _cachedPropertyItems != null)
             {
                 foreach (var propertyItem in _cachedPropertyItems)
                 {
-                    propertyItem.Value = obj; 
-                    propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
+                    propertyItem.Value = obj;
+                    propertyItem.InitElement();
+                    //propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
 
-                } 
+                }
                 _itemsControl.ItemsSource = _dataView;
                 return;
             }
-            
+
             // 类型不同，重新构建界面
             _lastObjectType = currentType;
-            
+
             // obj 获取title width
             var titleWidthAttribute = currentType.GetCustomAttributes(typeof(TitleWidthAttribute), true).OfType<TitleWidthAttribute>().FirstOrDefault();
             TitleWidthAttribute titleWidth = new TitleWidthAttribute(80, GridUnitType.Pixel);
@@ -214,13 +222,13 @@ public class PropertyGrid : Control
             {
                 titleWidth = titleWidthAttribute;
             }
-            
+
             _cachedPropertyItems = TypeDescriptor.GetProperties(currentType).OfType<PropertyDescriptor>()
                 .Where(item => PropertyResolver.ResolveIsBrowsable(item))
                 .Select(r => CreatePropertyItem(r, titleWidth))
                 .Do(item => item.InitElement())
                 .ToList();
-            
+
             _dataView = CollectionViewSource.GetDefaultView(_cachedPropertyItems);
             SortByCategory(null, null);
             _itemsControl.ItemsSource = _dataView;
@@ -290,11 +298,12 @@ public class PropertyGrid : Control
             Property = property,
             Category = (property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor)).ToLanguage(),
             DisplayName = (property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor)).ToLanguage(),
-           
+
             IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
             DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
             Editor = editor,
             Value = SelectedObject,
+            EnableName = property?.EnableProperty ?? "",
             VisiableName = property?.VisibleProperty ?? "",
             CommandPropertyName = property?.CommandProperty ?? "",
             CommandContent = property?.CommandContentName ?? "",
