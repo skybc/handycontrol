@@ -204,9 +204,7 @@ public class PropertyGrid : Control
                 foreach (var propertyItem in _cachedPropertyItems)
                 {
                     propertyItem.Value = obj;
-                    propertyItem.InitElement();
-                    //propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
-
+                    propertyItem.InitElement(); 
                 }
                 _itemsControl.ItemsSource = _dataView;
                 return;
