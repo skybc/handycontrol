@@ -49,6 +49,7 @@
       [ "Magnifier", "MagnifierDemoCtl", "Brush.Search", "", "Interacting" ],
       [ "Gravatar", "GravatarDemoCtl", "Brush.User", "", "DataDisplay" ],
       [ "Badge", "BadgeDemoCtl", "Brush.CheckDot", "", "DataDisplay" ],
+      [ "GeometryView", "GeometryViewDemoCtl", "Brush.Path", "", "DataDisplay" ],
       [ "SplitButton", "SplitButtonDemoCtl", "Brush.SplitButton", "", "Button" ],
       [ "ButtonGroup", "ButtonGroupDemoCtl", "Brush.ButtonGroup", "", "Button" ],
       [ "ProgressButton", "ProgressButtonDemoCtl", "Brush.ProgressBarStatusBar8", "", "Button" ],

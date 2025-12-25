@@ -242,7 +242,6 @@ public class PropertyGrid : Control
             _dataView.GroupDescriptions.Clear();
             _dataView.SortDescriptions.Clear();
             _dataView.SortDescriptions.Add(new SortDescription(PropertyItem.SortIndexProperty.Name, ListSortDirection.Ascending));
-            //_dataView.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.GroupIndexProperty.Name));
             _dataView.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.CategoryProperty.Name));
         }
     }

@@ -90,6 +90,7 @@ Styles\Base\ExpanderBaseStyle.xaml
 Styles\Base\FlowDocumentBaseStyle.xaml
 Styles\Base\FrameBaseStyle.xaml
 Styles\Base\GotoTopBaseStyle.xaml
+Styles\Base\GeometryViewBaseStyle.xaml
 Styles\Base\GravatarBaseStyle.xaml
 Styles\Base\ImageSelectorBaseStyle.xaml
 Styles\Base\ListBoxBaseStyle.xaml
@@ -152,6 +153,7 @@ Styles\FloatingBlock.xaml
 Styles\FlowDocument.xaml
 Styles\Frame.xaml
 Styles\GotoTop.xaml
+Styles\GeometryView.xaml
 Styles\Gravatar.xaml
 Styles\GridSplitter.xaml
 Styles\Growl.xaml

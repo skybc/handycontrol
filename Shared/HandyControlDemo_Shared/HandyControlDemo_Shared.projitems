@@ -166,6 +166,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\GifImageDemoCtl.xaml.cs">
       <DependentUpon>GifImageDemoCtl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\GeometryViewDemoCtl.xaml.cs">
+      <DependentUpon>GeometryViewDemoCtl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\GotoTopDemoCtl.xaml.cs">
       <DependentUpon>GotoTopDemoCtl.xaml</DependentUpon>
     </Compile>
@@ -690,6 +693,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\GifImageDemoCtl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\GeometryViewDemoCtl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,7 +50,16 @@ public class TextBoxEditor : Control
 
     private void EditorButton_Click(object sender, RoutedEventArgs e)
     {
-        var window = new TextBoxEditorWindow(Text, Variables) { Width = 500, Height=400 };
+        var window = VariableMaps != null && VariableMaps.Count > 0
+            ? new TextBoxEditorWindow(Text, VariableMaps)
+            : new TextBoxEditorWindow(Text, Variables);
+        window.Height = 400;
+        window.Width = 500;
+        if (VariableMaps != null && VariableMaps.Count > 0)
+        { 
+            window.Height = 600;
+        }
+
         window.Owner = Window.GetWindow(this);
         window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
@@ -83,6 +93,19 @@ public class TextBoxEditor : Control
     {
         get => (ObservableCollection<string>)GetValue(VariablesProperty);
         set => SetValue(VariablesProperty, value);
+    }
+
+    /// <summary>
+    ///     变量映射
+    /// </summary>
+    public static readonly DependencyProperty VariableMapsProperty = DependencyProperty.Register(
+        nameof(VariableMaps), typeof(Dictionary<string, string>), typeof(TextBoxEditor),
+        new PropertyMetadata(default(Dictionary<string, string>)));
+
+    public Dictionary<string, string> VariableMaps
+    {
+        get => (Dictionary<string, string>)GetValue(VariableMapsProperty);
+        set => SetValue(VariableMapsProperty, value);
     }
 
     /// <summary>

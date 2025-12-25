@@ -65,22 +65,41 @@
                                 </Grid.RowDefinitions>
 
                                 <!--  第一行：编辑文本框  -->
-                                <Border
-                                    Grid.Row="0"
-                                    BorderBrush="{DynamicResource BorderBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="{StaticResource DefaultCornerRadius}">
-                                    <TextBox
-                                        x:Name="PART_EditTextBox"
-                                        Padding="8"
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Border
+                                        Grid.Column="0"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{StaticResource DefaultCornerRadius}">
+                                        <TextBox
+                                            x:Name="PART_EditTextBox"
+                                            Padding="8"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            FontFamily="Consolas"
+                                            FontSize="14"
+                                            HorizontalScrollBarVisibility="Auto"
+                                            VerticalScrollBarVisibility="Hidden" />
+                                    </Border>
+                                    
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="40"
+                                        Height="40"
+                                        Margin="8,0,0,0"
                                         VerticalAlignment="Center"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        FontFamily="Consolas"
-                                        FontSize="14"
-                                        HorizontalScrollBarVisibility="Auto"
-                                        VerticalScrollBarVisibility="Hidden" />
-                                </Border>
+                                        Command="interactivity:ControlCommands.Delete"
+                                        Content="×"
+                                        FontSize="20"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                        Style="{StaticResource ButtonIcon}" />
+                                </Grid>
 
                                 <!--  第二行：变量按钮区  -->
                                 <Border

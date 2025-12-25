@@ -1,9 +1,13 @@
+using HandyControl.Data;
+using HandyControl.Interactivity;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using HandyControl.Data;
-using HandyControl.Interactivity;
+using static HandyControl.Tools.Interop.InteropValues;
 
 namespace HandyControl.Controls;
 
@@ -41,6 +45,12 @@ public class TextBoxEditorWindow : System.Windows.Window
         Variables = variables ?? new ObservableCollection<string>();
     }
 
+    public TextBoxEditorWindow(string initialText, Dictionary<string, string> variableMaps) : this()
+    {
+        InitialText = initialText;
+        VariableMaps = variableMaps ?? new Dictionary<string, string>();
+    }
+
     private void InitializeCommands()
     {
         CommandBindings.Add(new CommandBinding(ControlCommands.Confirm, (s, e) =>
@@ -54,6 +64,11 @@ public class TextBoxEditorWindow : System.Windows.Window
         {
             DialogResult = false;
             Close();
+        }));
+
+        CommandBindings.Add(new CommandBinding(ControlCommands.Delete, (s, e) =>
+        {
+            DeleteAtCursor();
         }));
     }
 
@@ -76,23 +91,25 @@ public class TextBoxEditorWindow : System.Windows.Window
         }
 
         // 生成变量按钮
-        if (_variablePanel != null && Variables != null)
+        if (_variablePanel != null)
         {
             _variablePanel.Children.Clear();
-            foreach (var variable in Variables)
+            if (VariableMaps != null && VariableMaps.Count > 0)
             {
-                var button = new Button
+                foreach (var variable in VariableMaps)
                 {
-                    Content = variable,
-                    Padding = new Thickness(12, 6, 12, 6),
-                    Margin = new Thickness(4),
-                    ToolTip = "点击插入变量",
-                    Height = 32,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    Style = FindResource("ButtonDefault") as Style
-                };
-                button.Click += (s, e) => InsertVariable(variable);
-                _variablePanel.Children.Add(button);
+                    var button = CreateVariableButton(variable.Key, variable.Value);
+                    _variablePanel.Children.Add(button);
+                }
+            }
+            else if (Variables != null)
+            {
+                foreach (var variable in Variables)
+                {
+                    var button = CreateVariableButton(variable);
+                 
+                    _variablePanel.Children.Add(button);
+                }
             }
         }
 
@@ -102,6 +119,39 @@ public class TextBoxEditorWindow : System.Windows.Window
             _editTextBox.Text = InitialText;
             _editTextBox.CaretIndex = _editTextBox.Text.Length;
         }
+    }
+
+    private UIElement CreateVariableButton(string key, string value)
+    {
+        var button = new Button
+        {
+            Content = key,
+            Padding = new Thickness(12, 6, 12, 6),
+            Margin = new Thickness(4),
+            ToolTip = key,
+            Height = 32,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            Style = FindResource("ButtonDefault") as Style
+        };
+        button.Click += (s, e) => InsertVariable(value);
+
+        return button;
+    }
+
+    private Button CreateVariableButton(string content)
+    {
+        var button= new Button
+        {
+            Content = content,
+            Padding = new Thickness(12, 6, 12, 6),
+            Margin = new Thickness(4),
+            ToolTip = content,
+            Height = 32,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            Style = FindResource("ButtonDefault") as Style
+        };
+        button.Click += (s, e) => InsertVariable(content);
+        return button;
     }
 
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -123,6 +173,81 @@ public class TextBoxEditorWindow : System.Windows.Window
         _editTextBox.Text = text.Insert(caretIndex, formattedVariable);
         _editTextBox.CaretIndex = caretIndex + formattedVariable.Length;
         _editTextBox.Focus();
+    }
+
+    private void DeleteAtCursor()
+    {
+        if (_editTextBox == null) return;
+
+        var caretIndex = _editTextBox.CaretIndex;
+        var text = _editTextBox.Text ?? string.Empty;
+
+        if (string.IsNullOrEmpty(text) || caretIndex == 0)
+        {
+            return;
+        }
+
+        // 检测光标前面是否有变量
+        var variableInfo = FindVariableAtCursor(text, caretIndex);
+
+        if (variableInfo.Found)
+        {
+            // 删除整个变量
+            _editTextBox.Text = text.Remove(variableInfo.StartIndex, variableInfo.Length);
+            _editTextBox.CaretIndex = variableInfo.StartIndex;
+        }
+        else
+        {
+            // 常规键盘删除（删除光标前的字符）
+            if (caretIndex > 0)
+            {
+                _editTextBox.Text = text.Remove(caretIndex - 1, 1);
+                _editTextBox.CaretIndex = caretIndex - 1;
+            }
+        }
+
+        _editTextBox.Focus();
+    }
+
+    private (bool Found, int StartIndex, int Length) FindVariableAtCursor(string text, int caretIndex)
+    {
+        // 查找光标所在位置的变量 {变量}
+        // 向前查找 '{'
+        int startIndex = caretIndex - 1;
+        while (startIndex >= 0 && text[startIndex] != '{')
+        {
+            startIndex--;
+            // 如果遇到空格或其他非变量字符，说明不在变量内
+            if (text[startIndex + 1] == ' ' || text[startIndex + 1] == '\n' || text[startIndex + 1] == '\r')
+            {
+                return (false, 0, 0);
+            }
+        }
+
+        if (startIndex < 0)
+        {
+            return (false, 0, 0);
+        }
+
+        // 向后查找 '}'
+        int endIndex = caretIndex;
+        while (endIndex < text.Length && text[endIndex] != '}')
+        {
+            endIndex++;
+        }
+
+        if (endIndex >= text.Length)
+        {
+            return (false, 0, 0);
+        }
+
+        // 验证这是一个有效的变量（至少包含一个字符）
+        if (endIndex - startIndex > 2)
+        {
+            return (true, startIndex, endIndex - startIndex + 1);
+        }
+
+        return (false, 0, 0);
     }
 
     /// <summary>
@@ -149,6 +274,19 @@ public class TextBoxEditorWindow : System.Windows.Window
     {
         get => (ObservableCollection<string>)GetValue(VariablesProperty);
         set => SetValue(VariablesProperty, value);
+    }
+
+    /// <summary>
+    ///     变量映射集合
+    /// </summary>
+    public static readonly DependencyProperty VariableMapsProperty = DependencyProperty.Register(
+        nameof(VariableMaps), typeof(Dictionary<string, string>), typeof(TextBoxEditorWindow),
+        new PropertyMetadata(default(Dictionary<string, string>)));
+
+    public Dictionary<string, string> VariableMaps
+    {
+        get => (Dictionary<string, string>)GetValue(VariableMapsProperty);
+        set => SetValue(VariableMapsProperty, value);
     }
 
     /// <summary>
