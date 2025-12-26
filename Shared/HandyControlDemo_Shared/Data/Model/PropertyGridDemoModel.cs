@@ -14,6 +14,12 @@ namespace HandyControlDemo.Data;
 public class PropertyGridDemoModel : INotifyPropertyChanged
 {
     private bool isShowEnum = false;
+    private OperationCommandGroup _commandGroup;
+
+    public PropertyGridDemoModel()
+    {
+        _commandGroup = new OperationCommandGroup();
+    }
 
     [Category("Category1")]
     [PropertyOrder(6)]
@@ -103,6 +109,19 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
 
     [PropertyOrder(0)]
     public ImageSource ImageSource { get; set; }
+
+    [Category("按钮命令组")]
+    [DisplayName("操作按钮组")]
+    [PropertyOrder(150)]
+    public OperationCommandGroup Commands
+    {
+        get => _commandGroup;
+        set
+        {
+            _commandGroup = value;
+            OnPropertyChanged(nameof(Commands));
+        }
+    }
 
     private ObservableCollection<PersonItem> _persons;
     [Category("集合编辑")]

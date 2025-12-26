@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Growl\GrowlWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\ColorPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\CommandPropertyEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\CommandGroupPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\CommboxPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\DataGridPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\FileSelectPropertyEditor.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Window\GlowWindow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\EnumItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\PanelUvSize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\CommandGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\BooleanArr2BooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Generator\DateTimeRangeComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Enum\VisualWrapping.cs" />

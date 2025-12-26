@@ -107,7 +107,7 @@ public class TextBoxEditorWindow : System.Windows.Window
                 foreach (var variable in Variables)
                 {
                     var button = CreateVariableButton(variable);
-                 
+
                     _variablePanel.Children.Add(button);
                 }
             }
@@ -140,7 +140,7 @@ public class TextBoxEditorWindow : System.Windows.Window
 
     private Button CreateVariableButton(string content)
     {
-        var button= new Button
+        var button = new Button
         {
             Content = content,
             Padding = new Thickness(12, 6, 12, 6),
@@ -161,6 +161,7 @@ public class TextBoxEditorWindow : System.Windows.Window
             DragMove();
         }
     }
+    public HashSet<string> VariableSpecialChars = new HashSet<string>() { "\\", "{", "}", "*", "/", "[", "]", "+", "-", ".", ",", "?", "<", ">", "&", "^", "%", "#", "@", "!", "`", "~", "(", ")", "|" };
 
     private void InsertVariable(string variable)
     {
@@ -168,8 +169,15 @@ public class TextBoxEditorWindow : System.Windows.Window
 
         var caretIndex = _editTextBox.CaretIndex;
         var text = _editTextBox.Text ?? string.Empty;
+        if (string.IsNullOrEmpty(variable))
+        {
+            return;
+        }
         var formattedVariable = $"{{{variable}}}";
-
+        if (VariableSpecialChars.Contains(variable))
+        {
+            formattedVariable = variable;
+        }
         _editTextBox.Text = text.Insert(caretIndex, formattedVariable);
         _editTextBox.CaretIndex = caretIndex + formattedVariable.Length;
         _editTextBox.Focus();

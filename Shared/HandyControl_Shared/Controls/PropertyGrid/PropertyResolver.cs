@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using HandyControl.Data;
 using HandyControl.Properties.Langs;
 
 namespace HandyControl.Controls;
@@ -203,6 +204,12 @@ public class PropertyResolver
         }
 
         PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
+
+        // 检查是否为 CommandGroup 类型
+        if (typeof(CommandGroup).IsAssignableFrom(type))
+        {
+            return new CommandGroupPropertyEditor();
+        }
 
         // 检查是否为集合类型
         if (IsCollectionType(type))
@@ -409,6 +416,7 @@ public class PropertyResolver
         ImageSource,
         MediaColor,
         DrawingColor,
-        Command
+        Command,
+        CommandGroup
     }
 }

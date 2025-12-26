@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Model\AvatarModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Model\GeometryItemModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Model\PropertyGridDemoModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Model\OperationCommandGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Model\CoverViewDemoModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Model\DemoDataModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Model\DemoInfoModel.cs" />
