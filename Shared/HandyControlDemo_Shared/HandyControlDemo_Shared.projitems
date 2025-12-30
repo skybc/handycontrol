@@ -338,6 +338,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\DataGridDemoCtl.xaml.cs">
       <DependentUpon>DataGridDemoCtl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\DataGridExDemoCtl.xaml.cs">
+      <DependentUpon>DataGridExDemoCtl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\ExpanderDemoCtl.xaml.cs">
       <DependentUpon>ExpanderDemoCtl.xaml</DependentUpon>
     </Compile>
@@ -428,6 +431,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\BadgeDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\CardDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\CoverViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\DataGridExDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\DialogDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\GrowlDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\ImageBrowserDemoViewModel.cs" />
@@ -582,6 +586,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\DividerDemoCtl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\DataGridExDemoCtl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

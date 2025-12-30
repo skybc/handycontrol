@@ -12929,6 +12929,11 @@
     <Setter Property="hc:DataGridAttach.EditingTextColumnStyle" Value="{StaticResource DataGridEditingTextColumnStyle.Small}" />
     <Setter Property="hc:DataGridAttach.EditingComboBoxColumnStyle" Value="{StaticResource DataGridEditingComboBoxColumnStyle.Small}" />
   </Style>
+  <Style x:Key="DataGridExBaseStyle" TargetType="hc:DataGridEx" BasedOn="{StaticResource DataGridBaseStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <!-- 继承DataGridBaseStyle的所有样式 -->
+    <!-- 拖拽时的视觉反馈样式已在DataGridRow中处理 -->
+  </Style>
+  <Style TargetType="hc:DataGridEx" BasedOn="{StaticResource DataGridExBaseStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource DatePickerBaseStyle}" TargetType="DatePicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="DatePicker.Small" BasedOn="{StaticResource DatePickerBaseStyle}" TargetType="DatePicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />

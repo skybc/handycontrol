@@ -1,0 +1,146 @@
+<UserControl x:Class="HandyControlDemo.UserControl.DataGridExDemoCtl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource RegionBrush}"
+             MaxWidth="800"
+             xmlns:langs="clr-namespace:HandyControlDemo.Properties.Langs"
+             xmlns:ex="clr-namespace:HandyControlDemo.Tools.Extension"
+             xmlns:hc="https://handyorg.github.io/handycontrol">
+    
+    <hc:TransitioningContentControl>
+        <TabControl Style="{StaticResource TabControlInLine}">
+            <!-- 基本功能 -->
+            <TabItem Header="{ex:Lang Key={x:Static langs:LangKeys.Common}}">
+                <StackPanel>
+                    <TextBlock Text="基本功能：单击单元格立即进入编辑状态，按Enter键跳转到下一行相同列" 
+                               Margin="0,0,0,10"
+                               FontSize="12"
+                               Foreground="{DynamicResource ThirdlyTextBrush}"/>
+                    <hc:DataGridEx HeadersVisibility="All" 
+                                   RowHeaderWidth="60" 
+                                   AutoGenerateColumns="False" 
+                                   ItemsSource="{Binding DataList}"
+                                   hc:DataGridAttach.ShowRowNumber="True">
+                        <hc:DataGridEx.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Width="80" CanUserResize="False" Binding="{Binding Index}" Header="{ex:Lang Key={x:Static langs:LangKeys.Index}}"/>
+                            <DataGridTemplateColumn Width="60" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImgPath}" MaxWidth="32" MaxHeight="32" Stretch="Uniform"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="{ex:Lang Key={x:Static langs:LangKeys.Name}}"/>
+                            <DataGridCheckBoxColumn Width="100" CanUserResize="False" Binding="{Binding IsSelected}" Header="{ex:Lang Key={x:Static langs:LangKeys.Selected}}"/>
+                            <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource DemoTypes}}" Width="100" CanUserResize="False" SelectedValueBinding="{Binding Type}" Header="{ex:Lang Key={x:Static langs:LangKeys.Type}}"/>
+                            <DataGridTextColumn Binding="{Binding Remark}" Header="{ex:Lang Key={x:Static langs:LangKeys.Remark}}"/>
+                        </hc:DataGridEx.Columns>
+                    </hc:DataGridEx>
+                </StackPanel>
+            </TabItem>
+            
+            <!-- 拖拽排序 -->
+            <TabItem Header="拖拽排序">
+                <StackPanel>
+                    <TextBlock Margin="0,0,0,10" FontSize="12" Foreground="{DynamicResource ThirdlyTextBrush}">
+                        <Run Text="拖拽排序功能：设置 IsDrop="/>
+                        <Run Text="&quot;True&quot;" FontWeight="Bold"/>
+                        <Run Text=" 启用拖拽排序。支持单行和多行拖拽，拖拽后数据源会自动更新"/>
+                    </TextBlock>
+                    <hc:DataGridEx HeadersVisibility="All" 
+                                   RowHeaderWidth="60" 
+                                   AutoGenerateColumns="False" 
+                                   ItemsSource="{Binding DataList}"
+                                   IsDrop="True"
+                                   SelectionMode="Extended"
+                                   hc:DataGridAttach.ShowRowNumber="True">
+                        <hc:DataGridEx.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Width="80" CanUserResize="False" Binding="{Binding Index}" Header="{ex:Lang Key={x:Static langs:LangKeys.Index}}"/>
+                            <DataGridTemplateColumn Width="60" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImgPath}" MaxWidth="32" MaxHeight="32" Stretch="Uniform"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="{ex:Lang Key={x:Static langs:LangKeys.Name}}"/>
+                            <DataGridCheckBoxColumn Width="100" CanUserResize="False" Binding="{Binding IsSelected}" Header="{ex:Lang Key={x:Static langs:LangKeys.Selected}}"/>
+                            <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource DemoTypes}}" Width="100" CanUserResize="False" SelectedValueBinding="{Binding Type}" Header="{ex:Lang Key={x:Static langs:LangKeys.Type}}"/>
+                            <DataGridTextColumn Binding="{Binding Remark}" Header="{ex:Lang Key={x:Static langs:LangKeys.Remark}}"/>
+                        </hc:DataGridEx.Columns>
+                    </hc:DataGridEx>
+                </StackPanel>
+            </TabItem>
+            
+            <!-- 全部功能 -->
+            <TabItem Header="全部功能">
+                <StackPanel>
+                    <TextBlock Text="全部功能：单击编辑 + Enter导航 + 拖拽排序" 
+                               Margin="0,0,0,10"
+                               FontSize="12"
+                               Foreground="{DynamicResource ThirdlyTextBrush}"/>
+                    <hc:DataGridEx HeadersVisibility="All" 
+                                   RowHeaderWidth="60" 
+                                   AutoGenerateColumns="False" 
+                                   ItemsSource="{Binding DataList}"
+                                   IsDrop="True"
+                                   SelectionMode="Extended"
+                                   hc:DataGridAttach.ShowRowNumber="True"
+                                   hc:DataGridAttach.CanUnselectAllWithBlankArea="True">
+                        <hc:DataGridEx.RowHeaderTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected,RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                            </DataTemplate>
+                        </hc:DataGridEx.RowHeaderTemplate>
+                        <hc:DataGridEx.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Width="80" CanUserResize="False" Binding="{Binding Index}" Header="{ex:Lang Key={x:Static langs:LangKeys.Index}}"/>
+                            <DataGridTemplateColumn Width="60" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImgPath}" MaxWidth="32" MaxHeight="32" Stretch="Uniform"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="{ex:Lang Key={x:Static langs:LangKeys.Name}}"/>
+                            <DataGridCheckBoxColumn Width="100" CanUserResize="False" Binding="{Binding IsSelected}" Header="{ex:Lang Key={x:Static langs:LangKeys.Selected}}"/>
+                            <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource DemoTypes}}" Width="100" CanUserResize="False" SelectedValueBinding="{Binding Type}" Header="{ex:Lang Key={x:Static langs:LangKeys.Type}}"/>
+                            <DataGridTextColumn Binding="{Binding Remark}" Header="{ex:Lang Key={x:Static langs:LangKeys.Remark}}"/>
+                        </hc:DataGridEx.Columns>
+                    </hc:DataGridEx>
+                </StackPanel>
+            </TabItem>
+            
+            <!-- Small尺寸 -->
+            <TabItem Header="Small">
+                <StackPanel>
+                    <TextBlock Text="Small样式：紧凑的显示样式" 
+                               Margin="0,0,0,10"
+                               FontSize="12"
+                               Foreground="{DynamicResource ThirdlyTextBrush}"/>
+                    <hc:DataGridEx Style="{StaticResource DataGrid.Small}" 
+                                   HeadersVisibility="All" 
+                                   RowHeaderWidth="60" 
+                                   AutoGenerateColumns="False" 
+                                   ItemsSource="{Binding DataList}"
+                                   IsDrop="True"
+                                   SelectionMode="Extended"
+                                   hc:DataGridAttach.ShowRowNumber="True">
+                        <hc:DataGridEx.Columns>
+                            <DataGridTemplateColumn Width="60" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImgPath}" MaxWidth="32" MaxHeight="32" Stretch="Uniform"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="{ex:Lang Key={x:Static langs:LangKeys.Name}}"/>
+                            <DataGridCheckBoxColumn Width="100" CanUserResize="False" Binding="{Binding IsSelected}" Header="{ex:Lang Key={x:Static langs:LangKeys.Selected}}"/>
+                            <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource DemoTypes}}" Width="100" CanUserResize="False" SelectedValueBinding="{Binding Type}" Header="{ex:Lang Key={x:Static langs:LangKeys.Type}}"/>
+                            <DataGridTextColumn Binding="{Binding Remark}" Header="{ex:Lang Key={x:Static langs:LangKeys.Remark}}"/>
+                        </hc:DataGridEx.Columns>
+                    </hc:DataGridEx>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </hc:TransitioningContentControl>
+</UserControl>

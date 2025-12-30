@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hc="clr-namespace:HandyControl.Controls">
+
+    <Style x:Key="DataGridExBaseStyle" TargetType="hc:DataGridEx" BasedOn="{StaticResource DataGridBaseStyle}">
+        <!-- 继承DataGridBaseStyle的所有样式 -->
+        <!-- 拖拽时的视觉反馈样式已在DataGridRow中处理 -->
+    </Style>
+
+    <Style TargetType="hc:DataGridEx" BasedOn="{StaticResource DataGridExBaseStyle}"/>
+
+</ResourceDictionary>

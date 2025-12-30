@@ -69,7 +69,7 @@ namespace HandyControl.Controls
             {
                 var button = new Button
                 {
-                  
+
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Left
                 };
@@ -169,8 +169,10 @@ namespace HandyControl.Controls
                     btn.SetBinding(Button.CommandProperty, new Binding(prop.Name)
                     {
                         Source = va,
-                        Mode = BindingMode.OneWay
+                        Mode = BindingMode.OneWay,
+                        
                     });
+                    btn.CommandParameter = propertyItem.Value;
                     // 处理 CommandContent：优先使用数据绑定以支持动态更新
                     if (!string.IsNullOrWhiteSpace(attr.CommandContentName))
                     {
@@ -188,10 +190,11 @@ namespace HandyControl.Controls
                         // 如果没有指定 CommandContentName，使用属性名作为按钮内容
                         btn.Content = prop.DisplayName ?? prop.Name;
                     }
+
                     btn.Visibility = Visibility.Visible;
                 }
 
-                index++;                 
+                index++;
             }
         }
         public override BindingMode GetBindingMode(PropertyItem propertyItem) => BindingMode.OneWay;

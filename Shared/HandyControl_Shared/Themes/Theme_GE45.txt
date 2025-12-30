@@ -140,6 +140,7 @@ Styles\ContextMenu.xaml
 Styles\CoverFlow.xaml
 Styles\CoverView.xaml
 Styles\DataGrid.xaml
+Styles\DataGridEx.xaml
 Styles\DatePicker.xaml
 Styles\DateTimePicker.xaml
 Styles\Dialog.xaml
