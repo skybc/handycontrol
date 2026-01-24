@@ -62,6 +62,7 @@
       [ "CheckComboBox", "CheckComboBoxDemoCtl", "Brush.CheckBoxList", "", "DataEntry" ],
       [ "AutoCompleteTextBox", "AutoCompleteTextBoxDemoCtl", "Brush.AutoComplete", "1", "DataEntry" ],
       [ "DataGridEx", "DataGridExDemoCtl", "Brush.DataGrid", "1", "DataEntry" ],
+      [ "VirtualDataGrid", "VirtualDataGridDemoCtl", "Brush.DataGrid", "1", "DataEntry" ],
       [ "PasswordBox", "PasswordBoxDemoCtl", "Brush.PasswordBox", "", "DataEntry" ],
       [ "PinBox", "PinBoxDemoCtl", "Brush.Ellipsis", "", "DataEntry" ],
       [ "DatePicker", "DatePickerDemoCtl", "Brush.DateTimePicker", "", "DataEntry" ],

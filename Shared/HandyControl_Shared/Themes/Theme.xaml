@@ -12934,6 +12934,87 @@
     <!-- 拖拽时的视觉反馈样式已在DataGridRow中处理 -->
   </Style>
   <Style TargetType="hc:DataGridEx" BasedOn="{StaticResource DataGridExBaseStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+  <Style x:Key="VirtualDataGridBaseStyle" TargetType="hc:VirtualDataGrid" BasedOn="{StaticResource DataGridBaseStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="hc:VirtualDataGrid">
+          <ControlTemplate.Resources>
+            <Storyboard x:Key="StoryboardMouseEnter">
+              <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_VerticalScrollBar" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value=".8" />
+              </DoubleAnimationUsingKeyFrames>
+              <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_HorizontalScrollBar" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value=".8" />
+              </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="StoryboardMouseLeave">
+              <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_VerticalScrollBar" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="0" />
+              </DoubleAnimationUsingKeyFrames>
+              <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_HorizontalScrollBar" Storyboard.TargetProperty="Opacity">
+                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="0" />
+              </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+          </ControlTemplate.Resources>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="True">
+              <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
+                <ScrollViewer.Template>
+                  <ControlTemplate TargetType="ScrollViewer">
+                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                      </Grid.RowDefinitions>
+                      <Button Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource DoubleMinConverter}}" Height="auto" MaxHeight="30" hc:IconElement.Geometry="{StaticResource AllGeometry}" Command="{x:Static DataGrid.SelectAllCommand}" Foreground="{DynamicResource PrimaryBrush}" Style="{StaticResource ButtonIcon}">
+                        <Button.Visibility>
+                          <MultiBinding Converter="{StaticResource DataGridSelectAllButtonVisibilityConverter}">
+                            <Binding Path="HeadersVisibility" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
+                            <Binding Path="(hc:DataGridAttach.ShowSelectAllButton)" RelativeSource="{RelativeSource AncestorType=DataGrid}" />
+                          </MultiBinding>
+                        </Button.Visibility>
+                      </Button>
+                      <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                      <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanContentScroll="{TemplateBinding CanContentScroll}" />
+                      <hc:ToggleBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsChecked="{Binding HasItems, RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=OneWay}">
+                        <hc:ToggleBlock.UnCheckedContent>
+                          <hc:Empty Background="{DynamicResource RegionBrush}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" />
+                        </hc:ToggleBlock.UnCheckedContent>
+                      </hc:ToggleBlock>
+                      <!-- 原来的滚动条，虚拟滚动时隐藏 -->
+                      <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Row="1" Grid.Column="2" Maximum="{TemplateBinding ScrollableHeight}" Opacity="0" Orientation="Vertical" Style="{StaticResource ScrollBarBaseStyle}" ViewportSize="{TemplateBinding ViewportHeight}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                      <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Maximum="{TemplateBinding ScrollableWidth}" Opacity="0" Orientation="Horizontal" Style="{StaticResource ScrollBarBaseStyle}" ViewportSize="{TemplateBinding ViewportWidth}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                      <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard Storyboard="{StaticResource StoryboardMouseEnter}" />
+                      </EventTrigger>
+                      <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard Storyboard="{StaticResource StoryboardMouseLeave}" />
+                      </EventTrigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </ScrollViewer.Template>
+                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+              </ScrollViewer>
+            </Border>
+            <!-- 虚拟滚动时使用的自定义滚动条，放在 VirtualDataGrid 的直接模板中 -->
+            <ScrollBar x:Name="PART_VirtualScrollBar" Grid.Column="1" Style="{StaticResource ScrollBarBaseStyle}" Visibility="Collapsed" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="hc:VirtualDataGrid" BasedOn="{StaticResource VirtualDataGridBaseStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource DatePickerBaseStyle}" TargetType="DatePicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="DatePicker.Small" BasedOn="{StaticResource DatePickerBaseStyle}" TargetType="DatePicker" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />

@@ -124,6 +124,7 @@ Styles\Base\TreeViewBaseStyle.xaml
 Styles\Base\WatermarkBaseStyle.xaml
 Styles\Base\AutoCompleteTextBoxBaseStyle.xaml
 Styles\Base\DataGridBaseStyle.xaml
+
 Styles\Base\TextBoxEditorBaseStyle.xaml 
 # --------------------------------------
 Styles\Badge.xaml
@@ -141,6 +142,7 @@ Styles\CoverFlow.xaml
 Styles\CoverView.xaml
 Styles\DataGrid.xaml
 Styles\DataGridEx.xaml
+Styles\VirtualDataGrid.xaml
 Styles\DatePicker.xaml
 Styles\DateTimePicker.xaml
 Styles\Dialog.xaml

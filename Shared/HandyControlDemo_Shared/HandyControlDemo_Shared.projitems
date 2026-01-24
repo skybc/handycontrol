@@ -65,6 +65,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\AutoCompleteTextBoxDemoCtl.xaml.cs">
       <DependentUpon>AutoCompleteTextBoxDemoCtl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\DataGridExDemoCtl.xaml.cs">
+      <DependentUpon>DataGridExDemoCtl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\ElementGroupDemoCtl.xaml.cs">
       <DependentUpon>ElementGroupDemoCtl.xaml</DependentUpon>
     </Compile>
@@ -338,8 +341,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\DataGridDemoCtl.xaml.cs">
       <DependentUpon>DataGridDemoCtl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\DataGridExDemoCtl.xaml.cs">
-      <DependentUpon>DataGridExDemoCtl.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Controls\VirtualDataGridDemoCtl.xaml.cs">
+      <DependentUpon>VirtualDataGridDemoCtl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\ExpanderDemoCtl.xaml.cs">
       <DependentUpon>ExpanderDemoCtl.xaml</DependentUpon>
@@ -432,6 +435,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\CardDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\CoverViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\DataGridExDemoViewModel.cs" />
+    <Compile Include="..\..\Shared\HandyControlDemo_Shared\ViewModel\Controls\VirtualDataGridDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\DialogDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\GrowlDemoViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\Controls\ImageBrowserDemoViewModel.cs" />
@@ -565,6 +569,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\DataGridExDemoCtl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\ElementGroupDemoCtl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -589,7 +597,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\DataGridExDemoCtl.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Controls\VirtualDataGridDemoCtl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

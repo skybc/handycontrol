@@ -39,6 +39,8 @@ public class ViewModelLocator
         SimpleIoc.Default.Register<TagDemoViewModel>();
         SimpleIoc.Default.Register<AutoCompleteTextBoxDemoViewModel>();
         SimpleIoc.Default.Register<InputElementDemoViewModel>();
+        SimpleIoc.Default.Register<DataGridExDemoViewModel>();
+        SimpleIoc.Default.Register<VirtualDataGridDemoViewModel>();
     }
 
     public static ViewModelLocator Instance = new Lazy<ViewModelLocator>(() =>
@@ -99,6 +101,11 @@ public class ViewModelLocator
     public AutoCompleteTextBoxDemoViewModel AutoCompleteTextBoxDemo => new(SimpleIoc.Default.GetInstance<DataService>());
 
     public InputElementDemoViewModel InputElementDemo => new();
+
+    public DataGridExDemoViewModel DataGridExDemo => SimpleIoc.Default.GetInstance<DataGridExDemoViewModel>();
+
+    public VirtualDataGridDemoViewModel VirtualDataGridDemo => SimpleIoc.Default.GetInstance<VirtualDataGridDemoViewModel>();
+     
 
     #endregion
 }

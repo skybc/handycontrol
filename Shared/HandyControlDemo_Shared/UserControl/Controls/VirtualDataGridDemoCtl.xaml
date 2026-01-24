@@ -1,0 +1,44 @@
+<UserControl x:Class="HandyControlDemo.UserControl.VirtualDataGridDemoCtl"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Background="{DynamicResource RegionBrush}"
+MaxWidth="800"
+xmlns:langs="clr-namespace:HandyControlDemo.Properties.Langs"
+xmlns:ex="clr-namespace:HandyControlDemo.Tools.Extension"
+xmlns:hc="https://handyorg.github.io/handycontrol"
+DataContext="{Binding VirtualDataGridDemo, Source={StaticResource Locator}}">
+    
+    <hc:TransitioningContentControl>
+        <TabControl Style="{StaticResource TabControlInLine}">
+           
+            <!-- 虚拟滚动 -->
+            <TabItem Header="虚拟滚动（百万行）">
+                <StackPanel>
+                    <TextBlock Text="虚拟滚动功能：设置 DataSource 属性即自动启用虚拟滚动。支持百万级行数据的流畅显示。" 
+                               Margin="0,0,0,10"
+                               FontSize="12"
+                               Foreground="{DynamicResource ThirdlyTextBrush}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="总行数：" VerticalAlignment="Center" Foreground="{DynamicResource ThirdlyTextBrush}"/>
+                        <TextBlock Text="{Binding TotalVirtualRows}" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryBrush}" FontWeight="Bold"/>
+                        <Button Content="生成100万行数据" Command="{Binding GenerateMillionRowsCommand}" Margin="20,0,0,0" Padding="15,5"/>
+                        <Button Content="生成10万行数据" Command="{Binding Generate100kRowsCommand}" Margin="10,0,0,0" Padding="15,5"/>
+                    </StackPanel>
+                    <hc:VirtualDataGrid HeadersVisibility="All" 
+                                   Height="400"
+                                   RowHeaderWidth="60" 
+                                   AutoGenerateColumns="False" 
+                                   DataSource="{Binding VirtualDataSource}"
+                                   hc:DataGridAttach.ShowRowNumber="True">
+                        <hc:VirtualDataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Width="80" CanUserResize="False" Binding="{Binding Index}" Header="ID"/>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="名称"/>
+                            <DataGridTextColumn Binding="{Binding Description}" Header="描述"/>
+                            <DataGridTextColumn IsReadOnly="True" Width="120" CanUserResize="False" Binding="{Binding CreateTime}" Header="创建时间"/>
+                        </hc:VirtualDataGrid.Columns>
+                    </hc:VirtualDataGrid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </hc:TransitioningContentControl>
+</UserControl>
