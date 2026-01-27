@@ -671,6 +671,13 @@ public class VirtualDataGrid : DataGrid
             return;
         }
 
+        // 异常情况：处于编辑状态，鼠标在编辑控件（如文本框）内进行文本选择
+        // 此时不应触发拖拽，而应允许正常的文本选择行为
+        if (_isEditing && IsTextSelectionInEditingControl(e.OriginalSource as DependencyObject))
+        {
+            return;
+        }
+
         // 如果还没有开始拖拽，检查是否移动距离足够
         if (!_isDragging)
         {
@@ -846,6 +853,38 @@ public class VirtualDataGrid : DataGrid
     #endregion
 
     #region 辅助方法
+
+    /// <summary>
+    /// 检查是否在编辑控件内进行文本选择
+    /// </summary>
+    private bool IsTextSelectionInEditingControl(DependencyObject source)
+    {
+        if (source == null)
+            return false;
+
+        // 检查是否是文本输入相关的控件
+        if (source is TextBox || source is PasswordBox)
+            return true;
+
+        // 检查是否是编辑状态下的RichTextBox等文本编辑控件
+        if (source is RichTextBox)
+            return true;
+
+        // 向上遍历可视树，查找是否在编辑的单元格内
+        var parent = VisualTreeHelper.GetParent(source);
+        if (parent is DataGridCell cell)
+        {
+            // 如果找到的单元格是当前编辑的单元格，且来源是文本相关控件，返回true
+            if (_currentCell == cell)
+                return true;
+        }
+
+        // 继续向上查找
+        if (parent != null && parent != this)
+            return IsTextSelectionInEditingControl(parent);
+
+        return false;
+    }
 
     /// <summary>
     /// 查找指定方向的滚动条
