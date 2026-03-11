@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -9,6 +10,8 @@ using DrawingColor = System.Drawing.Color;
 using MediaColor = System.Windows.Media.Color;
 
 namespace HandyControlDemo.Data;
+ 
+
 
 [TitleWidth(100, GridUnitType.Pixel)]
 public class PropertyGridDemoModel : INotifyPropertyChanged
@@ -81,6 +84,7 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
     [DisplayName("配置文件")]
     [PropertyFile(Extension = ".txt|.json|.xml|.config")]
     [PropertyOrder(102)]
+    [BattchModify]
     public string ConfigFilePath { get; set; }
 
     [Category("文件选择")]

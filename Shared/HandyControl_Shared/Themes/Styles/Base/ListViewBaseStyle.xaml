@@ -92,7 +92,7 @@
                     <Condition Property="Selector.IsSelectionActive" Value="false" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource TextIconColor}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
             </MultiTrigger>
             <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
                 <Setter Property="Template">
