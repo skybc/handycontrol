@@ -9650,7 +9650,7 @@
           <Condition Property="Selector.IsSelectionActive" Value="false" />
         </MultiTrigger.Conditions>
         <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextIconColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
       </MultiTrigger>
       <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
         <Setter Property="Template">
@@ -14336,7 +14336,9 @@
                       <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Margin="8" FontWeight="Bold" Foreground="{DynamicResource PrimaryTextBrush}" Text="可用变量" />
-                    <WrapPanel x:Name="PART_VariableList" Grid.Row="1" Margin="8" />
+                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                      <WrapPanel x:Name="PART_VariableList" Margin="8" />
+                    </ScrollViewer>
                   </Grid>
                 </Border>
               </Grid>

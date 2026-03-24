@@ -18,6 +18,10 @@ public class ListBoxPropertyEditor : PropertyEditorBase
     private readonly PropertyAttribute _propertyAttribute;
     private readonly int _height;
     private ToggleButton _toggleButton;
+    private Button addButton;
+    private Button deleteButton;
+    private ListBox listBox;
+    private Type uiType;
 
     public ListBoxPropertyEditor(PropertyAttribute propertyAttribute = null, int height = 150)
     {
@@ -101,7 +105,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
 
             if (hasAddCommand)
             {
-                var addButton = new Button
+                addButton = new Button
                 {
                     Content = "+",
                     Padding = new Thickness(8, 2, 8, 2),
@@ -109,21 +113,13 @@ public class ListBoxPropertyEditor : PropertyEditorBase
                     MinWidth = 30,
                     ToolTip = "添加"
                 };
-                addButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
-                {
-                    Source = propertyItem.Value
-                });
-                addButton.SetBinding(Button.CommandParameterProperty, new Binding
-                {
-                    Source = listBox,
-                    Path = new PropertyPath(ListBox.SelectedItemProperty)
-                });
+
                 buttonPanel.Children.Add(addButton);
             }
 
             if (hasDeleteCommand)
             {
-                var deleteButton = new Button
+                deleteButton = new Button
                 {
                     Content = "-",
                     Padding = new Thickness(8, 2, 8, 2),
@@ -131,17 +127,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
                     MinWidth = 30,
                     ToolTip = "删除选中项"
                 };
-                //  listBox.SelectedItem 作为命令参数传递
-                deleteButton.SetBinding(Button.CommandParameterProperty, new Binding
-                {
-                    Source = listBox,
-                    Path = new PropertyPath(ListBox.SelectedItemProperty)
-                });
 
-                deleteButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
-                {
-                    Source = propertyItem.Value
-                });
 
                 buttonPanel.Children.Add(deleteButton);
             }
@@ -164,7 +150,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
 
     private ListBox CreateListBox(PropertyItem propertyItem)
     {
-        var listBox = new ListBox
+        listBox = new ListBox
         {
             SelectionMode = SelectionMode.Single,
             Margin = new Thickness(0, 0, 0, 0),
@@ -181,10 +167,21 @@ public class ListBoxPropertyEditor : PropertyEditorBase
             if (itemTemplate != null)
             {
                 listBox.ItemTemplate = itemTemplate;
+                listBox.ItemContainerGenerator.ItemsChanged += ItemContainerGenerator_ItemsChanged;
             }
         }
+        
 
         return listBox;
+    }
+
+    private void ItemContainerGenerator_ItemsChanged(object sender, ItemsChangedEventArgs e)
+    {
+        if (listBox.Items.Count > 0)
+        {
+            var it = listBox.Items[listBox.Items.Count - 1];
+
+        }
     }
 
     private DataTemplate CreateItemTemplate(Type elementType, PropertyItem propertyItem)
@@ -221,9 +218,9 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         {
             return CreateBasicTypeTemplate(elementType, propertyItem);
         }
-
+        uiType = element.GetType();
         // 使用FrameworkElementFactory构建模板
-        var factory = new FrameworkElementFactory(element.GetType());
+        var factory = new FrameworkElementFactory(uiType);
 
         // 设置基本属性
         factory.SetValue(FrameworkElement.MarginProperty, new Thickness(2));
@@ -238,6 +235,10 @@ public class ListBoxPropertyEditor : PropertyEditorBase
                 Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
+            // binding
+            //editor.CreateBinding(propertyItem, element);
+            editor.CreateBinding(propertyItem, factory);
+
         }
         editor.SetDeflautValue(factory, propertyItem);
         dataTemplate.VisualTree = factory;
@@ -354,6 +355,27 @@ public class ListBoxPropertyEditor : PropertyEditorBase
 
     public override void CreateBinding(PropertyItem propertyItem, DependencyObject element)
     {
+        //  listBox.SelectedItem 作为命令参数传递
+        deleteButton?.SetBinding(Button.CommandParameterProperty, new Binding
+        {
+            Source = this.listBox,
+            Path = new PropertyPath(ListBox.SelectedItemProperty)
+        });
+
+        deleteButton?.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
+        {
+            Source = propertyItem.Value
+        });
+
+        addButton?.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
+        {
+            Source = propertyItem.Value
+        });
+        addButton?.SetBinding(Button.CommandParameterProperty, new Binding
+        {
+            Source = this.listBox,
+            Path = new PropertyPath(ListBox.SelectedItemProperty)
+        });
         if (element is Grid grid && grid.Children.Count > 1 && grid.Children[1] is ListBox listBox)
         {
             BindingOperations.SetBinding(listBox, ItemsControl.ItemsSourceProperty,

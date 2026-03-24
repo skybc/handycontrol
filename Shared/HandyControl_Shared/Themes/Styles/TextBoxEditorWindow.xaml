@@ -70,7 +70,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    
+
                                     <Border
                                         Grid.Column="0"
                                         BorderBrush="{DynamicResource BorderBrush}"
@@ -87,7 +87,7 @@
                                             HorizontalScrollBarVisibility="Auto"
                                             VerticalScrollBarVisibility="Hidden" />
                                     </Border>
-                                    
+
                                     <Button
                                         Grid.Column="1"
                                         Width="40"
@@ -121,12 +121,12 @@
                                             Foreground="{DynamicResource PrimaryTextBrush}"
                                             Text="可用变量" />
 
-
-                                        <WrapPanel
-                                            x:Name="PART_VariableList"
+                                        <ScrollViewer
                                             Grid.Row="1"
-                                            Margin="8" />
-
+                                            HorizontalScrollBarVisibility="Disabled"
+                                            VerticalScrollBarVisibility="Auto">
+                                            <WrapPanel x:Name="PART_VariableList" Margin="8" />
+                                        </ScrollViewer>
                                     </Grid>
                                 </Border>
                             </Grid>

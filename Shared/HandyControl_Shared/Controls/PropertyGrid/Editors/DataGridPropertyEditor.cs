@@ -37,7 +37,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         container.RowDefinitions.Add(new RowDefinition { MaxHeight = _height });
 
         // 创建DataGrid
-        var dataGrid = new DataGrid
+        dataGrid = new DataGrid
         {
             AutoGenerateColumns = false,
             CanUserAddRows = false,
@@ -116,8 +116,8 @@ public class DataGridPropertyEditor : PropertyEditorBase
         _toggleButton.Unchecked += (s, e) => _toggleButton.Content = "▶";
 
         // 判断是否需要添加按钮
-        bool hasAddCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.AddCommandProperty);
-        bool hasDeleteCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.DeleteCommandProperty);
+        hasAddCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.AddCommandProperty);
+        hasDeleteCommand = _propertyAttribute != null && !string.IsNullOrWhiteSpace(_propertyAttribute.DeleteCommandProperty);
 
         var buttonPanel = new StackPanel
         {
@@ -126,7 +126,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        var addButton = new Button
+        this.addButton = new Button
         {
             Content = "+",
             Padding = new Thickness(8, 2, 8, 2),
@@ -137,15 +137,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
         if (hasAddCommand)
         {
-            addButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
-            {
-                Source = propertyItem.Value
-            });
-            addButton.SetBinding(Button.CommandParameterProperty, new Binding
-            {
-                Source = dataGrid,
-                Path = new PropertyPath(DataGrid.SelectedItemProperty)
-            });
+
         }
         else
         {
@@ -177,7 +169,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
         buttonPanel.Children.Add(addButton);
 
-        var deleteButton = new Button
+        this.deleteButton = new Button
         {
             Content = "-",
             Padding = new Thickness(8, 2, 8, 2),
@@ -188,15 +180,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
         if (hasDeleteCommand)
         {
-            deleteButton.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
-            {
-                Source = propertyItem.Value
-            });
-            deleteButton.SetBinding(Button.CommandParameterProperty, new Binding
-            {
-                Source = dataGrid,
-                Path = new PropertyPath(DataGrid.SelectedItemProperty)
-            });
+
         }
         else
         {
@@ -230,6 +214,11 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
     // cache
     Dictionary<Type, PropertyEditDialog> _editDialogCache = new Dictionary<Type, PropertyEditDialog>();
+    private Button addButton;
+    private Button deleteButton;
+    private bool hasAddCommand;
+    private bool hasDeleteCommand;
+    private DataGrid dataGrid;
 
     /// <summary>
     /// 显示编辑对话框
@@ -245,10 +234,10 @@ public class DataGridPropertyEditor : PropertyEditorBase
         }
         else
         {
-            dialog._propertyGrid.SelectedObject= item;
+            dialog._propertyGrid.SelectedObject = item;
         }
 
-            System.Windows.Window window = new System.Windows.Window();
+        System.Windows.Window window = new System.Windows.Window();
         window.Content = dialog;
         window.Title = title;
         window.Width = 400;
@@ -265,7 +254,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         window.Closed += (s, e) =>
         {
             // 清理内容，避免内存泄漏
-            window.Content = null; 
+            window.Content = null;
             dialog._propertyGrid.SelectedObject = null;
         };
         var result = dialog.ShowDialog();
@@ -657,5 +646,23 @@ public class DataGridPropertyEditor : PropertyEditorBase
              UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem)
          });
         }
+        addButton?.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
+        {
+            Source = propertyItem.Value
+        });
+        addButton?.SetBinding(Button.CommandParameterProperty, new Binding
+        {
+            Source = this.dataGrid,
+            Path = new PropertyPath(DataGrid.SelectedItemProperty)
+        });
+        deleteButton?.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
+        {
+            Source = propertyItem.Value
+        });
+        deleteButton?.SetBinding(Button.CommandParameterProperty, new Binding
+        {
+            Source = this.dataGrid,
+            Path = new PropertyPath(DataGrid.SelectedItemProperty)
+        });
     }
 }

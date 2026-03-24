@@ -1,11 +1,12 @@
-﻿using System;
+﻿using HandyControl.Data;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Xml.Linq;
-using HandyControl.Data;
+using static HandyControl.Tools.Interop.InteropValues;
 
 namespace HandyControl.Controls;
 
@@ -268,6 +269,8 @@ public class PropertyItem : ListBoxItem
 
 
     bool isFirstInit = true;
+    private FrameworkElement element;
+    private Button button;
 
     /// <summary>
     /// 根据当前的 Editor 创建并初始化 EditorElement（创建 UI 元素并建立绑定）。
@@ -279,8 +282,15 @@ public class PropertyItem : ListBoxItem
         {
             return;
         }
-        // 使用编辑器创建具体的 UI 元素
-        var element = Editor.CreateElement(this);
+        if (isFirstInit == true || this.element == null)
+        {
+
+            // 使用编辑器创建具体的 UI 元素
+
+            this.element = Editor.CreateElement(this);
+
+        }
+
         // 编辑器负责为该元素创建绑定
         Editor.CreateBinding(this, element);
         //
@@ -302,18 +312,20 @@ public class PropertyItem : ListBoxItem
                     Source = this.Value,
                 });
         }
-        if(isFirstInit==false)
+
+        if (isFirstInit == false)
         {
-            if(element.Parent is Grid gridParent)
-            {
-                // 移除旧的 EditorElement
-                gridParent.Children.Remove(EditorElement);
-            }
+            //if (element.Parent is Grid gridParent)
+            //{
+            //    // 移除旧的 EditorElement
+            //    gridParent.Children.Remove(EditorElement);
+            //}
+            button?.SetBinding(Button.CommandProperty, new Binding($"{this.CommandPropertyName}") { Source = this.Value });
+            return;
         }
         EditorElement = null;
         if (string.IsNullOrWhiteSpace(this.CommandPropertyName))
         {
-
             EditorElement = element;
         }
         else
@@ -328,7 +340,7 @@ public class PropertyItem : ListBoxItem
             Grid.SetColumn(element, 0);
             grid.Children.Add(element);
             // 按钮
-            var button = new Button
+            button = new Button
             {
                 Content = this.CommandContent,
                 Padding = new Thickness(5, 0, 5, 0),
@@ -345,7 +357,7 @@ public class PropertyItem : ListBoxItem
             Grid.SetColumn(button, 1);
             grid.Children.Add(button);
             EditorElement = grid;
-        } 
+        }
         isFirstInit = false;
 
     }

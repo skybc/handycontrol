@@ -84,7 +84,6 @@ public class PropertyGridDemoModel : INotifyPropertyChanged
     [DisplayName("配置文件")]
     [PropertyFile(Extension = ".txt|.json|.xml|.config")]
     [PropertyOrder(102)]
-    [BattchModify]
     public string ConfigFilePath { get; set; }
 
     [Category("文件选择")]

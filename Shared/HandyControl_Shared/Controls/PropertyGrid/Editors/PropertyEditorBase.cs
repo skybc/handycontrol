@@ -12,9 +12,7 @@ public abstract class PropertyEditorBase : DependencyObject
 
     public virtual void CreateBinding(PropertyItem propertyItem, DependencyObject element)
     {
-        IValueConverter converter = GetConverter(propertyItem);
-
-
+        IValueConverter converter = GetConverter(propertyItem); 
         BindingOperations.SetBinding(element, GetDependencyProperty(),
             new Binding($"{propertyItem.PropertyName}")
             {
@@ -44,5 +42,10 @@ public abstract class PropertyEditorBase : DependencyObject
     public virtual void SetDeflautValue(FrameworkElementFactory factory, PropertyItem propertyItem)
     {
 
+    }
+
+    public virtual void CreateBinding(PropertyItem propertyItem, FrameworkElementFactory factory)
+    {
+        //throw new NotImplementedException();
     }
 }
