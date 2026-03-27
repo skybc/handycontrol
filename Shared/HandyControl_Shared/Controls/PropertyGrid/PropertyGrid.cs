@@ -151,15 +151,8 @@ public class PropertyGrid : Control
             {
                 foreach (var propertyItem in _cachedPropertyItems)
                 {
-                    try
-                    {
-                        propertyItem.Value = obj;
-                        propertyItem.Editor.CreateBinding(propertyItem, propertyItem.EditorElement);
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
+                    propertyItem.Value = obj;
+                    propertyItem.InitElement();
                 }
             }
             if (_itemsControl != null)

@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-
 namespace HandyControl.Controls;
 
 public class CommboxPropertyEditor : PropertyEditorBase
@@ -20,7 +20,7 @@ public class CommboxPropertyEditor : PropertyEditorBase
 
     public override FrameworkElement CreateElement(PropertyItem propertyItem)
     {
-        var cb = new System.Windows.Controls.ComboBox
+        var cb = new System.Windows.Controls.ComboBox()
         {
             IsEnabled = !propertyItem.IsReadOnly,
         };
@@ -33,13 +33,13 @@ public class CommboxPropertyEditor : PropertyEditorBase
         }
         else
         {
-            cb.SetBinding(ComboBox.ItemsSourceProperty, new Binding(property.ComboBoxItemsSourceProperty)
+            cb.SetBinding(System.Windows.Controls.ComboBox.ItemsSourceProperty, new Binding(property.ComboBoxItemsSourceProperty)
             {
                 Source = propertyItem.Value,
                 Mode = BindingMode.OneWay
             });
         }
-        
+
 
         if (!string.IsNullOrWhiteSpace(property.DisplayMemberPathProperty))
         {
@@ -56,9 +56,33 @@ public class CommboxPropertyEditor : PropertyEditorBase
     {
         if (!string.IsNullOrWhiteSpace(property.SelectedValuePathProperty))
         {
-            return ComboBox.SelectedValueProperty;
+            return System.Windows.Controls.ComboBox.SelectedValueProperty;
         }
-        return ComboBox.SelectedItemProperty;
+        return System.Windows.Controls.ComboBox.SelectedItemProperty;
     }
+    public override void CreateBinding(PropertyItem propertyItem, DependencyObject element)
+    {
+
+        var strinStrs = property.ComboBoxItemsSourceProperty.Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+        if (element is not System.Windows.Controls.ComboBox cb)
+        {
+            return;
+        }
+        if (strinStrs.Length > 1)
+        {
+            cb.ItemsSource = strinStrs;
+        }
+        else
+        {
+            cb.SetBinding(System.Windows.Controls.ComboBox.ItemsSourceProperty, new Binding(property.ComboBoxItemsSourceProperty)
+            {
+                Source = propertyItem.Value,
+                Mode = BindingMode.OneWay
+            });
+        }
+        base.CreateBinding(propertyItem, element);
+    }
+
 
 }

@@ -288,12 +288,7 @@ public class PropertyResolver
                         {
                             return new FolderSelectPropertyEditor(folderAttribute);
                         }
-
-                        // 如果 property存在
-                        if (property != null && !string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty))
-                        {
-                            return new CommboxPropertyEditor(property);
-                        }
+                        
 
                         return new PlainTextPropertyEditor();
                     }

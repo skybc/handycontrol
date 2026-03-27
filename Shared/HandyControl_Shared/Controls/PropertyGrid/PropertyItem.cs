@@ -314,12 +314,7 @@ public class PropertyItem : ListBoxItem
         }
 
         if (isFirstInit == false)
-        {
-            //if (element.Parent is Grid gridParent)
-            //{
-            //    // 移除旧的 EditorElement
-            //    gridParent.Children.Remove(EditorElement);
-            //}
+        {      
             button?.SetBinding(Button.CommandProperty, new Binding($"{this.CommandPropertyName}") { Source = this.Value });
             return;
         }

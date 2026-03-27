@@ -126,7 +126,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        this.addButton = new Button
+        this.addButton = new System.Windows.Controls.Button
         {
             Content = "+",
             Padding = new Thickness(8, 2, 8, 2),
@@ -168,8 +168,8 @@ public class DataGridPropertyEditor : PropertyEditorBase
         }
 
         buttonPanel.Children.Add(addButton);
-
-        this.deleteButton = new Button
+                                
+        this.deleteButton = new System.Windows.Controls.Button
         {
             Content = "-",
             Padding = new Thickness(8, 2, 8, 2),
@@ -214,8 +214,8 @@ public class DataGridPropertyEditor : PropertyEditorBase
 
     // cache
     Dictionary<Type, PropertyEditDialog> _editDialogCache = new Dictionary<Type, PropertyEditDialog>();
-    private Button addButton;
-    private Button deleteButton;
+    private System.Windows.Controls.Button addButton;
+    private System.Windows.Controls.Button deleteButton;
     private bool hasAddCommand;
     private bool hasDeleteCommand;
     private DataGrid dataGrid;
@@ -251,14 +251,16 @@ public class DataGridPropertyEditor : PropertyEditorBase
         {
             window.Owner = owner;
         }
-        window.Closed += (s, e) =>
+        try
         {
-            // 清理内容，避免内存泄漏
+            var result = dialog.ShowDialog();
+            return result == true;
+        }
+        finally
+        {
+            // 清理内容，避免窗口持有对话框引用
             window.Content = null;
-            dialog._propertyGrid.SelectedObject = null;
-        };
-        var result = dialog.ShowDialog();
-        return result == true;
+        }
     }
 
     /// <summary>
@@ -639,30 +641,36 @@ public class DataGridPropertyEditor : PropertyEditorBase
         if (element is Grid grid && grid.Children.Count > 1 && grid.Children[1] is DataGrid dataGrid)
         {
             BindingOperations.SetBinding(dataGrid, DataGrid.ItemsSourceProperty,
-         new Binding(propertyItem.PropertyName)
-         {
-             Source = propertyItem.Value,
-             Mode = GetBindingMode(propertyItem),
-             UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem)
-         });
+                new Binding(propertyItem.PropertyName)
+                {
+                    Source = propertyItem.Value,
+                    Mode = GetBindingMode(propertyItem),
+                    UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem)
+                });
         }
-        addButton?.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
+        if (hasAddCommand)
         {
-            Source = propertyItem.Value
-        });
-        addButton?.SetBinding(Button.CommandParameterProperty, new Binding
+            addButton?.SetBinding(System.Windows.Controls.Button.CommandProperty, new Binding(_propertyAttribute.AddCommandProperty)
+            {
+                Source = propertyItem.Value
+            });
+            addButton?.SetBinding(System.Windows.Controls.Button.CommandParameterProperty, new Binding
+            {
+                Source = this.dataGrid,
+                Path = new PropertyPath(DataGrid.SelectedItemProperty)
+            });
+        }
+        if (hasDeleteCommand)
         {
-            Source = this.dataGrid,
-            Path = new PropertyPath(DataGrid.SelectedItemProperty)
-        });
-        deleteButton?.SetBinding(Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
-        {
-            Source = propertyItem.Value
-        });
-        deleteButton?.SetBinding(Button.CommandParameterProperty, new Binding
-        {
-            Source = this.dataGrid,
-            Path = new PropertyPath(DataGrid.SelectedItemProperty)
-        });
+            deleteButton?.SetBinding(System.Windows.Controls.Button.CommandProperty, new Binding(_propertyAttribute.DeleteCommandProperty)
+            {
+                Source = propertyItem.Value
+            });
+            deleteButton?.SetBinding(System.Windows.Controls.Button.CommandParameterProperty, new Binding
+            {
+                Source = this.dataGrid,
+                Path = new PropertyPath(DataGrid.SelectedItemProperty)
+            });
+        }
     }
 }
