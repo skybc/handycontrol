@@ -43,7 +43,7 @@ public class PropertyEditDialog : UserControl
 
         var cancelButton = new Button
         {
-            Content = "取消",
+            Content = "取消".ToLanguage(),
             Width = 80,
             Height = 30,
             Margin = new Thickness(0, 0, 10, 0)
@@ -56,7 +56,7 @@ public class PropertyEditDialog : UserControl
 
         var confirmButton = new Button
         {
-            Content = "确定",
+            Content = "确定".ToLanguage(),
             Width = 80,
             Height = 30,
             IsDefault = true

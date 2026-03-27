@@ -71,6 +71,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\MediaColorToBrushConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\Object2VisibilityReConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Converter\ObjectNull2BooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\ArrayCopier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\CopierGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\CopyContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\CopyPolicy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\DeepCopier.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\DeepCopyDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\Immutable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\ImmutableAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\MethodInfos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\DeepCopy\ReferenceEqualsComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Tools\LocalizeExtension.cs" />
     <Compile Include="..\..\Shared\HandyControl_Shared\Controls\Image\HcImage.cs" />

@@ -1,4 +1,5 @@
 ﻿using HandyControl.Tools.Converter;
+using HandyControl.Tools.DeepCopy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -84,6 +88,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
             {
                 if (dataGrid.SelectedItem != null)
                 {
+                    // deep                    
                     ShowEditDialog(dataGrid.SelectedItem, propertyItem, "编辑", false);
                 }
             };
@@ -151,7 +156,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
                    // 如果有选中项，复制选中项的值
                    if (dataGrid.SelectedItem != null)
                    {
-                       newItem = CloneObject(dataGrid.SelectedItem, elementType);
+                       newItem = HandyControl.Tools.DeepCopy.DeepCopier.Copy(dataGrid.SelectedItem);
                    }
                    else
                    {
@@ -168,7 +173,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         }
 
         buttonPanel.Children.Add(addButton);
-                                
+
         this.deleteButton = new System.Windows.Controls.Button
         {
             Content = "-",
@@ -225,16 +230,21 @@ public class DataGridPropertyEditor : PropertyEditorBase
     /// </summary>
     private bool ShowEditDialog(object item, PropertyItem propertyItem, string title, bool isNew)
     {
-        //PropertyEditDialog dialog = new PropertyEditDialog(item, title);
-        _editDialogCache.TryGetValue(item.GetType(), out var dialog);
+        if (item == null)
+        {
+            return false;
+        }
+
+        var editItem = isNew ? item : DeepCopier.Copy(item);
+        _editDialogCache.TryGetValue(editItem.GetType(), out var dialog);
         if (dialog == null)
         {
-            dialog = new PropertyEditDialog(item);
-            _editDialogCache[item.GetType()] = dialog;
+            dialog = new PropertyEditDialog(editItem);
+            _editDialogCache[editItem.GetType()] = dialog;
         }
         else
         {
-            dialog._propertyGrid.SelectedObject = item;
+            dialog._propertyGrid.SelectedObject = editItem;
         }
 
         System.Windows.Window window = new System.Windows.Window();
@@ -254,6 +264,10 @@ public class DataGridPropertyEditor : PropertyEditorBase
         try
         {
             var result = dialog.ShowDialog();
+            if (result == true && !isNew)
+            {
+                CopySameType(editItem, item);
+            }
             return result == true;
         }
         finally
@@ -263,38 +277,34 @@ public class DataGridPropertyEditor : PropertyEditorBase
         }
     }
 
-    /// <summary>
-    /// 克隆对象
-    /// </summary>
-    private object CloneObject(object source, Type targetType)
+    private static readonly Dictionary<Type, PropertyInfo[]> _cache = new();
+
+    private static PropertyInfo[] GetProps(Type type)
     {
-        if (source == null)
+        if (!_cache.TryGetValue(type, out var props))
         {
-            return Activator.CreateInstance(targetType);
+            props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            _cache[type] = props;
         }
-
-
-        var newItem = Activator.CreateInstance(targetType);
-        var properties = TypeDescriptor.GetProperties(targetType);
-
-        foreach (PropertyDescriptor prop in properties)
-        {
-            if (!prop.IsReadOnly)
-            {
-                try
-                {
-                    var value = prop.GetValue(source);
-                    prop.SetValue(newItem, value);
-                }
-                catch
-                {
-                    // 忽略无法复制的属性
-                }
-            }
-        }
-
-        return newItem;
+        return props;
     }
+
+    public static void CopySameType(object source, object target)
+    {
+        if (source == null || target == null) return;
+
+        var props = GetProps(target.GetType());
+        foreach (var prop in props)
+        {
+            if (!prop.CanRead || !prop.CanWrite)
+                continue;
+
+            var value = prop.GetValue(source);
+            prop.SetValue(target, value);
+        }
+    }
+
+
 
     /// <summary>
     /// 添加项到集合
@@ -438,6 +448,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
             valueConverter = Activator.CreateInstance(propAttr.ConverterType) as IValueConverter;
         }
         Type propertyType = property.PropertyType;
+
 
         // 如果指定了ComboBoxItemsSourceProperty，使用ComboBox列
         if (propAttr != null && !string.IsNullOrWhiteSpace(propAttr.ComboBoxItemsSourceProperty))
