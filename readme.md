@@ -26,6 +26,7 @@ HandyControl 是一个为 WPF 提供大量美观、可复用控件与主题的�
 - `Net_GE45/`：.NET 8+ 平台项目（引用 Shared）
 - `Net_40/`：.NET 4.0 兼容项目（引用 Shared）
 - `DATAGRID_IMPLEMENTATION.md`：PropertyGrid 的 DataGrid 编辑器实现说明
+- `doc/HandyControl控件样式更改规范.md`：控件样式源文件、主题合并和修改流程规范
 - `.github/`：仓库内部开发说明（包含 codebase guide）
 
 > 详细的代码组织与开发约定请参见仓库内的 `/.github/copilot-instructions.md`，该文档包含控件开发、主题、国际化与常见任务的说明。
@@ -107,5 +108,6 @@ dotnet run --framework net8.0-windows --project "HandyControlDemo_Net_GE45.cspro
 - 仓库代码指南：`.github/copilot-instructions.md`
 - PropertyGrid DataGrid 编辑器说明：`DATAGRID_IMPLEMENTATION.md`
 - 主题文件索引：`Shared/HandyControl_Shared/Themes/Theme_GE45.txt`
+- 控件样式更改规范：`doc/HandyControl控件样式更改规范.md`（修改样式前必须阅读）
 
---- 
+---

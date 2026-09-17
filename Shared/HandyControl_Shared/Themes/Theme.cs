@@ -217,6 +217,8 @@ public class Theme : ResourceDictionary
 
     public virtual ResourceDictionary GetTheme() => ResourceHelper.GetTheme();
 
+    protected virtual ResourceDictionary GetSkinOverride(SkinType skinType) => ResourceHelper.GetSkinOverride(skinType);
+
     private void InitResource()
     {
         if (DesignerHelper.IsInDesignMode)
@@ -227,6 +229,7 @@ public class Theme : ResourceDictionary
         MergedDictionaries.Clear();
         MergedDictionaries.Add(GetSkin(Skin));
         MergedDictionaries.Add(GetTheme());
+        AddSkinOverride(Skin);
     }
 
     private void UpdateAccentColor(Color color)
@@ -237,7 +240,26 @@ public class Theme : ResourceDictionary
         _precSkin[ResourceToken.SecondaryTitleColor] = color;
     }
 
-    private void UpdateSkin() => MergedDictionaries[0] = GetSkin(Skin);
+    private void UpdateSkin()
+    {
+        MergedDictionaries[0] = GetSkin(Skin);
+
+        if (MergedDictionaries.Count > 2)
+        {
+            MergedDictionaries.RemoveAt(2);
+        }
+
+        AddSkinOverride(Skin);
+    }
+
+    private void AddSkinOverride(SkinType skinType)
+    {
+        var overrideDictionary = GetSkinOverride(skinType);
+        if (overrideDictionary != null)
+        {
+            MergedDictionaries.Add(overrideDictionary);
+        }
+    }
 }
 
 public class StandaloneTheme : Theme

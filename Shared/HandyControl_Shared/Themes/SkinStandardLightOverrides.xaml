@@ -1,0 +1,256 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="clr-namespace:HandyControl.Controls"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!--  Layout tokens are intentionally local to this skin.  Existing skins retain their sizes.  -->
+    <system:Double x:Key="DefaultControlHeight">32</system:Double>
+    <system:Double x:Key="MiddleControlHeight">28</system:Double>
+    <system:Double x:Key="SmallControlHeight">24</system:Double>
+    <Thickness x:Key="DefaultControlPadding">12,4</Thickness>
+    <Thickness x:Key="DefaultInputPadding">10,0</Thickness>
+    <CornerRadius x:Key="DefaultCornerRadius">4</CornerRadius>
+    <CornerRadius x:Key="StandardLightLargeCornerRadius">6</CornerRadius>
+    <CornerRadius x:Key="StandardLightPanelCornerRadius">10</CornerRadius>
+    <system:Double x:Key="StandardLightBodyFontSize">14</system:Double>
+    <system:Double x:Key="StandardLightAssistFontSize">12</system:Double>
+    <system:Double x:Key="StandardLightLargeControlHeight">40</system:Double>
+
+    <!--
+        The base theme intentionally uses gradients. StandardLight keeps semantic
+        resource keys but makes every action and feedback brush a solid color.
+    -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="DarkPrimaryBrush" Color="{DynamicResource DarkPrimaryColor}" />
+    <SolidColorBrush x:Key="TitleBrush" Color="{DynamicResource TitleColor}" />
+    <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
+    <SolidColorBrush x:Key="DarkDangerBrush" Color="{DynamicResource DarkDangerColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
+    <SolidColorBrush x:Key="DarkWarningBrush" Color="{DynamicResource DarkWarningColor}" />
+    <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
+    <SolidColorBrush x:Key="DarkInfoBrush" Color="{DynamicResource DarkInfoColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
+    <SolidColorBrush x:Key="DarkSuccessBrush" Color="{DynamicResource DarkSuccessColor}" />
+
+    <Style
+        x:Key="ButtonDefault"
+        BasedOn="{StaticResource ButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="12,4" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F2F5FA" />
+                <Setter Property="BorderBrush" Value="#A9C9FF" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#E6F0FF" />
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#F5F6F8" />
+                <Setter Property="Foreground" Value="#A8ADB5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="ButtonPrimary"
+        BasedOn="{StaticResource ButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="12,4" />
+        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource DarkPrimaryBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DarkPrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#003EB3" />
+                <Setter Property="BorderBrush" Value="#003EB3" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#B7D1FF" />
+                <Setter Property="BorderBrush" Value="#B7D1FF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style BasedOn="{StaticResource ButtonDefault}" TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="12,4" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+    </Style>
+    <Style BasedOn="{StaticResource TextBoxBaseStyle}" TargetType="TextBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource PasswordBoxBaseStyle}" TargetType="PasswordBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource ComboBoxBaseStyle}" TargetType="ComboBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource CheckBoxBaseStyle}" TargetType="CheckBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource RadioButtonBaseStyle}" TargetType="RadioButton">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource NumericUpDownBaseStyle}" TargetType="hc:NumericUpDown">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource CardBaseStyle}" TargetType="hc:Card">
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource StandardLightPanelCornerRadius}" />
+    </Style>
+    <Style BasedOn="{StaticResource DataGridBaseStyle}" TargetType="DataGrid">
+        <Setter Property="RowHeight" Value="32" />
+        <Setter Property="ColumnHeaderHeight" Value="32" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource StandardLightLargeCornerRadius}" />
+    </Style>
+    <Style BasedOn="{StaticResource ListViewBaseStyle}" TargetType="ListView">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource TreeViewBaseStyle}" TargetType="TreeView">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource MenuBaseStyle}" TargetType="Menu">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style BasedOn="{StaticResource ContextMenuBaseStyle}" TargetType="ContextMenu">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!--  Narrow inspector: 96px labels, 32px rows, grouped and scrollable content.  -->
+    <Style x:Key="StandardLightPropertyItemStyle" TargetType="hc:PropertyItem">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="hc:PropertyItem">
+                    <Grid MinHeight="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Background="{DynamicResource SecondaryRegionBrush}"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="0,0,1,1">
+                            <TextBlock
+                                Margin="10,0,8,0"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{DynamicResource SecondaryTextBrush}"
+                                Text="{TemplateBinding DisplayName}"
+                                TextTrimming="CharacterEllipsis" />
+                        </Border>
+                        <Border
+                            Grid.Column="1"
+                            Padding="0,0"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="0,0,0,1">
+                            <ContentPresenter VerticalAlignment="Center" ContentSource="EditorElement" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StandardLightPropertyItemsControlStyle" TargetType="hc:PropertyItemsControl">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource StandardLightPropertyItemStyle}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="hc:PropertyItemsControl">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StandardLightPropertyGroupStyle" TargetType="GroupItem">
+        <Setter Property="Margin" Value="0,4,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupItem">
+                    <Expander
+                        Background="{DynamicResource RegionBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        IsExpanded="True">
+                        <Expander.Header>
+                            <TextBlock
+                                Padding="8,4"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource PrimaryTextBrush}"
+                                Text="{Binding Name}" />
+                        </Expander.Header>
+                        <Border
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1,0,1,1"
+                            CornerRadius="0">
+                            <ItemsPresenter />
+                        </Border>
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="hc:PropertyGrid">
+        <Setter Property="MaxTitleWidth" Value="200" />
+        <Setter Property="MinTitleWidth" Value="60" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="hc:PropertyGrid">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{StaticResource StandardLightLargeCornerRadius}">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <hc:SearchBar
+                                x:Name="PART_SearchBar"
+                                MinHeight="32"
+                                Margin="0,0,0,8"
+                                hc:InfoElement.ShowClearButton="True"
+                                IsRealTime="True"
+                                Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                            <hc:PropertyItemsControl
+                                x:Name="PART_ItemsControl"
+                                Grid.Row="1"
+                                Style="{StaticResource StandardLightPropertyItemsControlStyle}">
+                                <hc:PropertyItemsControl.GroupStyle>
+                                    <GroupStyle ContainerStyle="{StaticResource StandardLightPropertyGroupStyle}" />
+                                </hc:PropertyItemsControl.GroupStyle>
+                            </hc:PropertyItemsControl>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

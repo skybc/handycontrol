@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 
 namespace HandyControl.Controls;
 
@@ -56,10 +59,10 @@ public class EnumPropertyEditor : PropertyEditorBase
             // 如果 PropertyAttribute 指定了 ComboBoxItemsSourceProperty，使用该源作为 ItemsSource
             if (!string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty))
             {
-                cb.SetBinding(System.Windows.Controls.ComboBox.ItemsSourceProperty, new System.Windows.Data.Binding(property.ComboBoxItemsSourceProperty)
+                cb.SetBinding(ItemsControl.ItemsSourceProperty, new Binding(property.ComboBoxItemsSourceProperty)
                 {
                     Source = propertyItem.Value,
-                    Mode = System.Windows.Data.BindingMode.OneWay
+                    Mode = BindingMode.OneWay
                 });
                 // 如果指定了显示成员路径，设置 DisplayMemberPath
                 if (!string.IsNullOrWhiteSpace(property.DisplayMemberPathProperty))
@@ -71,6 +74,12 @@ public class EnumPropertyEditor : PropertyEditorBase
                 {
                     cb.SelectedValuePath = property.SelectedValuePathProperty;
                 }
+                else
+                {
+                    // 自定义数据源为 Enum[] 或 List<Enum> 时，保留原始枚举值作为选中项，
+                    // 仅在 UI 中转换为 DescriptionAttribute 指定的文本。
+                    cb.ItemTemplate = CreateEnumDescriptionTemplate();
+                }
                 return cb;
             }
         }
@@ -81,21 +90,7 @@ public class EnumPropertyEditor : PropertyEditorBase
         List<KV> list = new List<KV>();
         foreach (var item in enums)
         {
-            string descrption = "";
-            // 通过反射获取枚举字段信息并读取 DescriptionAttribute（如果存在）
-            FieldInfo info = item.GetType().GetField(item.ToString());
-            var attributes = info.GetCustomAttribute(typeof(DescriptionAttribute), true) as DescriptionAttribute;
-
-            if (attributes != null)
-            {
-                // 使用 DescriptionAttribute 的描述文本
-                descrption = attributes.Description;
-            }
-            else
-            {
-                // 否则使用枚举值的 ToString()
-                descrption = item.ToString();
-            }
+            string descrption = GetEnumDescription(item);
             // 将显示文本和枚举值封装成 KV 对象添加到列表
             list.Add(new KV { Key = descrption, Value = item });
         }
@@ -104,6 +99,41 @@ public class EnumPropertyEditor : PropertyEditorBase
         cb.SelectedValuePath = "Value";
         cb.ItemsSource = list;
         return cb;
+    }
+
+    private static DataTemplate CreateEnumDescriptionTemplate()
+    {
+        var textBlock = new FrameworkElementFactory(typeof(TextBlock));
+        textBlock.SetBinding(TextBlock.TextProperty, new Binding
+        {
+            Converter = EnumDescriptionConverter.Instance
+        });
+
+        return new DataTemplate
+        {
+            VisualTree = textBlock
+        };
+    }
+
+    private static string GetEnumDescription(object value)
+    {
+        if (value is not Enum enumValue)
+        {
+            return value?.ToString() ?? string.Empty;
+        }
+
+        FieldInfo info = enumValue.GetType().GetField(enumValue.ToString());
+        var attribute = info?.GetCustomAttribute<DescriptionAttribute>(true);
+        return attribute?.Description ?? enumValue.ToString();
+    }
+
+    private sealed class EnumDescriptionConverter : IValueConverter
+    {
+        public static readonly EnumDescriptionConverter Instance = new EnumDescriptionConverter();
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => GetEnumDescription(value);
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => Binding.DoNothing;
     }
 
 

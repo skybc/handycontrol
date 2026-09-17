@@ -79,6 +79,7 @@ public class PropertyEditDialog : UserControl
     public new bool? ShowDialog()
     {
         //base.ShowDialog();
+        _dialogResult = false;
         // 获取他的父窗口并显示对话框
         if (this.Parent is System.Windows.Window parentWindow)
         {

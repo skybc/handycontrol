@@ -108,6 +108,10 @@ public partial class App
         {
             Source = new Uri("pack://application:,,,/HandyControlDemo;component/Resources/Themes/Theme.xaml")
         });
+        if (skin is SkinType.Default or SkinType.StandardLight)
+        {
+            skins1.MergedDictionaries.Add(ResourceHelper.GetSkinOverride(skin));
+        }
 
         Current.MainWindow?.OnApplyTemplate();
     }

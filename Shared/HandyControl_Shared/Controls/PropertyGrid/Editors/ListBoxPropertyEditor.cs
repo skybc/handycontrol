@@ -72,7 +72,7 @@ public class ListBoxPropertyEditor : PropertyEditorBase
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-        grid.Margin = new Thickness(0, -20, 0, 0);
+        grid.Margin = new Thickness(0, 0, 0, 0);
 
         // 折叠按钮
         _toggleButton = new ToggleButton

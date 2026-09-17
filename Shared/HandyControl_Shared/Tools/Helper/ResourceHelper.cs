@@ -70,6 +70,18 @@ public class ResourceHelper
     };
 
     /// <summary>
+    ///     Gets the optional dictionary that is applied after the base theme for a skin.
+    ///     StandardLight uses this to override control templates without changing the
+    ///     established Default, Dark, and Violet resource order.
+    /// </summary>
+    public static ResourceDictionary GetSkinOverride(SkinType skin) => skin is SkinType.Default or SkinType.StandardLight
+        ? new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinStandardLightOverrides.xaml")
+        }
+        : null;
+
+    /// <summary>
     ///     get HandyControl theme
     /// </summary>
     public static ResourceDictionary GetTheme() => _theme ??= GetStandaloneTheme();

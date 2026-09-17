@@ -80,6 +80,9 @@ public class MyAttach
 **Always use `ValueBoxes` for boxing bool/int values** to avoid allocations (see `Data/ValueBoxes.cs`).
 
 ### Theme System
+
+**Before any theme or control-style change, read `doc/HandyControl控件样式更改规范.md`.**
+
 Themes are built using a **custom XAML combiner**:
 - Source files: `Themes/Theme_GE45.txt` (lists XAML files to merge)
 - Build target runs `XamlCombine.exe` to generate `Theme.xaml`
@@ -137,6 +140,9 @@ Set `HandyControlDemo_Net_GE45` as startup project. The demo showcases all contr
 5. Create demo in `HandyControlDemo_Shared/UserControl/Controls/`
 
 ### Modifying Themes
+
+Read `doc/HandyControl控件样式更改规范.md` before starting the change.
+
 Edit individual XAML files in `Themes/Styles/` or `Themes/Basic/`, then rebuild. DO NOT directly edit the generated `Theme.xaml`.
 
 ### Adding Localization

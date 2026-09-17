@@ -265,6 +265,13 @@ public class PropertyResolver
                 }
             }
 
+            // 枚举即使配置了自定义数据源，也需要使用 EnumPropertyEditor
+            // 以便将枚举值显示为 DescriptionAttribute（如果存在）。
+            if (type.IsEnum)
+            {
+                return new EnumPropertyEditor(property);
+            }
+
             if (property != null && !string.IsNullOrWhiteSpace(property.ComboBoxItemsSourceProperty))
             {
                 return new CommboxPropertyEditor(property);
@@ -318,7 +325,7 @@ public class PropertyResolver
         {
 
             // 非内置 TypeCode 的情况：如果是枚举类型，使用枚举编辑器，否则使用只读文本编辑器
-            return type.IsSubclassOf(typeof(Enum)) ? new EnumPropertyEditor(property) : new ReadOnlyTextPropertyEditor();
+            return type.IsEnum ? new EnumPropertyEditor(property) : new ReadOnlyTextPropertyEditor();
         }
 
     }

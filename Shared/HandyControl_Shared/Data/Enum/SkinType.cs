@@ -5,5 +5,7 @@ public enum SkinType
 {
     Default,
     Dark,
-    Violet
+    Violet,
+    /// <summary>A compact, token-based light workbench skin.</summary>
+    StandardLight
 }
