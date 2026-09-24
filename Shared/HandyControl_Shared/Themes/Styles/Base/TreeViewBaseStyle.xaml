@@ -6,15 +6,14 @@
     <PathGeometry x:Key="TreeArrow" Figures="M508.893248 762.931659a65.039498 65.039498 0 0 1-46.420659-19.485839L97.125746 371.004022c-25.143018-25.634319-24.752868-66.816849 0.881451-91.959868 25.648769-25.164693 66.809624-24.745643 91.959867 0.881451l318.933409 325.125238 318.933408-325.125238a65.025048 65.025048 0 0 1 92.841318 91.078417L555.313907 743.44582a65.025048 65.025048 0 0 1-46.420659 19.485839z" />
     <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Width" Value="16" />
-        <Setter Property="Height" Value="16" />
+        <Setter Property="Width" Value="{StaticResource TreeViewExpanderSize}" />
+        <Setter Property="Height" Value="{StaticResource TreeViewExpanderSize}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border
-                        Width="16"
-                        Height="16"
-                        Padding="4"
+                        Width="{StaticResource TreeViewExpanderSize}"
+                        Height="{StaticResource TreeViewExpanderSize}"
                         Background="Transparent">
                         <Path
                             x:Name="ExpandPath"
@@ -46,11 +45,13 @@
         BasedOn="{StaticResource BaseStyle}"
         TargetType="TreeViewItem">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualRadius0Margin0}" />
+        <Setter Property="FontSize" Value="{StaticResource TreeViewFontSize}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="10,0" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="MinHeight" Value="{StaticResource MiddleControlHeight}" />
-        <Setter Property="Margin" Value="0,0,0,2" />
+        <Setter Property="Padding" Value="{StaticResource TreeViewItemPadding}" />
+        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="MinHeight" Value="{StaticResource ListRowHeight}" />
+        <Setter Property="Margin" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TreeViewItem">
@@ -67,7 +68,7 @@
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             SnapsToDevicePixels="true">
-                            <DockPanel Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, RelativeSource={RelativeSource TemplatedParent}}" LastChildFill="True">
+                            <DockPanel Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, ConverterParameter={StaticResource TreeViewItemIndent}, RelativeSource={RelativeSource TemplatedParent}}" LastChildFill="True">
                                 <ToggleButton
                                     x:Name="Expander"
                                     ClickMode="Release"
@@ -85,6 +86,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="Bd" Property="IsMouseOver" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource SecondaryRegionBrush}" />
                         </Trigger>
                         <Trigger Property="IsExpanded" Value="false">
                             <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
@@ -93,21 +95,24 @@
                             <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource PrimaryBrush}" />-->
-                            <!--<Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />-->
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </Trigger>
+                        <DataTrigger Binding="{Binding IsSelected}" Value="true">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+                        </DataTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="true" />
                                 <Condition Property="IsSelectionActive" Value="false" />
                             </MultiTrigger.Conditions>
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
 
-                            <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />-->
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value=".4" />

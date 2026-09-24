@@ -42,7 +42,6 @@ Styles\Base\ProgressBarBaseStyle.xaml
 Styles\Base\CheckBoxBaseStyle.xaml
 Styles\Base\RadioButtonBaseStyle.xaml
 Styles\Base\ItemsPanelTemplate.xaml
-Styles\Base\ComboBoxTree.xaml
 # --------------------------------------
 Styles\Button.xaml
 Styles\TextBlock.xaml
@@ -121,6 +120,7 @@ Styles\Base\ToolBarBaseStyle.xaml
 Styles\Base\ToolTipBaseStyle.xaml
 Styles\Base\TransferBaseStyle.xaml
 Styles\Base\TreeViewBaseStyle.xaml
+Styles\Base\ComboBoxTree.xaml
 Styles\Base\WatermarkBaseStyle.xaml
 Styles\Base\AutoCompleteTextBoxBaseStyle.xaml
 Styles\Base\DataGridBaseStyle.xaml

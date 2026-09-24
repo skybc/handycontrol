@@ -329,6 +329,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\BrushDemoCtl.xaml.cs">
       <DependentUpon>BrushDemoCtl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\StandardLightPaletteDemoCtl.xaml.cs">
+      <DependentUpon>StandardLightPaletteDemoCtl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\ButtonDemoCtl.xaml.cs">
       <DependentUpon>ButtonDemoCtl.xaml</DependentUpon>
     </Compile>
@@ -930,6 +933,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControl\Styles\BrushDemoCtl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Styles\StandardLightPaletteDemoCtl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

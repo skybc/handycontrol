@@ -5,6 +5,7 @@
     "group":  false, 
     "demoItemList": [
       [ "Brush", "BrushDemoCtl", "Brush.Brush", "", "" ],
+      [ "StandardLightPalette", "StandardLightPaletteDemoCtl", "Brush.ColorPalette", "1", "" ],
       [ "Button", "ButtonDemoCtl", "Brush.ButtonClick", "", "" ],
       [ "RepeatButton", "RepeatButtonDemoCtl", "Brush.RepeatButton", "", "" ],
       [ "ToggleButton", "ToggleButtonDemoCtl", "Brush.Toggle", "", "" ],

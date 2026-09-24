@@ -44,6 +44,33 @@
     <Color x:Key="AccentColor">#f8491e</Color>
     <Color x:Key="DarkAccentColor">#f8491e</Color>
 
+    <Color x:Key="TitleTextColor">#0F172A</Color>
+    <Color x:Key="NavigationBackgroundColor">#0F172A</Color>
+    <Color x:Key="NavigationForegroundColor">#CBD5E1</Color>
+    <Color x:Key="NavigationSeparatorColor">#334155</Color>
+    <Color x:Key="LightDisabledColor">#F1F5F9</Color>
+    <Color x:Key="DisabledColor">#94A3B8</Color>
+    <Color x:Key="DarkDisabledColor">#64748B</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="DarkPrimaryBrush" Color="{DynamicResource DarkPrimaryColor}" />
+    <SolidColorBrush x:Key="TitleBrush" Color="{DynamicResource TitleColor}" />
+    <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
+    <SolidColorBrush x:Key="DarkDangerBrush" Color="{DynamicResource DarkDangerColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
+    <SolidColorBrush x:Key="DarkWarningBrush" Color="{DynamicResource DarkWarningColor}" />
+    <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
+    <SolidColorBrush x:Key="DarkInfoBrush" Color="{DynamicResource DarkInfoColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
+    <SolidColorBrush x:Key="DarkSuccessBrush" Color="{DynamicResource DarkSuccessColor}" />
+    <SolidColorBrush x:Key="LightDisabledBrush" Color="{DynamicResource LightDisabledColor}" />
+    <SolidColorBrush x:Key="DisabledBrush" Color="{DynamicResource DisabledColor}" />
+    <SolidColorBrush x:Key="DarkDisabledBrush" Color="{DynamicResource DarkDisabledColor}" />
+    <SolidColorBrush x:Key="TitleTextBrush" Color="{DynamicResource TitleTextColor}" />
+    <SolidColorBrush x:Key="NavigationBackgroundBrush" Color="{DynamicResource NavigationBackgroundColor}" />
+    <SolidColorBrush x:Key="NavigationForegroundBrush" Color="{DynamicResource NavigationForegroundColor}" />
+    <SolidColorBrush x:Key="NavigationSeparatorBrush" Color="{DynamicResource NavigationSeparatorColor}" />
+
     <Color x:Key="DarkMaskColor">#20000000</Color>
     <Color x:Key="DarkOpacityColor">#40000000</Color>
     <system:UInt32 x:Key="BlurGradientValue">0x99FFFFFF</system:UInt32>

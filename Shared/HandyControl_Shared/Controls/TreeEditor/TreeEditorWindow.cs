@@ -1,6 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,11 +19,15 @@ public class TreeEditorWindow : System.Windows.Window
 {
     private const string ElementTreeView = "PART_TreeView";
     private const string ElementVariableList = "PART_VariableList";
+    private const string ElementNodeTextBox = "PART_NodeTextBox";
     private const string ElementTitleBar = "PART_TitleBar";
 
     private System.Windows.Controls.TreeView _treeView;
     private ListBox _variableList;
+    private TextBox _nodeTextBox;
     private FrameworkElement _titleBar;
+    private bool _updatingNodeTextBox;
+    private bool _nodeTextChanged;
 
     static TreeEditorWindow()
     {
@@ -69,6 +73,11 @@ public class TreeEditorWindow : System.Windows.Window
         {
             DeleteSelectedNode();
         }));
+
+        CommandBindings.Add(new CommandBinding(ControlCommands.Save, (s, e) =>
+        {
+            ApplySelectedNodeText();
+        }));
     }
 
     public override void OnApplyTemplate()
@@ -85,9 +94,27 @@ public class TreeEditorWindow : System.Windows.Window
             _titleBar.MouseLeftButtonDown -= TitleBar_MouseLeftButtonDown;
         }
 
+        if (_treeView != null)
+        {
+            _treeView.PreviewMouseRightButtonDown -= TreeView_PreviewMouseRightButtonDown;
+            _treeView.SelectedItemChanged -= TreeView_SelectedItemChanged;
+        }
+
+        if (_nodeTextBox != null)
+        {
+            _nodeTextBox.TextChanged -= NodeTextBox_TextChanged;
+        }
+
         _treeView = GetTemplateChild(ElementTreeView) as System.Windows.Controls.TreeView;
         _variableList = GetTemplateChild(ElementVariableList) as ListBox;
+        _nodeTextBox = GetTemplateChild(ElementNodeTextBox) as TextBox;
         _titleBar = GetTemplateChild(ElementTitleBar) as FrameworkElement;
+
+        if (_treeView != null)
+        {
+            _treeView.PreviewMouseRightButtonDown += TreeView_PreviewMouseRightButtonDown;
+            _treeView.SelectedItemChanged += TreeView_SelectedItemChanged;
+        }
 
         if (_variableList != null)
         {
@@ -97,6 +124,12 @@ public class TreeEditorWindow : System.Windows.Window
         if (_titleBar != null)
         {
             _titleBar.MouseLeftButtonDown += TitleBar_MouseLeftButtonDown;
+        }
+
+        if (_nodeTextBox != null)
+        {
+            _nodeTextBox.TextChanged += NodeTextBox_TextChanged;
+            UpdateNodeTextEditor();
         }
     }
 
@@ -123,27 +156,82 @@ public class TreeEditorWindow : System.Windows.Window
         {
             var formattedVariable = $"{{{variable}}}";
             selectedNode.Text += formattedVariable;
+            UpdateNodeTextEditor();
         }
     }
 
     private TreeNode GetSelectedNode()
     {
-        if (_treeView == null) return null;
-        return FindSelectedNode(TreeNodes);
+        return _treeView?.SelectedItem as TreeNode ?? FindSelectedNode(TreeNodes);
     }
 
-    private TreeNode FindSelectedNode(ObservableCollection<TreeNode> nodes)
+    private TreeNode FindSelectedNode(IEnumerable<TreeNode> nodes)
     {
         foreach (var node in nodes)
         {
-            if (node.IsSelected)
-                return node;
-
-            var found = FindSelectedNode(node.Children);
-            if (found != null)
-                return found;
+            if (node.IsSelected) return node;
+            var selectedDescendant = FindSelectedNode(node.Children);
+            if (selectedDescendant != null) return selectedDescendant;
         }
         return null;
+    }
+
+    private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        var oldNode = e.OldValue as TreeNode;
+        if (oldNode != null && oldNode != e.NewValue)
+        {
+            oldNode.IsSelected = false;
+        }
+
+        var selectedNode = e.NewValue as TreeNode;
+        if (selectedNode != null)
+        {
+            selectedNode.IsSelected = true;
+        }
+        UpdateNodeTextEditor();
+    }
+
+    private void TreeView_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        var clickedItem = ItemsControl.ContainerFromElement(_treeView, e.OriginalSource as DependencyObject) as TreeViewItem;
+        var clickedNode = clickedItem?.DataContext as TreeNode;
+        if (clickedNode == null) return;
+
+        clickedItem.IsSelected = true;
+        clickedNode.IsSelected = true;
+        clickedItem.Focus();
+        UpdateNodeTextEditor();
+    }
+
+    private void NodeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (!_updatingNodeTextBox)
+        {
+            _nodeTextChanged = true;
+        }
+    }
+
+    private void UpdateNodeTextEditor()
+    {
+        if (_nodeTextBox == null) return;
+
+        var selectedNode = GetSelectedNode();
+        _updatingNodeTextBox = true;
+        _nodeTextBox.Text = selectedNode?.Text ?? string.Empty;
+        _nodeTextChanged = false;
+        _updatingNodeTextBox = false;
+    }
+
+    private void ApplySelectedNodeText()
+    {
+        if (_nodeTextBox == null || !_nodeTextChanged) return;
+
+        var selectedNode = GetSelectedNode();
+        if (selectedNode == null) return;
+
+        selectedNode.Text = _nodeTextBox.Text;
+        UpdateNodeTextEditor();
     }
 
     private void AddChildNode()
@@ -167,6 +255,7 @@ public class TreeEditorWindow : System.Windows.Window
         // 选中新建的节点
         ClearSelection(TreeNodes);
         newNode.IsSelected = true;
+        UpdateNodeTextEditor();
     }
 
     private void DeleteSelectedNode()
@@ -176,14 +265,15 @@ public class TreeEditorWindow : System.Windows.Window
 
         if (selectedNode.Parent != null)
         {
-            // 删除子节点
             selectedNode.Parent.Children.Remove(selectedNode);
         }
         else
         {
-            // 删除根节点
             TreeNodes.Remove(selectedNode);
         }
+
+        selectedNode.IsSelected = false;
+        UpdateNodeTextEditor();
     }
 
     private void ClearSelection(ObservableCollection<TreeNode> nodes)

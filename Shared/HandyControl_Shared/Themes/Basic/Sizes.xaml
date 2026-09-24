@@ -6,6 +6,13 @@
     <sys:Double x:Key="DefaultControlHeight">28</sys:Double>
     <sys:Double x:Key="MiddleControlHeight">24</sys:Double>
     <sys:Double x:Key="SmallControlHeight">22</sys:Double>
+    <sys:Double x:Key="ListRowHeight">32</sys:Double>
+    <sys:Double x:Key="TreeViewItemIndent">12</sys:Double>
+    <sys:Double x:Key="TreeViewExpanderSize">12</sys:Double>
+    <sys:Double x:Key="TreeViewWarningIconSize">16</sys:Double>
+    <sys:Double x:Key="TreeViewFontSize">14</sys:Double>
+    <sys:Double x:Key="TreeViewAuxiliaryFontSize">12</sys:Double>
+    <Thickness x:Key="TreeViewItemPadding">4,0</Thickness>
     <Thickness x:Key="DefaultControlPadding">10,2</Thickness>
     <Thickness x:Key="DefaultInputPadding">8,0</Thickness>
     <CornerRadius x:Key="DefaultCornerRadius">2</CornerRadius>

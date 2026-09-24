@@ -278,6 +278,9 @@
     <Resource Include="..\..\Shared\HandyControlDemo_Shared\UserControl\Styles\BrushDemoCtl.xaml">
       <Link>UserControl\Styles\BrushDemoCtl.xaml</Link>
     </Resource>
+    <Resource Include="..\..\Shared\HandyControlDemo_Shared\UserControl\Styles\StandardLightPaletteDemoCtl.xaml">
+      <Link>UserControl\Styles\StandardLightPaletteDemoCtl.xaml</Link>
+    </Resource>
     <Resource Include="..\..\Shared\HandyControlDemo_Shared\UserControl\Styles\ButtonDemoCtl.xaml">
       <Link>UserControl\Styles\ButtonDemoCtl.xaml</Link>
     </Resource>
@@ -730,6 +733,10 @@
     <Resource Include="..\..\Shared\HandyControlDemo_Shared\UserControl\Styles\BrushDemoCtl.xaml.cs">
       <Link>UserControl\Styles\BrushDemoCtl.xaml.cs</Link>
       <DependentUpon>BrushDemoCtl.xaml</DependentUpon>
+    </Resource>
+    <Resource Include="..\..\Shared\HandyControlDemo_Shared\UserControl\Styles\StandardLightPaletteDemoCtl.xaml.cs">
+      <Link>UserControl\Styles\StandardLightPaletteDemoCtl.xaml.cs</Link>
+      <DependentUpon>StandardLightPaletteDemoCtl.xaml</DependentUpon>
     </Resource>
     <Resource Include="..\..\Shared\HandyControlDemo_Shared\UserControl\Styles\ButtonDemoCtl.xaml.cs">
       <Link>UserControl\Styles\ButtonDemoCtl.xaml.cs</Link>

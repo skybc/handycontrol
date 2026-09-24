@@ -12,6 +12,8 @@ public class TreeNode : INotifyPropertyChanged
     private string _text;
     private bool _isSelected;
     private bool _isExpanded;
+    private bool _isError;
+    private string _additionalInfo;
 
     public TreeNode()
     {
@@ -45,6 +47,7 @@ public class TreeNode : INotifyPropertyChanged
         get => _isSelected;
         set
         {
+            if (_isSelected == value) return;
             _isSelected = value;
             OnPropertyChanged();
         }
@@ -59,6 +62,34 @@ public class TreeNode : INotifyPropertyChanged
         set
         {
             _isExpanded = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     节点是否存在异常
+    /// </summary>
+    public bool IsError
+    {
+        get => _isError;
+        set
+        {
+            if (_isError == value) return;
+            _isError = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     节点右侧显示的附加信息
+    /// </summary>
+    public string AdditionalInfo
+    {
+        get => _additionalInfo;
+        set
+        {
+            if (_additionalInfo == value) return;
+            _additionalInfo = value;
             OnPropertyChanged();
         }
     }

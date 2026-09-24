@@ -112,6 +112,13 @@
                                                         Fill="{DynamicResource DangerBrush}"
                                                         Stretch="Uniform" />
                                                 </Button>
+                                                <Button
+                                                    Margin="8,0,0,0"
+                                                    Padding="8,0"
+                                                    Command="interactivity:ControlCommands.Save"
+                                                    Content="修改"
+                                                    Style="{StaticResource ButtonDefault}"
+                                                    ToolTip="修改选中节点名称" />
                                             </StackPanel>
                                         </Border>
 
@@ -122,26 +129,71 @@
                                             Padding="8"
                                             Background="Transparent"
                                             BorderThickness="0"
+                                            FontSize="{StaticResource TreeViewFontSize}"
                                             ItemsSource="{TemplateBinding TreeNodes}">
                                             <TreeView.ItemContainerStyle>
-                                                <Style TargetType="TreeViewItem">
+                                                <Style BasedOn="{StaticResource TreeViewItemBaseStyle}" TargetType="TreeViewItem">
                                                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                                                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                                                    <Setter Property="Padding" Value="4,2" />
-                                                    <Setter Property="Margin" Value="0,1" />
                                                 </Style>
                                             </TreeView.ItemContainerStyle>
+                                            <TreeView.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem
+                                                        Command="interactivity:ControlCommands.Add"
+                                                        CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        Header="新增子节点" />
+                                                    <MenuItem
+                                                        Command="interactivity:ControlCommands.Save"
+                                                        CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        Header="修改节点名称" />
+                                                    <MenuItem
+                                                        Command="interactivity:ControlCommands.Delete"
+                                                        CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                        Header="删除选中节点" />
+                                                </ContextMenu>
+                                            </TreeView.ContextMenu>
                                             <TreeView.ItemTemplate>
                                                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                                                    <Grid Margin="2">
-                                                        <TextBox
-                                                            Padding="4,2"
-                                                            Background="Transparent"
-                                                            BorderBrush="{DynamicResource BorderBrush}"
-                                                            BorderThickness="1"
-                                                            FontFamily="Consolas"
-                                                            FontSize="13"
-                                                            Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                    <Grid MinHeight="{StaticResource ListRowHeight}">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="{StaticResource TreeViewFontSize}"
+                                                            Text="{Binding Text}"
+                                                            TextTrimming="CharacterEllipsis">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding IsError}" Value="True">
+                                                                            <Setter Property="Foreground" Value="{DynamicResource DarkDangerBrush}" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            Margin="8,0"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="{StaticResource TreeViewAuxiliaryFontSize}"
+                                                            Foreground="{DynamicResource SecondaryTextBrush}"
+                                                            Text="{Binding AdditionalInfo}"
+                                                            TextTrimming="CharacterEllipsis" />
+                                                        <Path
+                                                            Grid.Column="2"
+                                                            Width="{StaticResource TreeViewWarningIconSize}"
+                                                            Height="{StaticResource TreeViewWarningIconSize}"
+                                                            Margin="4,0,0,0"
+                                                            VerticalAlignment="Center"
+                                                            Data="{StaticResource WarningGeometry}"
+                                                            Fill="{DynamicResource DarkDangerBrush}"
+                                                            Stretch="Uniform"
+                                                            Visibility="{Binding IsError, Converter={StaticResource Boolean2VisibilityConverter}}" />
                                                     </Grid>
                                                 </HierarchicalDataTemplate>
                                             </TreeView.ItemTemplate>
@@ -167,6 +219,8 @@
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
@@ -180,12 +234,39 @@
                                                 FontSize="13"
                                                 FontWeight="Bold"
                                                 Foreground="{DynamicResource PrimaryTextBrush}"
+                                                Text="节点属性" />
+                                        </Border>
+
+                                        <StackPanel Grid.Row="1" Margin="12,8">
+                                            <TextBlock
+                                                Margin="0,0,0,4"
+                                                FontSize="{StaticResource TreeViewAuxiliaryFontSize}"
+                                                Foreground="{DynamicResource SecondaryTextBrush}"
+                                                Text="节点名称" />
+                                            <TextBox
+                                                x:Name="PART_NodeTextBox"
+                                                MinHeight="32"
+                                                Padding="8,4"
+                                                FontSize="{StaticResource TreeViewFontSize}"
+                                                ToolTip="选择一个节点后，在此处编辑名称，再点“修改”应用。" />
+                                        </StackPanel>
+
+                                        <Border
+                                            Grid.Row="2"
+                                            Padding="12,8"
+                                            Background="{DynamicResource SecondaryRegionBrush}"
+                                            BorderBrush="{DynamicResource BorderBrush}"
+                                            BorderThickness="0,1,0,1">
+                                            <TextBlock
+                                                FontSize="13"
+                                                FontWeight="Bold"
+                                                Foreground="{DynamicResource PrimaryTextBrush}"
                                                 Text="可用变量" />
                                         </Border>
 
                                         <ListBox
                                             x:Name="PART_VariableList"
-                                            Grid.Row="1"
+                                            Grid.Row="3"
                                             Padding="8"
                                             Background="Transparent"
                                             BorderThickness="0"

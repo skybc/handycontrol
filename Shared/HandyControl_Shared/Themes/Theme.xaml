@@ -101,6 +101,13 @@
   <system:Double x:Key="DefaultControlHeight">28</system:Double>
   <system:Double x:Key="MiddleControlHeight">24</system:Double>
   <system:Double x:Key="SmallControlHeight">22</system:Double>
+  <system:Double x:Key="ListRowHeight">32</system:Double>
+  <system:Double x:Key="TreeViewItemIndent">12</system:Double>
+  <system:Double x:Key="TreeViewExpanderSize">12</system:Double>
+  <system:Double x:Key="TreeViewWarningIconSize">16</system:Double>
+  <system:Double x:Key="TreeViewFontSize">14</system:Double>
+  <system:Double x:Key="TreeViewAuxiliaryFontSize">12</system:Double>
+  <Thickness x:Key="TreeViewItemPadding" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">4,0</Thickness>
   <Thickness x:Key="DefaultControlPadding" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">10,2</Thickness>
   <Thickness x:Key="DefaultInputPadding" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">8,0</Thickness>
   <CornerRadius x:Key="DefaultCornerRadius" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">2</CornerRadius>
@@ -613,32 +620,6 @@
   <ItemsPanelTemplate x:Key="DockItemsPanelTemplate" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <DockPanel FocusVisualStyle="{x:Null}" LastChildFill="True" />
   </ItemsPanelTemplate>
-  <Style x:Key="ComboBoxTreeUpDownButtonStyle" TargetType="ToggleButton" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Setter Property="Background" Value="#50000000" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="ToggleButton">
-          <Border Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="0.5">
-            <Grid>
-              <Path Fill="White">
-                <Path.Data>
-                  <PathGeometry Figures="M 5 5 L 15 5 L 10 14" />
-                </Path.Data>
-              </Path>
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="#20000000" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="#80000000" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
   <LinearGradientBrush x:Key="ResizeGripperForeground" StartPoint="0,0.25" EndPoint="1,0.75" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <GradientStop Offset="0.3" Color="#FFFFFF" />
     <GradientStop Offset="0.75" Color="#BBC5D7" />
@@ -3167,32 +3148,6 @@
         <Setter Property="Background" Value="{DynamicResource BorderBrush}" />
       </Trigger>
     </Style.Triggers>
-  </Style>
-  <Style TargetType="hc:ComboBoxTree" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Setter Property="Height" Value="20" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="hc:ComboBoxTree">
-          <Grid x:Name="ParentPanel" Height="{TemplateBinding Height}" ClipToBounds="False">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="20" />
-            </Grid.ColumnDefinitions>
-            <Popup Grid.Column="2" Width="{TemplateBinding Width}" MinHeight="50" IsOpen="{Binding IsChecked, ElementName=PopuButton}" Placement="Bottom" StaysOpen="False">
-              <TreeView Name="ActualTreeView" ItemTemplate="{TemplateBinding ItemTemplate}" ItemsSource="{TemplateBinding ItemsSource}" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <TreeView.Resources>
-                  <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="True" />
-                  </Style>
-                </TreeView.Resources>
-              </TreeView>
-            </Popup>
-            <TextBox IsReadOnly="True" Text="{TemplateBinding Text}" />
-            <ToggleButton x:Name="PopuButton" Grid.Column="1" Style="{DynamicResource ComboBoxTreeUpDownButtonStyle}" />
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
   </Style>
   <Style x:Key="ButtonDefault" BasedOn="{StaticResource ButtonBaseStyle}" TargetType="Button" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
@@ -11844,12 +11799,12 @@
   </Style>
   <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="Focusable" Value="False" />
-    <Setter Property="Width" Value="16" />
-    <Setter Property="Height" Value="16" />
+    <Setter Property="Width" Value="{StaticResource TreeViewExpanderSize}" />
+    <Setter Property="Height" Value="{StaticResource TreeViewExpanderSize}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">
-          <Border Width="16" Height="16" Padding="4" Background="Transparent">
+          <Border Width="{StaticResource TreeViewExpanderSize}" Height="{StaticResource TreeViewExpanderSize}" Background="Transparent">
             <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TreeViewItem}}" RenderTransformOrigin="0.5,0.5" Stretch="Uniform">
               <Path.RenderTransform>
                 <RotateTransform Angle="-90" />
@@ -11871,11 +11826,13 @@
   </Style>
   <Style x:Key="TreeViewItemBaseStyle" BasedOn="{StaticResource BaseStyle}" TargetType="TreeViewItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualRadius0Margin0}" />
+    <Setter Property="FontSize" Value="{StaticResource TreeViewFontSize}" />
     <Setter Property="Background" Value="Transparent" />
-    <Setter Property="Padding" Value="10,0" />
-    <Setter Property="BorderThickness" Value="2" />
-    <Setter Property="MinHeight" Value="{StaticResource MiddleControlHeight}" />
-    <Setter Property="Margin" Value="0,0,0,2" />
+    <Setter Property="Padding" Value="{StaticResource TreeViewItemPadding}" />
+    <Setter Property="BorderThickness" Value="3,0,0,0" />
+    <Setter Property="BorderBrush" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="MinHeight" Value="{StaticResource ListRowHeight}" />
+    <Setter Property="Margin" Value="0" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="TreeViewItem">
@@ -11885,7 +11842,7 @@
               <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="true">
-              <DockPanel Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, RelativeSource={RelativeSource TemplatedParent}}" LastChildFill="True">
+              <DockPanel Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, ConverterParameter={StaticResource TreeViewItemIndent}, RelativeSource={RelativeSource TemplatedParent}}" LastChildFill="True">
                 <ToggleButton x:Name="Expander" ClickMode="Release" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}" />
                 <ContentPresenter x:Name="PART_Header" VerticalAlignment="Center" ContentSource="Header" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
               </DockPanel>
@@ -11895,6 +11852,7 @@
           <ControlTemplate.Triggers>
             <Trigger SourceName="Bd" Property="IsMouseOver" Value="true">
               <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+              <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource SecondaryRegionBrush}" />
             </Trigger>
             <Trigger Property="IsExpanded" Value="false">
               <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
@@ -11903,20 +11861,23 @@
               <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
             </Trigger>
             <Trigger Property="IsSelected" Value="true">
-              <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource PrimaryBrush}" />-->
-              <!--<Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />-->
+              <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-              <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+              <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </Trigger>
+            <DataTrigger Binding="{Binding IsSelected}" Value="true">
+              <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+              <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+              <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+            </DataTrigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsSelected" Value="true" />
                 <Condition Property="IsSelectionActive" Value="false" />
               </MultiTrigger.Conditions>
+              <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-              <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-              <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />-->
+              <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".4" />
@@ -11974,6 +11935,33 @@
         </Setter>
       </Trigger>
     </Style.Triggers>
+  </Style>
+  <Style x:Key="ComboBoxTreeUpDownButtonStyle" TargetType="ToggleButton" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0.5">
+            <Grid>
+              <Path Fill="{TemplateBinding Foreground}">
+                <Path.Data>
+                  <PathGeometry Figures="M 5 5 L 15 5 L 10 14" />
+                </Path.Data>
+              </Path>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
   <Style x:Key="WatermarkBaseStyle" TargetType="hc:Watermark" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="MarkBrush" Value="{DynamicResource DarkMaskBrush}" />
@@ -14446,22 +14434,45 @@
                         <Button Width="32" Height="32" Command="interactivity:ControlCommands.Delete" Style="{StaticResource ButtonIcon}" ToolTip="删除选中节点">
                           <Path Width="16" Height="16" Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" />
                         </Button>
+                        <Button Margin="8,0,0,0" Padding="8,0" Command="interactivity:ControlCommands.Save" Content="修改" Style="{StaticResource ButtonDefault}" ToolTip="修改选中节点名称" />
                       </StackPanel>
                     </Border>
                     <!--  树形视图  -->
-                    <TreeView x:Name="PART_TreeView" Grid.Row="1" Padding="8" Background="Transparent" BorderThickness="0" ItemsSource="{TemplateBinding TreeNodes}">
+                    <TreeView x:Name="PART_TreeView" Grid.Row="1" Padding="8" Background="Transparent" BorderThickness="0" FontSize="{StaticResource TreeViewFontSize}" ItemsSource="{TemplateBinding TreeNodes}">
                       <TreeView.ItemContainerStyle>
-                        <Style TargetType="TreeViewItem">
+                        <Style BasedOn="{StaticResource TreeViewItemBaseStyle}" TargetType="TreeViewItem">
                           <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                           <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                          <Setter Property="Padding" Value="4,2" />
-                          <Setter Property="Margin" Value="0,1" />
                         </Style>
                       </TreeView.ItemContainerStyle>
+                      <TreeView.ContextMenu>
+                        <ContextMenu>
+                          <MenuItem Command="interactivity:ControlCommands.Add" CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" Header="新增子节点" />
+                          <MenuItem Command="interactivity:ControlCommands.Save" CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" Header="修改节点名称" />
+                          <MenuItem Command="interactivity:ControlCommands.Delete" CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" Header="删除选中节点" />
+                        </ContextMenu>
+                      </TreeView.ContextMenu>
                       <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                          <Grid Margin="2">
-                            <TextBox Padding="4,2" Background="Transparent" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" FontFamily="Consolas" FontSize="13" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                          <Grid MinHeight="{StaticResource ListRowHeight}">
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="*" />
+                              <ColumnDefinition Width="Auto" />
+                              <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock VerticalAlignment="Center" FontSize="{StaticResource TreeViewFontSize}" Text="{Binding Text}" TextTrimming="CharacterEllipsis">
+                              <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                  <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsError}" Value="True">
+                                      <Setter Property="Foreground" Value="{DynamicResource DarkDangerBrush}" />
+                                    </DataTrigger>
+                                  </Style.Triggers>
+                                </Style>
+                              </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" Margin="8,0" VerticalAlignment="Center" FontSize="{StaticResource TreeViewAuxiliaryFontSize}" Foreground="{DynamicResource SecondaryTextBrush}" Text="{Binding AdditionalInfo}" TextTrimming="CharacterEllipsis" />
+                            <Path Grid.Column="2" Width="{StaticResource TreeViewWarningIconSize}" Height="{StaticResource TreeViewWarningIconSize}" Margin="4,0,0,0" VerticalAlignment="Center" Data="{StaticResource WarningGeometry}" Fill="{DynamicResource DarkDangerBrush}" Stretch="Uniform" Visibility="{Binding IsError, Converter={StaticResource Boolean2VisibilityConverter}}" />
                           </Grid>
                         </HierarchicalDataTemplate>
                       </TreeView.ItemTemplate>
@@ -14475,12 +14486,21 @@
                   <Grid>
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto" />
+                      <RowDefinition Height="Auto" />
+                      <RowDefinition Height="Auto" />
                       <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Padding="12,8" Background="{DynamicResource SecondaryRegionBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+                      <TextBlock FontSize="13" FontWeight="Bold" Foreground="{DynamicResource PrimaryTextBrush}" Text="节点属性" />
+                    </Border>
+                    <StackPanel Grid.Row="1" Margin="12,8">
+                      <TextBlock Margin="0,0,0,4" FontSize="{StaticResource TreeViewAuxiliaryFontSize}" Foreground="{DynamicResource SecondaryTextBrush}" Text="节点名称" />
+                      <TextBox x:Name="PART_NodeTextBox" MinHeight="32" Padding="8,4" FontSize="{StaticResource TreeViewFontSize}" ToolTip="选择一个节点后，在此处编辑名称，再点“修改”应用。" />
+                    </StackPanel>
+                    <Border Grid.Row="2" Padding="12,8" Background="{DynamicResource SecondaryRegionBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,1">
                       <TextBlock FontSize="13" FontWeight="Bold" Foreground="{DynamicResource PrimaryTextBrush}" Text="可用变量" />
                     </Border>
-                    <ListBox x:Name="PART_VariableList" Grid.Row="1" Padding="8" Background="Transparent" BorderThickness="0" ItemsSource="{TemplateBinding Variables}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox x:Name="PART_VariableList" Grid.Row="3" Padding="8" Background="Transparent" BorderThickness="0" ItemsSource="{TemplateBinding Variables}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                       <ListBox.ItemTemplate>
                         <DataTemplate>
                           <Border Margin="0,2" Padding="8,6" Background="{DynamicResource SecondaryRegionBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="4" Cursor="Hand">
@@ -14556,8 +14576,8 @@
   <Style BasedOn="{StaticResource TreeViewItemBaseStyle}" TargetType="TreeViewItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource TreeViewBaseStyle}" TargetType="TreeView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="TreeViewItemBaseStyle.Small" BasedOn="{StaticResource TreeViewItemBaseStyle}" TargetType="TreeViewItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Setter Property="Padding" Value="6,0" />
-    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Padding" Value="{StaticResource TreeViewItemPadding}" />
+    <Setter Property="MinHeight" Value="{StaticResource ListRowHeight}" />
   </Style>
   <Style x:Key="TreeView.Small" BasedOn="{StaticResource TreeViewBaseStyle}" TargetType="TreeView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="ItemContainerStyle" Value="{StaticResource TreeViewItemBaseStyle.Small}" />
@@ -15062,4 +15082,30 @@
   </Style>
   <Style BasedOn="{StaticResource RangeSliderBaseStyle}" TargetType="hc:RangeSlider" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource SliderBaseStyle}" TargetType="Slider" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+  <Style TargetType="hc:ComboBoxTree" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="hc:ComboBoxTree">
+          <Grid x:Name="ParentPanel" Height="{TemplateBinding Height}" ClipToBounds="False">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="{StaticResource DefaultControlHeight}" />
+            </Grid.ColumnDefinitions>
+            <Popup Grid.Column="2" Width="{TemplateBinding Width}" MinHeight="50" IsOpen="{Binding IsChecked, ElementName=PopuButton}" Placement="Bottom" StaysOpen="False">
+              <TreeView Name="ActualTreeView" ItemTemplate="{TemplateBinding ItemTemplate}" ItemsSource="{TemplateBinding ItemsSource}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <TreeView.Resources>
+                  <Style BasedOn="{StaticResource TreeViewItemBaseStyle}" TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True" />
+                  </Style>
+                </TreeView.Resources>
+              </TreeView>
+            </Popup>
+            <TextBox IsReadOnly="True" Text="{TemplateBinding Text}" />
+            <ToggleButton x:Name="PopuButton" Grid.Column="1" Style="{DynamicResource ComboBoxTreeUpDownButtonStyle}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

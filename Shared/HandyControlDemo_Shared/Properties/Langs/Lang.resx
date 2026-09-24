@@ -378,6 +378,9 @@
   <data name="Brush" xml:space="preserve">
     <value>画刷</value>
   </data>
+  <data name="StandardLightPalette" xml:space="preserve">
+    <value>StandardLight 调色板</value>
+  </data>
   <data name="PreviewSlider" xml:space="preserve">
     <value>预览滑块</value>
   </data>

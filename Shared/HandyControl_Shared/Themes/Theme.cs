@@ -17,8 +17,8 @@ public class Theme : ResourceDictionary
     {
         if (DesignerHelper.IsInDesignMode)
         {
-            MergedDictionaries.Add(ResourceHelper.GetSkin(SkinType.Default));
             MergedDictionaries.Add(ResourceHelper.GetTheme());
+            MergedDictionaries.Add(ResourceHelper.GetSkin(SkinType.Default));
         }
         else
         {
@@ -217,8 +217,6 @@ public class Theme : ResourceDictionary
 
     public virtual ResourceDictionary GetTheme() => ResourceHelper.GetTheme();
 
-    protected virtual ResourceDictionary GetSkinOverride(SkinType skinType) => ResourceHelper.GetSkinOverride(skinType);
-
     private void InitResource()
     {
         if (DesignerHelper.IsInDesignMode)
@@ -227,9 +225,8 @@ public class Theme : ResourceDictionary
         }
 
         MergedDictionaries.Clear();
-        MergedDictionaries.Add(GetSkin(Skin));
         MergedDictionaries.Add(GetTheme());
-        AddSkinOverride(Skin);
+        MergedDictionaries.Add(GetSkin(Skin));
     }
 
     private void UpdateAccentColor(Color color)
@@ -242,23 +239,7 @@ public class Theme : ResourceDictionary
 
     private void UpdateSkin()
     {
-        MergedDictionaries[0] = GetSkin(Skin);
-
-        if (MergedDictionaries.Count > 2)
-        {
-            MergedDictionaries.RemoveAt(2);
-        }
-
-        AddSkinOverride(Skin);
-    }
-
-    private void AddSkinOverride(SkinType skinType)
-    {
-        var overrideDictionary = GetSkinOverride(skinType);
-        if (overrideDictionary != null)
-        {
-            MergedDictionaries.Add(overrideDictionary);
-        }
+        MergedDictionaries[1] = GetSkin(Skin);
     }
 }
 

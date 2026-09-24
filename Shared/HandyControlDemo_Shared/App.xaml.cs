@@ -93,25 +93,21 @@ public partial class App
 
     internal void UpdateSkin(SkinType skin)
     {
-        var skins0 = Resources.MergedDictionaries[0];
-        skins0.MergedDictionaries.Clear();
-        skins0.MergedDictionaries.Add(ResourceHelper.GetSkin(skin));
-        skins0.MergedDictionaries.Add(ResourceHelper.GetSkin(typeof(App).Assembly, "Resources/Themes", skin));
-
-        var skins1 = Resources.MergedDictionaries[1];
-        skins1.MergedDictionaries.Clear();
-        skins1.MergedDictionaries.Add(new ResourceDictionary
+        var themes = Resources.MergedDictionaries[0];
+        themes.MergedDictionaries.Clear();
+        themes.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
         });
-        skins1.MergedDictionaries.Add(new ResourceDictionary
+        themes.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/HandyControlDemo;component/Resources/Themes/Theme.xaml")
         });
-        if (skin is SkinType.Default or SkinType.StandardLight)
-        {
-            skins1.MergedDictionaries.Add(ResourceHelper.GetSkinOverride(skin));
-        }
+
+        var skins = Resources.MergedDictionaries[1];
+        skins.MergedDictionaries.Clear();
+        skins.MergedDictionaries.Add(ResourceHelper.GetSkin(skin));
+        skins.MergedDictionaries.Add(ResourceHelper.GetSkin(typeof(App).Assembly, "Resources/Themes", skin));
 
         Current.MainWindow?.OnApplyTemplate();
     }

@@ -501,7 +501,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Themes\SkinStandardLightOverrides.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Themes\SkinStandardLightStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

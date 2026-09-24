@@ -232,6 +232,7 @@ public class LangProvider : INotifyPropertyChanged
         OnPropertyChanged(nameof(Slider));
         OnPropertyChanged(nameof(SplitButton));
         OnPropertyChanged(nameof(Sprite));
+        OnPropertyChanged(nameof(StandardLightPalette));
         OnPropertyChanged(nameof(StartScreenshot));
         OnPropertyChanged(nameof(StaysOpen));
         OnPropertyChanged(nameof(Step));
@@ -1223,6 +1224,8 @@ public class LangProvider : INotifyPropertyChanged
     ///   查找类似 精灵 的本地化字符串。
     /// </summary>
 	public string Sprite => Lang.Sprite;
+
+    public string StandardLightPalette => Lang.ResourceManager.GetString(nameof(StandardLightPalette), Culture) ?? nameof(StandardLightPalette);
 
     /// <summary>
     ///   查找类似 开始截图 的本地化字符串。

@@ -4,7 +4,7 @@
     xmlns:hc="clr-namespace:HandyControl.Controls">
 
     <Style TargetType="hc:ComboBoxTree">
-        <Setter Property="Height" Value="20" />
+        <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:ComboBoxTree">
@@ -14,7 +14,7 @@
                         ClipToBounds="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="{StaticResource DefaultControlHeight}" />
                         </Grid.ColumnDefinitions>
 
                         <Popup
@@ -30,7 +30,7 @@
                                 ItemsSource="{TemplateBinding ItemsSource}"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                                 <TreeView.Resources>
-                                    <Style TargetType="{x:Type TreeViewItem}">
+                                    <Style BasedOn="{StaticResource TreeViewItemBaseStyle}" TargetType="{x:Type TreeViewItem}">
                                         <Setter Property="IsExpanded" Value="True" />
                                     </Style>
                                 </TreeView.Resources>
@@ -48,16 +48,17 @@
     </Style>
 
     <Style x:Key="ComboBoxTreeUpDownButtonStyle" TargetType="ToggleButton">
-        <Setter Property="Background" Value="#50000000" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border
                         Background="{TemplateBinding Background}"
-                        BorderBrush="Gray"
+                        BorderBrush="{DynamicResource BorderBrush}"
                         BorderThickness="0.5">
                         <Grid>
-                            <Path Fill="White">
+                            <Path Fill="{TemplateBinding Foreground}">
                                 <Path.Data>
                                     <PathGeometry Figures="M 5 5 L 15 5 L 10 14" />
                                 </Path.Data>
@@ -66,11 +67,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#20000000" />
+                            <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#80000000" />
+                            <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

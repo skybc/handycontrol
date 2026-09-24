@@ -20,18 +20,6 @@
         The base theme intentionally uses gradients. StandardLight keeps semantic
         resource keys but makes every action and feedback brush a solid color.
     -->
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
-    <SolidColorBrush x:Key="DarkPrimaryBrush" Color="{DynamicResource DarkPrimaryColor}" />
-    <SolidColorBrush x:Key="TitleBrush" Color="{DynamicResource TitleColor}" />
-    <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
-    <SolidColorBrush x:Key="DarkDangerBrush" Color="{DynamicResource DarkDangerColor}" />
-    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
-    <SolidColorBrush x:Key="DarkWarningBrush" Color="{DynamicResource DarkWarningColor}" />
-    <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
-    <SolidColorBrush x:Key="DarkInfoBrush" Color="{DynamicResource DarkInfoColor}" />
-    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
-    <SolidColorBrush x:Key="DarkSuccessBrush" Color="{DynamicResource DarkSuccessColor}" />
-
     <Style
         x:Key="ButtonDefault"
         BasedOn="{StaticResource ButtonBaseStyle}"
@@ -43,16 +31,16 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#F2F5FA" />
-                <Setter Property="BorderBrush" Value="#A9C9FF" />
+                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBorderBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#E6F0FF" />
+                <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="#F5F6F8" />
-                <Setter Property="Foreground" Value="#A8ADB5" />
+                <Setter Property="Background" Value="{DynamicResource LightDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource DisabledBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -71,12 +59,12 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource DarkPrimaryBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#003EB3" />
-                <Setter Property="BorderBrush" Value="#003EB3" />
+                <Setter Property="Background" Value="{DynamicResource DarkPrimaryBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DarkPrimaryBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="#B7D1FF" />
-                <Setter Property="BorderBrush" Value="#B7D1FF" />
+                <Setter Property="Background" Value="{DynamicResource DisabledBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DisabledBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -116,7 +104,7 @@
         <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource StandardLightPanelCornerRadius}" />
     </Style>
     <Style BasedOn="{StaticResource DataGridBaseStyle}" TargetType="DataGrid">
-        <Setter Property="RowHeight" Value="32" />
+        <Setter Property="RowHeight" Value="{DynamicResource ListRowHeight}" />
         <Setter Property="ColumnHeaderHeight" Value="32" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="FontSize" Value="14" />
@@ -126,7 +114,7 @@
         <Setter Property="FontSize" Value="14" />
     </Style>
     <Style BasedOn="{StaticResource TreeViewBaseStyle}" TargetType="TreeView">
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="{DynamicResource TreeViewFontSize}" />
     </Style>
     <Style BasedOn="{StaticResource MenuBaseStyle}" TargetType="Menu">
         <Setter Property="FontSize" Value="14" />
