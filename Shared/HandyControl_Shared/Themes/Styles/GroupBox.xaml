@@ -31,4 +31,14 @@
         <Setter Property="hc:TitleElement.MinWidth" Value="{DynamicResource SmallControlHeight}" />
     </Style>
 
+    <Style x:Key="GroupBoxCard" BasedOn="{StaticResource GroupBoxCardBaseStyle}" TargetType="GroupBox" />
+
+    <Style x:Key="GroupBoxCard.Hover" BasedOn="{StaticResource GroupBoxCardBaseStyle}" TargetType="GroupBox">
+        <Setter Property="Template" Value="{StaticResource GroupBoxCardHoverTemplate}" />
+    </Style>
+
+    <Style x:Key="GroupBoxCard.NoShadow" BasedOn="{StaticResource GroupBoxCardBaseStyle}" TargetType="GroupBox">
+        <Setter Property="Template" Value="{StaticResource GroupBoxCardNoShadowTemplate}" />
+    </Style>
+
 </ResourceDictionary>

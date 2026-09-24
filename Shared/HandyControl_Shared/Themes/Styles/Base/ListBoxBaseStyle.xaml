@@ -14,7 +14,7 @@
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Margin" Value="0,0,0,2" />
@@ -39,18 +39,22 @@
                             <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <!--<Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />-->
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                            <!--<Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />-->
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="true" />
                                 <Condition Property="Selector.IsSelectionActive" Value="false" />
                             </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" Value=".4" />

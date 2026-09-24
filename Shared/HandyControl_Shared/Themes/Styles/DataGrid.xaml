@@ -4,7 +4,7 @@
     xmlns:hc="clr-namespace:HandyControl.Controls">
 
     <Style x:Key="DataGridBaseStyle" TargetType="DataGrid">
-        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+        <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="GridLinesVisibility" Value="None" />

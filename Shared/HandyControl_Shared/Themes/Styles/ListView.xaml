@@ -5,7 +5,7 @@
     <Style x:Key="ListViewBaseStyle"
            TargetType="ListView">
         <Setter Property="Background"
-                Value="{DynamicResource SecondaryRegionBrush}" />
+                Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush"
                 Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness"

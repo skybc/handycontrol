@@ -9,6 +9,54 @@
         <hc:ScrollViewer IsInertiaEnabled="True">
             <hc:UniformSpacingPanel ChildWrapping="Wrap" Spacing="32" Margin="32">
                 <hc:UniformSpacingPanel Orientation="Vertical" Spacing="32">
+                    <Border
+                        Padding="16"
+                        Background="{DynamicResource RegionBrush}"
+                        BorderBrush="{DynamicResource SecondaryBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="18"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource PrimaryTextBrush}"
+                                Text="StandardLight 按钮样式" />
+                            <TextBlock
+                                Margin="0,0,0,12"
+                                Foreground="{DynamicResource SecondaryTextBrush}"
+                                Text="默认 32px，Large 为 40px。Tab 键可查看焦点描边；悬停禁用按钮可查看提示。此区域用于 StandardLight 皮肤。" />
+                            <TextBlock Margin="0,0,0,6" FontWeight="SemiBold" Text="32px 默认尺寸" />
+                            <hc:UniformSpacingPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="取消" Style="{DynamicResource ButtonDefault}" />
+                                <Button Content="保存" Style="{DynamicResource ButtonPrimary}" />
+                                <Button Content="查看" Style="{DynamicResource ButtonText}" />
+                                <Button
+                                    ToolTip="刷新数据"
+                                    Style="{DynamicResource ButtonIcon}"
+                                    hc:IconElement.Geometry="{StaticResource RotateRightGeometry}" />
+                            </hc:UniformSpacingPanel>
+                            <TextBlock Margin="0,12,0,6" FontWeight="SemiBold" Text="40px Large 样式" />
+                            <hc:UniformSpacingPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="取消" Style="{DynamicResource ButtonDefault.Large}" />
+                                <Button Content="保存" Style="{DynamicResource ButtonPrimary.Large}" />
+                                <Button Content="查看" Style="{DynamicResource ButtonText.Large}" />
+                                <Button
+                                    ToolTip="刷新数据"
+                                    Style="{DynamicResource ButtonIcon.Large}"
+                                    hc:IconElement.Geometry="{StaticResource RotateRightGeometry}" />
+                            </hc:UniformSpacingPanel>
+                            <TextBlock Margin="0,12,0,6" FontWeight="SemiBold" Text="危险操作（与主按钮分开）" />
+                            <hc:UniformSpacingPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="删除" Style="{DynamicResource ButtonDanger}" />
+                                <Button
+                                    Content="删除（禁用）"
+                                    IsEnabled="False"
+                                    ToolTip="请先选择要删除的项目"
+                                    Style="{DynamicResource ButtonDanger.Large}" />
+                            </hc:UniformSpacingPanel>
+                        </StackPanel>
+                    </Border>
                     <WrapPanel>
                         <StackPanel>
                             <Button Content="{ex:Lang Key={x:Static langs:LangKeys.Default}}" Margin="5"/>

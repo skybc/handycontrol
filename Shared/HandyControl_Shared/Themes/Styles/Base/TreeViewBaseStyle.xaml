@@ -97,11 +97,13 @@
                         <Trigger Property="IsSelected" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </Trigger>
                         <DataTrigger Binding="{Binding IsSelected}" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </DataTrigger>
                         <MultiTrigger>
@@ -111,6 +113,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
 
                         </MultiTrigger>

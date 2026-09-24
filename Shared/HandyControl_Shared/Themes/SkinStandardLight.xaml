@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Basic/Colors/ColorsStandardLight.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinStandardLightStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinStandardLightButtonColors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

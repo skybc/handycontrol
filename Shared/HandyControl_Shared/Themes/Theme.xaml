@@ -573,6 +573,22 @@
       </Border>
     </Grid>
   </ControlTemplate>
+  <ControlTemplate x:Key="GroupBoxCardNoShadowTemplate" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid>
+      <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Border x:Name="HeaderBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,1" Visibility="{Binding Header,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Object2VisibilityConverter}}">
+            <ContentPresenter ContentSource="Header" Margin="{Binding Path=(hc:TitleElement.Padding),RelativeSource={RelativeSource TemplatedParent}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" TextElement.Foreground="{TemplateBinding Foreground}" />
+          </Border>
+          <ContentPresenter Grid.Row="1" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Grid>
+      </Border>
+    </Grid>
+  </ControlTemplate>
   <ItemsPanelTemplate x:Key="ButtonGroupHorizontalUniformItemsPanelTemplate" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <UniformGrid FocusVisualStyle="{x:Null}" Rows="1" />
   </ItemsPanelTemplate>
@@ -2507,6 +2523,57 @@
       </Trigger>
     </Style.Triggers>
   </Style>
+  <ControlTemplate x:Key="GroupBoxCardAlwaysTemplate" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid>
+      <Border x:Name="ShadowBorder" Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Effect="{StaticResource EffectShadow2}" Opacity="1" />
+      <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Border x:Name="HeaderBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,1" Visibility="{Binding Header,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Object2VisibilityConverter}}">
+            <ContentPresenter ContentSource="Header" Margin="{Binding Path=(hc:TitleElement.Padding),RelativeSource={RelativeSource TemplatedParent}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" TextElement.Foreground="{TemplateBinding Foreground}" />
+          </Border>
+          <ContentPresenter Grid.Row="1" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Grid>
+      </Border>
+    </Grid>
+  </ControlTemplate>
+  <ControlTemplate x:Key="GroupBoxCardHoverTemplate" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid>
+      <Border x:Name="ShadowBorder" Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Effect="{StaticResource EffectShadow2}" Opacity="0" />
+      <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Border x:Name="HeaderBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,1" Visibility="{Binding Header,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Object2VisibilityConverter}}">
+            <ContentPresenter ContentSource="Header" Margin="{Binding Path=(hc:TitleElement.Padding),RelativeSource={RelativeSource TemplatedParent}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" TextElement.Foreground="{TemplateBinding Foreground}" />
+          </Border>
+          <ContentPresenter Grid.Row="1" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </Grid>
+      </Border>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter TargetName="ShadowBorder" Property="Opacity" Value="1" />
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+  <Style x:Key="GroupBoxCardBaseStyle" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+    <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
+    <Setter Property="hc:TitleElement.Padding" Value="20,18" />
+    <Setter Property="Padding" Value="20" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="Template" Value="{StaticResource GroupBoxCardAlwaysTemplate}" />
+  </Style>
   <Style x:Key="ButtonGroupBaseStyle" TargetType="hc:ButtonGroup" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="ItemContainerStyleSelector" Value="{StaticResource ButtonGroupItemStyleSelector}" />
     <Setter Property="VerticalAlignment" Value="Top" />
@@ -4398,6 +4465,13 @@
   <Style x:Key="GroupBoxTab.Small" BasedOn="{StaticResource GroupBoxTab}" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="hc:TitleElement.MinHeight" Value="{DynamicResource SmallControlHeight}" />
     <Setter Property="hc:TitleElement.MinWidth" Value="{DynamicResource SmallControlHeight}" />
+  </Style>
+  <Style x:Key="GroupBoxCard" BasedOn="{StaticResource GroupBoxCardBaseStyle}" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+  <Style x:Key="GroupBoxCard.Hover" BasedOn="{StaticResource GroupBoxCardBaseStyle}" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Template" Value="{StaticResource GroupBoxCardHoverTemplate}" />
+  </Style>
+  <Style x:Key="GroupBoxCard.NoShadow" BasedOn="{StaticResource GroupBoxCardBaseStyle}" TargetType="GroupBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Template" Value="{StaticResource GroupBoxCardNoShadowTemplate}" />
   </Style>
   <Style BasedOn="{StaticResource ButtonGroupBaseStyle}" TargetType="hc:ButtonGroup" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="ButtonGroupSolid" BasedOn="{StaticResource ButtonGroupBaseStyle}" TargetType="hc:ButtonGroup" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
@@ -9423,7 +9497,7 @@
     <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
     <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="Background" Value="White" />
+    <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="2" />
     <Setter Property="Margin" Value="0,0,0,2" />
@@ -9438,18 +9512,22 @@
               <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="true">
+              <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-              <!--<Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />-->
-              <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-              <!--<Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />-->
+              <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+              <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+              <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsSelected" Value="true" />
                 <Condition Property="Selector.IsSelectionActive" Value="false" />
               </MultiTrigger.Conditions>
+              <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-              <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+              <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+              <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+              <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".4" />
@@ -9575,7 +9653,8 @@
     </Setter>
   </Style>
   <Style x:Key="ListViewItemBaseStyle" TargetType="ListViewItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
     <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -9585,7 +9664,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ListViewItem">
-          <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" SnapsToDevicePixels="true">
+          <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0" SnapsToDevicePixels="true">
             <GridViewRowPresenter Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}" />
           </Border>
         </ControlTemplate>
@@ -9593,25 +9672,29 @@
     </Setter>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
-        <Setter Property="Background" Value="{DynamicResource DarkDefaultBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
       </Trigger>
       <Trigger Property="IsSelected" Value="True">
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-        <Setter Property="TextElement.Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsSelected" Value="true" />
           <Condition Property="Selector.IsSelectionActive" Value="false" />
         </MultiTrigger.Conditions>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </MultiTrigger>
       <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
         <Setter Property="Template">
           <Setter.Value>
             <ControlTemplate TargetType="ListViewItem">
-              <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" SnapsToDevicePixels="true">
+              <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0" SnapsToDevicePixels="true">
                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
               </Border>
             </ControlTemplate>
@@ -11863,11 +11946,13 @@
             <Trigger Property="IsSelected" Value="true">
               <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+              <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
               <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </Trigger>
             <DataTrigger Binding="{Binding IsSelected}" Value="true">
               <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+              <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
               <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </DataTrigger>
             <MultiTrigger>
@@ -11877,6 +11962,7 @@
               </MultiTrigger.Conditions>
               <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
               <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+              <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
               <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
@@ -12122,8 +12208,8 @@
           <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true" />
           <Condition Binding="{Binding SelectionUnit, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}" Value="Cell" />
         </MultiDataTrigger.Conditions>
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
       </MultiDataTrigger>
       <MultiDataTrigger>
         <MultiDataTrigger.Conditions>
@@ -12131,8 +12217,8 @@
           <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="False" />
           <Condition Binding="{Binding SelectionUnit, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}" Value="CellOrRowHeader" />
         </MultiDataTrigger.Conditions>
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
       </MultiDataTrigger>
       <MultiDataTrigger>
         <MultiDataTrigger.Conditions>
@@ -12140,28 +12226,30 @@
           <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="True" />
           <Condition Binding="{Binding SelectionUnit, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}" Value="CellOrRowHeader" />
         </MultiDataTrigger.Conditions>
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </MultiDataTrigger>
       <MultiDataTrigger>
         <MultiDataTrigger.Conditions>
           <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true" />
           <Condition Binding="{Binding SelectionUnit, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}" Value="FullRow" />
         </MultiDataTrigger.Conditions>
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </MultiDataTrigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsSelected" Value="true" />
           <Condition Property="Selector.IsSelectionActive" Value="false" />
         </MultiTrigger.Conditions>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </MultiTrigger>
     </Style.Triggers>
   </Style>
   <Style x:Key="DataGridRowStyle" TargetType="DataGridRow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
     <Setter Property="SnapsToDevicePixels" Value="true" />
     <Setter Property="Margin" Value="0,0,0,4" />
     <Setter Property="Padding" Value="0,6" />
@@ -12185,7 +12273,7 @@
               <RowDefinition Height="*" />
               <RowDefinition Height="Auto" />
             </SelectiveScrollingGrid.RowDefinitions>
-            <Border x:Name="DGR_Border" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4" SnapsToDevicePixels="True" />
+            <Border x:Name="DGR_Border" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0" SnapsToDevicePixels="True" />
             <DataGridCellsPresenter Grid.Row="0" Grid.Column="1" MinHeight="{TemplateBinding MinHeight}" VerticalContentAlignment="Center" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             <DataGridDetailsPresenter Grid.Row="1" Grid.Column="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType=DataGrid}}" Visibility="{TemplateBinding DetailsVisibility}" />
             <DataGridRowHeader Grid.Row="0" Grid.Column="0" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
@@ -12195,19 +12283,23 @@
     </Setter>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
-        <Setter Property="Background" Value="{DynamicResource DarkDefaultBrush}" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
       </Trigger>
       <Trigger Property="IsSelected" Value="True">
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-        <Setter Property="TextElement.Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsSelected" Value="true" />
           <Condition Property="Selector.IsSelectionActive" Value="false" />
         </MultiTrigger.Conditions>
-        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+        <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
       </MultiTrigger>
     </Style.Triggers>
   </Style>
@@ -12791,7 +12883,7 @@
   <Style BasedOn="{StaticResource CoverFlowBaseStyle}" TargetType="hc:CoverFlow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style BasedOn="{StaticResource CoverViewBaseStyle}" TargetType="hc:CoverView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="DataGridBaseStyle" TargetType="DataGrid" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="GridLinesVisibility" Value="None" />
@@ -13216,7 +13308,7 @@
     <Setter Property="ItemsPanel" Value="{StaticResource StackVerticalItemsPanelTemplate}" />
   </Style>
   <Style x:Key="ListViewBaseStyle" TargetType="ListView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="Padding" Value="6" />
