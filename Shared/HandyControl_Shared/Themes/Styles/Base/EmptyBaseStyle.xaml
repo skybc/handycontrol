@@ -16,8 +16,8 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
-    <Rectangle x:Key="LogoRectangle4Empty" x:Shared="False" HorizontalAlignment="Center" Width="64" Height="41" Fill="{StaticResource EmptySimpleLogo}"/>
-    <TextBlock x:Key="DescriptionTextBlock4Empty" x:Shared="False" Margin="0,10,0,0" HorizontalAlignment="Center" Foreground="{DynamicResource ThirdlyTextBrush}" Text="{ex:Lang Key={x:Static langs:LangKeys.NoData}}"/>
+    <Rectangle x:Key="LogoRectangle4Empty" x:Shared="False" HorizontalAlignment="Center" Width="{StaticResource EmptyBaseWidthToken1}" Height="{StaticResource EmptyBaseHeightToken1}" Fill="{StaticResource EmptySimpleLogo}"/>
+    <TextBlock x:Key="DescriptionTextBlock4Empty" x:Shared="False" Margin="{StaticResource EmptyBaseMarginToken1}" HorizontalAlignment="Center" Foreground="{DynamicResource ThirdlyTextBrush}" Text="{ex:Lang Key={x:Static langs:LangKeys.NoData}}"/>
 
     <Style x:Key="EmptyBaseStyle" TargetType="hc:Empty">
         <Setter Property="Logo" Value="{StaticResource LogoRectangle4Empty}"/>

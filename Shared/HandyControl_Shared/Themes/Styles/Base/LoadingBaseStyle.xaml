@@ -4,8 +4,8 @@
 
     <Style x:Key="LoadingBaseStyle" TargetType="hc:LoadingBase">
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="DotDiameter" Value="10"/>
+        <Setter Property="DotDiameter" Value="{StaticResource LoadingBaseDotDiameterToken1}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
     </Style>
-    
+
 </ResourceDictionary>

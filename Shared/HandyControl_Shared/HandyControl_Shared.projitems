@@ -426,6 +426,9 @@
     <None Include="$(MSBuildThisFileDirectory)Themes\Basic\Brushes.xaml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)Themes\Basic\Colors\StyleColors.xaml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)Themes\Styles\AutoCompleteTextBox.xaml">
       <SubType>Designer</SubType>
     </None>

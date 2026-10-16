@@ -15,12 +15,12 @@
                             <Viewport3D.Children>
                                 <ModelVisual3D>
                                     <ModelVisual3D.Content>
-                                        <DirectionalLight Color="White" Direction="1,0,-4" />
+                                        <DirectionalLight Color="{DynamicResource CoverFlowBaseColorToken1}" Direction="1,0,-4" />
                                     </ModelVisual3D.Content>
                                 </ModelVisual3D>
                                 <ModelVisual3D>
                                     <ModelVisual3D.Content>
-                                        <DirectionalLight Color="White" Direction="-1,0,-4" />
+                                        <DirectionalLight Color="{DynamicResource CoverFlowBaseColorToken1}" Direction="-1,0,-4" />
                                     </ModelVisual3D.Content>
                                 </ModelVisual3D>
                                 <ModelVisual3D x:Name="PART_VisualParent"/>

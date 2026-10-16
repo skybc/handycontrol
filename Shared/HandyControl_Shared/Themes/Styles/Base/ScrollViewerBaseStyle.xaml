@@ -4,7 +4,7 @@
 
     <Style x:Key="ScrollBarBaseRepeatButton" TargetType="RepeatButton">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource ScrollViewerBaseBackgroundToken1}"/>
         <Setter Property="Focusable" Value="false"/>
         <Setter Property="IsTabStop" Value="false"/>
         <Setter Property="Template">
@@ -25,13 +25,13 @@
                     <ControlTemplate.Resources>
                         <Storyboard x:Key="StoryboardMouseEnter">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="8"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="{StaticResource ScrollViewerBaseWidthToken1}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusX)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="4"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="{StaticResource ScrollViewerBaseRadiusXToken1}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusY)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="4"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="{StaticResource ScrollViewerBaseRadiusYToken1}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)" Storyboard.TargetName="rectangle">
                                 <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="0"/>
@@ -39,21 +39,21 @@
                         </Storyboard>
                         <Storyboard x:Key="StoryboardMouseLeave">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="2"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="{StaticResource ScrollViewerBaseWidthToken2}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusX)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="{StaticResource ScrollViewerBaseRadiusXToken2}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusY)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="{StaticResource ScrollViewerBaseRadiusYToken2}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)" Storyboard.TargetName="rectangle">
                                 <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="-2"/>
                             </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </ControlTemplate.Resources>
-                    <Border Width="{TemplateBinding Width}" Background="Transparent">
-                        <Rectangle x:Name="rectangle" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="2" Fill="{TemplateBinding Background}">
+                    <Border Width="{TemplateBinding Width}" Background="{DynamicResource ScrollViewerBaseBackgroundToken1}">
+                        <Rectangle x:Name="rectangle" RadiusX="{StaticResource ScrollViewerBaseRadiusXToken2}" RadiusY="{StaticResource ScrollViewerBaseRadiusYToken2}" HorizontalAlignment="Right" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{StaticResource ScrollViewerBaseWidthToken2}" Fill="{TemplateBinding Background}">
                             <Rectangle.RenderTransform>
                                 <TransformGroup>
                                     <TranslateTransform X="-2"/>
@@ -79,7 +79,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="ScrollBarBaseThumbHorizontal" TargetType="Thumb">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>
@@ -89,13 +89,13 @@
                     <ControlTemplate.Resources>
                         <Storyboard x:Key="StoryboardMouseEnter">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="8"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="{StaticResource ScrollViewerBaseHeightToken1}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusX)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="4"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="{StaticResource ScrollViewerBaseRadiusXToken1}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusY)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="4"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="{StaticResource ScrollViewerBaseRadiusYToken1}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)" Storyboard.TargetName="rectangle">
                                 <EasingDoubleKeyFrame KeyTime="0:0:.1" Value="0"/>
@@ -103,21 +103,21 @@
                         </Storyboard>
                         <Storyboard x:Key="StoryboardMouseLeave">
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="2"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="{StaticResource ScrollViewerBaseHeightToken2}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusX)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="{StaticResource ScrollViewerBaseRadiusXToken2}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.RadiusY)" Storyboard.TargetName="rectangle">
-                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="{StaticResource ScrollViewerBaseRadiusYToken2}"/>
                             </DoubleAnimationUsingKeyFrames>
                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.Y)" Storyboard.TargetName="rectangle">
                                 <EasingDoubleKeyFrame KeyTime="0:0:.2" Value="-2"/>
                             </DoubleAnimationUsingKeyFrames>
                         </Storyboard>
                     </ControlTemplate.Resources>
-                    <Border Height="{TemplateBinding Height}" Background="Transparent">
-                        <Rectangle x:Name="rectangle" RadiusX="1" RadiusY="1" VerticalAlignment="Bottom" Height="2" SnapsToDevicePixels="True" Width="{TemplateBinding Width}" Fill="{TemplateBinding Background}">
+                    <Border Height="{TemplateBinding Height}" Background="{DynamicResource ScrollViewerBaseBackgroundToken1}">
+                        <Rectangle x:Name="rectangle" RadiusX="{StaticResource ScrollViewerBaseRadiusXToken2}" RadiusY="{StaticResource ScrollViewerBaseRadiusYToken2}" VerticalAlignment="Bottom" Height="{StaticResource ScrollViewerBaseHeightToken2}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}" Fill="{TemplateBinding Background}">
                             <Rectangle.RenderTransform>
                                 <TransformGroup>
                                     <TranslateTransform Y="-2"/>
@@ -148,11 +148,11 @@
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource ScrollViewerBaseBackgroundToken1}"/>
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Width" Value="8"/>
-        <Setter Property="MinWidth" Value="8"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ScrollViewerBaseBorderThicknessToken1}"/>
+        <Setter Property="Width" Value="{StaticResource ScrollViewerBaseWidthToken1}"/>
+        <Setter Property="MinWidth" Value="{StaticResource ScrollViewerBaseMinWidthToken1}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollBar">
@@ -176,10 +176,10 @@
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="Width" Value="Auto"/>
-                <Setter Property="MinWidth" Value="0"/>
-                <Setter Property="Height" Value="8"/>
-                <Setter Property="MinHeight" Value="8"/>
-                <Setter Property="BorderThickness" Value="0,1"/>
+                <Setter Property="MinWidth" Value="{StaticResource ScrollViewerBaseMinWidthToken2}"/>
+                <Setter Property="Height" Value="{StaticResource ScrollViewerBaseHeightToken1}"/>
+                <Setter Property="MinHeight" Value="{StaticResource ScrollViewerBaseMinHeightToken1}"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ScrollViewerBaseBorderThicknessToken2}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ScrollBar">
@@ -391,7 +391,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="ScrollViewerBaseStyle" TargetType="hc:ScrollViewer">
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Focusable" Value="False"/>

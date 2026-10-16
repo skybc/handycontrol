@@ -10,7 +10,7 @@
     </Style>
 
     <Style x:Key="LoadingLineLarge" BasedOn="{StaticResource LoadingLineBaseStyle}" TargetType="hc:LoadingLine">
-        <Setter Property="DotDiameter" Value="10"/>
+        <Setter Property="DotDiameter" Value="{StaticResource LoadingStyleDotDiameterToken1}"/>
     </Style>
 
     <Style x:Key="LoadingLineLargeLight" BasedOn="{StaticResource LoadingLineLarge}" TargetType="hc:LoadingLine">
@@ -25,11 +25,11 @@
     </Style>
 
     <Style x:Key="LoadingCircleLarge" BasedOn="{StaticResource LoadingCircleBaseStyle}" TargetType="hc:LoadingCircle">
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Height" Value="100"/>
-        <Setter Property="DotDiameter" Value="10"/>
-        <Setter Property="DotInterval" Value="20"/>
-        <Setter Property="DotOffSet" Value="40"/>
+        <Setter Property="Width" Value="{StaticResource LoadingStyleWidthToken1}"/>
+        <Setter Property="Height" Value="{StaticResource LoadingStyleHeightToken1}"/>
+        <Setter Property="DotDiameter" Value="{StaticResource LoadingStyleDotDiameterToken1}"/>
+        <Setter Property="DotInterval" Value="{StaticResource LoadingStyleDotIntervalToken1}"/>
+        <Setter Property="DotOffSet" Value="{StaticResource LoadingStyleDotOffSetToken1}"/>
         <Setter Property="DotDelayTime" Value="120"/>
     </Style>
 

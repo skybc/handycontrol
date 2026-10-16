@@ -214,7 +214,7 @@
     </Style>
 
     <Style x:Key="ProgressBarFlat" TargetType="ProgressBar">
-        <Setter Property="Height" Value="4"/>
+        <Setter Property="Height" Value="{StaticResource ProgressBarStyleHeightToken1}"/>
         <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}"/>
         <Setter Property="Template">
@@ -235,7 +235,7 @@
                         </Storyboard>
                     </ControlTemplate.Resources>
                     <hc:SimplePanel x:Name="TemplateRoot" SnapsToDevicePixels="true" ClipToBounds="True">
-                        <Rectangle x:Name="PART_Track" Fill="{TemplateBinding Background}" StrokeThickness="0" Stroke="{TemplateBinding BorderBrush}"/>
+                        <Rectangle x:Name="PART_Track" Fill="{TemplateBinding Background}" StrokeThickness="{StaticResource ProgressBarStyleStrokeThicknessToken1}" Stroke="{TemplateBinding BorderBrush}"/>
                         <Decorator x:Name="PART_Indicator" HorizontalAlignment="Left">
                             <Rectangle x:Name="Indicator" Fill="{TemplateBinding Foreground}"/>
                         </Decorator>

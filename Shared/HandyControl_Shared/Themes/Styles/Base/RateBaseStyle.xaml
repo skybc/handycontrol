@@ -51,7 +51,7 @@
 
     <Style x:Key="RateBaseStyle" TargetType="hc:Rate">
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="ItemMargin" Value="5,0"/>
+        <Setter Property="ItemMargin" Value="{StaticResource RateBaseItemMarginToken1}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Icon" Value="{StaticResource StarGeometry}"/>
@@ -62,9 +62,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:Rate">
-                    <StackPanel Background="Transparent" Orientation="Horizontal">
-                        <UniformGrid Rows="1" Margin="-5,0" x:Name="PART_Panel"/>
-                        <TextBlock Visibility="{TemplateBinding ShowText,Converter={StaticResource Boolean2VisibilityConverter}}" Text="{TemplateBinding Text}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    <StackPanel Background="{DynamicResource RateBaseBackgroundToken1}" Orientation="Horizontal">
+                        <UniformGrid Rows="1" Margin="{StaticResource RateBaseMarginToken1}" x:Name="PART_Panel"/>
+                        <TextBlock Visibility="{TemplateBinding ShowText,Converter={StaticResource Boolean2VisibilityConverter}}" Text="{TemplateBinding Text}" Margin="{StaticResource RateBaseMarginToken2}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>

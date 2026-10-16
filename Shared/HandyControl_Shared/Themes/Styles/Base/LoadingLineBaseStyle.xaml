@@ -3,7 +3,7 @@
                     xmlns:hc="clr-namespace:HandyControl.Controls">
 
     <Style x:Key="LoadingLineBaseStyle" BasedOn="{StaticResource LoadingBaseStyle}" TargetType="hc:LoadingLine">
-        <Setter Property="DotDiameter" Value="5"/>
+        <Setter Property="DotDiameter" Value="{StaticResource LoadingLineBaseDotDiameterToken1}"/>
     </Style>
 
 </ResourceDictionary>

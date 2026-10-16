@@ -10,50 +10,50 @@
     </Style>
 
     <Style x:Key="SnapRect4ScreenshotStyle" TargetType="Rectangle">
-        <Setter Property="Height" Value="5"/>
-        <Setter Property="Width" Value="5"/>
-        <Setter Property="Fill" Value="DodgerBlue"/>
+        <Setter Property="Height" Value="{StaticResource ScreenshotStyleHeightToken1}"/>
+        <Setter Property="Width" Value="{StaticResource ScreenshotStyleWidthToken1}"/>
+        <Setter Property="Fill" Value="{DynamicResource ScreenshotStyleFillToken2}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Style.Triggers>
             <Trigger Property="hc:TipElement.Placement" Value="LeftTop">
-                <Setter Property="Margin" Value="-3, -3, 0, 0"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken1}"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="Top">
-                <Setter Property="Margin" Value="0, -3, 0, 0"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken2}"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="RightTop">
-                <Setter Property="Margin" Value="0, -3, -3, 0"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken3}"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="Right">
-                <Setter Property="Margin" Value="0, 0, -3, 0"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken4}"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="RightBottom">
-                <Setter Property="Margin" Value="0, 0, -3, -3"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken5}"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="Bottom">
-                <Setter Property="Margin" Value="0, 0, 0, -3"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken6}"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="LeftBottom">
-                <Setter Property="Margin" Value="-3, 0, 0, -3"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken7}"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
             </Trigger>
             <Trigger Property="hc:TipElement.Placement" Value="Left">
-                <Setter Property="Margin" Value="-3, 0, 0, 0"/>
+                <Setter Property="Margin" Value="{StaticResource ScreenshotStyleMarginToken8}"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Trigger>
@@ -68,18 +68,18 @@
 
     <Style x:Key="TargetArea4ScreenshotStyle" TargetType="Border">
         <Setter Property="IsHitTestVisible" Value="False"/>
-        <Setter Property="BorderThickness" Value="5"/>
-        <Setter Property="BorderBrush" Value="DodgerBlue"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ScreenshotStyleBorderThicknessToken1}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ScreenshotStyleBorderBrushToken3}"/>
+        <Setter Property="Background" Value="{DynamicResource ScreenshotStyleBackgroundToken1}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsSelecting}" Value="True">
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ScreenshotStyleBorderThicknessToken2}"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding IsDrawing}" Value="True">
                 <Setter Property="IsHitTestVisible" Value="True"/>
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderThickness" Value="{StaticResource ScreenshotStyleBorderThicknessToken2}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -90,7 +90,7 @@
         <Setter Property="WindowState" Value="Maximized"/>
         <Setter Property="Topmost" Value="True"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{DynamicResource ScreenshotStyleBackgroundToken1}"/>
         <Setter Property="hc:WindowAttach.IgnoreAltF4" Value="True"/>
         <Setter Property="hc:WindowAttach.ShowInTaskManager" Value="False"/>
         <Setter Property="Template">
@@ -98,7 +98,7 @@
                 <ControlTemplate TargetType="hc:ScreenshotWindow">
                     <AdornerDecorator>
                         <hc:SimplePanel>
-                            <InkCanvas EditingMode="None" Name="PART_Canvas" Background="Transparent"/>
+                            <InkCanvas EditingMode="None" Name="PART_Canvas" Background="{DynamicResource ScreenshotStyleBackgroundToken1}"/>
                             <Rectangle Name="PART_MaskAreaLeft" Style="{StaticResource MaskRect4ScreenshotStyle}"/>
                             <Rectangle Name="PART_MaskAreaTop" Style="{StaticResource MaskRect4ScreenshotStyle}"/>
                             <Rectangle Name="PART_MaskAreaRight" Style="{StaticResource MaskRect4ScreenshotStyle}"/>
@@ -113,22 +113,22 @@
                                     <Rectangle hc:TipElement.Placement="Bottom" Style="{StaticResource SnapRect4ScreenshotStyle}"/>
                                     <Rectangle hc:TipElement.Placement="LeftBottom" Style="{StaticResource SnapRect4ScreenshotStyle}"/>
                                     <Rectangle hc:TipElement.Placement="Left" Style="{StaticResource SnapRect4ScreenshotStyle}"/>
-                                    <TextBlock Text="{TemplateBinding SizeStr}" Background="#CC212121" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="8,2"/>
+                                    <TextBlock Text="{TemplateBinding SizeStr}" Background="{DynamicResource ScreenshotStyleBackgroundToken2}" Foreground="{DynamicResource ScreenshotStyleForegroundToken1}" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="{StaticResource ScreenshotStylePaddingToken1}"/>
                                 </hc:SimplePanel>
                             </Border>
-                            <Border x:Name="PART_Magnifier" IsHitTestVisible="False" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Height="122" BorderThickness="1" BorderBrush="#FF333333" CornerRadius="1">
+                            <Border x:Name="PART_Magnifier" IsHitTestVisible="False" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{StaticResource ScreenshotStyleWidthToken2}" Height="{StaticResource ScreenshotStyleHeightToken2}" BorderThickness="{StaticResource ScreenshotStyleBorderThicknessToken2}" BorderBrush="{DynamicResource ScreenshotStyleBorderBrushToken1}" CornerRadius="{StaticResource ScreenshotStyleCornerRadiusToken1}">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="2" Opacity=".2" Direction="-45" RenderingBias="Performance" ShadowDepth="3"/>
+                                    <DropShadowEffect BlurRadius="{StaticResource ScreenshotStyleBlurRadiusToken1}" Opacity=".2" Direction="-45" RenderingBias="Performance" ShadowDepth="{StaticResource ScreenshotStyleShadowDepthToken1}"/>
                                 </Border.Effect>
                                 <hc:SimplePanel>
-                                    <Border Margin="0,0,0,32" Background="{TemplateBinding PreviewBrush}" BorderThickness="2" BorderBrush="White">
+                                    <Border Margin="{StaticResource ScreenshotStyleMarginToken9}" Background="{TemplateBinding PreviewBrush}" BorderThickness="{StaticResource ScreenshotStyleBorderThicknessToken3}" BorderBrush="{DynamicResource ScreenshotStyleBorderBrushToken2}">
                                         <hc:SimplePanel>
-                                            <Path Data="M56,0 L60,0 60,40 116,40 116,44 60,44 60,84 56,84 56,44 0,44 0,40 56,40 z" Fill="#CC4CC6FF"/>
+                                            <Path Data="M56,0 L60,0 60,40 116,40 116,44 60,44 60,84 56,84 56,44 0,44 0,40 56,40 z" Fill="{DynamicResource ScreenshotStyleFillToken1}"/>
                                         </hc:SimplePanel>
                                     </Border>
-                                    <Border Height="32" VerticalAlignment="Bottom" Background="#CC000000">
-                                        <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
-                                            <TextBlock Foreground="White" Text="{TemplateBinding SizeStr}"/>
+                                    <Border Height="{StaticResource ScreenshotStyleHeightToken3}" VerticalAlignment="Bottom" Background="{DynamicResource ScreenshotStyleBackgroundToken3}">
+                                        <StackPanel VerticalAlignment="Center" Margin="{StaticResource ScreenshotStyleMarginToken10}">
+                                            <TextBlock Foreground="{DynamicResource ScreenshotStyleForegroundToken1}" Text="{TemplateBinding SizeStr}"/>
                                         </StackPanel>
                                     </Border>
                                 </hc:SimplePanel>

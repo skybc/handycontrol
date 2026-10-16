@@ -3,11 +3,11 @@
                     xmlns:hc="clr-namespace:HandyControl.Controls">
 
     <Style x:Key="LoadingCircleBaseStyle" BasedOn="{StaticResource LoadingBaseStyle}" TargetType="hc:LoadingCircle">
-        <Setter Property="Width" Value="40"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="DotDiameter" Value="5"/>
-        <Setter Property="DotInterval" Value="30"/>
-        <Setter Property="DotOffSet" Value="60"/>
+        <Setter Property="Width" Value="{StaticResource LoadingCircleBaseWidthToken1}"/>
+        <Setter Property="Height" Value="{StaticResource LoadingCircleBaseHeightToken1}"/>
+        <Setter Property="DotDiameter" Value="{StaticResource LoadingCircleBaseDotDiameterToken1}"/>
+        <Setter Property="DotInterval" Value="{StaticResource LoadingCircleBaseDotIntervalToken1}"/>
+        <Setter Property="DotOffSet" Value="{StaticResource LoadingCircleBaseDotOffSetToken1}"/>
         <Setter Property="DotDelayTime" Value="90"/>
         <Setter Property="DotSpeed" Value="4"/>
     </Style>

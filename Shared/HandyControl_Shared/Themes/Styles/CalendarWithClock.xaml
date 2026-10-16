@@ -10,13 +10,13 @@
         <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="hc:TitleElement.Background" Value="{DynamicResource TitleBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Margin" Value="8 0"/>
+        <Setter Property="BorderThickness" Value="{StaticResource CalendarWithClockStyleBorderThicknessToken1}"/>
+        <Setter Property="Margin" Value="{StaticResource CalendarWithClockStyleMarginToken5}"/>
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
         <Setter Property="Template">
              <Setter.Value>
                 <ControlTemplate TargetType="hc:CalendarWithClock">
-                    <hc:SimplePanel Margin="0,4,0,8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <hc:SimplePanel Margin="{StaticResource CalendarWithClockStyleMarginToken1}" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Border CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Effect="{StaticResource EffectShadow2}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -28,10 +28,10 @@
                                 <RowDefinition/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Border Margin="4" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Grid.ColumnSpan="2" Height="42" VerticalAlignment="Top" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <ContentPresenter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" x:Name="PART_CalendarPresenter" Margin="-8,-4,-8,-8"/>
-                            <ContentPresenter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" x:Name="PART_ClockPresenter" Margin="-8,-4,-8,-8"/>
-                            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{TemplateBinding ShowConfirmButton,Converter={StaticResource Boolean2VisibilityConverter}}" Name="PART_ButtonConfirm" Content="{ex:Lang Key={x:Static langs:LangKeys.Confirm}}" HorizontalAlignment="Center" Margin="0,0,0,19" Width="180" VerticalAlignment="Bottom" Style="{StaticResource ButtonPrimary}"/>
+                            <Border Margin="{StaticResource CalendarWithClockStyleMarginToken2}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Grid.ColumnSpan="2" Height="{StaticResource CalendarWithClockStyleHeightToken1}" VerticalAlignment="Top" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ContentPresenter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" x:Name="PART_CalendarPresenter" Margin="{StaticResource CalendarWithClockStyleMarginToken3}"/>
+                            <ContentPresenter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" x:Name="PART_ClockPresenter" Margin="{StaticResource CalendarWithClockStyleMarginToken3}"/>
+                            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{TemplateBinding ShowConfirmButton,Converter={StaticResource Boolean2VisibilityConverter}}" Name="PART_ButtonConfirm" Content="{ex:Lang Key={x:Static langs:LangKeys.Confirm}}" HorizontalAlignment="Center" Margin="{StaticResource CalendarWithClockStyleMarginToken4}" Width="{StaticResource CalendarWithClockStyleWidthToken1}" VerticalAlignment="Bottom" Style="{StaticResource ButtonPrimary}"/>
                         </Grid>
                     </hc:SimplePanel>
                 </ControlTemplate>

@@ -8,8 +8,8 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Rectangle
-                        RadiusX="4"
-                        RadiusY="4"
+                        RadiusX="{StaticResource BaseRadiusXToken1}"
+                        RadiusY="{StaticResource BaseRadiusYToken1}"
                         Style="{StaticResource RectangleFocusVisual}" />
                 </ControlTemplate>
             </Setter.Value>
@@ -32,12 +32,12 @@
                 <ControlTemplate>
                     <Rectangle
                         Opacity=".6"
-                        RadiusX="4"
-                        RadiusY="4"
+                        RadiusX="{StaticResource BaseRadiusXToken1}"
+                        RadiusY="{StaticResource BaseRadiusYToken1}"
                         SnapsToDevicePixels="true"
                         Stroke="{DynamicResource SecondaryBorderBrush}"
-                        StrokeDashArray="1 1"
-                        StrokeThickness="2" />
+                        StrokeDashArray="{StaticResource BaseStrokeDashArrayToken1}"
+                        StrokeThickness="{StaticResource BaseStrokeThicknessToken1}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -51,8 +51,8 @@
                         Opacity=".6"
                         SnapsToDevicePixels="true"
                         Stroke="{DynamicResource SecondaryBorderBrush}"
-                        StrokeDashArray="1 1"
-                        StrokeThickness="2" />
+                        StrokeDashArray="{StaticResource BaseStrokeDashArrayToken1}"
+                        StrokeThickness="{StaticResource BaseStrokeThicknessToken1}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -70,15 +70,15 @@
                 ClipToBounds="True"
                 TransitionMode="Top2Bottom">
                 <TextBlock
-                    Margin="2,2,0,0"
+                    Margin="{StaticResource BaseMarginToken1}"
                     Foreground="{DynamicResource DangerBrush}"
                     Text="{Binding Path=AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=adornedElementPlaceholder}" />
             </hc:TransitioningContentControl>
         </Grid>
     </ControlTemplate>
     <Style x:Key="InputElementBaseStyle" TargetType="Control">
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,0,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="8,0,0,5" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource BaseMarginOnTheLeftToken1}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource BaseMarginOnTheTopToken1}" />
         <Setter Property="hc:TitleElement.VerticalAlignment" Value="Center" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
@@ -88,7 +88,7 @@
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource BaseBorderThicknessToken1}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Validation.ErrorTemplate" Value="{StaticResource InputElementErrorTemplate}" />
         <Style.Triggers>

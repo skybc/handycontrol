@@ -5,8 +5,8 @@
     <Style x:Key="RunningBlockBaseStyle" BasedOn="{StaticResource BaseStyle}" TargetType="hc:RunningBlock">
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="0,10"/>
+        <Setter Property="BorderThickness" Value="{StaticResource RunningBlockBaseBorderThicknessToken1}"/>
+        <Setter Property="Padding" Value="{StaticResource RunningBlockBasePaddingToken1}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:RunningBlock">
@@ -28,7 +28,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Vertical">
-                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="Padding" Value="{StaticResource RunningBlockBasePaddingToken2}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

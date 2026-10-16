@@ -15,7 +15,6 @@
         x:Key="DarkPrimaryBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkPrimaryColor}" />
-
     <SolidColorBrush
         x:Key="PrimaryTextBrush"
         o:Freeze="True"
@@ -36,8 +35,6 @@
         x:Key="TextIconBrush"
         o:Freeze="True"
         Color="{DynamicResource TextIconColor}" />
-
-
     <SolidColorBrush
         x:Key="BorderBrush"
         o:Freeze="True"
@@ -66,7 +63,6 @@
         <GradientStop o:Freeze="True" Offset="0" Color="{DynamicResource TitleColor}" />
         <GradientStop o:Freeze="True" Offset="1" Color="{DynamicResource SecondaryTitleColor}" />
     </LinearGradientBrush>
-
     <SolidColorBrush
         x:Key="DefaultBrush"
         o:Freeze="True"
@@ -75,7 +71,6 @@
         x:Key="DarkDefaultBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkDefaultColor}" />
-
     <SolidColorBrush
         x:Key="LightDangerBrush"
         o:Freeze="True"
@@ -88,7 +83,6 @@
         x:Key="DarkDangerBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkDangerColor}" />
-
     <SolidColorBrush
         x:Key="LightWarningBrush"
         o:Freeze="True"
@@ -101,7 +95,6 @@
         x:Key="DarkWarningBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkWarningColor}" />
-
     <SolidColorBrush
         x:Key="LightInfoBrush"
         o:Freeze="True"
@@ -114,7 +107,6 @@
         x:Key="DarkInfoBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkInfoColor}" />
-
     <SolidColorBrush
         x:Key="LightSuccessBrush"
         o:Freeze="True"
@@ -127,7 +119,6 @@
         x:Key="DarkSuccessBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkSuccessColor}" />
-
     <SolidColorBrush
         x:Key="AccentBrush"
         o:Freeze="True"
@@ -136,7 +127,6 @@
         x:Key="DarkAccentBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkAccentColor}" />
-
     <SolidColorBrush
         x:Key="DarkMaskBrush"
         o:Freeze="True"
@@ -145,5 +135,115 @@
         x:Key="DarkOpacityBrush"
         o:Freeze="True"
         Color="{DynamicResource DarkOpacityColor}" />
+
+    <!-- Styles resource migration: preserve original appearance. -->
+    <SolidColorBrush x:Key="AutoCompleteTextBoxBaseBackgroundToken1" Color="{DynamicResource AutoCompleteTextBoxBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="AutoCompleteTextBoxBaseBorderBrushToken1" Color="{DynamicResource AutoCompleteTextBoxBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ButtonBaseBackgroundToken1" Color="{DynamicResource ButtonBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="CheckBoxBaseBackgroundToken1" Color="{DynamicResource CheckBoxBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="CheckBoxBaseBackgroundToken2" Color="{DynamicResource CheckBoxBaseBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="CheckComboBoxBaseBackgroundToken1" Color="{DynamicResource CheckComboBoxBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="CheckComboBoxBaseBorderBrushToken1" Color="{DynamicResource CheckComboBoxBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseBackgroundToken1" Color="{DynamicResource ColorPickerBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseBackgroundToken2" Color="{DynamicResource ColorPickerBaseBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseBorderBrushToken1" Color="{DynamicResource ColorPickerBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseForegroundToken1" Color="{DynamicResource ColorPickerBaseForegroundToken1Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseBrushToken1" Color="{DynamicResource ColorPickerBaseBrushToken1Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseBrushToken2" Color="{DynamicResource ColorPickerBaseBrushToken2Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseBorderBrushToken2" Color="{DynamicResource ColorPickerBaseBorderBrushToken2Color}" />
+    <SolidColorBrush x:Key="ColorPickerBaseFillToken1" Color="{DynamicResource ColorPickerBaseFillToken1Color}" />
+    <SolidColorBrush x:Key="ComboBoxBaseBackgroundToken1" Color="{DynamicResource ComboBoxBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ComboBoxBaseBorderBrushToken1" Color="{DynamicResource ComboBoxBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="DataGridBaseBackgroundToken1" Color="{DynamicResource DataGridBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="DataGridBaseBorderBrushToken1" Color="{DynamicResource DataGridBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="DataGridBaseForegroundToken1" Color="{DynamicResource DataGridBaseForegroundToken1Color}" />
+    <SolidColorBrush x:Key="GeometryViewBaseBackgroundToken1" Color="{DynamicResource GeometryViewBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="GroupBoxBaseBackgroundToken1" Color="{DynamicResource GroupBoxBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ListBoxBaseBackgroundToken1" Color="{DynamicResource ListBoxBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ListBoxBaseBorderBrushToken1" Color="{DynamicResource ListBoxBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ListViewBaseBackgroundToken1" Color="{DynamicResource ListViewBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ListViewBaseBorderBrushToken1" Color="{DynamicResource ListViewBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="MenuBaseBackgroundToken1" Color="{DynamicResource MenuBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="MenuBaseBackgroundToken2" Color="{DynamicResource MenuBaseBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="MenuBaseBackgroundToken3" Color="{DynamicResource MenuBaseBackgroundToken3Color}" />
+    <SolidColorBrush x:Key="MenuBaseBorderBrushToken1" Color="{DynamicResource MenuBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ProgressButtonBaseBackgroundToken1" Color="{DynamicResource ProgressButtonBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="PropertyGridBaseBrushToken1" Color="{DynamicResource PropertyGridBaseBrushToken1Color}" />
+    <SolidColorBrush x:Key="PropertyGridBaseBrushToken2" Color="{DynamicResource PropertyGridBaseBrushToken2Color}" />
+    <SolidColorBrush x:Key="PropertyGridBaseBrushToken3" Color="{DynamicResource PropertyGridBaseBrushToken3Color}" />
+    <SolidColorBrush x:Key="PropertyGridBaseBrushToken4" Color="{DynamicResource PropertyGridBaseBrushToken4Color}" />
+    <SolidColorBrush x:Key="PropertyGridBaseBrushToken5" Color="{DynamicResource PropertyGridBaseBrushToken5Color}" />
+    <SolidColorBrush x:Key="RadioButtonBaseBackgroundToken1" Color="{DynamicResource RadioButtonBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="RadioButtonBaseFillToken1" Color="{DynamicResource RadioButtonBaseFillToken1Color}" />
+    <SolidColorBrush x:Key="RadioButtonBaseBorderBrushToken1" Color="{DynamicResource RadioButtonBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="RateBaseBackgroundToken1" Color="{DynamicResource RateBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="RepeatButtonBaseBackgroundToken1" Color="{DynamicResource RepeatButtonBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ScrollViewerBaseBackgroundToken1" Color="{DynamicResource ScrollViewerBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ShieldBaseBackgroundToken1" Color="{DynamicResource ShieldBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="SideMenuBaseBorderBrushToken1" Color="{DynamicResource SideMenuBaseBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="SideMenuBaseBackgroundToken1" Color="{DynamicResource SideMenuBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="SliderBaseBackgroundToken1" Color="{DynamicResource SliderBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="SliderBaseBackgroundToken2" Color="{DynamicResource SliderBaseBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="SliderBaseStrokeToken1" Color="{DynamicResource SliderBaseStrokeToken1Color}" />
+    <SolidColorBrush x:Key="StepBarBaseBackgroundToken1" Color="{DynamicResource StepBarBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TabControlBaseForegroundToken1" Color="{DynamicResource TabControlBaseForegroundToken1Color}" />
+    <SolidColorBrush x:Key="TabControlBaseBackgroundToken1" Color="{DynamicResource TabControlBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TextBoxEditorBaseBackgroundToken1" Color="{DynamicResource TextBoxEditorBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ToggleButtonBaseBackgroundToken1" Color="{DynamicResource ToggleButtonBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ToggleButtonBaseBackgroundToken2" Color="{DynamicResource ToggleButtonBaseBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="ToolBarBaseBackgroundToken1" Color="{DynamicResource ToolBarBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ToolTipBaseBackgroundToken1" Color="{DynamicResource ToolTipBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TreeViewBaseBackgroundToken1" Color="{DynamicResource TreeViewBaseBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ButtonStyleBackgroundToken1" Color="{DynamicResource ButtonStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ButtonStyleBorderBrushToken1" Color="{DynamicResource ButtonStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="CarouselStyleBackgroundToken1" Color="{DynamicResource CarouselStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="CarouselStyleFillToken1" Color="{DynamicResource CarouselStyleFillToken1Color}" />
+    <SolidColorBrush x:Key="ClockStyleBackgroundToken1" Color="{DynamicResource ClockStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ClockStyleFillToken1" Color="{DynamicResource ClockStyleFillToken1Color}" />
+    <SolidColorBrush x:Key="GrowlStyleBackgroundToken1" Color="{DynamicResource GrowlStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ImageViewerStyleBackgroundToken1" Color="{DynamicResource ImageViewerStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ImageViewerStyleBorderBrushToken1" Color="{DynamicResource ImageViewerStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ImageViewerStyleBorderBrushToken2" Color="{DynamicResource ImageViewerStyleBorderBrushToken2Color}" />
+    <SolidColorBrush x:Key="ImageViewerStyleBackgroundToken2" Color="{DynamicResource ImageViewerStyleBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="ListBoxStyleBackgroundToken1" Color="{DynamicResource ListBoxStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ListBoxStyleBorderBrushToken1" Color="{DynamicResource ListBoxStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="MessageBoxStyleBackgroundToken1" Color="{DynamicResource MessageBoxStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="NotificationStyleBackgroundToken1" Color="{DynamicResource NotificationStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="PopupWindowStyleBackgroundToken1" Color="{DynamicResource PopupWindowStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="PopupWindowStyleForegroundToken1" Color="{DynamicResource PopupWindowStyleForegroundToken1Color}" />
+    <SolidColorBrush x:Key="RepeatButtonStyleBackgroundToken1" Color="{DynamicResource RepeatButtonStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="RepeatButtonStyleBorderBrushToken1" Color="{DynamicResource RepeatButtonStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="RibbonStyleBackgroundToken1" Color="{DynamicResource RibbonStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleBackgroundToken1" Color="{DynamicResource ScreenshotStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleBackgroundToken2" Color="{DynamicResource ScreenshotStyleBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleForegroundToken1" Color="{DynamicResource ScreenshotStyleForegroundToken1Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleBorderBrushToken1" Color="{DynamicResource ScreenshotStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleBorderBrushToken2" Color="{DynamicResource ScreenshotStyleBorderBrushToken2Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleFillToken1" Color="{DynamicResource ScreenshotStyleFillToken1Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleBackgroundToken3" Color="{DynamicResource ScreenshotStyleBackgroundToken3Color}" />
+    <SolidColorBrush x:Key="SpriteStyleBackgroundToken1" Color="{DynamicResource SpriteStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TabControlStyleBackgroundToken1" Color="{DynamicResource TabControlStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TextBoxEditorWindowStyleBackgroundToken1" Color="{DynamicResource TextBoxEditorWindowStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TimeBarStyleForegroundToken1" Color="{DynamicResource TimeBarStyleForegroundToken1Color}" />
+    <SolidColorBrush x:Key="TimeBarStyleBorderBrushToken1" Color="{DynamicResource TimeBarStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="TimeBarStyleBackgroundToken1" Color="{DynamicResource TimeBarStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ToggleButtonStyleBackgroundToken1" Color="{DynamicResource ToggleButtonStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ToggleButtonStyleBorderBrushToken1" Color="{DynamicResource ToggleButtonStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="TreeEditorStyleBackgroundToken1" Color="{DynamicResource TreeEditorStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="TreeEditorWindowStyleBackgroundToken1" Color="{DynamicResource TreeEditorWindowStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleBackgroundToken1" Color="{DynamicResource WindowStyleBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleBorderBrushToken1" Color="{DynamicResource WindowStyleBorderBrushToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleBorderBrushToken2" Color="{DynamicResource WindowStyleBorderBrushToken2Color}" />
+    <SolidColorBrush x:Key="WindowStyleBackgroundToken2" Color="{DynamicResource WindowStyleBackgroundToken2Color}" />
+    <SolidColorBrush x:Key="WindowStyleForegroundToken1" Color="{DynamicResource WindowStyleForegroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleBackgroundToken3" Color="{DynamicResource WindowStyleBackgroundToken3Color}" />
+    <SolidColorBrush x:Key="PopupWindowStyleMouseHoverBackgroundToken1" Color="{DynamicResource PopupWindowStyleMouseHoverBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="PopupWindowStyleMouseDownBackgroundToken1" Color="{DynamicResource PopupWindowStyleMouseDownBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleCloseButtonBackgroundToken1" Color="{DynamicResource WindowStyleCloseButtonBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleCloseButtonHoverBackgroundToken1" Color="{DynamicResource WindowStyleCloseButtonHoverBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleCloseButtonHoverForegroundToken1" Color="{DynamicResource WindowStyleCloseButtonHoverForegroundToken1Color}" />
+    <SolidColorBrush x:Key="WindowStyleOtherButtonBackgroundToken1" Color="{DynamicResource WindowStyleOtherButtonBackgroundToken1Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleFillToken2" Color="{DynamicResource ScreenshotStyleFillToken2Color}" />
+    <SolidColorBrush x:Key="ScreenshotStyleBorderBrushToken3" Color="{DynamicResource ScreenshotStyleBorderBrushToken3Color}" />
 
 </ResourceDictionary>

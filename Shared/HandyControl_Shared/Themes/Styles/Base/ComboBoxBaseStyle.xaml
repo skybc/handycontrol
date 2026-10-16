@@ -20,14 +20,14 @@
                 CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
             <hc:ToggleBlock
                 Grid.Column="1"
-                Padding="1,0"
+                Padding="{StaticResource ComboBoxBasePaddingToken1}"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                Background="Transparent"
+                Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
                 <hc:ToggleBlock.UnCheckedContent>
                     <Path
-                        Width="14"
+                        Width="{StaticResource ComboBoxBaseWidthToken1}"
                         Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -37,7 +37,7 @@
                 </hc:ToggleBlock.UnCheckedContent>
                 <hc:ToggleBlock.CheckedContent>
                     <Path
-                        Width="14"
+                        Width="{StaticResource ComboBoxBaseWidthToken1}"
                         Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -51,7 +51,7 @@
                 Grid.ColumnSpan="2"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                Background="Transparent"
+                Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 ToggleGesture="LeftClick" />
             <ContentPresenter
@@ -68,21 +68,21 @@
                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             <Popup
                 x:Name="PART_Popup"
-                Margin="1"
+                Margin="{StaticResource ComboBoxBaseMarginToken1}"
                 AllowsTransparency="true"
                 IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Placement="Bottom"
                 PlacementTarget="{Binding ElementName=border}"
                 PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <Decorator Margin="8,0">
+                <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                     <Border
                         x:Name="dropDownBorder"
                         MinWidth="{Binding ActualWidth, ElementName=border}"
                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                        Margin="0,0,0,8"
+                        Margin="{StaticResource ComboBoxBaseMarginToken3}"
                         Background="{DynamicResource RegionBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
-                        BorderThickness="0,1,0,0"
+                        BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                         CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                         Effect="{StaticResource EffectShadow2}">
                         <hc:ToggleBlock
@@ -90,7 +90,7 @@
                             VerticalContentAlignment="Stretch"
                             IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                             <hc:ToggleBlock.CheckedContent>
-                                <ScrollViewer Margin="2">
+                                <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                     <ItemsPresenter
                                         x:Name="ItemsPresenter"
                                         KeyboardNavigation.DirectionalNavigation="Contained"
@@ -107,7 +107,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -156,7 +156,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -190,15 +190,15 @@
                                                  Converter={StaticResource String2VisibilityReConverter}}" />
                 <hc:ToggleBlock
                     Grid.Column="1"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -208,7 +208,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -222,7 +222,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick" />
                 <ContentPresenter
@@ -239,21 +239,21 @@
                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 <Popup
                     x:Name="PART_Popup"
-                    Margin="1"
+                    Margin="{StaticResource ComboBoxBaseMarginToken1}"
                     AllowsTransparency="true"
                     IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -261,7 +261,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -279,7 +279,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -323,13 +323,13 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <DockPanel
-                Margin="0,0,6,0"
+                Margin="{StaticResource ComboBoxBaseMarginToken6}"
                 HorizontalAlignment="{Binding Path=(hc:TitleElement.HorizontalAlignment), RelativeSource={RelativeSource TemplatedParent}}"
                 VerticalAlignment="{Binding Path=(hc:TitleElement.VerticalAlignment), RelativeSource={RelativeSource TemplatedParent}}"
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -363,15 +363,15 @@
                                                  Converter={StaticResource String2VisibilityReConverter}}" />
                 <hc:ToggleBlock
                     Grid.Column="1"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -381,7 +381,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -395,7 +395,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick" />
                 <ContentPresenter
@@ -412,21 +412,21 @@
                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 <Popup
                     x:Name="PART_Popup"
-                    Margin="1"
+                    Margin="{StaticResource ComboBoxBaseMarginToken1}"
                     AllowsTransparency="true"
                     IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -434,7 +434,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -452,7 +452,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -492,8 +492,8 @@
     <Style x:Key="ComboBoxEditableTextBox" TargetType="TextBox">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="AllowDrop" Value="true" />
-        <Setter Property="MinWidth" Value="0" />
-        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="MinWidth" Value="{StaticResource ComboBoxBaseMinWidthToken1}" />
+        <Setter Property="MinHeight" Value="{StaticResource ComboBoxBaseMinHeightToken1}" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
@@ -503,9 +503,9 @@
                 <ControlTemplate TargetType="TextBox">
                     <ScrollViewer
                         x:Name="PART_ContentHost"
-                        Margin="-2,0,0,0"
+                        Margin="{StaticResource ComboBoxBaseMarginToken7}"
                         Padding="{TemplateBinding Padding}"
-                        Background="Transparent"
+                        Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                         Focusable="false"
                         HorizontalScrollBarVisibility="Hidden"
                         VerticalScrollBarVisibility="Hidden" />
@@ -530,15 +530,15 @@
                 CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
             <hc:ToggleBlock
                 Grid.Column="1"
-                Padding="1,0"
+                Padding="{StaticResource ComboBoxBasePaddingToken1}"
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
-                Background="Transparent"
+                Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 ToggleGesture="LeftClick">
                 <hc:ToggleBlock.UnCheckedContent>
                     <Path
-                        Width="14"
+                        Width="{StaticResource ComboBoxBaseWidthToken1}"
                         Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -548,7 +548,7 @@
                 </hc:ToggleBlock.UnCheckedContent>
                 <hc:ToggleBlock.CheckedContent>
                     <Path
-                        Width="14"
+                        Width="{StaticResource ComboBoxBaseWidthToken1}"
                         Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -568,21 +568,21 @@
                 Style="{StaticResource ComboBoxEditableTextBox}" />
             <Popup
                 x:Name="PART_Popup"
-                Margin="1"
+                Margin="{StaticResource ComboBoxBaseMarginToken1}"
                 AllowsTransparency="true"
                 IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Placement="Bottom"
                 PlacementTarget="{Binding ElementName=border}"
                 PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <Decorator Margin="8,0">
+                <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                     <Border
                         x:Name="dropDownBorder"
                         MinWidth="{Binding ActualWidth, ElementName=border}"
                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                        Margin="0,0,0,8"
+                        Margin="{StaticResource ComboBoxBaseMarginToken3}"
                         Background="{DynamicResource RegionBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
-                        BorderThickness="0,1,0,0"
+                        BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                         CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                         Effect="{StaticResource EffectShadow2}">
                         <hc:ToggleBlock
@@ -590,7 +590,7 @@
                             VerticalContentAlignment="Stretch"
                             IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                             <hc:ToggleBlock.CheckedContent>
-                                <ScrollViewer Margin="2">
+                                <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                     <ItemsPresenter
                                         x:Name="ItemsPresenter"
                                         KeyboardNavigation.DirectionalNavigation="Contained"
@@ -607,7 +607,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -653,7 +653,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -678,15 +678,15 @@
                     CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
                 <hc:ToggleBlock
                     Grid.Column="1"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -696,7 +696,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -728,15 +728,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -744,7 +744,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -762,7 +762,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -809,7 +809,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -834,15 +834,15 @@
                     CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
                 <hc:ToggleBlock
                     Grid.Column="1"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -852,7 +852,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -884,15 +884,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -900,7 +900,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -918,7 +918,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -955,9 +955,9 @@
     <Style x:Key="ComboBoxItemBaseStyle" TargetType="ComboBoxItem">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource ComboBoxBaseBackgroundToken1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ComboBoxBaseBorderBrushToken1}" />
+        <Setter Property="BorderThickness" Value="{StaticResource ComboBoxBaseBorderThicknessToken2}" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
@@ -1064,7 +1064,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -1099,15 +1099,15 @@
                                                  Converter={StaticResource String2VisibilityReConverter}}" />
                 <hc:ToggleBlock
                     Grid.Column="2"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1117,7 +1117,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1131,7 +1131,7 @@
                     Grid.ColumnSpan="3"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick" />
                 <ContentPresenter
@@ -1151,33 +1151,33 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="Auto"
-                    Padding="0,0,2,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken2}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                    hc:IconElement.Width="14"
+                    hc:IconElement.Width="{StaticResource ComboBoxBaseWidthToken1}"
                     Command="interactivity:ControlCommands.Clear"
                     Foreground="{Binding BorderBrush, ElementName=border}"
                     Style="{StaticResource ButtonIcon}"
                     Visibility="Collapsed" />
                 <Popup
                     x:Name="PART_Popup"
-                    Margin="1"
+                    Margin="{StaticResource ComboBoxBaseMarginToken1}"
                     AllowsTransparency="true"
                     IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -1185,7 +1185,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -1203,7 +1203,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -1274,7 +1274,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -1309,15 +1309,15 @@
                                                  Converter={StaticResource String2VisibilityReConverter}}" />
                 <hc:ToggleBlock
                     Grid.Column="2"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1327,7 +1327,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1341,7 +1341,7 @@
                     Grid.ColumnSpan="3"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick" />
                 <ContentPresenter
@@ -1361,33 +1361,33 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="Auto"
-                    Padding="0,0,2,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken2}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                    hc:IconElement.Width="14"
+                    hc:IconElement.Width="{StaticResource ComboBoxBaseWidthToken1}"
                     Command="interactivity:ControlCommands.Clear"
                     Foreground="{Binding BorderBrush, ElementName=border}"
                     Style="{StaticResource ButtonIcon}"
                     Visibility="Collapsed" />
                 <Popup
                     x:Name="PART_Popup"
-                    Margin="1"
+                    Margin="{StaticResource ComboBoxBaseMarginToken1}"
                     AllowsTransparency="true"
                     IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -1395,7 +1395,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -1413,7 +1413,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -1484,7 +1484,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -1510,15 +1510,15 @@
                     CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
                 <hc:ToggleBlock
                     Grid.Column="2"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1528,7 +1528,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1558,12 +1558,12 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="Auto"
-                    Padding="0,0,2,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken2}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                    hc:IconElement.Width="14"
+                    hc:IconElement.Width="{StaticResource ComboBoxBaseWidthToken1}"
                     Command="interactivity:ControlCommands.Clear"
                     Foreground="{Binding BorderBrush, ElementName=border}"
                     Style="{StaticResource ButtonIcon}"
@@ -1575,15 +1575,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -1591,7 +1591,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -1609,7 +1609,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -1676,7 +1676,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -1702,15 +1702,15 @@
                     CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
                 <hc:ToggleBlock
                     Grid.Column="2"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1720,7 +1720,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1750,12 +1750,12 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="Auto"
-                    Padding="0,0,2,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken2}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                    hc:IconElement.Width="14"
+                    hc:IconElement.Width="{StaticResource ComboBoxBaseWidthToken1}"
                     Command="interactivity:ControlCommands.Clear"
                     Foreground="{Binding BorderBrush, ElementName=border}"
                     Style="{StaticResource ButtonIcon}"
@@ -1767,15 +1767,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -1783,7 +1783,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -1804,15 +1804,15 @@
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
                     StaysOpen="False">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder_AutoComplete"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -1820,7 +1820,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <StackPanel
                                             Name="PART_AutoCompletePanel"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -1838,8 +1838,8 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
-                <Setter TargetName="dropDownBorder_AutoComplete" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
+                <Setter TargetName="dropDownBorder_AutoComplete" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -1911,7 +1911,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -1937,15 +1937,15 @@
                     CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
                 <hc:ToggleBlock
                     Grid.Column="2"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1955,7 +1955,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -1985,12 +1985,12 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="Auto"
-                    Padding="0,0,2,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken2}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                    hc:IconElement.Width="14"
+                    hc:IconElement.Width="{StaticResource ComboBoxBaseWidthToken1}"
                     Command="interactivity:ControlCommands.Clear"
                     Foreground="{Binding BorderBrush, ElementName=border}"
                     Style="{StaticResource ButtonIcon}"
@@ -2002,15 +2002,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -2018,7 +2018,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -2036,7 +2036,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />
@@ -2103,7 +2103,7 @@
                 LastChildFill="True"
                 Visibility="{Binding Path=(hc:InfoElement.Title), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource String2VisibilityConverter}}">
                 <ContentPresenter
-                    Margin="4,0,0,0"
+                    Margin="{StaticResource ComboBoxBaseMarginToken5}"
                     Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
                     DockPanel.Dock="Right"
                     TextElement.Foreground="{DynamicResource DangerBrush}"
@@ -2129,15 +2129,15 @@
                     CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
                 <hc:ToggleBlock
                     Grid.Column="2"
-                    Padding="1,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken1}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
-                    Background="Transparent"
+                    Background="{DynamicResource ComboBoxBaseBackgroundToken1}"
                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                     ToggleGesture="LeftClick">
                     <hc:ToggleBlock.UnCheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -2147,7 +2147,7 @@
                     </hc:ToggleBlock.UnCheckedContent>
                     <hc:ToggleBlock.CheckedContent>
                         <Path
-                            Width="14"
+                            Width="{StaticResource ComboBoxBaseWidthToken1}"
                             Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
@@ -2177,12 +2177,12 @@
                     Grid.Column="1"
                     Width="Auto"
                     Height="Auto"
-                    Padding="0,0,2,0"
+                    Padding="{StaticResource ComboBoxBasePaddingToken2}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                    hc:IconElement.Width="14"
+                    hc:IconElement.Width="{StaticResource ComboBoxBaseWidthToken1}"
                     Command="interactivity:ControlCommands.Clear"
                     Foreground="{Binding BorderBrush, ElementName=border}"
                     Style="{StaticResource ButtonIcon}"
@@ -2194,15 +2194,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -2210,7 +2210,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <ItemsPresenter
                                             x:Name="ItemsPresenter"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -2230,15 +2230,15 @@
                     Placement="Bottom"
                     PlacementTarget="{Binding ElementName=border}"
                     PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Decorator Margin="8,0">
+                    <Decorator Margin="{StaticResource ComboBoxBaseMarginToken2}">
                         <Border
                             x:Name="dropDownBorder_AutoComplete"
                             MinWidth="{Binding ActualWidth, ElementName=border}"
                             MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                            Margin="0,0,0,8"
+                            Margin="{StaticResource ComboBoxBaseMarginToken3}"
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="0,1,0,0"
+                            BorderThickness="{StaticResource ComboBoxBaseBorderThicknessToken1}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Effect="{StaticResource EffectShadow2}">
                             <hc:ToggleBlock
@@ -2246,7 +2246,7 @@
                                 VerticalContentAlignment="Stretch"
                                 IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                 <hc:ToggleBlock.CheckedContent>
-                                    <ScrollViewer Margin="2">
+                                    <ScrollViewer Margin="{StaticResource ComboBoxBaseMarginToken4}">
                                         <StackPanel
                                             Name="PART_AutoCompletePanel"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
@@ -2264,8 +2264,8 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
-                <Setter TargetName="dropDownBorder_AutoComplete" Property="Height" Value="95" />
+                <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
+                <Setter TargetName="dropDownBorder_AutoComplete" Property="Height" Value="{StaticResource ComboBoxBaseHeightToken1}" />
             </Trigger>
             <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                 <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=border}" />

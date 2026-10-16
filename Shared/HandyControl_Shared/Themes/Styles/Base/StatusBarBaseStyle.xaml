@@ -4,7 +4,7 @@
     <Style x:Key="{x:Static StatusBar.SeparatorStyleKey}" BasedOn="{StaticResource SeparatorBaseStyle}" TargetType="Separator"/>
 
     <Style x:Key="StatusBarBaseStyle" TargetType="StatusBar">
-        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+        <Setter Property="BorderThickness" Value="{StaticResource StatusBarBaseBorderThicknessToken1}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     </Style>

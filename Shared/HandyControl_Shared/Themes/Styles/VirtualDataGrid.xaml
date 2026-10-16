@@ -43,7 +43,7 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
-                                            <Button Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource DoubleMinConverter}}" Height="auto" MaxHeight="30" hc:IconElement.Geometry="{StaticResource AllGeometry}" Command="{x:Static DataGrid.SelectAllCommand}" Foreground="{DynamicResource PrimaryBrush}" Style="{StaticResource ButtonIcon}">
+                                            <Button Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource DoubleMinConverter}}" Height="auto" MaxHeight="{StaticResource VirtualDataGridStyleMaxHeightToken1}" hc:IconElement.Geometry="{StaticResource AllGeometry}" Command="{x:Static DataGrid.SelectAllCommand}" Foreground="{DynamicResource PrimaryBrush}" Style="{StaticResource ButtonIcon}">
                                                 <Button.Visibility>
                                                     <MultiBinding Converter="{StaticResource DataGridSelectAllButtonVisibilityConverter}">
                                                         <Binding Path="HeadersVisibility" RelativeSource="{RelativeSource AncestorType=DataGrid}" />

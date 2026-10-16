@@ -10,14 +10,14 @@
         TargetType="ListBoxItem">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualRadius0Margin0}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Padding" Value="{StaticResource ListBoxBasePaddingToken1}" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Margin" Value="0,0,0,2" />
+        <Setter Property="Background" Value="{DynamicResource ListBoxBaseBackgroundToken1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ListBoxBaseBorderBrushToken1}" />
+        <Setter Property="BorderThickness" Value="{StaticResource ListBoxBaseBorderThicknessToken1}" />
+        <Setter Property="Margin" Value="{StaticResource ListBoxBaseMarginToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -41,8 +41,8 @@
                         <Trigger Property="IsSelected" Value="true">
                             <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
-                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="{StaticResource ListBoxBaseBorderThicknessToken2}" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ListBoxBaseCornerRadiusToken1}" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </Trigger>
                         <MultiTrigger>
@@ -52,8 +52,8 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
-                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="{StaticResource ListBoxBaseBorderThicknessToken2}" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ListBoxBaseCornerRadiusToken1}" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="false">
@@ -80,11 +80,11 @@
                                 SnapsToDevicePixels="true">
                                 <StackPanel Orientation="Horizontal">
                                     <ContentControl
-                                        Width="16"
-                                        Height="16"
+                                        Width="{StaticResource ListBoxBaseWidthToken1}"
+                                        Height="{StaticResource ListBoxBaseHeightToken1}"
                                         Content="{Binding Path=(hc:EdgeElement.LeftContent), RelativeSource={RelativeSource TemplatedParent}}" />
                                     <ContentPresenter
-                                        Margin="6,0,0,0"
+                                        Margin="{StaticResource ListBoxBaseMarginToken2}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -147,14 +147,14 @@
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource ListBoxBaseBorderThicknessToken3}" />
         <Setter Property="hc:ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="hc:ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="hc:ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="hc:ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="2,2,2,0" />
+        <Setter Property="Padding" Value="{StaticResource ListBoxBasePaddingToken2}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemBaseStyle}" />
         <Setter Property="Template">

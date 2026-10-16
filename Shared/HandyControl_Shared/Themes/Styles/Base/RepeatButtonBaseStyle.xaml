@@ -7,7 +7,7 @@
         x:Key="RepeatButtonBaseStyle"
         BasedOn="{StaticResource ButtonBaseBaseStyle}"
         TargetType="RepeatButton">
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource RepeatButtonBaseBorderThicknessToken1}" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="Template">
@@ -34,7 +34,7 @@
                                     Stretch="Uniform" />
                                 <ContentPresenter
                                     x:Name="ContentPresenterMain"
-                                    Margin="6,0,0,0"
+                                    Margin="{StaticResource RepeatButtonBaseMarginToken1}"
                                     VerticalAlignment="Center"
                                     RecognizesAccessKey="True"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -47,7 +47,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="0" />
+                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="{StaticResource RepeatButtonBaseMarginToken2}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -70,15 +70,15 @@
         x:Key="RepeatButtonDashedBaseStyle"
         BasedOn="{StaticResource RepeatButtonBaseStyle}"
         TargetType="RepeatButton">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="{StaticResource RepeatButtonBaseBorderThicknessToken1}" />
+        <Setter Property="Background" Value="{DynamicResource RepeatButtonBaseBackgroundToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
                     <hc:DashedBorder
-                        Background="Transparent"
+                        Background="{DynamicResource RepeatButtonBaseBackgroundToken1}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderDashArray="3,2"
+                        BorderDashArray="{StaticResource RepeatButtonBaseBorderDashArrayToken1}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                         <StackPanel
@@ -96,7 +96,7 @@
                                 Stretch="Uniform" />
                             <ContentPresenter
                                 x:Name="ContentPresenterMain"
-                                Margin="6,0,0,0"
+                                Margin="{StaticResource RepeatButtonBaseMarginToken1}"
                                 VerticalAlignment="Center"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -108,7 +108,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="0" />
+                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="{StaticResource RepeatButtonBaseMarginToken2}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

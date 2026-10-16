@@ -1,6 +1,7 @@
 ﻿# --------------------------------------
 Lang.xaml
 # --------------------------------------
+Basic\Colors\StyleColors.xaml
 Basic\Brushes.xaml
 Basic\Converters.xaml
 Basic\Effects.xaml
@@ -125,7 +126,7 @@ Styles\Base\WatermarkBaseStyle.xaml
 Styles\Base\AutoCompleteTextBoxBaseStyle.xaml
 Styles\Base\DataGridBaseStyle.xaml
 
-Styles\Base\TextBoxEditorBaseStyle.xaml 
+Styles\Base\TextBoxEditorBaseStyle.xaml
 # --------------------------------------
 Styles\Badge.xaml
 Styles\CalendarWithClock.xaml

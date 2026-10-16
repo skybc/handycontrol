@@ -5,16 +5,16 @@
     <!--用于包裹一个区域-->
     <Style x:Key="BorderRegion" TargetType="Border">
         <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Padding" Value="{StaticResource BorderStylePaddingToken1}"/>
         <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="{StaticResource BorderStyleBorderThicknessToken1}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     </Style>
 
     <Style x:Key="BorderTipBaseStyle" TargetType="Border">
         <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-        <Setter Property="Padding" Value="10"/>
-        <Setter Property="BorderThickness" Value="5,0,0,0"/>
+        <Setter Property="Padding" Value="{StaticResource BorderStylePaddingToken1}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource BorderStyleBorderThicknessToken2}"/>
     </Style>
 
     <Style x:Key="BorderTipPrimary" BasedOn="{StaticResource BorderTipBaseStyle}" TargetType="Border">
@@ -43,13 +43,13 @@
     </Style>
 
     <Style x:Key="BorderVerticallySplitter" TargetType="Border">
-        <Setter Property="Width" Value="1"/>
+        <Setter Property="Width" Value="{StaticResource BorderStyleWidthToken1}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Background" Value="{DynamicResource ThirdlyTextBrush}"/>
     </Style>
 
     <Style x:Key="BorderHorizontallySplitter" TargetType="Border">
-        <Setter Property="Height" Value="1"/>
+        <Setter Property="Height" Value="{StaticResource BorderStyleHeightToken1}"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Background" Value="{DynamicResource ThirdlyTextBrush}"/>
     </Style>

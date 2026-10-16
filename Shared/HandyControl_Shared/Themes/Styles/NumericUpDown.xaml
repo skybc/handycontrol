@@ -10,7 +10,7 @@
         BasedOn="{StaticResource NumericUpDownBaseStyle}"
         TargetType="hc:NumericUpDown">
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="Padding" Value="{StaticResource NumericUpDownStylePaddingToken1}" />
     </Style>
 
     <Style
@@ -24,9 +24,9 @@
         TargetType="hc:NumericUpDown">
         <Setter Property="hc:InfoElement.MinContentHeight" Value="{DynamicResource SmallControlHeight}" />
         <Setter Property="hc:InfoElement.ContentHeight" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,3,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="6,0,0,1" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource NumericUpDownStyleMarginOnTheLeftToken1}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource NumericUpDownStyleMarginOnTheTopToken1}" />
+        <Setter Property="Padding" Value="{StaticResource NumericUpDownStylePaddingToken1}" />
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
     </Style>
 
@@ -41,9 +41,9 @@
         TargetType="hc:NumericUpDown">
         <Setter Property="hc:InfoElement.MinContentHeight" Value="{DynamicResource SmallControlHeight}" />
         <Setter Property="hc:InfoElement.ContentHeight" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,3,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="6,0,0,1" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource NumericUpDownStyleMarginOnTheLeftToken1}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource NumericUpDownStyleMarginOnTheTopToken1}" />
+        <Setter Property="Padding" Value="{StaticResource NumericUpDownStylePaddingToken1}" />
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
     </Style>
 

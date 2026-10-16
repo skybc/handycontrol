@@ -4,9 +4,9 @@
     <Style BasedOn="{StaticResource ContextMenuBaseStyle}" TargetType="ContextMenu"/>
 
     <Style x:Key="ContextMenu.Small" BasedOn="{StaticResource ContextMenuBaseStyle}" TargetType="ContextMenu">
-        <Setter Property="hc:MenuAttach.ItemPadding" Value="6,0" />
-        <Setter Property="hc:MenuAttach.PopupVerticalOffset" Value="-3" />
-        <Setter Property="hc:MenuAttach.PopupHorizontalOffset" Value="6" />
+        <Setter Property="hc:MenuAttach.ItemPadding" Value="{StaticResource ContextMenuStyleItemPaddingToken1}" />
+        <Setter Property="hc:MenuAttach.PopupVerticalOffset" Value="{StaticResource ContextMenuStylePopupVerticalOffsetToken1}" />
+        <Setter Property="hc:MenuAttach.PopupHorizontalOffset" Value="{StaticResource ContextMenuStylePopupHorizontalOffsetToken1}" />
     </Style>
 
 </ResourceDictionary>

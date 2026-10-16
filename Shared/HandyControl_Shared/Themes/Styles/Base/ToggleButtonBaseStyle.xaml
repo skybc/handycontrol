@@ -8,7 +8,7 @@
         x:Key="ToggleButtonBaseStyle"
         BasedOn="{StaticResource ButtonBaseBaseStyle}"
         TargetType="ToggleButton">
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource ToggleButtonBaseBorderThicknessToken1}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -34,7 +34,7 @@
                                     Stretch="Uniform" />
                                 <ContentPresenter
                                     x:Name="ContentPresenterMain"
-                                    Margin="6,0,0,0"
+                                    Margin="{StaticResource ToggleButtonBaseMarginToken1}"
                                     VerticalAlignment="Center"
                                     RecognizesAccessKey="True"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -42,7 +42,7 @@
                         </Border>
                         <Border
                             x:Name="BorderChecked"
-                            Margin="-1"
+                            Margin="{StaticResource ToggleButtonBaseMarginToken2}"
                             BorderBrush="{DynamicResource DarkPrimaryBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
@@ -57,7 +57,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="0" />
+                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="{StaticResource ToggleButtonBaseMarginToken3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -83,12 +83,12 @@
         <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
         <Setter Property="Width" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="{StaticResource ToggleButtonBasePaddingToken1}" />
         <Setter Property="hc:IconSwitchElement.Geometry" Value="{x:Null}" />
         <Setter Property="hc:IconSwitchElement.GeometrySelected" Value="{x:Null}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource ToggleButtonBaseBorderThicknessToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -116,7 +116,7 @@
                         <Border
                             x:Name="BorderChecked"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="4"
+                            BorderThickness="{StaticResource ToggleButtonBaseBorderThicknessToken2}"
                             CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                             Visibility="Collapsed" />
                     </hc:SimplePanel>
@@ -162,10 +162,10 @@
         <Setter Property="hc:VisualElement.HighlightForeground" Value="{DynamicResource SecondaryBorderBrush}" />
         <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="{StaticResource ToggleButtonBaseBorderThicknessToken3}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="6,0,0,0" />
-        <Setter Property="Height" Value="24" />
+        <Setter Property="Padding" Value="{StaticResource ToggleButtonBasePaddingToken2}" />
+        <Setter Property="Height" Value="{StaticResource ToggleButtonBaseHeightToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -203,30 +203,30 @@
                     </ControlTemplate.Resources>
                     <Grid
                         x:Name="templateRoot"
-                        Background="Transparent"
+                        Background="{DynamicResource ToggleButtonBaseBackgroundToken1}"
                         SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Viewbox>
-                            <hc:SimplePanel Width="80" Height="48">
+                            <hc:SimplePanel Width="{StaticResource ToggleButtonBaseWidthToken1}" Height="{StaticResource ToggleButtonBaseHeightToken2}">
                                 <Border
                                     Name="innerBorder"
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="24">
+                                    CornerRadius="{StaticResource ToggleButtonBaseCornerRadiusToken1}">
                                     <hc:ToggleBlock
-                                        Margin="0,0,12,0"
+                                        Margin="{StaticResource ToggleButtonBaseMarginToken4}"
                                         HorizontalAlignment="Right"
                                         IsChecked="{Binding Path=(hc:ToggleButtonAttach.ShowLabel), RelativeSource={RelativeSource TemplatedParent}}">
                                         <hc:ToggleBlock.CheckedContent>
                                             <Ellipse
-                                                Width="16"
-                                                Height="16"
+                                                Width="{StaticResource ToggleButtonBaseWidthToken2}"
+                                                Height="{StaticResource ToggleButtonBaseHeightToken3}"
                                                 Stroke="{Binding Path=(hc:VisualElement.HighlightForeground), RelativeSource={RelativeSource TemplatedParent}}"
-                                                StrokeThickness="2" />
+                                                StrokeThickness="{StaticResource ToggleButtonBaseStrokeThicknessToken1}" />
                                         </hc:ToggleBlock.CheckedContent>
                                     </hc:ToggleBlock>
                                 </Border>
@@ -235,30 +235,30 @@
                                     Background="{Binding Path=(hc:VisualElement.HighlightBrush), RelativeSource={RelativeSource TemplatedParent}}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="24"
+                                    CornerRadius="{StaticResource ToggleButtonBaseCornerRadiusToken1}"
                                     Opacity="0">
                                     <hc:ToggleBlock
-                                        Margin="18,0,0,0"
+                                        Margin="{StaticResource ToggleButtonBaseMarginToken5}"
                                         HorizontalAlignment="Left"
                                         IsChecked="{Binding Path=(hc:ToggleButtonAttach.ShowLabel), RelativeSource={RelativeSource TemplatedParent}}">
                                         <hc:ToggleBlock.CheckedContent>
                                             <Rectangle
-                                                Width="3"
-                                                Height="16"
+                                                Width="{StaticResource ToggleButtonBaseWidthToken3}"
+                                                Height="{StaticResource ToggleButtonBaseHeightToken3}"
                                                 Fill="{DynamicResource TextIconBrush}"
-                                                RadiusX="1.5"
-                                                RadiusY="1.5" />
+                                                RadiusX="{StaticResource ToggleButtonBaseRadiusXToken1}"
+                                                RadiusY="{StaticResource ToggleButtonBaseRadiusYToken1}" />
                                         </hc:ToggleBlock.CheckedContent>
                                     </hc:ToggleBlock>
                                 </Border>
                                 <Border
                                     Name="thumb"
-                                    Width="44"
-                                    Height="44"
-                                    Margin="2"
+                                    Width="{StaticResource ToggleButtonBaseWidthToken4}"
+                                    Height="{StaticResource ToggleButtonBaseHeightToken4}"
+                                    Margin="{StaticResource ToggleButtonBaseMarginToken6}"
                                     HorizontalAlignment="Left"
-                                    Background="White"
-                                    CornerRadius="22"
+                                    Background="{DynamicResource ToggleButtonBaseBackgroundToken2}"
+                                    CornerRadius="{StaticResource ToggleButtonBaseCornerRadiusToken2}"
                                     Effect="{StaticResource EffectShadow2}"
                                     RenderTransformOrigin="0.5,0.5">
                                     <Border.RenderTransform>
@@ -307,14 +307,14 @@
         TargetType="ToggleButton">
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource ToggleButtonBaseBorderThicknessToken1}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ToggleButtonBaseCornerRadiusToken3}" />
         <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
-        <Setter Property="Padding" Value="10,0" />
-        <Setter Property="Margin" Value="-1,0,0,0" />
+        <Setter Property="Padding" Value="{StaticResource ToggleButtonBasePaddingToken3}" />
+        <Setter Property="Margin" Value="{StaticResource ToggleButtonBaseMarginToken7}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -339,7 +339,7 @@
                                 Stretch="Uniform" />
                             <ContentPresenter
                                 x:Name="contentPresenter"
-                                Margin="6,0,0,0"
+                                Margin="{StaticResource ToggleButtonBaseMarginToken1}"
                                 VerticalAlignment="Center"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -359,7 +359,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="contentPresenter" Property="Margin" Value="0" />
+                            <Setter TargetName="contentPresenter" Property="Margin" Value="{StaticResource ToggleButtonBaseMarginToken3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -373,7 +373,7 @@
                 <Setter Property="Panel.ZIndex" Value="{x:Static system:Int32.MaxValue}" />
             </Trigger>
             <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType=hc:ButtonGroup}}" Value="Vertical">
-                <Setter Property="Margin" Value="0,-1,0,0" />
+                <Setter Property="Margin" Value="{StaticResource ToggleButtonBaseMarginToken8}" />
             </DataTrigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />

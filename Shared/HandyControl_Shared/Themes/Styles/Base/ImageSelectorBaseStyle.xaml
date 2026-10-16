@@ -1,16 +1,16 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:hc="clr-namespace:HandyControl.Controls"
                     xmlns:interactivity="clr-namespace:HandyControl.Interactivity">
 
     <Style x:Key="ImageSelectorBaseStyle" TargetType="hc:ImageSelector">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Stretch" Value="UniformToFill"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ImageSelectorBaseBorderThicknessToken1}"/>
+        <Setter Property="StrokeThickness" Value="{StaticResource ImageSelectorBaseStrokeThicknessToken1}"/>
         <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-        <Setter Property="StrokeDashArray" Value="2,2"/>
+        <Setter Property="StrokeDashArray" Value="{StaticResource ImageSelectorBaseStrokeDashArrayToken1}"/>
         <Setter Property="hc:IconSwitchElement.Geometry" Value="{StaticResource AddGeometry}"/>
         <Setter Property="hc:IconSwitchElement.GeometrySelected" Value="{StaticResource RemoveGeometry}"/>
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
@@ -20,13 +20,13 @@
                     <Button Command="interactivity:ControlCommands.Switch" Style="{StaticResource ButtonCustom}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                         <Border Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}">
                             <hc:DashedBorder BorderDashArray="{TemplateBinding StrokeDashArray}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" BorderDashThickness="{TemplateBinding StrokeThickness}" Background="{TemplateBinding PreviewBrush}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}">
-                                <Border Width="30" Height="30" Background="{TemplateBinding Background}" Style="{StaticResource BorderCircular}">
+                                <Border Width="{StaticResource ImageSelectorBaseWidthToken1}" Height="{StaticResource ImageSelectorBaseHeightToken1}" Background="{TemplateBinding Background}" Style="{StaticResource BorderCircular}">
                                     <hc:ToggleBlock IsChecked="{TemplateBinding HasValue}">
                                         <hc:ToggleBlock.CheckedContent>
-                                            <Path Data="{TemplateBinding hc:IconSwitchElement.GeometrySelected}" Width="12" Height="12" Fill="{DynamicResource PrimaryBrush}"/>
+                                            <Path Data="{TemplateBinding hc:IconSwitchElement.GeometrySelected}" Width="{StaticResource ImageSelectorBaseWidthToken2}" Height="{StaticResource ImageSelectorBaseHeightToken2}" Fill="{DynamicResource PrimaryBrush}"/>
                                         </hc:ToggleBlock.CheckedContent>
                                         <hc:ToggleBlock.UnCheckedContent>
-                                            <Path Data="{TemplateBinding hc:IconSwitchElement.Geometry}" Width="16" Height="16" Fill="{DynamicResource PrimaryBrush}"/>
+                                            <Path Data="{TemplateBinding hc:IconSwitchElement.Geometry}" Width="{StaticResource ImageSelectorBaseWidthToken3}" Height="{StaticResource ImageSelectorBaseHeightToken3}" Fill="{DynamicResource PrimaryBrush}"/>
                                         </hc:ToggleBlock.UnCheckedContent>
                                     </hc:ToggleBlock>
                                 </Border>

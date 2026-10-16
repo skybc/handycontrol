@@ -3,16 +3,16 @@
 
     <Style x:Key="ContextMenuBaseStyle" TargetType="ContextMenu">
         <Setter Property="hc:MenuAttach.ItemPadding" Value="{StaticResource DefaultControlPadding}" />
-        <Setter Property="hc:MenuAttach.PopupVerticalOffset" Value="-9" />
-        <Setter Property="hc:MenuAttach.PopupHorizontalOffset" Value="10" />
+        <Setter Property="hc:MenuAttach.PopupVerticalOffset" Value="{StaticResource ContextMenuBasePopupVerticalOffsetToken1}" />
+        <Setter Property="hc:MenuAttach.PopupHorizontalOffset" Value="{StaticResource ContextMenuBasePopupHorizontalOffsetToken1}" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
-        <Setter Property="Padding" Value="2,2,2,0" />
+        <Setter Property="Padding" Value="{StaticResource ContextMenuBasePaddingToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContextMenu">
-                    <Border Effect="{StaticResource EffectShadow2}" Margin="8" Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" MaxHeight="{TemplateBinding MaxHeight}" BorderThickness="1" BorderBrush="{DynamicResource BorderBrush}">
+                    <Border Effect="{StaticResource EffectShadow2}" Margin="{StaticResource ContextMenuBaseMarginToken1}" Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" MaxHeight="{TemplateBinding MaxHeight}" BorderThickness="{StaticResource ContextMenuBaseBorderThicknessToken1}" BorderBrush="{DynamicResource BorderBrush}">
                         <ScrollViewer Style="{StaticResource ScrollViewerUpDown}" Margin="{TemplateBinding Padding}">
                             <ItemsPresenter/>
                         </ScrollViewer>

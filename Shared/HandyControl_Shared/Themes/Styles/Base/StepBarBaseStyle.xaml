@@ -19,16 +19,16 @@
     </Style>
 
     <Style x:Key="StepBarItemHorizontalTop" BasedOn="{StaticResource StepBarItemBaseStyle}" TargetType="hc:StepBarItem">
-        <Setter Property="Margin" Value="10,0"/>
+        <Setter Property="Margin" Value="{StaticResource StepBarBaseMarginToken1}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:StepBarItem">
-                    <Border Background="Transparent">
+                    <Border Background="{DynamicResource StepBarBaseBackgroundToken1}">
                         <StackPanel>
-                            <Border Background="{DynamicResource RegionBrush}" HorizontalAlignment="Center" CornerRadius="12" BorderThickness="2" BorderBrush="{TemplateBinding Foreground}" Height="24" MinWidth="24">
+                            <Border Background="{DynamicResource RegionBrush}" HorizontalAlignment="Center" CornerRadius="{StaticResource StepBarBaseCornerRadiusToken1}" BorderThickness="{StaticResource StepBarBaseBorderThicknessToken1}" BorderBrush="{TemplateBinding Foreground}" Height="{StaticResource StepBarBaseHeightToken1}" MinWidth="{StaticResource StepBarBaseMinWidthToken1}">
                                 <TextBlock Foreground="{TemplateBinding Foreground}" Style="{StaticResource TextBlockDefaultThiLight}" Text="{Binding Index,RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Border>
-                            <ContentPresenter HorizontalAlignment="Center" ContentTemplate="{Binding ItemTemplate,RelativeSource={RelativeSource AncestorType=hc:StepBar}}" TextElement.Foreground="{TemplateBinding Foreground}" Margin="0,4,0,0"/>
+                            <ContentPresenter HorizontalAlignment="Center" ContentTemplate="{Binding ItemTemplate,RelativeSource={RelativeSource AncestorType=hc:StepBar}}" TextElement.Foreground="{TemplateBinding Foreground}" Margin="{StaticResource StepBarBaseMarginToken2}"/>
                         </StackPanel>
                     </Border>
                 </ControlTemplate>
@@ -37,13 +37,13 @@
     </Style>
 
     <Style x:Key="StepBarItemHorizontalBottom" BasedOn="{StaticResource StepBarItemBaseStyle}" TargetType="hc:StepBarItem">
-        <Setter Property="Margin" Value="10,0"/>
+        <Setter Property="Margin" Value="{StaticResource StepBarBaseMarginToken1}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:StepBarItem">
                     <StackPanel>
-                        <ContentPresenter HorizontalAlignment="Center" ContentTemplate="{Binding ItemTemplate,RelativeSource={RelativeSource AncestorType=hc:StepBar}}" TextElement.Foreground="{TemplateBinding Foreground}" Margin="0,0,0,4"/>
-                        <Border Background="{DynamicResource RegionBrush}" HorizontalAlignment="Center" CornerRadius="12" BorderThickness="2" BorderBrush="{TemplateBinding Foreground}" Height="24" MinWidth="24">
+                        <ContentPresenter HorizontalAlignment="Center" ContentTemplate="{Binding ItemTemplate,RelativeSource={RelativeSource AncestorType=hc:StepBar}}" TextElement.Foreground="{TemplateBinding Foreground}" Margin="{StaticResource StepBarBaseMarginToken3}"/>
+                        <Border Background="{DynamicResource RegionBrush}" HorizontalAlignment="Center" CornerRadius="{StaticResource StepBarBaseCornerRadiusToken1}" BorderThickness="{StaticResource StepBarBaseBorderThicknessToken1}" BorderBrush="{TemplateBinding Foreground}" Height="{StaticResource StepBarBaseHeightToken1}" MinWidth="{StaticResource StepBarBaseMinWidthToken1}">
                             <TextBlock Foreground="{TemplateBinding Foreground}" Style="{StaticResource TextBlockDefaultThiLight}" Text="{Binding Index,RelativeSource={RelativeSource TemplatedParent}}"/>
                         </Border>
                     </StackPanel>
@@ -53,15 +53,15 @@
     </Style>
 
     <Style x:Key="StepBarItemVertical" BasedOn="{StaticResource StepBarItemBaseStyle}" TargetType="hc:StepBarItem">
-        <Setter Property="Margin" Value="0, 10"/>
+        <Setter Property="Margin" Value="{StaticResource StepBarBaseMarginToken4}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:StepBarItem">
                     <StackPanel Orientation="Horizontal">
-                        <Border Background="{DynamicResource RegionBrush}" HorizontalAlignment="Center" CornerRadius="12" BorderThickness="2" BorderBrush="{TemplateBinding Foreground}" Height="24" MinWidth="24">
+                        <Border Background="{DynamicResource RegionBrush}" HorizontalAlignment="Center" CornerRadius="{StaticResource StepBarBaseCornerRadiusToken1}" BorderThickness="{StaticResource StepBarBaseBorderThicknessToken1}" BorderBrush="{TemplateBinding Foreground}" Height="{StaticResource StepBarBaseHeightToken1}" MinWidth="{StaticResource StepBarBaseMinWidthToken1}">
                             <TextBlock Foreground="{TemplateBinding Foreground}" Style="{StaticResource TextBlockDefaultThiLight}" Text="{Binding Index,RelativeSource={RelativeSource TemplatedParent}}"/>
                         </Border>
-                        <ContentPresenter HorizontalAlignment="Left" ContentTemplate="{Binding ItemTemplate,RelativeSource={RelativeSource AncestorType=hc:StepBar}}" TextElement.Foreground="{TemplateBinding Foreground}" Margin="10,4,0,0"/>
+                        <ContentPresenter HorizontalAlignment="Left" ContentTemplate="{Binding ItemTemplate,RelativeSource={RelativeSource AncestorType=hc:StepBar}}" TextElement.Foreground="{TemplateBinding Foreground}" Margin="{StaticResource StepBarBaseMarginToken5}"/>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
@@ -70,21 +70,21 @@
 
     <ControlTemplate x:Key="StepBarHorizontalTopControlTemplate" TargetType="hc:StepBar">
         <hc:SimplePanel>
-            <ProgressBar HorizontalAlignment="Center" Name="PART_ProgressBarBack" VerticalAlignment="Top" Margin="0,10,0,0" Style="{StaticResource ProgressBarFlat}" Background="{DynamicResource ThirdlyTextBrush}"/>
+            <ProgressBar HorizontalAlignment="Center" Name="PART_ProgressBarBack" VerticalAlignment="Top" Margin="{StaticResource StepBarBaseMarginToken6}" Style="{StaticResource ProgressBarFlat}" Background="{DynamicResource ThirdlyTextBrush}"/>
             <ItemsPresenter/>
         </hc:SimplePanel>
     </ControlTemplate>
 
     <ControlTemplate x:Key="StepBarHorizontalBottomControlTemplate" TargetType="hc:StepBar">
         <hc:SimplePanel>
-            <ProgressBar HorizontalAlignment="Center" Name="PART_ProgressBarBack" VerticalAlignment="Bottom" Margin="0,0,0,10" Style="{StaticResource ProgressBarFlat}" Background="{DynamicResource ThirdlyTextBrush}"/>
+            <ProgressBar HorizontalAlignment="Center" Name="PART_ProgressBarBack" VerticalAlignment="Bottom" Margin="{StaticResource StepBarBaseMarginToken7}" Style="{StaticResource ProgressBarFlat}" Background="{DynamicResource ThirdlyTextBrush}"/>
             <ItemsPresenter VerticalAlignment="Bottom"/>
         </hc:SimplePanel>
     </ControlTemplate>
 
     <ControlTemplate x:Key="StepBarVerticalControlTemplate" TargetType="hc:StepBar">
         <hc:SimplePanel>
-            <ProgressBar Orientation="Vertical" Width="4" HorizontalAlignment="Left" Name="PART_ProgressBarBack" VerticalAlignment="Center" Margin="10,0,0,0" Style="{StaticResource ProgressBarFlat}" Background="{DynamicResource ThirdlyTextBrush}" RenderTransformOrigin="0.5,0.5">
+            <ProgressBar Orientation="Vertical" Width="{StaticResource StepBarBaseWidthToken1}" HorizontalAlignment="Left" Name="PART_ProgressBarBack" VerticalAlignment="Center" Margin="{StaticResource StepBarBaseMarginToken8}" Style="{StaticResource ProgressBarFlat}" Background="{DynamicResource ThirdlyTextBrush}" RenderTransformOrigin="0.5,0.5">
                 <ProgressBar.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="180"/>

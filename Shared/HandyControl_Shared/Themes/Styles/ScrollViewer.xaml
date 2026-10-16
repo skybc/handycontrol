@@ -9,12 +9,12 @@
 
     <Style x:Key="ScrollViewerUpDownRepeatButtonStyle" BasedOn="{StaticResource RepeatButtonIcon}" TargetType="RepeatButton">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="Height" Value="10"/>
-        <Setter Property="Padding" Value="0,2"/>
+        <Setter Property="Height" Value="{StaticResource ScrollViewerStyleHeightToken1}"/>
+        <Setter Property="Padding" Value="{StaticResource ScrollViewerStylePaddingToken1}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
         <Setter Property="ClickMode" Value="Hover"/>
     </Style>
-    
+
     <ControlTemplate x:Key="ScrollViewerUpDownControlTemplate" TargetType="ScrollViewer">
         <Grid x:Name="Grid" Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
             </RepeatButton>
         </Grid>
     </ControlTemplate>
-    
+
     <Style x:Key="ScrollViewerUpDown" TargetType="ScrollViewer">
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Focusable" Value="False"/>

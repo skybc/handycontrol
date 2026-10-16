@@ -9,9 +9,9 @@
 
     <Style TargetType="hc:RibbonGroup">
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Height" Value="90"/>
+        <Setter Property="Height" Value="{StaticResource RibbonStyleHeightToken1}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-        <Setter Property="Padding" Value="6 6 6 0"/>
+        <Setter Property="Padding" Value="{StaticResource RibbonStylePaddingToken1}"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -33,15 +33,15 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <ItemsPresenter Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}"/>
-                        <ContentPresenter Name="ContentPresenter"  VerticalAlignment="Bottom" TextElement.Foreground="{DynamicResource SecondaryTextBrush}" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,2" ContentSource="Header" HorizontalAlignment="Center" Grid.Row="1"/>
-                        <Button hc:Poptip.Instance="{TemplateBinding LauncherPoptip}" Command="interactivity:ControlCommands.More" Visibility="{Binding ShowLauncherButton,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" Margin="0,0,2,0" Grid.Column="1" Width="16" Height="16" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource ButtonCustom}" hc:BackgroundSwitchElement.MouseHoverBackground="{DynamicResource SecondaryRegionBrush}">
-                            <Path Width="9" Height="9" Stretch="Uniform" Data="{StaticResource DialogBoxLauncherGeometry}" Fill="{DynamicResource SecondaryTextBrush}"/>
+                        <ContentPresenter Name="ContentPresenter"  VerticalAlignment="Bottom" TextElement.Foreground="{DynamicResource SecondaryTextBrush}" Grid.Column="0" Grid.ColumnSpan="2" Margin="{StaticResource RibbonStyleMarginToken1}" ContentSource="Header" HorizontalAlignment="Center" Grid.Row="1"/>
+                        <Button hc:Poptip.Instance="{TemplateBinding LauncherPoptip}" Command="interactivity:ControlCommands.More" Visibility="{Binding ShowLauncherButton,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" Margin="{StaticResource RibbonStyleMarginToken2}" Grid.Column="1" Width="{StaticResource RibbonStyleWidthToken1}" Height="{StaticResource RibbonStyleHeightToken2}" Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource ButtonCustom}" hc:BackgroundSwitchElement.MouseHoverBackground="{DynamicResource SecondaryRegionBrush}">
+                            <Path Width="{StaticResource RibbonStyleWidthToken2}" Height="{StaticResource RibbonStyleHeightToken3}" Stretch="Uniform" Data="{StaticResource DialogBoxLauncherGeometry}" Fill="{DynamicResource SecondaryTextBrush}"/>
                         </Button>
-                        <Border Visibility="{Binding ShowSplitter,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" Margin="0,4" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Width="1" Background="{TemplateBinding BorderBrush}"/>
+                        <Border Visibility="{Binding ShowSplitter,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" Margin="{StaticResource RibbonStyleMarginToken3}" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Width="{StaticResource RibbonStyleWidthToken3}" Background="{TemplateBinding BorderBrush}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="ShowLauncherButton" Value="True">
-                            <Setter TargetName="ContentPresenter" Property="Margin" Value="20,0,20,2"/>
+                            <Setter TargetName="ContentPresenter" Property="Margin" Value="{StaticResource RibbonStyleMarginToken4}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -53,8 +53,8 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource TitleBrush}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource RibbonStyleBackgroundToken1}"/>
+        <Setter Property="Margin" Value="{StaticResource RibbonStyleMarginToken5}"/>
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}"/>
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -64,7 +64,7 @@
                 <ControlTemplate TargetType="hc:RibbonTabHeader">
                     <Border Background="{TemplateBinding Background}">
                         <hc:SimplePanel x:Name="templateRoot" SnapsToDevicePixels="true">
-                            <Border x:Name="BorderBottom" Visibility="{Binding IsSelected,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,2" Margin="12,0,12,2"/>
+                            <Border x:Name="BorderBottom" Visibility="{Binding IsSelected,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource RibbonStyleBorderThicknessToken1}" Margin="{StaticResource RibbonStyleMarginToken6}"/>
                             <ContentPresenter x:Name="ContentPresenter" Focusable="False" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                         </hc:SimplePanel>
                     </Border>
@@ -92,7 +92,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="hc:RibbonTab">
                     <hc:SimplePanel Visibility="Collapsed" x:Name="PART_RootContainer">
-                        <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,3" Background="{TemplateBinding Background}" Margin="0"/>
+                        <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{StaticResource RibbonStyleBorderThicknessToken2}" Background="{TemplateBinding Background}" Margin="{StaticResource RibbonStyleMarginToken5}"/>
                         <ScrollViewer hc:ScrollViewerAttach.Orientation="Horizontal" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
                             <ItemsPresenter/>
                         </ScrollViewer>
@@ -105,13 +105,13 @@
     <Style TargetType="hc:Ribbon">
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Panel.ZIndex" Value="{x:Static system:Int32.MaxValue}"/>
-        <Setter Property="ContentHeight" Value="96"/>
+        <Setter Property="ContentHeight" Value="{StaticResource RibbonStyleContentHeightToken1}"/>
         <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="{StaticResource RibbonStyleBorderThicknessToken3}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-        <Setter Property="Padding" Value="10 0"/>
+        <Setter Property="Padding" Value="{StaticResource RibbonStylePaddingToken2}"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -139,14 +139,14 @@
                             </Grid.ColumnDefinitions>
                             <Border Margin="{TemplateBinding Padding}" VerticalAlignment="Bottom" Height="{TemplateBinding ContentHeight}" Grid.ColumnSpan="2" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{DynamicResource RegionBrush}">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="-90" Color="{StaticResource EffectShadowColor}" Opacity=".1" RenderingBias="Performance"/>
+                                    <DropShadowEffect BlurRadius="{StaticResource RibbonStyleBlurRadiusToken1}" ShadowDepth="{StaticResource RibbonStyleShadowDepthToken1}" Direction="-90" Color="{StaticResource EffectShadowColor}" Opacity=".1" RenderingBias="Performance"/>
                                 </Border.Effect>
                             </Border>
                             <ItemsPresenter x:Name="PART_TabItemsPresenter" VerticalAlignment="Bottom" Height="{TemplateBinding ContentHeight}" Grid.Column="0" Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='1,0,0,0'}"/>
-                            <ToggleButton Command="interactivity:ControlCommands.Switch" IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}" Padding="2 0" Width="16" Height="20" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ToggleButtonIconTransparent}" hc:IconElement.Geometry="{StaticResource UpGeometry}" hc:IconSwitchElement.GeometrySelected="{StaticResource NailGeometry}"/>
+                            <ToggleButton Command="interactivity:ControlCommands.Switch" IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Margin="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='0,0,1,0'}" Padding="{StaticResource RibbonStylePaddingToken3}" Width="{StaticResource RibbonStyleWidthToken1}" Height="{StaticResource RibbonStyleHeightToken4}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource ToggleButtonIconTransparent}" hc:IconElement.Geometry="{StaticResource UpGeometry}" hc:IconSwitchElement.GeometrySelected="{StaticResource NailGeometry}"/>
                         </Grid>
                         <ContentPresenter Grid.Row="0" Grid.Column="0" ContentSource="PrefixContent"/>
-                        <hc:RibbonTabHeaderItemsControl Grid.Row="0" Grid.Column="1" Background="{TemplateBinding Background}" Focusable="False" x:Name="PART_TabHeaderItemsControl" Margin="0,0,0,2">
+                        <hc:RibbonTabHeaderItemsControl Grid.Row="0" Grid.Column="1" Background="{TemplateBinding Background}" Focusable="False" x:Name="PART_TabHeaderItemsControl" Margin="{StaticResource RibbonStyleMarginToken7}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Margin="{Binding Padding, RelativeSource={RelativeSource AncestorType= hc:Ribbon}}" Orientation="Horizontal"/>

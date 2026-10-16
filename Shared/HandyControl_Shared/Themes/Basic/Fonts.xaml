@@ -8,4 +8,20 @@
     <system:Double x:Key="SubHeadFontSize">16</system:Double>
     <system:Double x:Key="TextFontSize">14</system:Double>
 
+    <!-- Styles resource migration: preserve original appearance. -->
+    <system:Double x:Key="ColorPickerBaseFontSizeToken1">10</system:Double>
+    <system:Double x:Key="ColorPickerBaseFontSizeToken2">8</system:Double>
+    <system:Double x:Key="GeometryViewBaseFontSizeToken1">24</system:Double>
+    <system:Double x:Key="ToolTipBaseFontSizeToken1">12</system:Double>
+    <system:Double x:Key="CalendarStyleFontSizeToken1">12</system:Double>
+    <system:Double x:Key="CalendarStyleFontSizeToken2">20</system:Double>
+    <system:Double x:Key="ClockStyleFontSizeToken1">20</system:Double>
+    <system:Double x:Key="FlipClockStyleFontSizeToken1">70</system:Double>
+    <system:Double x:Key="TextBoxEditorWindowStyleFontSizeToken1">14</system:Double>
+    <system:Double x:Key="TextBoxEditorWindowStyleFontSizeToken2">20</system:Double>
+    <system:Double x:Key="TimeBarStyleFontSizeToken1">16</system:Double>
+    <system:Double x:Key="TreeEditorWindowStyleFontSizeToken1">14</system:Double>
+    <system:Double x:Key="TreeEditorWindowStyleFontSizeToken2">13</system:Double>
+    <system:Double x:Key="TreeEditorWindowStyleFontSizeToken3">12</system:Double>
+
 </ResourceDictionary>

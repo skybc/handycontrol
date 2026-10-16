@@ -4,11 +4,11 @@
                     xmlns:tools="clr-namespace:HandyControl.Tools">
 
     <Style x:Key="CalendarButtonStyle" TargetType="CalendarButton">
-        <Setter Property="MinWidth" Value="10"/>
-        <Setter Property="MinHeight" Value="10"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Width" Value="40"/>
-        <Setter Property="Height" Value="32"/>
+        <Setter Property="MinWidth" Value="{StaticResource CalendarStyleMinWidthToken1}"/>
+        <Setter Property="MinHeight" Value="{StaticResource CalendarStyleMinHeightToken1}"/>
+        <Setter Property="FontSize" Value="{StaticResource CalendarStyleFontSizeToken1}"/>
+        <Setter Property="Width" Value="{StaticResource CalendarStyleWidthToken1}"/>
+        <Setter Property="Height" Value="{StaticResource CalendarStyleHeightToken1}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -25,7 +25,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <DoubleAnimation Duration="0:0:.2" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SelectedBackground"/>
-                                        <ColorAnimation Duration="0" To="White" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText"/>
+                                        <ColorAnimation Duration="0" To="{StaticResource CalendarStyleColorToken1}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -41,14 +41,14 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Rectangle x:Name="SelectedBackground" Fill="{DynamicResource DangerBrush}" Opacity="0" RadiusY="16" RadiusX="16"/>
-                        <Rectangle x:Name="Background" Fill="{TemplateBinding Background}" Opacity="0" RadiusY="16" RadiusX="16"/>
+                        <Rectangle x:Name="SelectedBackground" Fill="{DynamicResource DangerBrush}" Opacity="0" RadiusY="{StaticResource CalendarStyleRadiusYToken1}" RadiusX="{StaticResource CalendarStyleRadiusXToken1}"/>
+                        <Rectangle x:Name="Background" Fill="{TemplateBinding Background}" Opacity="0" RadiusY="{StaticResource CalendarStyleRadiusYToken1}" RadiusX="{StaticResource CalendarStyleRadiusXToken1}"/>
                         <ContentPresenter x:Name="NormalText" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <TextElement.Foreground>
                                 <SolidColorBrush Color="{DynamicResource PrimaryTextColor}"/>
                             </TextElement.Foreground>
                         </ContentPresenter>
-                        <Rectangle x:Name="CalendarButtonFocusVisual" IsHitTestVisible="false" RadiusY="16" RadiusX="16" Stroke="{DynamicResource PrimaryBrush}" Visibility="Collapsed"/>
+                        <Rectangle x:Name="CalendarButtonFocusVisual" IsHitTestVisible="false" RadiusY="{StaticResource CalendarStyleRadiusYToken1}" RadiusX="{StaticResource CalendarStyleRadiusXToken1}" Stroke="{DynamicResource PrimaryBrush}" Visibility="Collapsed"/>
                     </hc:SimplePanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
@@ -59,12 +59,12 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="CalendarDayButtonStyle" BasedOn="{StaticResource BaseStyle}" TargetType="CalendarDayButton">
-        <Setter Property="MinWidth" Value="10"/>
-        <Setter Property="MinHeight" Value="10"/>
-        <Setter Property="Width" Value="32"/>
-        <Setter Property="Height" Value="32"/>
+        <Setter Property="MinWidth" Value="{StaticResource CalendarStyleMinWidthToken1}"/>
+        <Setter Property="MinHeight" Value="{StaticResource CalendarStyleMinHeightToken1}"/>
+        <Setter Property="Width" Value="{StaticResource CalendarStyleWidthToken2}"/>
+        <Setter Property="Height" Value="{StaticResource CalendarStyleHeightToken1}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FocusVisualStyle">
@@ -104,7 +104,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <DoubleAnimation Duration="0:0:.2" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="SelectedBackground"/>
-                                        <ColorAnimation Duration="0" To="White" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText"/>
+                                        <ColorAnimation Duration="0" To="{StaticResource CalendarStyleColorToken1}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -127,13 +127,13 @@
                                 <VisualState x:Name="Today">
                                     <Storyboard>
                                         <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TodayBackground"/>
-                                        <ColorAnimation Duration="0" To="White" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText"/>
+                                        <ColorAnimation Duration="0" To="{StaticResource CalendarStyleColorToken1}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="NormalText"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Rectangle RadiusX="16" RadiusY="16" x:Name="TodayBackground" Fill="{DynamicResource DangerBrush}" Opacity="0"/>
-                        <Rectangle x:Name="SelectedBackground" Fill="{DynamicResource PrimaryBrush}" Opacity="0" RadiusY="16" RadiusX="16"/>
+                        <Rectangle RadiusX="{StaticResource CalendarStyleRadiusXToken1}" RadiusY="{StaticResource CalendarStyleRadiusYToken1}" x:Name="TodayBackground" Fill="{DynamicResource DangerBrush}" Opacity="0"/>
+                        <Rectangle x:Name="SelectedBackground" Fill="{DynamicResource PrimaryBrush}" Opacity="0" RadiusY="{StaticResource CalendarStyleRadiusYToken1}" RadiusX="{StaticResource CalendarStyleRadiusXToken1}"/>
                         <ContentPresenter x:Name="NormalText" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <TextElement.Foreground>
                                 <SolidColorBrush Color="{DynamicResource PrimaryTextColor}"/>
@@ -146,14 +146,14 @@
     </Style>
 
     <Style TargetType="CalendarItem">
-        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Margin" Value="{StaticResource CalendarStyleMarginToken1}"/>
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CalendarItem">
                     <ControlTemplate.Resources>
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
-                            <TextBlock Foreground="{DynamicResource PrimaryTextBrush}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="{DynamicResource PrimaryTextBrush}" FontWeight="Bold" HorizontalAlignment="Center" Margin="{StaticResource CalendarStyleMarginToken2}" Text="{Binding}" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </ControlTemplate.Resources>
                     <hc:SimplePanel x:Name="PART_Root">
@@ -177,11 +177,11 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Border Margin="4" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}" Grid.ColumnSpan="3"/>
-                            <Button x:Name="PART_PreviousButton" Width="50" Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left" Grid.Column="0" Height="50" Padding="16" Focusable="False" Grid.Row="0" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource LeftGeometry}"/>
-                            <Button x:Name="PART_HeaderButton" Focusable="False" Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="1" FontSize="20" HorizontalAlignment="Center" Grid.Row="0" Style="{StaticResource ButtonCustom}"/>
-                            <Button x:Name="PART_NextButton" Width="50" Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" Height="50" Padding="16" Grid.Column="2" Focusable="False" Grid.Row="0" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource RightGeometry}"/>
-                            <Grid Width="240" Height="240" x:Name="PART_MonthView" Margin="10,6,10,10" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Visibility="Visible">
+                            <Border Margin="{StaticResource CalendarStyleMarginToken3}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}" Grid.ColumnSpan="3"/>
+                            <Button x:Name="PART_PreviousButton" Width="{StaticResource CalendarStyleWidthToken3}" Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left" Grid.Column="0" Height="{StaticResource CalendarStyleHeightToken2}" Padding="{StaticResource CalendarStylePaddingToken1}" Focusable="False" Grid.Row="0" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource LeftGeometry}"/>
+                            <Button x:Name="PART_HeaderButton" Focusable="False" Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="1" FontSize="{StaticResource CalendarStyleFontSizeToken2}" HorizontalAlignment="Center" Grid.Row="0" Style="{StaticResource ButtonCustom}"/>
+                            <Button x:Name="PART_NextButton" Width="{StaticResource CalendarStyleWidthToken3}" Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right" Height="{StaticResource CalendarStyleHeightToken2}" Padding="{StaticResource CalendarStylePaddingToken1}" Grid.Column="2" Focusable="False" Grid.Row="0" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource RightGeometry}"/>
+                            <Grid Width="{StaticResource CalendarStyleWidthToken4}" Height="{StaticResource CalendarStyleHeightToken3}" x:Name="PART_MonthView" Margin="{StaticResource CalendarStyleMarginToken4}" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Visibility="Visible">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -201,7 +201,7 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                             </Grid>
-                            <Grid Width="240" Height="240" x:Name="PART_YearView" Margin="10,6,10,10" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Visibility="Hidden">
+                            <Grid Width="{StaticResource CalendarStyleWidthToken4}" Height="{StaticResource CalendarStyleHeightToken3}" x:Name="PART_YearView" Margin="{StaticResource CalendarStyleMarginToken4}" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Visibility="Hidden">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
@@ -237,8 +237,8 @@
         <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="Language" Value="{Binding Lang,Source={x:Static tools:ConfigHelper.Instance}}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Margin" Value="8 0"/>
+        <Setter Property="BorderThickness" Value="{StaticResource CalendarStyleBorderThicknessToken1}"/>
+        <Setter Property="Margin" Value="{StaticResource CalendarStyleMarginToken6}"/>
         <Setter Property="CalendarDayButtonStyle" Value="{StaticResource CalendarDayButtonStyle}"/>
         <Setter Property="CalendarButtonStyle" Value="{StaticResource CalendarButtonStyle}"/>
         <Setter Property="hc:TitleElement.Background" Value="{DynamicResource TitleBrush}"/>
@@ -247,7 +247,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Calendar">
-                    <hc:SimplePanel Margin="0,4,0,8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <hc:SimplePanel Margin="{StaticResource CalendarStyleMarginToken5}" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Border CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Effect="{StaticResource EffectShadow2}"/>
                         <CalendarItem x:Name="PART_CalendarItem" Margin="{TemplateBinding BorderThickness}"/>
                     </hc:SimplePanel>

@@ -4,7 +4,7 @@
 
     <Style BasedOn="{StaticResource ProgressButtonBaseStyle}" TargetType="hc:ProgressButton">
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="{StaticResource ProgressButtonStyleBorderThicknessToken1}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}"/>

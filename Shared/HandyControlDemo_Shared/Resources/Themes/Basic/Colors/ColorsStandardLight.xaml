@@ -1,12 +1,12 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Color x:Key="MainBackgroundColor">#F5F6F8</Color>
-  <Color x:Key="MainContentForegroundColor">#1F2329</Color>
-  <Color x:Key="MainContentBackgroundColor">#FFFFFF</Color>
-  <Color x:Key="ControlAccentColorKey">#1677FF</Color>
-  <Color x:Key="EditorBackgroundColor">#FFFFFF</Color>
-  <Color x:Key="EditorForegroundColor">#1F2329</Color>
-  <Color x:Key="EditorLineNumbersForegroundColor">#646A73</Color>
-  <Color x:Key="EditorNonPrintableCharacterColor">#3F1677FF</Color>
-  <Color x:Key="EditorLinkTextForegroundColor">#1677FF</Color>
-  <Color x:Key="EditorLinkTextBackgroundColor">#00000000</Color>
-</ResourceDictionary>
+    <Color x:Key="MainBackgroundColor">#F5F6F8</Color>
+    <Color x:Key="MainContentForegroundColor">#1F2329</Color>
+    <Color x:Key="MainContentBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="ControlAccentColorKey">#1677FF</Color>
+    <Color x:Key="EditorBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="EditorForegroundColor">#1F2329</Color>
+    <Color x:Key="EditorLineNumbersForegroundColor">#646A73</Color>
+    <Color x:Key="EditorNonPrintableCharacterColor">#3F1677FF</Color>
+    <Color x:Key="EditorLinkTextForegroundColor">#1677FF</Color>
+    <Color x:Key="EditorLinkTextBackgroundColor">#00000000</Color>
+</ResourceDictionary>       

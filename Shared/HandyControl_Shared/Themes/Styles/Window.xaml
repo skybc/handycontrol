@@ -5,24 +5,24 @@
     xmlns:interactivity="clr-namespace:HandyControl.Interactivity">
 
     <LinearGradientBrush x:Key="ResizeGripperForeground" StartPoint="0,0.25" EndPoint="1,0.75">
-        <GradientStop Offset="0.3" Color="#FFFFFF" />
-        <GradientStop Offset="0.75" Color="#BBC5D7" />
-        <GradientStop Offset="1" Color="#6D83A9" />
+        <GradientStop Offset="0.3" Color="{StaticResource WindowStyleColorToken1}" />
+        <GradientStop Offset="0.75" Color="{StaticResource WindowStyleColorToken2}" />
+        <GradientStop Offset="1" Color="{StaticResource WindowStyleColorToken3}" />
     </LinearGradientBrush>
 
     <Style TargetType="ResizeGrip">
-        <Setter Property="MinWidth" Value="11" />
-        <Setter Property="MinHeight" Value="11" />
-        <Setter Property="Width" Value="11" />
-        <Setter Property="Height" Value="11" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinWidth" Value="{StaticResource WindowStyleMinWidthToken1}" />
+        <Setter Property="MinHeight" Value="{StaticResource WindowStyleMinHeightToken1}" />
+        <Setter Property="Width" Value="{StaticResource WindowStyleWidthToken1}" />
+        <Setter Property="Height" Value="{StaticResource WindowStyleHeightToken1}" />
+        <Setter Property="Background" Value="{DynamicResource WindowStyleBackgroundToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ResizeGrip">
                     <hc:SimplePanel Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
                         <Path
-                            Width="11"
-                            Height="11"
+                            Width="{StaticResource WindowStyleWidthToken1}"
+                            Height="{StaticResource WindowStyleHeightToken1}"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Data="M 9,0 L 11,0 L 11,11 L 0,11 L 0,9 L 3,9 L 3,6 L 6,6 L 6,3 L 9,3 z">
@@ -88,52 +88,52 @@
                         WindowChrome.IsHitTestVisibleInChrome="True">
                         <Button
                             Name="ButtonMin"
-                            Width="45"
-                            Height="29"
+                            Width="{StaticResource WindowStyleWidthToken2}"
+                            Height="{StaticResource WindowStyleHeightToken2}"
                             hc:IconElement.Geometry="{StaticResource WindowMinGeometry}"
-                            hc:IconElement.Height="10"
-                            hc:IconElement.Width="10"
+                            hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                            hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                             Background="{TemplateBinding OtherButtonBackground}"
-                            BorderThickness="1,0,1,0"
+                            BorderThickness="{StaticResource WindowStyleBorderThicknessToken1}"
                             Command="SystemCommands.MinimizeWindowCommand"
                             Foreground="{TemplateBinding OtherButtonForeground}"
                             IsTabStop="False"
                             Style="{StaticResource ButtonIcon}" />
                         <Button
                             Name="ButtonMax"
-                            Width="46"
-                            Height="29"
+                            Width="{StaticResource WindowStyleWidthToken4}"
+                            Height="{StaticResource WindowStyleHeightToken2}"
                             hc:IconElement.Geometry="{StaticResource WindowMaxGeometry}"
-                            hc:IconElement.Height="10"
-                            hc:IconElement.Width="10"
+                            hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                            hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                             Background="{TemplateBinding OtherButtonBackground}"
-                            BorderThickness="1,0,1,0"
+                            BorderThickness="{StaticResource WindowStyleBorderThicknessToken1}"
                             Command="SystemCommands.MaximizeWindowCommand"
                             Foreground="{TemplateBinding OtherButtonForeground}"
                             IsTabStop="False"
                             Style="{StaticResource ButtonIcon}" />
                         <Button
                             Name="ButtonRestore"
-                            Width="46"
-                            Height="29"
+                            Width="{StaticResource WindowStyleWidthToken4}"
+                            Height="{StaticResource WindowStyleHeightToken2}"
                             hc:IconElement.Geometry="{StaticResource WindowRestoreGeometry}"
-                            hc:IconElement.Height="10"
-                            hc:IconElement.Width="10"
+                            hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                            hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                             Background="{TemplateBinding OtherButtonBackground}"
-                            BorderThickness="1,0,1,0"
+                            BorderThickness="{StaticResource WindowStyleBorderThicknessToken1}"
                             Command="SystemCommands.RestoreWindowCommand"
                             Foreground="{TemplateBinding OtherButtonForeground}"
                             IsTabStop="False"
                             Style="{StaticResource ButtonIcon}" />
                         <Button
                             Name="ButtonClose"
-                            Width="46"
-                            Height="29"
+                            Width="{StaticResource WindowStyleWidthToken4}"
+                            Height="{StaticResource WindowStyleHeightToken2}"
                             hc:IconElement.Geometry="{StaticResource CloseGeometry}"
-                            hc:IconElement.Height="10"
-                            hc:IconElement.Width="10"
+                            hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                            hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                             Background="{TemplateBinding CloseButtonBackground}"
-                            BorderThickness="1,0,0,0"
+                            BorderThickness="{StaticResource WindowStyleBorderThicknessToken2}"
                             Command="SystemCommands.CloseWindowCommand"
                             Foreground="{TemplateBinding CloseButtonForeground}"
                             IsTabStop="False"
@@ -147,9 +147,9 @@
                         </Grid.ColumnDefinitions>
                         <Button
                             Name="ButtonIcon"
-                            Margin="10,0,0,0"
+                            Margin="{StaticResource WindowStyleMarginToken1}"
                             VerticalAlignment="Center"
-                            Background="Transparent"
+                            Background="{DynamicResource WindowStyleBackgroundToken1}"
                             Command="{x:Static SystemCommands.ShowSystemMenuCommand}"
                             Style="{StaticResource ButtonCustom}"
                             Visibility="{TemplateBinding Icon,
@@ -161,15 +161,15 @@
                                 </interactivity:EventTrigger>
                             </interactivity:Interaction.Triggers>
                             <Image
-                                Width="16"
-                                Height="16"
+                                Width="{StaticResource WindowStyleWidthToken5}"
+                                Height="{StaticResource WindowStyleHeightToken4}"
                                 VerticalAlignment="Center"
                                 IsHitTestVisible="False"
                                 Source="{TemplateBinding Icon}" />
                         </Button>
                         <TextBlock
                             Grid.Column="1"
-                            Padding="10,0,0,0"
+                            Padding="{StaticResource WindowStylePaddingToken1}"
                             VerticalAlignment="Center"
                             Text="{TemplateBinding Title}">
                             <TextBlock.Visibility>
@@ -197,8 +197,8 @@
                 <ResizeGrip
                     x:Name="ResizeGrip"
                     Grid.Row="1"
-                    Width="10"
-                    Height="10"
+                    Width="{StaticResource WindowStyleWidthToken3}"
+                    Height="{StaticResource WindowStyleHeightToken3}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     IsTabStop="False"
@@ -286,52 +286,52 @@
                                 WindowChrome.IsHitTestVisibleInChrome="True">
                                 <Button
                                     Name="ButtonMin"
-                                    Width="45"
-                                    Height="29"
+                                    Width="{StaticResource WindowStyleWidthToken2}"
+                                    Height="{StaticResource WindowStyleHeightToken2}"
                                     hc:IconElement.Geometry="{StaticResource WindowMinGeometry}"
-                                    hc:IconElement.Height="10"
-                                    hc:IconElement.Width="10"
+                                    hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                                    hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                                     Background="{TemplateBinding OtherButtonBackground}"
-                                    BorderThickness="1,0,1,0"
+                                    BorderThickness="{StaticResource WindowStyleBorderThicknessToken1}"
                                     Command="SystemCommands.MinimizeWindowCommand"
                                     Foreground="{TemplateBinding OtherButtonForeground}"
                                     IsTabStop="False"
                                     Style="{StaticResource ButtonIcon}" />
                                 <Button
                                     Name="ButtonMax"
-                                    Width="46"
-                                    Height="29"
+                                    Width="{StaticResource WindowStyleWidthToken4}"
+                                    Height="{StaticResource WindowStyleHeightToken2}"
                                     hc:IconElement.Geometry="{StaticResource WindowMaxGeometry}"
-                                    hc:IconElement.Height="10"
-                                    hc:IconElement.Width="10"
+                                    hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                                    hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                                     Background="{TemplateBinding OtherButtonBackground}"
-                                    BorderThickness="1,0,1,0"
+                                    BorderThickness="{StaticResource WindowStyleBorderThicknessToken1}"
                                     Command="SystemCommands.MaximizeWindowCommand"
                                     Foreground="{TemplateBinding OtherButtonForeground}"
                                     IsTabStop="False"
                                     Style="{StaticResource ButtonIcon}" />
                                 <Button
                                     Name="ButtonRestore"
-                                    Width="46"
-                                    Height="29"
+                                    Width="{StaticResource WindowStyleWidthToken4}"
+                                    Height="{StaticResource WindowStyleHeightToken2}"
                                     hc:IconElement.Geometry="{StaticResource WindowRestoreGeometry}"
-                                    hc:IconElement.Height="10"
-                                    hc:IconElement.Width="10"
+                                    hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                                    hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                                     Background="{TemplateBinding OtherButtonBackground}"
-                                    BorderThickness="1,0,1,0"
+                                    BorderThickness="{StaticResource WindowStyleBorderThicknessToken1}"
                                     Command="SystemCommands.RestoreWindowCommand"
                                     Foreground="{TemplateBinding OtherButtonForeground}"
                                     IsTabStop="False"
                                     Style="{StaticResource ButtonIcon}" />
                                 <Button
                                     Name="ButtonClose"
-                                    Width="46"
-                                    Height="29"
+                                    Width="{StaticResource WindowStyleWidthToken4}"
+                                    Height="{StaticResource WindowStyleHeightToken2}"
                                     hc:IconElement.Geometry="{StaticResource CloseGeometry}"
-                                    hc:IconElement.Height="10"
-                                    hc:IconElement.Width="10"
+                                    hc:IconElement.Height="{StaticResource WindowStyleHeightToken3}"
+                                    hc:IconElement.Width="{StaticResource WindowStyleWidthToken3}"
                                     Background="{TemplateBinding CloseButtonBackground}"
-                                    BorderThickness="1,0,0,0"
+                                    BorderThickness="{StaticResource WindowStyleBorderThicknessToken2}"
                                     Command="SystemCommands.CloseWindowCommand"
                                     Foreground="{TemplateBinding CloseButtonForeground}"
                                     IsTabStop="False"
@@ -345,9 +345,9 @@
                                 </Grid.ColumnDefinitions>
                                 <Button
                                     Name="ButtonIcon"
-                                    Margin="10,0,0,0"
+                                    Margin="{StaticResource WindowStyleMarginToken1}"
                                     VerticalAlignment="Center"
-                                    Background="Transparent"
+                                    Background="{DynamicResource WindowStyleBackgroundToken1}"
                                     Command="{x:Static SystemCommands.ShowSystemMenuCommand}"
                                     Style="{StaticResource ButtonCustom}"
                                     Visibility="{TemplateBinding Icon,
@@ -359,15 +359,15 @@
                                         </interactivity:EventTrigger>
                                     </interactivity:Interaction.Triggers>
                                     <Image
-                                        Width="16"
-                                        Height="16"
+                                        Width="{StaticResource WindowStyleWidthToken5}"
+                                        Height="{StaticResource WindowStyleHeightToken4}"
                                         VerticalAlignment="Center"
                                         IsHitTestVisible="False"
                                         Source="{TemplateBinding Icon}" />
                                 </Button>
                                 <TextBlock
                                     Grid.Column="1"
-                                    Padding="10,0,0,0"
+                                    Padding="{StaticResource WindowStylePaddingToken1}"
                                     VerticalAlignment="Center"
                                     Text="{TemplateBinding Title}">
                                     <TextBlock.Visibility>
@@ -389,8 +389,8 @@
                 <ResizeGrip
                     x:Name="ResizeGrip"
                     Grid.Row="1"
-                    Width="10"
-                    Height="10"
+                    Width="{StaticResource WindowStyleWidthToken3}"
+                    Height="{StaticResource WindowStyleHeightToken3}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     IsTabStop="False"
@@ -449,18 +449,18 @@
     </ControlTemplate>
 
     <Style x:Key="WindowWin10" TargetType="hc:Window">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#262e2f" />
+        <Setter Property="BorderThickness" Value="{StaticResource WindowStyleBorderThicknessToken3}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource WindowStyleBorderBrushToken1}" />
         <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="NonClientAreaBackground" Value="{DynamicResource RegionBrush}" />
         <Setter Property="NonClientAreaForeground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="CloseButtonBackground" Value="Transparent" />
+        <Setter Property="CloseButtonBackground" Value="{DynamicResource WindowStyleCloseButtonBackgroundToken1}" />
         <Setter Property="CloseButtonForeground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="CloseButtonHoverBackground" Value="#e81123" />
-        <Setter Property="CloseButtonHoverForeground" Value="White" />
-        <Setter Property="OtherButtonBackground" Value="Transparent" />
+        <Setter Property="CloseButtonHoverBackground" Value="{DynamicResource WindowStyleCloseButtonHoverBackgroundToken1}" />
+        <Setter Property="CloseButtonHoverForeground" Value="{DynamicResource WindowStyleCloseButtonHoverForegroundToken1}" />
+        <Setter Property="OtherButtonBackground" Value="{DynamicResource WindowStyleOtherButtonBackgroundToken1}" />
         <Setter Property="OtherButtonForeground" Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="OtherButtonHoverBackground" Value="{DynamicResource DarkMaskBrush}" />
         <Setter Property="OtherButtonHoverForeground" Value="{DynamicResource PrimaryTextBrush}" />
@@ -476,24 +476,24 @@
         x:Key="WindowBlur"
         BasedOn="{StaticResource WindowWin10}"
         TargetType="hc:BlurWindow">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource WindowStyleBackgroundToken1}" />
     </Style>
 
     <Style
         x:Key="WindowGlow"
         BasedOn="{StaticResource WindowWin10}"
         TargetType="hc:GlowWindow">
-        <Setter Property="ActiveGlowColor" Value="#262e2f" />
+        <Setter Property="ActiveGlowColor" Value="{DynamicResource WindowStyleActiveGlowColorToken1}" />
         <Setter Property="InactiveGlowColor" Value="{DynamicResource BorderColor}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="{StaticResource WindowStyleBorderThicknessToken4}" />
     </Style>
 
     <Style TargetType="hc:ImageBrowser">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="MinWidth" Value="400" />
-        <Setter Property="MinHeight" Value="250" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="Background" Value="{DynamicResource WindowStyleBackgroundToken1}" />
+        <Setter Property="MinWidth" Value="{StaticResource WindowStyleMinWidthToken2}" />
+        <Setter Property="MinHeight" Value="{StaticResource WindowStyleMinHeightToken2}" />
+        <Setter Property="BorderThickness" Value="{StaticResource WindowStyleBorderThicknessToken3}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource WindowStyleBorderBrushToken2}" />
         <Setter Property="ResizeMode" Value="NoResize" />
         <Setter Property="Template">
             <Setter.Value>
@@ -517,8 +517,8 @@
                         </Grid.RowDefinitions>
                         <hc:ImageViewer
                             x:Name="PART_ImageViewer"
-                            Background="#dd000000"
-                            BorderThickness="0"
+                            Background="{DynamicResource WindowStyleBackgroundToken2}"
+                            BorderThickness="{StaticResource WindowStyleBorderThicknessToken4}"
                             ShowImgMap="True" />
                         <hc:SimplePanel
                             x:Name="PART_PanelTop"
@@ -531,22 +531,22 @@
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal">
                                 <TextBlock
-                                    Margin="10,0,0,0"
-                                    Foreground="White"
+                                    Margin="{StaticResource WindowStyleMarginToken1}"
+                                    Foreground="{DynamicResource WindowStyleForegroundToken1}"
                                     Text="{Binding ImgPath, ElementName=PART_ImageViewer}" />
                                 <TextBlock
-                                    Margin="30,0,0,0"
-                                    Foreground="White"
+                                    Margin="{StaticResource WindowStyleMarginToken2}"
+                                    Foreground="{DynamicResource WindowStyleForegroundToken1}"
                                     Text="{Binding ImgSize, ElementName=PART_ImageViewer, Converter={StaticResource Long2FileSizeConverter}}" />
                             </StackPanel>
                             <Button
-                                Width="40"
-                                Height="40"
-                                Padding="14"
+                                Width="{StaticResource WindowStyleWidthToken6}"
+                                Height="{StaticResource WindowStyleHeightToken5}"
+                                Padding="{StaticResource WindowStylePaddingToken2}"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
-                                Background="Red"
+                                Background="{DynamicResource WindowStyleBackgroundToken3}"
                                 Command="interactivity:ControlCommands.Close"
                                 Foreground="{DynamicResource TextIconBrush}"
                                 Style="{StaticResource ButtonIcon}"

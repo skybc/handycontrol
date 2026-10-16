@@ -14,7 +14,7 @@
                     <Border
                         Width="{StaticResource TreeViewExpanderSize}"
                         Height="{StaticResource TreeViewExpanderSize}"
-                        Background="Transparent">
+                        Background="{DynamicResource TreeViewBaseBackgroundToken1}">
                         <Path
                             x:Name="ExpandPath"
                             Data="{StaticResource TreeArrow}"
@@ -46,12 +46,12 @@
         TargetType="TreeViewItem">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualRadius0Margin0}" />
         <Setter Property="FontSize" Value="{StaticResource TreeViewFontSize}" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource TreeViewBaseBackgroundToken1}" />
         <Setter Property="Padding" Value="{StaticResource TreeViewItemPadding}" />
-        <Setter Property="BorderThickness" Value="3,0,0,0" />
+        <Setter Property="BorderThickness" Value="{StaticResource TreeViewBaseBorderThicknessToken1}" />
         <Setter Property="BorderBrush" Value="{DynamicResource RegionBrush}" />
         <Setter Property="MinHeight" Value="{StaticResource ListRowHeight}" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="Margin" Value="{StaticResource TreeViewBaseMarginToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TreeViewItem">
@@ -97,13 +97,13 @@
                         <Trigger Property="IsSelected" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TreeViewBaseCornerRadiusToken1}" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </Trigger>
                         <DataTrigger Binding="{Binding IsSelected}" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TreeViewBaseCornerRadiusToken1}" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
                         </DataTrigger>
                         <MultiTrigger>
@@ -113,7 +113,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TreeViewBaseCornerRadiusToken1}" />
                             <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
 
                         </MultiTrigger>
@@ -133,8 +133,8 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="2,2,2,0" />
+        <Setter Property="BorderThickness" Value="{StaticResource TreeViewBaseBorderThicknessToken2}" />
+        <Setter Property="Padding" Value="{StaticResource TreeViewBasePaddingToken1}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />

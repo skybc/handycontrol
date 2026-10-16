@@ -20,7 +20,7 @@
                         <Popup
                             Grid.Column="2"
                             Width="{TemplateBinding Width}"
-                            MinHeight="50"
+                            MinHeight="{StaticResource ComboBoxTreeBaseMinHeightToken1}"
                             IsOpen="{Binding IsChecked, ElementName=PopuButton}"
                             Placement="Bottom"
                             StaysOpen="False">
@@ -56,7 +56,7 @@
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{DynamicResource BorderBrush}"
-                        BorderThickness="0.5">
+                        BorderThickness="{StaticResource ComboBoxTreeBaseBorderThicknessToken1}">
                         <Grid>
                             <Path Fill="{TemplateBinding Foreground}">
                                 <Path.Data>

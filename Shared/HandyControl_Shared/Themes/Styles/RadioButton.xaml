@@ -26,8 +26,8 @@
         BasedOn="{StaticResource RadioButtonSameAsButtonDefault}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -43,8 +43,8 @@
         BasedOn="{StaticResource RadioButtonSameAsButtonPrimary}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -60,8 +60,8 @@
         BasedOn="{StaticResource RadioButtonSameAsButtonSuccess}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -77,8 +77,8 @@
         BasedOn="{StaticResource RadioButtonSameAsButtonInfo}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -94,8 +94,8 @@
         BasedOn="{StaticResource RadioButtonSameAsButtonWarning}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -111,8 +111,8 @@
         BasedOn="{StaticResource RadioButtonSameAsButtonDanger}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -125,8 +125,8 @@
         BasedOn="{StaticResource RadioButtonIcon}"
         TargetType="RadioButton">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource RadioButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource RadioButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -138,15 +138,15 @@
         x:Key="RadioGroupItemHorizontalFirst"
         BasedOn="{StaticResource RadioGroupItemBaseStyle}"
         TargetType="RadioButton">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="4,0,0,4" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource RadioButtonStyleCornerRadiusToken1}" />
+        <Setter Property="Margin" Value="{StaticResource RadioButtonStyleMarginToken1}" />
     </Style>
 
     <Style
         x:Key="RadioGroupItemHorizontalLast"
         BasedOn="{StaticResource RadioGroupItemBaseStyle}"
         TargetType="RadioButton">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0,4,4,0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource RadioButtonStyleCornerRadiusToken2}" />
     </Style>
 
     <Style
@@ -160,14 +160,14 @@
         x:Key="RadioGroupItemVerticalFirst"
         BasedOn="{StaticResource RadioGroupItemBaseStyle}"
         TargetType="RadioButton">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="4,4,0,0" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource RadioButtonStyleCornerRadiusToken3}" />
+        <Setter Property="Margin" Value="{StaticResource RadioButtonStyleMarginToken1}" />
     </Style>
 
     <Style
         x:Key="RadioGroupItemVerticalLast"
         BasedOn="{StaticResource RadioGroupItemBaseStyle}"
         TargetType="RadioButton">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0,0,4,4" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource RadioButtonStyleCornerRadiusToken4}" />
     </Style>
 </ResourceDictionary>

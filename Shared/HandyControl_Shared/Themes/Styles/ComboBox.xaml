@@ -9,7 +9,7 @@
         x:Key="ComboBoxItem.Small"
         BasedOn="{StaticResource ComboBoxItemBaseStyle}"
         TargetType="ComboBoxItem">
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="Padding" Value="{StaticResource ComboBoxStylePaddingToken1}" />
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
     </Style>
 
@@ -19,7 +19,7 @@
         TargetType="ComboBox">
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItem.Small}" />
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="Padding" Value="{StaticResource ComboBoxStylePaddingToken1}" />
     </Style>
 
     <Style
@@ -34,9 +34,9 @@
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItem.Small}" />
         <Setter Property="hc:InfoElement.MinContentHeight" Value="{DynamicResource SmallControlHeight}" />
         <Setter Property="hc:InfoElement.ContentHeight" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,3,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="6,0,0,1" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource ComboBoxStyleMarginOnTheLeftToken2}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource ComboBoxStyleMarginOnTheTopToken2}" />
+        <Setter Property="Padding" Value="{StaticResource ComboBoxStylePaddingToken1}" />
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
     </Style>
 
@@ -49,9 +49,9 @@
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItem.Small}" />
         <Setter Property="hc:InfoElement.MinContentHeight" Value="{DynamicResource SmallControlHeight}" />
         <Setter Property="hc:InfoElement.ContentHeight" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,3,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="6,0,0,1" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource ComboBoxStyleMarginOnTheLeftToken2}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource ComboBoxStyleMarginOnTheTopToken2}" />
+        <Setter Property="Padding" Value="{StaticResource ComboBoxStylePaddingToken1}" />
         <Setter Property="MinHeight" Value="{DynamicResource SmallControlHeight}" />
     </Style>
 

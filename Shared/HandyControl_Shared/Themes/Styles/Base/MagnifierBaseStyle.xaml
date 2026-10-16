@@ -6,9 +6,9 @@
         <Setter Property="IsHitTestVisible" Value="False" />
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
-        <Setter Property="Width" Value="180"/>
-        <Setter Property="Height" Value="180"/>
-        <Setter Property="BorderThickness" Value="8"/>
+        <Setter Property="Width" Value="{StaticResource MagnifierBaseWidthToken1}"/>
+        <Setter Property="Height" Value="{StaticResource MagnifierBaseHeightToken1}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource MagnifierBaseBorderThicknessToken1}"/>
         <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="Template">

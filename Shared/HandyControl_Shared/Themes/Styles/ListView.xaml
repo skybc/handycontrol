@@ -9,9 +9,9 @@
         <Setter Property="BorderBrush"
                 Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness"
-                Value="1" />
+                Value="{StaticResource ListViewStyleBorderThicknessToken1}" />
         <Setter Property="Padding"
-                Value="6" />
+                Value="{StaticResource ListViewStylePaddingToken1}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
@@ -29,7 +29,7 @@
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource ListViewItemBaseStyle}" />
         <Setter Property="hc:GridViewAttach.ColumnHeaderHeight"
-                Value="44" />
+                Value="{StaticResource ListViewStyleColumnHeaderHeightToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListView">
@@ -89,7 +89,7 @@
                                                                             ColumnHeaderTemplate="{Binding View.ColumnHeaderTemplate, RelativeSource={RelativeSource AncestorType=ListView}}"
                                                                             ColumnHeaderTemplateSelector="{Binding View.ColumnHeaderTemplateSelector, RelativeSource={RelativeSource AncestorType=ListView}}"
                                                                             Columns="{Binding View.Columns, RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                                            Margin="2,0"
+                                                                            Margin="{StaticResource ListViewStyleMarginToken1}"
                                                                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                             </ScrollViewer>
                                         </DockPanel>
@@ -183,11 +183,11 @@
            BasedOn="{StaticResource ListViewItemBaseStyle}"
            TargetType="ListViewItem">
         <Setter Property="Padding"
-                Value="6,2" />
+                Value="{StaticResource ListViewStylePaddingToken2}" />
         <Setter Property="MinHeight"
-                Value="24" />
+                Value="{StaticResource ListViewStyleMinHeightToken1}" />
         <Setter Property="Margin"
-                Value="0,0,0,2" />
+                Value="{StaticResource ListViewStyleMarginToken2}" />
     </Style>
 
     <Style x:Key="ListView.Small"
@@ -196,7 +196,7 @@
         <Setter Property="ItemContainerStyle"
                 Value="{StaticResource ListViewItemBaseStyle.Small}" />
         <Setter Property="hc:GridViewAttach.ColumnHeaderHeight"
-                Value="30" />
+                Value="{StaticResource ListViewStyleColumnHeaderHeightToken2}" />
     </Style>
 
 </ResourceDictionary>

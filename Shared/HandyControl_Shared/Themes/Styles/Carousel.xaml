@@ -17,17 +17,17 @@
     </Style>
 
     <Style x:Key="CarouselPateButton" BasedOn="{StaticResource BaseStyle}" TargetType="RadioButton">
-        <Setter Property="Margin" Value="5,0"/>
-        <Setter Property="Width" Value="10"/>
-        <Setter Property="Height" Value="10"/>
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="Margin" Value="{StaticResource CarouselStyleMarginToken1}"/>
+        <Setter Property="Width" Value="{StaticResource CarouselStyleWidthToken1}"/>
+        <Setter Property="Height" Value="{StaticResource CarouselStyleHeightToken1}"/>
+        <Setter Property="Background" Value="{DynamicResource CarouselStyleBackgroundToken1}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="{StaticResource CarouselStylePaddingToken1}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource CarouselStyleBorderThicknessToken1}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
-                    <Border CornerRadius="5" SnapsToDevicePixels="true" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}"/>
+                    <Border CornerRadius="{StaticResource CarouselStyleCornerRadiusToken1}" SnapsToDevicePixels="true" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" Value=".9"/>
@@ -69,18 +69,18 @@
                     <hc:SimplePanel ClipToBounds="True">
                         <StackPanel x:Name="PART_Panel" Orientation="Horizontal"/>
                         <hc:SimplePanel x:Name="GridTop" Opacity="0">
-                            <Button Command="interactivity:ControlCommands.Prev" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Style="{StaticResource ButtonCustom}">
-                                <Border Width="50" Height="100" Background="{DynamicResource DarkOpacityBrush}" CornerRadius="4">
-                                    <Path Margin="16" Fill="White" Style="{StaticResource LeftPathStyle}"/>
+                            <Button Command="interactivity:ControlCommands.Prev" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{StaticResource CarouselStyleMarginToken2}" Style="{StaticResource ButtonCustom}">
+                                <Border Width="{StaticResource CarouselStyleWidthToken2}" Height="{StaticResource CarouselStyleHeightToken2}" Background="{DynamicResource DarkOpacityBrush}" CornerRadius="{StaticResource CarouselStyleCornerRadiusToken2}">
+                                    <Path Margin="{StaticResource CarouselStyleMarginToken3}" Fill="{DynamicResource CarouselStyleFillToken1}" Style="{StaticResource LeftPathStyle}"/>
                                 </Border>
                             </Button>
-                            <Button Command="interactivity:ControlCommands.Next" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0" Style="{StaticResource ButtonCustom}">
-                                <Border Width="50" Height="100" Background="{DynamicResource DarkOpacityBrush}" CornerRadius="4">
-                                    <Path Margin="16" Fill="White" Style="{StaticResource RightPathStyle}"/>
+                            <Button Command="interactivity:ControlCommands.Next" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="{StaticResource CarouselStyleMarginToken4}" Style="{StaticResource ButtonCustom}">
+                                <Border Width="{StaticResource CarouselStyleWidthToken2}" Height="{StaticResource CarouselStyleHeightToken2}" Background="{DynamicResource DarkOpacityBrush}" CornerRadius="{StaticResource CarouselStyleCornerRadiusToken2}">
+                                    <Path Margin="{StaticResource CarouselStyleMarginToken3}" Fill="{DynamicResource CarouselStyleFillToken1}" Style="{StaticResource RightPathStyle}"/>
                                 </Border>
                             </Button>
                         </hc:SimplePanel>
-                        <StackPanel Name="PART_PanelPage" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                        <StackPanel Name="PART_PanelPage" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="{StaticResource CarouselStyleMarginToken5}"/>
                     </hc:SimplePanel>
                 </ControlTemplate>
             </Setter.Value>

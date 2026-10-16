@@ -9,10 +9,10 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="ResizeMode" Value="CanResize" />
-        <Setter Property="Width" Value="800" />
-        <Setter Property="Height" Value="600" />
-        <Setter Property="MinWidth" Value="600" />
-        <Setter Property="MinHeight" Value="400" />
+        <Setter Property="Width" Value="{StaticResource TreeEditorWindowStyleWidthToken1}" />
+        <Setter Property="Height" Value="{StaticResource TreeEditorWindowStyleHeightToken1}" />
+        <Setter Property="MinWidth" Value="{StaticResource TreeEditorWindowStyleMinWidthToken1}" />
+        <Setter Property="MinHeight" Value="{StaticResource TreeEditorWindowStyleMinHeightToken1}" />
         <Setter Property="WindowTitle" Value="目录树编辑器" />
         <Setter Property="Template">
             <Setter.Value>
@@ -20,7 +20,7 @@
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1"
+                        BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken1}"
                         CornerRadius="{StaticResource DefaultCornerRadius}">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -35,19 +35,19 @@
                                 Grid.Row="0"
                                 Background="{DynamicResource SecondaryRegionBrush}"
                                 CornerRadius="{StaticResource DefaultCornerRadius}">
-                                <Grid Height="40">
+                                <Grid Height="{StaticResource TreeEditorWindowStyleHeightToken2}">
                                     <TextBlock
-                                        Margin="16,0"
+                                        Margin="{StaticResource TreeEditorWindowStyleMarginToken1}"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        FontSize="14"
+                                        FontSize="{StaticResource TreeEditorWindowStyleFontSizeToken1}"
                                         FontWeight="Bold"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{TemplateBinding WindowTitle}" />
 
                                     <Button
-                                        Width="40"
-                                        Height="40"
+                                        Width="{StaticResource TreeEditorWindowStyleWidthToken2}"
+                                        Height="{StaticResource TreeEditorWindowStyleHeightToken2}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Command="interactivity:ControlCommands.Cancel"
@@ -58,18 +58,18 @@
                             </Border>
 
                             <!--  主内容区  -->
-                            <Grid Grid.Row="1" Margin="16">
+                            <Grid Grid.Row="1" Margin="{StaticResource TreeEditorWindowStyleMarginToken2}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="{StaticResource TreeEditorWindowStyleWidthToken3}" />
                                 </Grid.ColumnDefinitions>
 
                                 <!--  左侧目录树区  -->
                                 <Border
                                     Grid.Column="0"
                                     BorderBrush="{DynamicResource BorderBrush}"
-                                    BorderThickness="1"
+                                    BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken1}"
                                     CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -80,41 +80,41 @@
                                         <!--  工具栏  -->
                                         <Border
                                             Grid.Row="0"
-                                            Padding="8"
+                                            Padding="{StaticResource TreeEditorWindowStylePaddingToken1}"
                                             Background="{DynamicResource SecondaryRegionBrush}"
                                             BorderBrush="{DynamicResource BorderBrush}"
-                                            BorderThickness="0,0,0,1">
+                                            BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken2}">
                                             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                                                 <Button
-                                                    Width="32"
-                                                    Height="32"
-                                                    Margin="0,0,4,0"
+                                                    Width="{StaticResource TreeEditorWindowStyleWidthToken4}"
+                                                    Height="{StaticResource TreeEditorWindowStyleHeightToken3}"
+                                                    Margin="{StaticResource TreeEditorWindowStyleMarginToken3}"
                                                     Command="interactivity:ControlCommands.Add"
                                                     Style="{StaticResource ButtonIcon}"
                                                     ToolTip="新增子节点">
                                                     <Path
-                                                        Width="16"
-                                                        Height="16"
+                                                        Width="{StaticResource TreeEditorWindowStyleWidthToken5}"
+                                                        Height="{StaticResource TreeEditorWindowStyleHeightToken4}"
                                                         Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
                                                         Fill="{DynamicResource PrimaryTextBrush}"
                                                         Stretch="Uniform" />
                                                 </Button>
                                                 <Button
-                                                    Width="32"
-                                                    Height="32"
+                                                    Width="{StaticResource TreeEditorWindowStyleWidthToken4}"
+                                                    Height="{StaticResource TreeEditorWindowStyleHeightToken3}"
                                                     Command="interactivity:ControlCommands.Delete"
                                                     Style="{StaticResource ButtonIcon}"
                                                     ToolTip="删除选中节点">
                                                     <Path
-                                                        Width="16"
-                                                        Height="16"
+                                                        Width="{StaticResource TreeEditorWindowStyleWidthToken5}"
+                                                        Height="{StaticResource TreeEditorWindowStyleHeightToken4}"
                                                         Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
                                                         Fill="{DynamicResource DangerBrush}"
                                                         Stretch="Uniform" />
                                                 </Button>
                                                 <Button
-                                                    Margin="8,0,0,0"
-                                                    Padding="8,0"
+                                                    Margin="{StaticResource TreeEditorWindowStyleMarginToken4}"
+                                                    Padding="{StaticResource TreeEditorWindowStylePaddingToken2}"
                                                     Command="interactivity:ControlCommands.Save"
                                                     Content="修改"
                                                     Style="{StaticResource ButtonDefault}"
@@ -126,9 +126,9 @@
                                         <TreeView
                                             x:Name="PART_TreeView"
                                             Grid.Row="1"
-                                            Padding="8"
-                                            Background="Transparent"
-                                            BorderThickness="0"
+                                            Padding="{StaticResource TreeEditorWindowStylePaddingToken1}"
+                                            Background="{DynamicResource TreeEditorWindowStyleBackgroundToken1}"
+                                            BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken3}"
                                             FontSize="{StaticResource TreeViewFontSize}"
                                             ItemsSource="{TemplateBinding TreeNodes}">
                                             <TreeView.ItemContainerStyle>
@@ -178,7 +178,7 @@
                                                         </TextBlock>
                                                         <TextBlock
                                                             Grid.Column="1"
-                                                            Margin="8,0"
+                                                            Margin="{StaticResource TreeEditorWindowStyleMarginToken5}"
                                                             VerticalAlignment="Center"
                                                             FontSize="{StaticResource TreeViewAuxiliaryFontSize}"
                                                             Foreground="{DynamicResource SecondaryTextBrush}"
@@ -188,7 +188,7 @@
                                                             Grid.Column="2"
                                                             Width="{StaticResource TreeViewWarningIconSize}"
                                                             Height="{StaticResource TreeViewWarningIconSize}"
-                                                            Margin="4,0,0,0"
+                                                            Margin="{StaticResource TreeEditorWindowStyleMarginToken6}"
                                                             VerticalAlignment="Center"
                                                             Data="{StaticResource WarningGeometry}"
                                                             Fill="{DynamicResource DarkDangerBrush}"
@@ -204,17 +204,17 @@
                                 <!--  分隔符  -->
                                 <GridSplitter
                                     Grid.Column="1"
-                                    Width="8"
+                                    Width="{StaticResource TreeEditorWindowStyleWidthToken6}"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Stretch"
-                                    Background="Transparent"
+                                    Background="{DynamicResource TreeEditorWindowStyleBackgroundToken1}"
                                     ShowsPreview="True" />
 
                                 <!--  右侧变量列表  -->
                                 <Border
                                     Grid.Column="2"
                                     BorderBrush="{DynamicResource BorderBrush}"
-                                    BorderThickness="1"
+                                    BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken1}"
                                     CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -226,39 +226,39 @@
 
                                         <Border
                                             Grid.Row="0"
-                                            Padding="12,8"
+                                            Padding="{StaticResource TreeEditorWindowStylePaddingToken3}"
                                             Background="{DynamicResource SecondaryRegionBrush}"
                                             BorderBrush="{DynamicResource BorderBrush}"
-                                            BorderThickness="0,0,0,1">
+                                            BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken2}">
                                             <TextBlock
-                                                FontSize="13"
+                                                FontSize="{StaticResource TreeEditorWindowStyleFontSizeToken2}"
                                                 FontWeight="Bold"
                                                 Foreground="{DynamicResource PrimaryTextBrush}"
                                                 Text="节点属性" />
                                         </Border>
 
-                                        <StackPanel Grid.Row="1" Margin="12,8">
+                                        <StackPanel Grid.Row="1" Margin="{StaticResource TreeEditorWindowStyleMarginToken7}">
                                             <TextBlock
-                                                Margin="0,0,0,4"
+                                                Margin="{StaticResource TreeEditorWindowStyleMarginToken8}"
                                                 FontSize="{StaticResource TreeViewAuxiliaryFontSize}"
                                                 Foreground="{DynamicResource SecondaryTextBrush}"
                                                 Text="节点名称" />
                                             <TextBox
                                                 x:Name="PART_NodeTextBox"
-                                                MinHeight="32"
-                                                Padding="8,4"
+                                                MinHeight="{StaticResource TreeEditorWindowStyleMinHeightToken2}"
+                                                Padding="{StaticResource TreeEditorWindowStylePaddingToken4}"
                                                 FontSize="{StaticResource TreeViewFontSize}"
                                                 ToolTip="选择一个节点后，在此处编辑名称，再点“修改”应用。" />
                                         </StackPanel>
 
                                         <Border
                                             Grid.Row="2"
-                                            Padding="12,8"
+                                            Padding="{StaticResource TreeEditorWindowStylePaddingToken3}"
                                             Background="{DynamicResource SecondaryRegionBrush}"
                                             BorderBrush="{DynamicResource BorderBrush}"
-                                            BorderThickness="0,1,0,1">
+                                            BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken4}">
                                             <TextBlock
-                                                FontSize="13"
+                                                FontSize="{StaticResource TreeEditorWindowStyleFontSizeToken2}"
                                                 FontWeight="Bold"
                                                 Foreground="{DynamicResource PrimaryTextBrush}"
                                                 Text="可用变量" />
@@ -267,24 +267,24 @@
                                         <ListBox
                                             x:Name="PART_VariableList"
                                             Grid.Row="3"
-                                            Padding="8"
-                                            Background="Transparent"
-                                            BorderThickness="0"
+                                            Padding="{StaticResource TreeEditorWindowStylePaddingToken1}"
+                                            Background="{DynamicResource TreeEditorWindowStyleBackgroundToken1}"
+                                            BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken3}"
                                             ItemsSource="{TemplateBinding Variables}"
                                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <Border
-                                                        Margin="0,2"
-                                                        Padding="8,6"
+                                                        Margin="{StaticResource TreeEditorWindowStyleMarginToken9}"
+                                                        Padding="{StaticResource TreeEditorWindowStylePaddingToken5}"
                                                         Background="{DynamicResource SecondaryRegionBrush}"
                                                         BorderBrush="{DynamicResource BorderBrush}"
-                                                        BorderThickness="1"
-                                                        CornerRadius="4"
+                                                        BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken1}"
+                                                        CornerRadius="{StaticResource TreeEditorWindowStyleCornerRadiusToken1}"
                                                         Cursor="Hand">
                                                         <TextBlock
                                                             FontFamily="Consolas"
-                                                            FontSize="12"
+                                                            FontSize="{StaticResource TreeEditorWindowStyleFontSizeToken3}"
                                                             Text="{Binding}"
                                                             TextWrapping="Wrap"
                                                             ToolTip="双击插入到选中节点" />
@@ -299,19 +299,19 @@
                             <!--  底部按钮区  -->
                             <Border
                                 Grid.Row="2"
-                                Padding="16,12"
+                                Padding="{StaticResource TreeEditorWindowStylePaddingToken6}"
                                 Background="{DynamicResource SecondaryRegionBrush}"
                                 BorderBrush="{DynamicResource BorderBrush}"
-                                BorderThickness="0,1,0,0">
+                                BorderThickness="{StaticResource TreeEditorWindowStyleBorderThicknessToken5}">
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                     <Button
-                                        Width="80"
-                                        Margin="0,0,8,0"
+                                        Width="{StaticResource TreeEditorWindowStyleWidthToken7}"
+                                        Margin="{StaticResource TreeEditorWindowStyleMarginToken10}"
                                         Command="interactivity:ControlCommands.Confirm"
                                         Content="确定"
                                         Style="{StaticResource ButtonPrimary}" />
                                     <Button
-                                        Width="80"
+                                        Width="{StaticResource TreeEditorWindowStyleWidthToken7}"
                                         Command="interactivity:ControlCommands.Cancel"
                                         Content="取消"
                                         Style="{StaticResource ButtonDefault}" />

@@ -41,13 +41,13 @@
                                 <ContentPresenter TextElement.Foreground="{Binding Path=(hc:TitleElement.Foreground),RelativeSource={RelativeSource TemplatedParent}}" ContentSource="Header" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" ContentStringFormat="{TemplateBinding HeaderStringFormat}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>
                             <ContentPresenter Margin="{TemplateBinding Padding}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <Button Focusable="False" Name="ButtonClose" Padding="0" BorderThickness="0" hc:IconElement.Width="8" Visibility="{TemplateBinding ShowCloseButton,Converter={StaticResource Boolean2VisibilityConverter}}" Command="interactivity:ControlCommands.Close" Margin="0,0,6,0" Width="16" Grid.Column="2" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource DeleteGeometry}" Foreground="{TemplateBinding Foreground}"/>
+                            <Button Focusable="False" Name="ButtonClose" Padding="{StaticResource TagBasePaddingToken1}" BorderThickness="{StaticResource TagBaseBorderThicknessToken1}" hc:IconElement.Width="{StaticResource TagBaseWidthToken1}" Visibility="{TemplateBinding ShowCloseButton,Converter={StaticResource Boolean2VisibilityConverter}}" Command="interactivity:ControlCommands.Close" Margin="{StaticResource TagBaseMarginToken1}" Width="{StaticResource TagBaseWidthToken2}" Grid.Column="2" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource DeleteGeometry}" Foreground="{TemplateBinding Foreground}"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True" SourceName="ButtonClose">
                             <Setter Property="hc:IconElement.Geometry" Value="{StaticResource DeleteFillCircleGeometry}" TargetName="ButtonClose"/>
-                            <Setter Property="hc:IconElement.Width" Value="14" TargetName="ButtonClose"/>
+                            <Setter Property="hc:IconElement.Width" Value="{StaticResource TagBaseWidthToken3}" TargetName="ButtonClose"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -70,7 +70,7 @@
     <Style x:Key="TagContainerBaseStyle" TargetType="hc:TagContainer" BasedOn="{StaticResource BaseStyle}">
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource TagBaseStyle}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="{StaticResource TagBaseBorderThicknessToken2}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -90,7 +90,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        
+
     </Style>
 
 </ResourceDictionary>

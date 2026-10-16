@@ -7,7 +7,7 @@
         x:Key="ButtonBaseStyle"
         BasedOn="{StaticResource ButtonBaseBaseStyle}"
         TargetType="Button">
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource ButtonBaseBorderThicknessToken1}" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="Template">
@@ -34,7 +34,7 @@
                                     Stretch="Uniform" />
                                 <ContentPresenter
                                     x:Name="ContentPresenterMain"
-                                    Margin="6,0,0,0"
+                                    Margin="{StaticResource ButtonBaseMarginToken1}"
                                     VerticalAlignment="Center"
                                     RecognizesAccessKey="True"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -47,7 +47,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="0" />
+                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="{StaticResource ButtonBaseMarginToken2}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -70,14 +70,14 @@
         x:Key="ButtonDashedBaseStyle"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="Button">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource ButtonBaseBackgroundToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <hc:DashedBorder
-                        Background="Transparent"
+                        Background="{DynamicResource ButtonBaseBackgroundToken1}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderDashArray="3,2"
+                        BorderDashArray="{StaticResource ButtonBaseBorderDashArrayToken1}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                         <StackPanel
@@ -95,7 +95,7 @@
                                 Stretch="Uniform" />
                             <ContentPresenter
                                 x:Name="ContentPresenterMain"
-                                Margin="6,0,0,0"
+                                Margin="{StaticResource ButtonBaseMarginToken1}"
                                 VerticalAlignment="Center"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -107,7 +107,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="0" />
+                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="{StaticResource ButtonBaseMarginToken2}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -121,14 +121,14 @@
         TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource ButtonBaseBorderThicknessToken1}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonBaseCornerRadiusToken1}" />
         <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
-        <Setter Property="Padding" Value="10,0" />
-        <Setter Property="Margin" Value="-1,0,0,0" />
+        <Setter Property="Padding" Value="{StaticResource ButtonBasePaddingToken1}" />
+        <Setter Property="Margin" Value="{StaticResource ButtonBaseMarginToken3}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -153,7 +153,7 @@
                                 Stretch="Uniform" />
                             <ContentPresenter
                                 x:Name="contentPresenter"
-                                Margin="6,0,0,0"
+                                Margin="{StaticResource ButtonBaseMarginToken1}"
                                 VerticalAlignment="Center"
                                 RecognizesAccessKey="True"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -168,7 +168,7 @@
                         </Trigger>
                         <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
                             <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="contentPresenter" Property="Margin" Value="0" />
+                            <Setter TargetName="contentPresenter" Property="Margin" Value="{StaticResource ButtonBaseMarginToken2}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -179,7 +179,7 @@
                 <Setter Property="Opacity" Value="0.4" />
             </Trigger>
             <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType=hc:ButtonGroup}}" Value="Vertical">
-                <Setter Property="Margin" Value="0,-1,0,0" />
+                <Setter Property="Margin" Value="{StaticResource ButtonBaseMarginToken4}" />
             </DataTrigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />

@@ -25,8 +25,8 @@
         BasedOn="{StaticResource ButtonDefault}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style BasedOn="{StaticResource ButtonDefault}" TargetType="Button" />
@@ -44,8 +44,8 @@
         BasedOn="{StaticResource ButtonPrimary}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -61,8 +61,8 @@
         BasedOn="{StaticResource ButtonSuccess}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -78,8 +78,8 @@
         BasedOn="{StaticResource ButtonInfo}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -95,8 +95,8 @@
         BasedOn="{StaticResource ButtonWarning}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -112,8 +112,8 @@
         BasedOn="{StaticResource ButtonDanger}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <!--  endregion  -->
@@ -124,10 +124,10 @@
         x:Key="ButtonIcon"
         BasedOn="{StaticResource ButtonBaseStyle}"
         TargetType="Button">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource ButtonStyleBackgroundToken1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonStyleBorderBrushToken1}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonStyleCornerRadiusToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -160,8 +160,8 @@
         BasedOn="{StaticResource ButtonIcon}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -170,8 +170,8 @@
         TargetType="Button">
         <Setter Property="Width" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
-        <Setter Property="Padding" Value="6" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonStyleCornerRadiusToken1}" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken2}" />
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -218,8 +218,8 @@
         TargetType="Button">
         <Setter Property="Width" Value="{DynamicResource SmallControlHeight}" />
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken3}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <!--  endregion  -->
@@ -244,8 +244,8 @@
         BasedOn="{StaticResource ButtonDashed}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -261,8 +261,8 @@
         BasedOn="{StaticResource ButtonDashedPrimary}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -278,8 +278,8 @@
         BasedOn="{StaticResource ButtonDashedSuccess}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -295,8 +295,8 @@
         BasedOn="{StaticResource ButtonDashedInfo}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -312,8 +312,8 @@
         BasedOn="{StaticResource ButtonDashedWarning}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <Style
@@ -329,8 +329,8 @@
         BasedOn="{StaticResource ButtonDashedDanger}"
         TargetType="Button">
         <Setter Property="Height" Value="{DynamicResource SmallControlHeight}" />
-        <Setter Property="Padding" Value="6,1" />
-        <Setter Property="hc:IconElement.Height" Value="12" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken1}" />
+        <Setter Property="hc:IconElement.Height" Value="{StaticResource ButtonStyleHeightToken1}" />
     </Style>
 
     <!--  endregion  -->
@@ -342,8 +342,8 @@
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="{StaticResource ButtonStylePaddingToken4}" />
+        <Setter Property="BorderThickness" Value="{StaticResource ButtonStyleBorderThicknessToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -390,15 +390,15 @@
         x:Key="ButtonGroupItemHorizontalFirst"
         BasedOn="{StaticResource ButtonGroupItemBaseStyle}"
         TargetType="Button">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="4,0,0,4" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonStyleCornerRadiusToken2}" />
+        <Setter Property="Margin" Value="{StaticResource ButtonStyleMarginToken1}" />
     </Style>
 
     <Style
         x:Key="ButtonGroupItemHorizontalLast"
         BasedOn="{StaticResource ButtonGroupItemBaseStyle}"
         TargetType="Button">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0,4,4,0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonStyleCornerRadiusToken3}" />
     </Style>
 
     <Style
@@ -412,15 +412,15 @@
         x:Key="ButtonGroupItemVerticalFirst"
         BasedOn="{StaticResource ButtonGroupItemBaseStyle}"
         TargetType="Button">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="4,4,0,0" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonStyleCornerRadiusToken4}" />
+        <Setter Property="Margin" Value="{StaticResource ButtonStyleMarginToken1}" />
     </Style>
 
     <Style
         x:Key="ButtonGroupItemVerticalLast"
         BasedOn="{StaticResource ButtonGroupItemBaseStyle}"
         TargetType="Button">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0,0,4,4" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource ButtonStyleCornerRadiusToken5}" />
     </Style>
 
     <!--  endregion  -->

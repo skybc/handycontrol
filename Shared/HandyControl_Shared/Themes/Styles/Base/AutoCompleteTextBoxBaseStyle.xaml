@@ -6,9 +6,9 @@
     <Style x:Key="AutoCompleteTextBoxItemBaseStyle" TargetType="ComboBoxItem">
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource AutoCompleteTextBoxBaseBackgroundToken1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AutoCompleteTextBoxBaseBorderBrushToken1}" />
+        <Setter Property="BorderThickness" Value="{StaticResource AutoCompleteTextBoxBaseBorderThicknessToken1}" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -51,7 +51,7 @@
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource AutoCompleteTextBoxBaseBorderThicknessToken2}" />
         <Setter Property="CaretBrush" Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -86,7 +86,7 @@
                         </Border>
                         <Popup
                             x:Name="PART_Popup"
-                            Margin="1"
+                            Margin="{StaticResource AutoCompleteTextBoxBaseMarginToken1}"
                             AllowsTransparency="true"
                             IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                             Placement="Bottom"
@@ -95,10 +95,10 @@
                                 x:Name="dropDownBorder"
                                 MinWidth="{Binding ActualWidth, ElementName=toggleButton}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                Margin="8,0,8,8"
+                                Margin="{StaticResource AutoCompleteTextBoxBaseMarginToken2}"
                                 Background="{DynamicResource RegionBrush}"
                                 BorderBrush="{DynamicResource BorderBrush}"
-                                BorderThickness="0,1,0,0"
+                                BorderThickness="{StaticResource AutoCompleteTextBoxBaseBorderThicknessToken3}"
                                 CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                                 Effect="{StaticResource EffectShadow2}">
                                 <hc:ToggleBlock
@@ -106,7 +106,7 @@
                                     VerticalContentAlignment="Stretch"
                                     IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                     <hc:ToggleBlock.CheckedContent>
-                                        <ScrollViewer Margin="0,4">
+                                        <ScrollViewer Margin="{StaticResource AutoCompleteTextBoxBaseMarginToken3}">
                                             <ItemsPresenter
                                                 x:Name="ItemsPresenter"
                                                 KeyboardNavigation.DirectionalNavigation="Contained"
@@ -122,7 +122,7 @@
                     </hc:SimplePanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasItems" Value="false">
-                            <Setter TargetName="dropDownBorder" Property="Height" Value="95" />
+                            <Setter TargetName="dropDownBorder" Property="Height" Value="{StaticResource AutoCompleteTextBoxBaseHeightToken1}" />
                         </Trigger>
                         <Trigger Property="hc:DropDownElement.ConsistentWidth" Value="True">
                             <Setter TargetName="dropDownBorder" Property="MaxWidth" Value="{Binding ActualWidth, ElementName=PART_SearchTextBox}" />

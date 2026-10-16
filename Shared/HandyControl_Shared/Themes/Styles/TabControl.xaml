@@ -7,13 +7,13 @@
     <Style x:Key="TabItemSliding" TargetType="TabItem">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource TabControlStyleBackgroundToken1}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="{StaticResource TabControlStyleBorderThicknessToken1}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
-        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Padding" Value="{StaticResource TabControlStylePaddingToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
@@ -39,7 +39,7 @@
     <Style BasedOn="{StaticResource SlidingTabContainerBaseStyle}" TargetType="hc:SlidingTabContainer" />
 
     <Style x:Key="TabControlSliding" TargetType="TabControl">
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource TabControlStyleBorderThicknessToken2}" />
         <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource TabItemSliding}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
@@ -51,17 +51,17 @@
                     <Grid x:Name="templateRoot" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="ColumnDefinition0" />
-                            <ColumnDefinition x:Name="ColumnDefinition1" Width="0" />
+                            <ColumnDefinition x:Name="ColumnDefinition1" Width="{StaticResource TabControlStyleWidthToken1}" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition x:Name="RowDefinition0" Height="Auto" />
                             <RowDefinition x:Name="RowDefinition1" Height="*" />
                         </Grid.RowDefinitions>
                         <hc:SlidingTabContainer x:Name="TabContainer" Background="{TemplateBinding Background}" Grid.Row="0" Grid.Column="0">
-                            <StackPanel x:Name="headerPanel" Orientation="Horizontal" Background="Transparent" Margin="0" IsItemsHost="True" />
+                            <StackPanel x:Name="headerPanel" Orientation="Horizontal" Background="{DynamicResource TabControlStyleBackgroundToken1}" Margin="{StaticResource TabControlStyleMarginToken1}" IsItemsHost="True" />
                         </hc:SlidingTabContainer>
-                        <Border x:Name="contentPanel" Margin="0,6,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{DynamicResource BorderBrush}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <Border x:Name="contentPanel" Margin="{StaticResource TabControlStyleMarginToken2}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{DynamicResource BorderBrush}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{StaticResource TabControlStyleMarginToken1}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -69,29 +69,29 @@
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
                             <Setter TargetName="RowDefinition1" Property="Height" Value="Auto" />
                             <Setter TargetName="TabContainer" Property="Grid.Row" Value="1" />
-                            <Setter TargetName="contentPanel" Property="Margin" Value="0,0,0,6" />
+                            <Setter TargetName="contentPanel" Property="Margin" Value="{StaticResource TabControlStyleMarginToken3}" />
                             <Setter TargetName="contentPanel" Property="Grid.Row" Value="0" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Left">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
                             <Setter TargetName="contentPanel" Property="Grid.Column" Value="1" />
                             <Setter TargetName="contentPanel" Property="Grid.Row" Value="0" />
-                            <Setter TargetName="contentPanel" Property="Margin" Value="6,0,0,0" />
+                            <Setter TargetName="contentPanel" Property="Margin" Value="{StaticResource TabControlStyleMarginToken4}" />
                             <Setter TargetName="TabContainer" Property="Grid.Column" Value="0" />
                             <Setter TargetName="TabContainer" Property="Grid.Row" Value="0" />
                             <Setter TargetName="headerPanel" Property="Orientation" Value="Vertical" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Right">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
                             <Setter TargetName="contentPanel" Property="Grid.Column" Value="0" />
                             <Setter TargetName="contentPanel" Property="Grid.Row" Value="0" />
-                            <Setter TargetName="contentPanel" Property="Margin" Value="0,0,6,0" />
+                            <Setter TargetName="contentPanel" Property="Margin" Value="{StaticResource TabControlStyleMarginToken5}" />
                             <Setter TargetName="TabContainer" Property="Grid.Column" Value="1" />
                             <Setter TargetName="TabContainer" Property="Grid.Row" Value="0" />
                             <Setter TargetName="headerPanel" Property="Orientation" Value="Vertical" />
@@ -103,7 +103,7 @@
     </Style>
 
     <Style x:Key="TabItemInLine" BasedOn="{StaticResource TabItemStyle}" TargetType="TabItem">
-        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinWidth" Value="{StaticResource TabControlStyleMinWidthToken1}" />
     </Style>
 
     <Style x:Key="TabControlInLine" BasedOn="{StaticResource TabControlBaseStyle}" TargetType="TabControl">
@@ -114,15 +114,15 @@
                     <Grid x:Name="templateRoot" Background="{TemplateBinding Background}" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="ColumnDefinition0" />
-                            <ColumnDefinition x:Name="ColumnDefinition1" Width="0" />
+                            <ColumnDefinition x:Name="ColumnDefinition1" Width="{StaticResource TabControlStyleWidthToken1}" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition x:Name="RowDefinition0" Height="Auto" />
                             <RowDefinition x:Name="RowDefinition1" Height="*" />
                         </Grid.RowDefinitions>
-                        <UniformGrid Rows="1" x:Name="headerPanel" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" />
+                        <UniformGrid Rows="1" x:Name="headerPanel" Background="{DynamicResource TabControlStyleBackgroundToken1}" Grid.Column="0" IsItemsHost="true" Margin="{StaticResource TabControlStyleMarginToken1}" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" />
                         <Border x:Name="contentPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{DynamicResource BorderBrush}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{StaticResource TabControlStyleMarginToken1}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -134,7 +134,7 @@
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Left">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
                             <Setter TargetName="contentPanel" Property="Grid.Column" Value="1" />
@@ -146,7 +146,7 @@
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Right">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
                             <Setter TargetName="contentPanel" Property="Grid.Column" Value="0" />
@@ -165,12 +165,12 @@
     <Style x:Key="TabItemCapsuleDefault" BasedOn="{StaticResource TabItemCapsuleBaseStyle}" TargetType="TabItem" />
 
     <Style x:Key="TabItemCapsuleHorizontalFirst" BasedOn="{StaticResource TabItemCapsuleBaseStyle}" TargetType="TabItem">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="4,0,0,4" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TabControlStyleCornerRadiusToken1}" />
+        <Setter Property="Margin" Value="{StaticResource TabControlStyleMarginToken1}" />
     </Style>
 
     <Style x:Key="TabItemCapsuleHorizontalLast" BasedOn="{StaticResource TabItemCapsuleBaseStyle}" TargetType="TabItem">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0,4,4,0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TabControlStyleCornerRadiusToken2}" />
     </Style>
 
     <Style x:Key="TabItemCapsuleSingle" BasedOn="{StaticResource TabItemCapsuleBaseStyle}" TargetType="TabItem">
@@ -178,16 +178,16 @@
     </Style>
 
     <Style x:Key="TabItemCapsuleVerticalFirst" BasedOn="{StaticResource TabItemCapsuleBaseStyle}" TargetType="TabItem">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="4,4,0,0" />
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TabControlStyleCornerRadiusToken3}" />
+        <Setter Property="Margin" Value="{StaticResource TabControlStyleMarginToken1}" />
     </Style>
 
     <Style x:Key="TabItemCapsuleVerticalLast" BasedOn="{StaticResource TabItemCapsuleBaseStyle}" TargetType="TabItem">
-        <Setter Property="hc:BorderElement.CornerRadius" Value="0,0,4,4" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TabControlStyleCornerRadiusToken4}" />
     </Style>
 
     <Style x:Key="TabControlCapsule" TargetType="TabControl">
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource TabControlStyleBorderThicknessToken2}" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="hc:TitleElement.BorderBrush" Value="{DynamicResource PrimaryBrush}" />
         <Setter Property="hc:TitleElement.Background" Value="{DynamicResource RegionBrush}" />
@@ -203,15 +203,15 @@
                     <Grid x:Name="templateRoot" Background="{TemplateBinding Background}" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="ColumnDefinition0" />
-                            <ColumnDefinition x:Name="ColumnDefinition1" Width="0" />
+                            <ColumnDefinition x:Name="ColumnDefinition1" Width="{StaticResource TabControlStyleWidthToken1}" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition x:Name="RowDefinition0" Height="Auto" />
                             <RowDefinition x:Name="RowDefinition1" Height="*" />
                         </Grid.RowDefinitions>
-                        <UniformGrid Rows="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="headerPanel" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" />
-                        <Border x:Name="contentPanel" Margin="0,6,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{DynamicResource BorderBrush}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <UniformGrid Rows="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="headerPanel" Background="{DynamicResource TabControlStyleBackgroundToken1}" Grid.Column="0" IsItemsHost="true" Margin="{StaticResource TabControlStyleMarginToken1}" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" />
+                        <Border x:Name="contentPanel" Margin="{StaticResource TabControlStyleMarginToken2}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{DynamicResource BorderBrush}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{StaticResource TabControlStyleMarginToken1}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -219,12 +219,12 @@
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
                             <Setter TargetName="RowDefinition1" Property="Height" Value="Auto" />
                             <Setter TargetName="headerPanel" Property="Grid.Row" Value="1" />
-                            <Setter TargetName="contentPanel" Property="Margin" Value="0,0,0,6" />
+                            <Setter TargetName="contentPanel" Property="Margin" Value="{StaticResource TabControlStyleMarginToken3}" />
                             <Setter TargetName="contentPanel" Property="Grid.Row" Value="0" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Left">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
                             <Setter TargetName="headerPanel" Property="Grid.Column" Value="0" />
@@ -233,11 +233,11 @@
                             <Setter TargetName="headerPanel" Property="Columns" Value="1" />
                             <Setter TargetName="contentPanel" Property="Grid.Column" Value="1" />
                             <Setter TargetName="contentPanel" Property="Grid.Row" Value="0" />
-                            <Setter TargetName="contentPanel" Property="Margin" Value="6,0,0,0" />
+                            <Setter TargetName="contentPanel" Property="Margin" Value="{StaticResource TabControlStyleMarginToken4}" />
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Right">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
                             <Setter TargetName="headerPanel" Property="Grid.Column" Value="1" />
@@ -246,7 +246,7 @@
                             <Setter TargetName="headerPanel" Property="Columns" Value="1" />
                             <Setter TargetName="contentPanel" Property="Grid.Column" Value="0" />
                             <Setter TargetName="contentPanel" Property="Grid.Row" Value="0" />
-                            <Setter TargetName="contentPanel" Property="Margin" Value="0,0,6,0" />
+                            <Setter TargetName="contentPanel" Property="Margin" Value="{StaticResource TabControlStyleMarginToken5}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

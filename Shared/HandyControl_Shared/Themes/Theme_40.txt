@@ -1,6 +1,7 @@
 ﻿# --------------------------------------
 Lang.xaml
 # --------------------------------------
+Basic\Colors\StyleColors.xaml
 Basic\Brushes.xaml
 Basic\Converters.xaml
 Basic\Effects.xaml

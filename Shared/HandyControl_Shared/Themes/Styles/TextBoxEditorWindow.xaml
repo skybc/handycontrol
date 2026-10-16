@@ -9,10 +9,10 @@
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
         <Setter Property="ResizeMode" Value="CanResize" />
-        <Setter Property="Width" Value="600" />
-        <Setter Property="Height" Value="300" />
-        <Setter Property="MinWidth" Value="500" />
-        <Setter Property="MinHeight" Value="300" />
+        <Setter Property="Width" Value="{StaticResource TextBoxEditorWindowStyleWidthToken1}" />
+        <Setter Property="Height" Value="{StaticResource TextBoxEditorWindowStyleHeightToken1}" />
+        <Setter Property="MinWidth" Value="{StaticResource TextBoxEditorWindowStyleMinWidthToken1}" />
+        <Setter Property="MinHeight" Value="{StaticResource TextBoxEditorWindowStyleMinHeightToken1}" />
         <Setter Property="WindowTitle" Value="文本编辑器" />
         <Setter Property="Template">
             <Setter.Value>
@@ -20,7 +20,7 @@
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1"
+                        BorderThickness="{StaticResource TextBoxEditorWindowStyleBorderThicknessToken1}"
                         CornerRadius="{StaticResource DefaultCornerRadius}">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -35,19 +35,19 @@
                                 Grid.Row="0"
                                 Background="{DynamicResource SecondaryRegionBrush}"
                                 CornerRadius="{StaticResource DefaultCornerRadius}">
-                                <Grid Height="40">
+                                <Grid Height="{StaticResource TextBoxEditorWindowStyleHeightToken2}">
                                     <TextBlock
-                                        Margin="16,0"
+                                        Margin="{StaticResource TextBoxEditorWindowStyleMarginToken1}"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        FontSize="14"
+                                        FontSize="{StaticResource TextBoxEditorWindowStyleFontSizeToken1}"
                                         FontWeight="Bold"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{TemplateBinding WindowTitle}" />
 
                                     <Button
-                                        Width="40"
-                                        Height="40"
+                                        Width="{StaticResource TextBoxEditorWindowStyleWidthToken2}"
+                                        Height="{StaticResource TextBoxEditorWindowStyleHeightToken2}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Command="interactivity:ControlCommands.Cancel"
@@ -58,9 +58,9 @@
                             </Border>
 
                             <!--  主内容区  -->
-                            <Grid Grid.Row="1" Margin="16">
+                            <Grid Grid.Row="1" Margin="{StaticResource TextBoxEditorWindowStyleMarginToken2}">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="{StaticResource TextBoxEditorWindowStyleHeightToken3}" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
@@ -74,29 +74,29 @@
                                     <Border
                                         Grid.Column="0"
                                         BorderBrush="{DynamicResource BorderBrush}"
-                                        BorderThickness="1"
+                                        BorderThickness="{StaticResource TextBoxEditorWindowStyleBorderThicknessToken1}"
                                         CornerRadius="{StaticResource DefaultCornerRadius}">
                                         <TextBox
                                             x:Name="PART_EditTextBox"
-                                            Padding="8"
+                                            Padding="{StaticResource TextBoxEditorWindowStylePaddingToken1}"
                                             VerticalAlignment="Center"
-                                            Background="Transparent"
-                                            BorderThickness="0"
+                                            Background="{DynamicResource TextBoxEditorWindowStyleBackgroundToken1}"
+                                            BorderThickness="{StaticResource TextBoxEditorWindowStyleBorderThicknessToken2}"
                                             FontFamily="Consolas"
-                                            FontSize="14"
+                                            FontSize="{StaticResource TextBoxEditorWindowStyleFontSizeToken1}"
                                             HorizontalScrollBarVisibility="Auto"
                                             VerticalScrollBarVisibility="Hidden" />
                                     </Border>
 
                                     <Button
                                         Grid.Column="1"
-                                        Width="40"
-                                        Height="40"
-                                        Margin="8,0,0,0"
+                                        Width="{StaticResource TextBoxEditorWindowStyleWidthToken2}"
+                                        Height="{StaticResource TextBoxEditorWindowStyleHeightToken2}"
+                                        Margin="{StaticResource TextBoxEditorWindowStyleMarginToken3}"
                                         VerticalAlignment="Center"
                                         Command="interactivity:ControlCommands.Delete"
                                         Content="×"
-                                        FontSize="20"
+                                        FontSize="{StaticResource TextBoxEditorWindowStyleFontSizeToken2}"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Style="{StaticResource ButtonIcon}" />
                                 </Grid>
@@ -104,9 +104,9 @@
                                 <!--  第二行：变量按钮区  -->
                                 <Border
                                     Grid.Row="1"
-                                    Margin="0,12,0,0"
+                                    Margin="{StaticResource TextBoxEditorWindowStyleMarginToken4}"
                                     BorderBrush="{DynamicResource BorderBrush}"
-                                    BorderThickness="1"
+                                    BorderThickness="{StaticResource TextBoxEditorWindowStyleBorderThicknessToken1}"
                                     CornerRadius="{StaticResource DefaultCornerRadius}">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -116,7 +116,7 @@
 
                                         <TextBlock
                                             Grid.Row="0"
-                                            Margin="8"
+                                            Margin="{StaticResource TextBoxEditorWindowStyleMarginToken5}"
                                             FontWeight="Bold"
                                             Foreground="{DynamicResource PrimaryTextBrush}"
                                             Text="可用变量" />
@@ -125,7 +125,7 @@
                                             Grid.Row="1"
                                             HorizontalScrollBarVisibility="Disabled"
                                             VerticalScrollBarVisibility="Auto">
-                                            <WrapPanel x:Name="PART_VariableList" Margin="8" />
+                                            <WrapPanel x:Name="PART_VariableList" Margin="{StaticResource TextBoxEditorWindowStyleMarginToken5}" />
                                         </ScrollViewer>
                                     </Grid>
                                 </Border>
@@ -134,19 +134,19 @@
                             <!--  底部按钮区  -->
                             <Border
                                 Grid.Row="2"
-                                Padding="16,12"
+                                Padding="{StaticResource TextBoxEditorWindowStylePaddingToken2}"
                                 Background="{DynamicResource SecondaryRegionBrush}"
                                 BorderBrush="{DynamicResource BorderBrush}"
-                                BorderThickness="0,1,0,0">
+                                BorderThickness="{StaticResource TextBoxEditorWindowStyleBorderThicknessToken3}">
                                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                                     <Button
-                                        Width="80"
-                                        Margin="0,0,8,0"
+                                        Width="{StaticResource TextBoxEditorWindowStyleWidthToken3}"
+                                        Margin="{StaticResource TextBoxEditorWindowStyleMarginToken6}"
                                         Command="interactivity:ControlCommands.Confirm"
                                         Content="确定"
                                         Style="{StaticResource ButtonPrimary}" />
                                     <Button
-                                        Width="80"
+                                        Width="{StaticResource TextBoxEditorWindowStyleWidthToken3}"
                                         Command="interactivity:ControlCommands.Cancel"
                                         Content="取消"
                                         Style="{StaticResource ButtonDefault}" />

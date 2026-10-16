@@ -7,12 +7,12 @@
     </Style>
 
     <Style x:Key="RectangleFocusVisual" TargetType="Rectangle">
-        <Setter Property="Margin" Value="-2"/>
+        <Setter Property="Margin" Value="{StaticResource RectangleStyleMarginToken1}"/>
         <Setter Property="Opacity" Value=".6"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Stroke" Value="{DynamicResource SecondaryBorderBrush}"/>
-        <Setter Property="StrokeThickness" Value="2"/>
-        <Setter Property="StrokeDashArray" Value="1 1"/>
+        <Setter Property="StrokeThickness" Value="{StaticResource RectangleStyleStrokeThicknessToken1}"/>
+        <Setter Property="StrokeDashArray" Value="{StaticResource RectangleStyleStrokeDashArrayToken1}"/>
     </Style>
 
     <Style x:Key="RectangleFocusVisualCircular" BasedOn="{StaticResource RectangleFocusVisual}" TargetType="Rectangle">

@@ -5,8 +5,8 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <Style x:Key="RowHeaderGripperStyle" TargetType="Thumb">
-        <Setter Property="Height" Value="8" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="{StaticResource DataGridBaseHeightToken1}" />
+        <Setter Property="Background" Value="{DynamicResource DataGridBaseBackgroundToken1}" />
         <Setter Property="Cursor" Value="SizeNS" />
         <Setter Property="Template">
             <Setter.Value>
@@ -25,23 +25,23 @@
                         <Setter.Value>
                             <ControlTemplate>
                                 <Rectangle
-                                    Margin="2"
+                                    Margin="{StaticResource DataGridBaseMarginToken1}"
                                     Opacity=".6"
-                                    RadiusX="4"
-                                    RadiusY="4"
+                                    RadiusX="{StaticResource DataGridBaseRadiusXToken1}"
+                                    RadiusY="{StaticResource DataGridBaseRadiusYToken1}"
                                     SnapsToDevicePixels="true"
                                     Stroke="{DynamicResource SecondaryBorderBrush}"
-                                    StrokeDashArray="1 1"
-                                    StrokeThickness="2" />
+                                    StrokeDashArray="{StaticResource DataGridBaseStrokeDashArrayToken1}"
+                                    StrokeThickness="{StaticResource DataGridBaseStrokeThicknessToken1}" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource DataGridBaseBackgroundToken1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGridBaseBorderBrushToken1}" />
+        <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken1}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Padding" Value="{StaticResource DefaultControlPadding}" />
@@ -49,9 +49,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridCell">
-                    <Border Background="Transparent">
+                    <Border Background="{DynamicResource DataGridBaseBackgroundToken1}">
                         <Border
-                            Margin="0,0,4,0"
+                            Margin="{StaticResource DataGridBaseMarginToken2}"
                             Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -114,19 +114,19 @@
     <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGridBaseBorderBrushToken1}" />
+        <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken1}" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Margin" Value="0,0,0,4" />
-        <Setter Property="Padding" Value="0,6" />
+        <Setter Property="Margin" Value="{StaticResource DataGridBaseMarginToken3}" />
+        <Setter Property="Padding" Value="{StaticResource DataGridBasePaddingToken1}" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
         <Setter Property="ValidationErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
                     <TextBlock
-                        Margin="2,0,0,0"
+                        Margin="{StaticResource DataGridBaseMarginToken4}"
                         VerticalAlignment="Center"
-                        Foreground="Red"
+                        Foreground="{DynamicResource DataGridBaseForegroundToken1}"
                         Text="!" />
                 </ControlTemplate>
             </Setter.Value>
@@ -149,7 +149,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="0"
+                            CornerRadius="{StaticResource DataGridBaseCornerRadiusToken1}"
                             SnapsToDevicePixels="True" />
                         <DataGridCellsPresenter
                             Grid.Row="0"
@@ -179,7 +179,7 @@
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                <Setter Property="BorderThickness" Value="3,0,0,0" />
+                <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken2}" />
                 <Setter Property="TextElement.Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </Trigger>
             <MultiTrigger>
@@ -189,15 +189,15 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
-                <Setter Property="BorderThickness" Value="3,0,0,0" />
+                <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken2}" />
                 <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="ColumnHeaderGripperStyle" TargetType="Thumb">
-        <Setter Property="Width" Value="8" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="{StaticResource DataGridBaseWidthToken1}" />
+        <Setter Property="Background" Value="{DynamicResource DataGridBaseBackgroundToken1}" />
         <Setter Property="Cursor" Value="SizeWE" />
         <Setter Property="Template">
             <Setter.Value>
@@ -211,14 +211,14 @@
     <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="Padding" Value="{StaticResource DataGridBasePaddingToken2}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="DataGridColumnHeader">
                     <hc:SimplePanel>
                         <Border
                             Padding="{TemplateBinding Padding}"
-                            Background="Transparent"
+                            Background="{DynamicResource DataGridBaseBackgroundToken1}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
@@ -233,9 +233,9 @@
                                 <ToggleButton
                                     x:Name="ToggleButtonSortDirection"
                                     Grid.Column="1"
-                                    Width="20"
+                                    Width="{StaticResource DataGridBaseWidthToken2}"
                                     Height="{x:Static system:Double.NaN}"
-                                    Padding="4,0"
+                                    Padding="{StaticResource DataGridBasePaddingToken3}"
                                     VerticalAlignment="Center"
                                     hc:IconSwitchElement.Geometry="{StaticResource DownGeometry}"
                                     hc:IconSwitchElement.GeometrySelected="{StaticResource UpGeometry}"
@@ -286,7 +286,7 @@
                     <hc:SimplePanel HorizontalAlignment="Center">
                         <Border
                             Padding="{TemplateBinding Padding}"
-                            Background="Transparent"
+                            Background="{DynamicResource DataGridBaseBackgroundToken1}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                             <StackPanel Orientation="Horizontal">
@@ -335,7 +335,7 @@
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken3}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
@@ -343,8 +343,8 @@
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="Padding" Value="{StaticResource DefaultInputPadding}" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,7,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="8,0,0,5" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource DataGridBaseMarginOnTheLeftToken1}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource DataGridBaseMarginOnTheTopToken1}" />
         <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
@@ -357,8 +357,8 @@
     </Style>
 
     <Style x:Key="DataGridEditingTextColumnStyle" TargetType="TextBox">
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,7,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="8,0,0,5" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource DataGridBaseMarginOnTheLeftToken1}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource DataGridBaseMarginOnTheTopToken1}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
         <Setter Property="Padding" Value="{StaticResource DefaultInputPadding}" />
@@ -367,7 +367,7 @@
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken3}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Validation.ErrorTemplate" Value="{StaticResource InputElementErrorTemplate}" />
         <Setter Property="CaretBrush" Value="{DynamicResource PrimaryTextBrush}" />
@@ -387,7 +387,7 @@
                             SnapsToDevicePixels="True" />
                         <ScrollViewer
                             x:Name="PART_ContentHost"
-                            Margin="-2,0"
+                            Margin="{StaticResource DataGridBaseMarginToken5}"
                             Padding="{TemplateBinding Padding}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Focusable="false"
@@ -420,21 +420,21 @@
         BasedOn="{StaticResource DataGridEditingComboBoxColumnStyle}"
         TargetType="ComboBox">
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItem.Small}" />
-        <Setter Property="MinHeight" Value="20" />
-        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="MinHeight" Value="{StaticResource DataGridBaseMinHeightToken1}" />
+        <Setter Property="Padding" Value="{StaticResource DataGridBasePaddingToken4}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken3}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,3,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="6,0,0,1" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource DataGridBaseMarginOnTheLeftToken2}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource DataGridBaseMarginOnTheTopToken2}" />
         <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
@@ -450,17 +450,17 @@
         x:Key="DataGridEditingTextColumnStyle.Small"
         BasedOn="{StaticResource DataGridEditingTextColumnStyle}"
         TargetType="TextBox">
-        <Setter Property="MinHeight" Value="20" />
-        <Setter Property="Padding" Value="6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="0,3,6,0" />
-        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="6,0,0,1" />
+        <Setter Property="MinHeight" Value="{StaticResource DataGridBaseMinHeightToken1}" />
+        <Setter Property="Padding" Value="{StaticResource DataGridBasePaddingToken4}" />
+        <Setter Property="hc:TitleElement.MarginOnTheLeft" Value="{StaticResource DataGridBaseMarginOnTheLeftToken2}" />
+        <Setter Property="hc:TitleElement.MarginOnTheTop" Value="{StaticResource DataGridBaseMarginOnTheTopToken2}" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource DataGridBaseBorderThicknessToken3}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Validation.ErrorTemplate" Value="{StaticResource InputElementErrorTemplate}" />
         <Setter Property="CaretBrush" Value="{DynamicResource PrimaryTextBrush}" />
@@ -480,7 +480,7 @@
                             SnapsToDevicePixels="True" />
                         <ScrollViewer
                             x:Name="PART_ContentHost"
-                            Margin="-2,0"
+                            Margin="{StaticResource DataGridBaseMarginToken5}"
                             Padding="{TemplateBinding Padding}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Focusable="false"

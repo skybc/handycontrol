@@ -10,23 +10,23 @@
             <DrawingGroup o:Freeze="True">
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#00FFFFFF"
+                    Brush="{StaticResource PropertyGridBaseBrushToken1}"
                     Geometry="F1M16,16L0,16 0,0 16,0z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FFF6F6F6"
+                    Brush="{StaticResource PropertyGridBaseBrushToken2}"
                     Geometry="F1M0.9999,-0.000199999999999534L0.9999,15.9998 10.9999,15.9998 10.9999,13.4148 11.9999,14.4138 15.9999,10.4138 15.9999,5.5858 14.0009,7.5858 14.0009,3.0008 10.9999,3.0008 10.9999,-0.000199999999999534z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FF424242"
+                    Brush="{StaticResource PropertyGridBaseBrushToken3}"
                     Geometry="F1M10,12.4141L10,15.0001 2,15.0001 2,1.0001 10,1.0001 10,3.0001 10,7.5861 8.414,6.0001 9,6.0001 9,3.0001 3,3.0001 3,6.0001 8,6.0001 8,7.0001 3,7.0001 3,10.0001 8,10.0001 8,10.4141 8.586,11.0001 3,11.0001 3,14.0001 9,14.0001 9,11.4141z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FFEFEFF0"
+                    Brush="{StaticResource PropertyGridBaseBrushToken4}"
                     Geometry="F1M8.5859,11L2.9999,11 2.9999,14 8.9999,14 8.9999,11.414z M7.9999,7L2.9999,7 2.9999,10 7.9999,10z M7.9999,6L2.9999,6 2.9999,3 8.9999,3 8.9999,6 8.4139,6 7.9999,5.586z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FF00529C"
+                    Brush="{StaticResource PropertyGridBaseBrushToken5}"
                     Geometry="F1M13,10L13,4 11,4 11,10 9,8 9,10 12,13 15,10 15,8z" />
             </DrawingGroup>
         </DrawingBrush.Drawing>
@@ -37,23 +37,23 @@
             <DrawingGroup o:Freeze="True">
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#00FFFFFF"
+                    Brush="{StaticResource PropertyGridBaseBrushToken1}"
                     Geometry="F1M16,16L0,16 0,0 16,0z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FFF6F6F6"
+                    Brush="{StaticResource PropertyGridBaseBrushToken2}"
                     Geometry="F1M0,-0.000199999999999534L0,8.9998 1,8.9998 1,12.0008 2.586,12.0008 1,13.5858 1,15.9998 8,15.9998 8,13.0008 6.449,13.0008 8,12.0008 8,10.9998 12,14.9998 16,10.9998 16,4.9998 14,6.9998 14,3.0008 10,3.0008 10,6.9998 9,5.9998 9,-0.000199999999999534z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FF424242"
+                    Brush="{StaticResource PropertyGridBaseBrushToken3}"
                     Geometry="F1M7,7L5,2 4,2 2,7 3,7 3.399,6 5.601,6 6,7z M8,8L1,8 1,1 8,1z M4.5,3.25L5.2,5 3.8,5z M2,11L5,11 2,14 2,15 7,15 7,14 4.013,14 7,11.051 6.952,11 7,11 7,10 2,10z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FFEFEFF0"
+                    Brush="{StaticResource PropertyGridBaseBrushToken4}"
                     Geometry="F1M3.7998,5L4.4998,3.25 5.1998,5z M5.9998,7L6.9998,7 4.9998,2 3.9998,2 1.9998,7 2.9998,7 3.3998,6 5.6008,6z" />
                 <GeometryDrawing
                     o:Freeze="True"
-                    Brush="#FF00529C"
+                    Brush="{StaticResource PropertyGridBaseBrushToken5}"
                     Geometry="F1M15,8L15,10 12,13 9,10 9,8 11,10 11,4 13,4 13,10z" />
             </DrawingGroup>
         </DrawingBrush.Drawing>
@@ -63,16 +63,16 @@
         x:Key="PropertyItemToolTipBaseStyle"
         BasedOn="{StaticResource {x:Type ToolTip}}"
         TargetType="ToolTip">
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="{StaticResource PropertyGridBasePaddingToken1}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Border
-                        Margin="8"
+                        Margin="{StaticResource PropertyGridBaseMarginToken1}"
                         Padding="{TemplateBinding Padding}"
                         Background="{DynamicResource RegionBrush}"
                         BorderBrush="{DynamicResource BorderBrush}"
-                        BorderThickness="1"
+                        BorderThickness="{StaticResource PropertyGridBaseBorderThicknessToken1}"
                         CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                         Effect="{StaticResource EffectShadow2}">
                         <Grid>
@@ -80,10 +80,10 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ContentPresenter x:Name="Presenter" Margin="0,0,0,2" />
+                            <ContentPresenter x:Name="Presenter" Margin="{StaticResource PropertyGridBaseMarginToken2}" />
                             <StackPanel Grid.Row="1" Orientation="Horizontal">
                                 <TextBlock FontWeight="Bold" Text="{Binding PropertyTypeName, RelativeSource={RelativeSource AncestorType=hc:PropertyItem}}" />
-                                <TextBlock Margin="6,0,0,0" Text="{Binding PropertyName, RelativeSource={RelativeSource AncestorType=hc:PropertyItem}}" />
+                                <TextBlock Margin="{StaticResource PropertyGridBaseMarginToken3}" Text="{Binding PropertyName, RelativeSource={RelativeSource AncestorType=hc:PropertyItem}}" />
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -102,7 +102,7 @@
 
     <Style x:Key="PropertyItemBaseStyle" TargetType="hc:PropertyItem">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Margin" Value="0,0,0,2" />
+        <Setter Property="Margin" Value="{StaticResource PropertyGridBaseMarginToken2}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="hc:PropertyItem">
@@ -118,7 +118,7 @@
                         <TextBlock
                             x:Name="PART_TitleTextBlock"
                             Margin="{TemplateBinding TitleMargin}"
-                            Padding="0,0,4,0"
+                            Padding="{StaticResource PropertyGridBasePaddingToken2}"
                             VerticalAlignment="{TemplateBinding TitleVerticalAlignment}"
                             Text="{TemplateBinding DisplayName}"
                             TextTrimming="CharacterEllipsis">
@@ -135,7 +135,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="EditorOnNewLine" Value="True">
                             <Setter TargetName="PART_TitleTextBlock" Property="Grid.ColumnSpan" Value="2" />
-                            <Setter TargetName="PART_TitleTextBlock" Property="Margin" Value="0,0,0,4" />
+                            <Setter TargetName="PART_TitleTextBlock" Property="Margin" Value="{StaticResource PropertyGridBaseMarginToken4}" />
                             <Setter TargetName="PART_ContentPresenter" Property="Grid.Row" Value="1" />
                             <Setter TargetName="PART_ContentPresenter" Property="Grid.Column" Value="0" />
                             <Setter TargetName="PART_ContentPresenter" Property="Grid.ColumnSpan" Value="2" />
@@ -180,8 +180,8 @@
     </Style>
 
     <Style x:Key="PropertyGroupItemBaseStyle" TargetType="GroupItem">
-        <Setter Property="Margin" Value="0,0,0,4" />
-        <Setter Property="Padding" Value="10,6,6,0" />
+        <Setter Property="Margin" Value="{StaticResource PropertyGridBaseMarginToken4}" />
+        <Setter Property="Padding" Value="{StaticResource PropertyGridBasePaddingToken3}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GroupItem">
@@ -189,8 +189,8 @@
                         <Border
                             Background="{DynamicResource RegionBrush}"
                             BorderBrush="{DynamicResource BorderBrush}"
-                            BorderThickness="1,0,1,1"
-                            CornerRadius="0,0,4,4">
+                            BorderThickness="{StaticResource PropertyGridBaseBorderThicknessToken2}"
+                            CornerRadius="{StaticResource PropertyGridBaseCornerRadiusToken1}">
                             <ItemsPresenter Margin="{TemplateBinding Padding}" />
                         </Border>
                     </Expander>
@@ -200,10 +200,10 @@
     </Style>
 
     <Style x:Key="PropertyGridBaseStyle" TargetType="hc:PropertyGrid">
-        <Setter Property="MaxTitleWidth" Value="200" />
-        <Setter Property="MinTitleWidth" Value="60" />
+        <Setter Property="MaxTitleWidth" Value="{StaticResource PropertyGridBaseMaxTitleWidthToken1}" />
+        <Setter Property="MinTitleWidth" Value="{StaticResource PropertyGridBaseMinTitleWidthToken1}" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="{StaticResource PropertyGridBasePaddingToken1}" />
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="Template">
@@ -218,21 +218,21 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <DockPanel Margin="0,0,0,2" LastChildFill="True">
+                            <DockPanel Margin="{StaticResource PropertyGridBaseMarginToken2}" LastChildFill="True">
                                 <hc:ButtonGroup
-                                    Margin="0,0,4,0"
+                                    Margin="{StaticResource PropertyGridBaseMarginToken5}"
                                     Style="{StaticResource ButtonGroupSolid}"
                                     Visibility="{Binding ShowSortButton, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}">
                                     <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="True">
                                         <Rectangle
-                                            Width="16"
-                                            Height="16"
+                                            Width="{StaticResource PropertyGridBaseWidthToken1}"
+                                            Height="{StaticResource PropertyGridBaseHeightToken1}"
                                             Fill="{StaticResource SortByCategoryDrawingBrush}" />
                                     </RadioButton>
                                     <RadioButton Command="interactivity:ControlCommands.SortByName">
                                         <Rectangle
-                                            Width="16"
-                                            Height="16"
+                                            Width="{StaticResource PropertyGridBaseWidthToken1}"
+                                            Height="{StaticResource PropertyGridBaseHeightToken1}"
                                             Fill="{StaticResource SortByNameDrawingBrush}" />
                                     </RadioButton>
                                 </hc:ButtonGroup>

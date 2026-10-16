@@ -4,7 +4,7 @@
 
     <Style x:Key="PinBoxBaseStyle" TargetType="hc:PinBox">
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="ItemMargin" Value="4,0"/>
+        <Setter Property="ItemMargin" Value="{StaticResource PinBoxBaseItemMarginToken1}"/>
         <Setter Property="ItemWidth" Value="{StaticResource DefaultControlHeight}"/>
         <Setter Property="ItemHeight" Value="{StaticResource DefaultControlHeight}"/>
         <Setter Property="Template">
