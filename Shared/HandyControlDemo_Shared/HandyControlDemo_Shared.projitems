@@ -1129,4 +1129,10 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)app.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Themes\SkinSGammaLight.xaml">
+      <Link>Resources\Themes\SkinSGammaLight.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

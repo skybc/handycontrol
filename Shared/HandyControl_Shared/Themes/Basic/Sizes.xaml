@@ -482,6 +482,7 @@
     <Thickness x:Key="TabControlBaseBorderThicknessToken6">2,0,0,0</Thickness>
     <Thickness x:Key="TabControlBaseBorderThicknessToken7">1</Thickness>
     <GridLength x:Key="TabControlBaseWidthToken1">0</GridLength>
+    <GridLength x:Key="TabControlRowHeightToken1">0</GridLength>
     <sys:Double x:Key="TabControlBaseHeightToken1">0</sys:Double>
     <CornerRadius x:Key="TabControlBaseCornerRadiusToken1">0</CornerRadius>
     <Thickness x:Key="TabControlBasePaddingToken1">10,0</Thickness>

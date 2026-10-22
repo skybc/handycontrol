@@ -19,6 +19,13 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <ListBox Margin="16" Width="400" ItemsSource="{Binding DataList}" Style="{StaticResource ListBoxHorizontalBorder}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </WrapPanel>
     </hc:TransitioningContentControl>
 </UserControl>

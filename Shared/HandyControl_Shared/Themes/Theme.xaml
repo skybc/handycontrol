@@ -721,6 +721,7 @@
   <Thickness x:Key="TabControlBaseBorderThicknessToken6" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">2,0,0,0</Thickness>
   <Thickness x:Key="TabControlBaseBorderThicknessToken7" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">1</Thickness>
   <GridLength x:Key="TabControlBaseWidthToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0</GridLength>
+  <GridLength x:Key="TabControlRowHeightToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0</GridLength>
   <system:Double x:Key="TabControlBaseHeightToken1">0</system:Double>
   <CornerRadius x:Key="TabControlBaseCornerRadiusToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0</CornerRadius>
   <Thickness x:Key="TabControlBasePaddingToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">10,0</Thickness>
@@ -8523,7 +8524,7 @@
         <Setter TargetName="Body" Property="Margin" Value="{StaticResource ChatBubbleBaseMarginToken2}" />
         <Setter TargetName="Body" Property="Grid.Column" Value="0" />
         <Setter TargetName="Definition1" Property="Width" Value="Auto" />
-        <Setter TargetName="Definition2" Property="Width" Value="{StaticResource ChatBubbleBaseWidthToken5}" />
+        <Setter TargetName="Definition2" Property="Width" Value="{StaticResource ChatBubbleBaseWidthToken2}" />
         <Setter TargetName="Audio" Property="Grid.Column" Value="0" />
         <Setter TargetName="Audio" Property="Margin" Value="{StaticResource ChatBubbleBaseMarginToken3}" />
         <Setter TargetName="Audio" Property="RenderTransform">
@@ -12375,7 +12376,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Left">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlBaseHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
               <Setter TargetName="headerPanel" Property="Grid.Column" Value="0" />
@@ -12385,7 +12386,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Right">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlBaseHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
               <Setter TargetName="headerPanel" Property="Grid.Column" Value="1" />
@@ -14597,7 +14598,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ListBoxItem">
-          <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -14614,6 +14615,37 @@
   </Style>
   <Style x:Key="StackPanelHorizontalListBox" BasedOn="{StaticResource ListBoxCustom}" TargetType="ListBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="ItemsPanel" Value="{StaticResource StackHorizontalItemsPanelTemplate}" />
+  </Style>
+  <Style x:Key="ListBoxItemHorizontalBorder" BasedOn="{StaticResource ListBoxItemBaseStyle}" TargetType="ListBoxItem" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="Margin" Value="4" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ListBoxItem">
+          <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="true">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="true">
+              <Setter Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+              <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+              <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".4" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ListBoxHorizontalBorder" BasedOn="{StaticResource ListBoxBaseStyle}" TargetType="ListBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Setter Property="ItemsPanel" Value="{StaticResource WrapHorizontalItemsPanelTemplate}" />
+    <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemHorizontalBorder}" />
   </Style>
   <Style x:Key="StackPanelVerticalListBox" BasedOn="{StaticResource ListBoxCustom}" TargetType="ListBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="ItemsPanel" Value="{StaticResource StackVerticalItemsPanelTemplate}" />
@@ -15450,7 +15482,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Left">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
               <Setter TargetName="contentPanel" Property="Grid.Column" Value="1" />
@@ -15462,7 +15494,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Right">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
               <Setter TargetName="contentPanel" Property="Grid.Column" Value="0" />
@@ -15508,7 +15540,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Left">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
               <Setter TargetName="contentPanel" Property="Grid.Column" Value="1" />
@@ -15520,7 +15552,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Right">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
               <Setter TargetName="contentPanel" Property="Grid.Column" Value="0" />
@@ -15591,7 +15623,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Left">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
               <Setter TargetName="headerPanel" Property="Grid.Column" Value="0" />
@@ -15604,7 +15636,7 @@
             </Trigger>
             <Trigger Property="TabStripPlacement" Value="Right">
               <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlStyleHeightToken1}" />
+              <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
               <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
               <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
               <Setter TargetName="headerPanel" Property="Grid.Column" Value="1" />
@@ -16516,7 +16548,7 @@
           <Grid x:Name="ParentPanel" Height="{TemplateBinding Height}" ClipToBounds="False">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="{StaticResource DefaultControlHeight}" />
+              <ColumnDefinition Width="{Binding Source={StaticResource DefaultControlHeight}, Converter={StaticResource Double2GridLengthConverter}}" />
             </Grid.ColumnDefinitions>
             <Popup Grid.Column="2" Width="{TemplateBinding Width}" MinHeight="{StaticResource ComboBoxTreeBaseMinHeightToken1}" IsOpen="{Binding IsChecked, ElementName=PopuButton}" Placement="Bottom" StaysOpen="False">
               <TreeView Name="ActualTreeView" ItemTemplate="{TemplateBinding ItemTemplate}" ItemsSource="{TemplateBinding ItemsSource}" ScrollViewer.VerticalScrollBarVisibility="Auto">

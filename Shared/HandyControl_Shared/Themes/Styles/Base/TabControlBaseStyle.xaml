@@ -98,7 +98,7 @@
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Left">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlBaseHeightToken1}" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
                             <Setter TargetName="headerPanel" Property="Grid.Column" Value="0" />
@@ -108,7 +108,7 @@
                         </Trigger>
                         <Trigger Property="TabStripPlacement" Value="Right">
                             <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
-                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlBaseHeightToken1}" />
+                            <Setter TargetName="RowDefinition1" Property="Height" Value="{StaticResource TabControlRowHeightToken1}" />
                             <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
                             <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
                             <Setter TargetName="headerPanel" Property="Grid.Column" Value="1" />

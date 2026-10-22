@@ -7,5 +7,7 @@ public enum SkinType
     Dark,
     Violet,
     /// <summary>A compact, token-based light workbench skin.</summary>
-    StandardLight
+    StandardLight,
+    /// <summary>SGamma prototype light workbench skin.</summary>
+    SGammaLight
 }

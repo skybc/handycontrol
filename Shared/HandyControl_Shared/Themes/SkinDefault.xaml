@@ -1,1 +1,1 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Source="pack://application:,,,/HandyControl;component/Themes/SkinStandardLight.xaml" />
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Source="pack://application:,,,/HandyControl;component/Themes/SkinSGammaLight.xaml" />

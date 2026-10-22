@@ -21,8 +21,8 @@
                 </ResourceDictionary>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
-                        <ResourceDictionary Source="Resources/Themes/SkinDefault.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinSGammaLight.xaml" />
+                        <ResourceDictionary Source="Resources/Themes/SkinSGammaLight.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

@@ -9,5 +9,5 @@ internal class AppConfig
 
     public string Lang { get; set; } = "zh-cn";
 
-    public SkinType Skin { get; set; } = SkinType.Default;
+    public SkinType Skin { get; set; } = SkinType.SGammaLight;
 }

@@ -14,7 +14,7 @@
                         ClipToBounds="False">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="{StaticResource DefaultControlHeight}" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource DefaultControlHeight}, Converter={StaticResource Double2GridLengthConverter}}" />
                         </Grid.ColumnDefinitions>
 
                         <Popup

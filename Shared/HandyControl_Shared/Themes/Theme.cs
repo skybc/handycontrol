@@ -18,7 +18,7 @@ public class Theme : ResourceDictionary
         if (DesignerHelper.IsInDesignMode)
         {
             MergedDictionaries.Add(ResourceHelper.GetTheme());
-            MergedDictionaries.Add(ResourceHelper.GetSkin(SkinType.Default));
+            MergedDictionaries.Add(ResourceHelper.GetSkin(SkinType.SGammaLight));
         }
         else
         {
@@ -28,9 +28,9 @@ public class Theme : ResourceDictionary
 
     #region Skin
 
-    private SkinType _manualSkinType;
+    private SkinType _manualSkinType = SkinType.SGammaLight;
 
-    private SkinType _skin;
+    private SkinType _skin = SkinType.SGammaLight;
 
     public virtual SkinType Skin
     {
@@ -45,7 +45,7 @@ public class Theme : ResourceDictionary
     }
 
     public static readonly DependencyProperty SkinProperty = DependencyProperty.RegisterAttached(
-        "Skin", typeof(SkinType), typeof(Theme), new PropertyMetadata(default(SkinType), OnSkinChanged));
+        "Skin", typeof(SkinType), typeof(Theme), new PropertyMetadata(SkinType.SGammaLight, OnSkinChanged));
 
     private static void OnSkinChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -135,7 +135,14 @@ public class Theme : ResourceDictionary
 
     private void SyncWithSystemTheme()
     {
-        _skin = SystemHelper.DetermineIfInLightThemeMode() ? SkinType.Default : SkinType.Dark;
+        if (SystemHelper.DetermineIfInLightThemeMode())
+        {
+            _skin = SkinType.SGammaLight;
+        }
+        else
+        {
+            _skin = SkinType.Dark;
+        }
         UpdateSkin();
     }
 

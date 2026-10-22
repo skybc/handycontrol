@@ -1,0 +1,203 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--  SGammaLight semantic palette: solid colors only.  -->
+    <Color x:Key="LightPrimaryColor">#EFF6FF</Color>
+    <Color x:Key="PrimaryColor">#2563EB</Color>
+    <Color x:Key="DarkPrimaryColor">#1D4ED8</Color>
+    <Color x:Key="LightDangerColor">#FEF2F2</Color>
+    <Color x:Key="DangerColor">#DC2626</Color>
+    <Color x:Key="DarkDangerColor">#B91C1C</Color>
+    <Color x:Key="LightWarningColor">#FFFBEB</Color>
+    <Color x:Key="WarningColor">#F59E0B</Color>
+    <Color x:Key="DarkWarningColor">#B45309</Color>
+    <Color x:Key="LightInfoColor">#ECFEFF</Color>
+    <Color x:Key="InfoColor">#0891B2</Color>
+    <Color x:Key="DarkInfoColor">#0E7490</Color>
+    <Color x:Key="LightSuccessColor">#ECFDF5</Color>
+    <Color x:Key="SuccessColor">#059669</Color>
+    <Color x:Key="DarkSuccessColor">#047857</Color>
+    <Color x:Key="PrimaryTextColor">#0F172A</Color>
+    <Color x:Key="SecondaryTextColor">#64748B</Color>
+    <Color x:Key="ThirdlyTextColor">#94A3B8</Color>
+    <Color x:Key="ReverseTextColor">#FFFFFF</Color>
+    <Color x:Key="TextIconColor">#FFFFFF</Color>
+    <Color x:Key="BorderColor">#E2E8F0</Color>
+    <Color x:Key="SecondaryBorderColor">#CBD5E1</Color>
+    <Color x:Key="BackgroundColor">#F8FAFC</Color>
+    <Color x:Key="RegionColor">#F1F5F9</Color>
+    <Color x:Key="SecondaryRegionColor">#fffFFF</Color>
+    <Color x:Key="ThirdlyRegionColor">#F1F5F9</Color>
+    <Color x:Key="TitleColor">#2563EB</Color>
+    <Color x:Key="SecondaryTitleColor">#1D4ED8</Color>
+    <Color x:Key="DefaultColor">#FFFFFF</Color>
+    <Color x:Key="DarkDefaultColor">#F1F5F9</Color>
+    <Color x:Key="AccentColor">#2563EB</Color>
+    <Color x:Key="DarkAccentColor">#1D4ED8</Color>
+    <!--  Additional SGammaLight tokens not supplied by the shared palette.  -->
+    <Color x:Key="TitleTextColor">#0F172A</Color>
+    <Color x:Key="NavigationBackgroundColor">#F1F5F9</Color>
+    <Color x:Key="NavigationForegroundColor">#334155</Color>
+    <Color x:Key="NavigationSeparatorColor">#E2E8F0</Color>
+    <Color x:Key="LightDisabledColor">#F1F5F9</Color>
+    <Color x:Key="DisabledColor">#94A3B8</Color>
+    <Color x:Key="DarkDisabledColor">#64748B</Color>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="DarkPrimaryBrush" Color="{DynamicResource DarkPrimaryColor}" />
+    <SolidColorBrush x:Key="TitleBrush" Color="{DynamicResource TitleColor}" />
+    <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
+    <SolidColorBrush x:Key="DarkDangerBrush" Color="{DynamicResource DarkDangerColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
+    <SolidColorBrush x:Key="DarkWarningBrush" Color="{DynamicResource DarkWarningColor}" />
+    <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
+    <SolidColorBrush x:Key="DarkInfoBrush" Color="{DynamicResource DarkInfoColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
+    <SolidColorBrush x:Key="DarkSuccessBrush" Color="{DynamicResource DarkSuccessColor}" />
+    <SolidColorBrush x:Key="LightDisabledBrush" Color="{DynamicResource LightDisabledColor}" />
+    <SolidColorBrush x:Key="DisabledBrush" Color="{DynamicResource DisabledColor}" />
+    <SolidColorBrush x:Key="DarkDisabledBrush" Color="{DynamicResource DarkDisabledColor}" />
+    <SolidColorBrush x:Key="TitleTextBrush" Color="{DynamicResource TitleTextColor}" />
+    <SolidColorBrush x:Key="NavigationBackgroundBrush" Color="{DynamicResource NavigationBackgroundColor}" />
+    <SolidColorBrush x:Key="NavigationForegroundBrush" Color="{DynamicResource NavigationForegroundColor}" />
+    <SolidColorBrush x:Key="NavigationSeparatorBrush" Color="{DynamicResource NavigationSeparatorColor}" />
+    <Color x:Key="DarkMaskColor">#33000000</Color>
+    <Color x:Key="DarkOpacityColor">#66000000</Color>
+    <system:UInt32 x:Key="BlurGradientValue">0x99FFFFFF</system:UInt32>
+
+    <!-- Styles resource migration: preserve original appearance. -->
+    <Color x:Key="AutoCompleteTextBoxBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="AutoCompleteTextBoxBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="BadgeBaseColorToken1">Transparent</Color>
+    <Color x:Key="BadgeBaseColorToken2">Black</Color>
+    <Color x:Key="ButtonBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="CheckBoxBaseBackgroundToken1Color">White</Color>
+    <Color x:Key="CheckBoxBaseBackgroundToken2Color">Transparent</Color>
+    <Color x:Key="CheckComboBoxBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="CheckComboBoxBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="ColorPickerBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ColorPickerBaseBackgroundToken2Color">White</Color>
+    <Color x:Key="ColorPickerBaseColorToken1">Transparent</Color>
+    <Color x:Key="ColorPickerBaseColorToken2">White</Color>
+    <Color x:Key="ColorPickerBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="ColorPickerBaseForegroundToken1Color">Transparent</Color>
+    <Color x:Key="ColorPickerBaseColorToken3">#ff0000</Color>
+    <Color x:Key="ColorPickerBaseColorToken4">#ff00ff</Color>
+    <Color x:Key="ColorPickerBaseColorToken5">#0000ff</Color>
+    <Color x:Key="ColorPickerBaseColorToken6">#00ffff</Color>
+    <Color x:Key="ColorPickerBaseColorToken7">#00ff00</Color>
+    <Color x:Key="ColorPickerBaseColorToken8">#ffff00</Color>
+    <Color x:Key="ColorPickerBaseBrushToken1Color">#d0cec7</Color>
+    <Color x:Key="ColorPickerBaseBrushToken2Color">#e7e7e2</Color>
+    <Color x:Key="ColorPickerBaseColorToken9">#80ffffff</Color>
+    <Color x:Key="ColorPickerBaseColorToken10">#00ffffff</Color>
+    <Color x:Key="ColorPickerBaseColorToken11">Black</Color>
+    <Color x:Key="ColorPickerBaseColorToken12">#80000000</Color>
+    <Color x:Key="ColorPickerBaseColorToken13">#00000000</Color>
+    <Color x:Key="ColorPickerBaseBorderBrushToken2Color">White</Color>
+    <Color x:Key="ColorPickerBaseFillToken1Color">#323534</Color>
+    <Color x:Key="ComboBoxBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ComboBoxBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="CoverFlowBaseColorToken1">White</Color>
+    <Color x:Key="DataGridBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="DataGridBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="DataGridBaseForegroundToken1Color">Red</Color>
+    <Color x:Key="GeometryViewBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="GroupBoxBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ListBoxBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ListBoxBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="ListViewBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ListViewBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="MenuBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="MenuBaseBackgroundToken2Color">White</Color>
+    <Color x:Key="MenuBaseBackgroundToken3Color">#0A000000</Color>
+    <Color x:Key="MenuBaseBorderBrushToken1Color">#21000000</Color>
+    <Color x:Key="ProgressBarBaseColorToken1">#00FFFFFF</Color>
+    <Color x:Key="ProgressBarBaseColorToken2">#60FFFFFF</Color>
+    <Color x:Key="ProgressButtonBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="PropertyGridBaseBrushToken1Color">#00FFFFFF</Color>
+    <Color x:Key="PropertyGridBaseBrushToken2Color">#FFF6F6F6</Color>
+    <Color x:Key="PropertyGridBaseBrushToken3Color">#FF424242</Color>
+    <Color x:Key="PropertyGridBaseBrushToken4Color">#FFEFEFF0</Color>
+    <Color x:Key="PropertyGridBaseBrushToken5Color">#FF00529C</Color>
+    <Color x:Key="RadioButtonBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="RadioButtonBaseFillToken1Color">White</Color>
+    <Color x:Key="RadioButtonBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="RateBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="RepeatButtonBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ScrollViewerBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ShieldBaseBackgroundToken1Color">#555</Color>
+    <Color x:Key="SideMenuBaseBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="SideMenuBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="SliderBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="SliderBaseBackgroundToken2Color">White</Color>
+    <Color x:Key="SliderBaseStrokeToken1Color">White</Color>
+    <Color x:Key="StepBarBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="TabControlBaseForegroundToken1Color">White</Color>
+    <Color x:Key="TabControlBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="TabControlBaseColorToken1">White</Color>
+    <Color x:Key="TextBoxEditorBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ToggleButtonBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ToggleButtonBaseBackgroundToken2Color">White</Color>
+    <Color x:Key="ToolBarBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ToolTipBaseBackgroundToken1Color">White</Color>
+    <Color x:Key="TreeViewBaseBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ButtonStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ButtonStyleBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="CarouselStyleBackgroundToken1Color">White</Color>
+    <Color x:Key="CarouselStyleFillToken1Color">White</Color>
+    <Color x:Key="ClockStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ClockStyleFillToken1Color">White</Color>
+    <Color x:Key="GrowlStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ImageViewerStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ImageViewerStyleBorderBrushToken1Color">Black</Color>
+    <Color x:Key="ImageViewerStyleBorderBrushToken2Color">White</Color>
+    <Color x:Key="ImageViewerStyleBackgroundToken2Color">White</Color>
+    <Color x:Key="ListBoxStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ListBoxStyleBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="MessageBoxStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="NotificationStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="PopupWindowStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="PopupWindowStyleForegroundToken1Color">White</Color>
+    <Color x:Key="RepeatButtonStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="RepeatButtonStyleBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="RibbonStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ScreenshotStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ScreenshotStyleBackgroundToken2Color">#CC212121</Color>
+    <Color x:Key="ScreenshotStyleForegroundToken1Color">White</Color>
+    <Color x:Key="ScreenshotStyleBorderBrushToken1Color">#FF333333</Color>
+    <Color x:Key="ScreenshotStyleBorderBrushToken2Color">White</Color>
+    <Color x:Key="ScreenshotStyleFillToken1Color">#CC4CC6FF</Color>
+    <Color x:Key="ScreenshotStyleBackgroundToken3Color">#CC000000</Color>
+    <Color x:Key="SpriteStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="TabControlStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="TextBoxEditorWindowStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="TimeBarStyleForegroundToken1Color">White</Color>
+    <Color x:Key="TimeBarStyleBorderBrushToken1Color">White</Color>
+    <Color x:Key="TimeBarStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ToggleButtonStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ToggleButtonStyleBorderBrushToken1Color">Transparent</Color>
+    <Color x:Key="TreeEditorStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="TreeEditorWindowStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="WindowStyleColorToken1">#FFFFFF</Color>
+    <Color x:Key="WindowStyleColorToken2">#BBC5D7</Color>
+    <Color x:Key="WindowStyleColorToken3">#6D83A9</Color>
+    <Color x:Key="WindowStyleBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="WindowStyleBorderBrushToken1Color">#262e2f</Color>
+    <Color x:Key="WindowStyleActiveGlowColorToken1">#262e2f</Color>
+    <Color x:Key="WindowStyleBorderBrushToken2Color">Black</Color>
+    <Color x:Key="WindowStyleBackgroundToken2Color">#dd000000</Color>
+    <Color x:Key="WindowStyleForegroundToken1Color">White</Color>
+    <Color x:Key="WindowStyleBackgroundToken3Color">Red</Color>
+    <Color x:Key="CalendarStyleColorToken1">White</Color>
+    <Color x:Key="PopupWindowStyleMouseHoverBackgroundToken1Color">Red</Color>
+    <Color x:Key="PopupWindowStyleMouseDownBackgroundToken1Color">Red</Color>
+    <Color x:Key="WindowStyleCloseButtonBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="WindowStyleCloseButtonHoverBackgroundToken1Color">#e81123</Color>
+    <Color x:Key="WindowStyleCloseButtonHoverForegroundToken1Color">White</Color>
+    <Color x:Key="WindowStyleOtherButtonBackgroundToken1Color">Transparent</Color>
+    <Color x:Key="ScreenshotStyleFillToken2Color">DodgerBlue</Color>
+    <Color x:Key="ScreenshotStyleBorderBrushToken3Color">DodgerBlue</Color>
+
+</ResourceDictionary>

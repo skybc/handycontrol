@@ -69,7 +69,7 @@ public partial class App
             ConfigHelper.Instance.SetLang(GlobalData.Config.Lang);
             LangProvider.Culture = new CultureInfo(GlobalData.Config.Lang);
 
-            if (GlobalData.Config.Skin != SkinType.Default)
+            if (GlobalData.Config.Skin != SkinType.SGammaLight)
             {
                 UpdateSkin(GlobalData.Config.Skin);
             }

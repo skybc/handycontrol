@@ -1,0 +1,876 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="clr-namespace:HandyControl.Controls"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!--  Layout tokens are intentionally local to this skin.  Existing skins retain their sizes.  -->
+    <system:Double x:Key="DefaultControlHeight">32</system:Double>
+    <system:Double x:Key="MiddleControlHeight">28</system:Double>
+    <system:Double x:Key="SmallControlHeight">24</system:Double>
+    <Thickness x:Key="DefaultControlPadding">8,0</Thickness>
+    <Thickness x:Key="DefaultInputPadding">16,0</Thickness>
+    <CornerRadius x:Key="DefaultCornerRadius">4</CornerRadius>
+    <CornerRadius x:Key="SGammaLightLargeCornerRadius">6</CornerRadius>
+    <CornerRadius x:Key="SGammaLightPanelCornerRadius">10</CornerRadius>
+    <system:Double x:Key="SGammaLightBodyFontSize">14</system:Double>
+    <system:Double x:Key="SGammaLightAssistFontSize">14</system:Double>
+    <system:Double x:Key="SGammaLightLargeControlHeight">40</system:Double>
+
+    <SolidColorBrush x:Key="SGammaLightButtonHoverBorderBrush" Color="#FF2563EB" />
+    <SolidColorBrush x:Key="SGammaLightButtonPressedBorderBrush" Color="#FF64748B" />
+    <SolidColorBrush x:Key="SGammaLightButtonPressedBackgroundBrush" Color="#FFE2E8F0" />
+    <SolidColorBrush x:Key="SGammaLightButtonPressedPrimaryBrush" Color="#FF1E40AF" />
+    <SolidColorBrush x:Key="SGammaLightButtonPressedDangerBrush" Color="#FF991B1B" />
+    <SolidColorBrush x:Key="SGammaLightButtonTextPressedBrush" Color="#FF1E3A8A" />
+    <SolidColorBrush x:Key="SGammaLightButtonIconBrush" Color="#FF475569" />
+    <SolidColorBrush x:Key="SGammaLightButtonIconHoverBrush" Color="#FF334155" />
+    <SolidColorBrush x:Key="SGammaLightButtonIconPressedBrush" Color="#FF1E293B" />
+    <SolidColorBrush x:Key="SGammaLightButtonFocusBrush" Color="#FF2563EB" />
+
+    <Style x:Key="SGammaLightButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle
+                        Margin="-2"
+                        RadiusX="6"
+                        RadiusY="6"
+                        SnapsToDevicePixels="True"
+                        Stroke="{StaticResource SGammaLightButtonFocusBrush}"
+                        StrokeThickness="2" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--
+        The base theme intentionally uses gradients. SGammaLight keeps semantic
+        resource keys but makes every action and feedback brush a solid color.
+    -->
+    <Style
+        x:Key="SGammaLightButtonBaseStyle"
+        BasedOn="{StaticResource ButtonBaseBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="FontSize" Value="{StaticResource SGammaLightBodyFontSize}" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SecondaryBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+        <Setter Property="hc:IconElement.Width" Value="16" />
+        <Setter Property="hc:IconElement.Height" Value="16" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <hc:SimplePanel>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" />
+                        <Border
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                            <StackPanel
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Orientation="Horizontal">
+                                <Path
+                                    x:Name="PathMain"
+                                    Width="{TemplateBinding hc:IconElement.Width}"
+                                    Height="{TemplateBinding hc:IconElement.Height}"
+                                    Data="{TemplateBinding hc:IconElement.Geometry}"
+                                    Fill="{TemplateBinding Foreground}"
+                                    SnapsToDevicePixels="True"
+                                    Stretch="Uniform" />
+                                <ContentPresenter
+                                    x:Name="ContentPresenterMain"
+                                    Margin="4,0,0,0"
+                                    VerticalAlignment="Center"
+                                    RecognizesAccessKey="True"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </StackPanel>
+                        </Border>
+                    </hc:SimplePanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Content" Value="{x:Null}">
+                            <Setter TargetName="ContentPresenterMain" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
+                            <Setter TargetName="PathMain" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ContentPresenterMain" Property="Margin" Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="ButtonDefault"
+        BasedOn="{StaticResource SGammaLightButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="#FF334155" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFCBD5E1" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#FF1D4ED8" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="BorderBrush" Value="{StaticResource SGammaLightButtonHoverBorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="{StaticResource SGammaLightButtonPressedBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SGammaLightButtonPressedBorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="BorderBrush" Value="#FFF1F5F9" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="ButtonPrimary"
+        BasedOn="{StaticResource SGammaLightButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="#FF2563EB" />
+        <Setter Property="BorderBrush" Value="#FF2563EB" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FF1D4ED8" />
+                <Setter Property="BorderBrush" Value="#FF1D4ED8" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="{StaticResource SGammaLightButtonPressedPrimaryBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SGammaLightButtonPressedPrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="BorderBrush" Value="#FFF1F5F9" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="ButtonDanger"
+        BasedOn="{StaticResource SGammaLightButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="#FFDC2626" />
+        <Setter Property="BorderBrush" Value="#FFDC2626" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFB91C1C" />
+                <Setter Property="BorderBrush" Value="#FFB91C1C" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="{StaticResource SGammaLightButtonPressedDangerBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SGammaLightButtonPressedDangerBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="BorderBrush" Value="#FFF1F5F9" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="ButtonText"
+        BasedOn="{StaticResource SGammaLightButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="#FF1D4ED8" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Foreground" Value="#FF1E40AF" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Foreground" Value="{StaticResource SGammaLightButtonTextPressedBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="ButtonIcon"
+        BasedOn="{StaticResource SGammaLightButtonBaseStyle}"
+        TargetType="Button">
+        <Setter Property="Width" Value="{StaticResource DefaultControlHeight}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource SGammaLightButtonIconBrush}" />
+        <Setter Property="hc:IconElement.Width" Value="20" />
+        <Setter Property="hc:IconElement.Height" Value="20" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                        <ContentControl
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <Path
+                                Width="{TemplateBinding hc:IconElement.Width}"
+                                Height="{TemplateBinding hc:IconElement.Height}"
+                                Data="{TemplateBinding hc:IconElement.Geometry}"
+                                Fill="{TemplateBinding Foreground}"
+                                SnapsToDevicePixels="True"
+                                Stretch="Uniform" />
+                        </ContentControl>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFF1F5F9" />
+                            <Setter Property="Foreground" Value="{StaticResource SGammaLightButtonIconHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource SGammaLightButtonPressedBackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource SGammaLightButtonIconPressedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#FFF1F5F9" />
+                            <Setter Property="Foreground" Value="#FF94A3B8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ButtonDefault.Large" BasedOn="{StaticResource ButtonDefault}" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource SGammaLightLargeControlHeight}" />
+    </Style>
+    <Style x:Key="ButtonPrimary.Large" BasedOn="{StaticResource ButtonPrimary}" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource SGammaLightLargeControlHeight}" />
+    </Style>
+    <Style x:Key="ButtonDanger.Large" BasedOn="{StaticResource ButtonDanger}" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource SGammaLightLargeControlHeight}" />
+    </Style>
+    <Style x:Key="ButtonText.Large" BasedOn="{StaticResource ButtonText}" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource SGammaLightLargeControlHeight}" />
+    </Style>
+    <Style x:Key="ButtonIcon.Large" BasedOn="{StaticResource ButtonIcon}" TargetType="Button">
+        <Setter Property="Height" Value="{StaticResource SGammaLightLargeControlHeight}" />
+        <Setter Property="Width" Value="{StaticResource SGammaLightLargeControlHeight}" />
+    </Style>
+
+    <Style x:Key="ButtonSuccess" BasedOn="{StaticResource SGammaLightButtonBaseStyle}" TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="hc:VisualElement.HighlightBorderBrush" Value="{DynamicResource DarkSuccessBrush}" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="{DynamicResource SuccessBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SuccessBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource SGammaLightButtonFocusVisual}" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="{DynamicResource DarkSuccessBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DarkSuccessBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FF065F46" />
+                <Setter Property="BorderBrush" Value="#FF065F46" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="BorderBrush" Value="#FFF1F5F9" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ButtonInfo" BasedOn="{StaticResource SGammaLightButtonBaseStyle}" TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="hc:VisualElement.HighlightBorderBrush" Value="{DynamicResource DarkInfoBrush}" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="{DynamicResource InfoBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource InfoBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource SGammaLightButtonFocusVisual}" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="{DynamicResource DarkInfoBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DarkInfoBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FF155E75" />
+                <Setter Property="BorderBrush" Value="#FF155E75" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="BorderBrush" Value="#FFF1F5F9" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ButtonWarning" BasedOn="{StaticResource SGammaLightButtonBaseStyle}" TargetType="Button">
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="hc:VisualElement.HighlightBorderBrush" Value="{DynamicResource DarkWarningBrush}" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Background" Value="{DynamicResource WarningBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource WarningBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource SGammaLightButtonFocusVisual}" />
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="{DynamicResource DarkWarningBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DarkWarningBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FF92400E" />
+                <Setter Property="BorderBrush" Value="#FF92400E" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="BorderBrush" Value="#FFF1F5F9" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource ButtonDefault}" TargetType="Button" />
+    <Style BasedOn="{StaticResource TextBoxBaseStyle}" TargetType="TextBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+            <Setter Property="Padding" Value="16,0" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFCBD5E1" />
+        <Setter Property="Foreground" Value="#FF0F172A" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Style.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Background" Value="#FFF8FAFC" />
+                <Setter Property="Foreground" Value="#FF334155" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="#FF2563EB" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#EFF6FF" BlurRadius="2" ShadowDepth="0" Opacity="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource PasswordBoxBaseStyle}" TargetType="PasswordBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+            <Setter Property="Padding" Value="16,0" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFCBD5E1" />
+        <Setter Property="Foreground" Value="#FF0F172A" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="#FF2563EB" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#EFF6FF" BlurRadius="2" ShadowDepth="0" Opacity="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource ComboBoxBaseStyle}" TargetType="ComboBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+            <Setter Property="Padding" Value="16,0" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFCBD5E1" />
+        <Setter Property="Foreground" Value="#FF0F172A" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="#FF2563EB" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#EFF6FF" BlurRadius="2" ShadowDepth="0" Opacity="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource CheckBoxBaseStyle}" TargetType="CheckBox">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+    </Style>
+    <Style BasedOn="{StaticResource RadioButtonBaseStyle}" TargetType="RadioButton">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+    </Style>
+    <Style BasedOn="{StaticResource NumericUpDownBaseStyle}" TargetType="hc:NumericUpDown">
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+            <Setter Property="Padding" Value="16,0" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFCBD5E1" />
+        <Setter Property="Foreground" Value="#FF0F172A" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="4" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Style.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Background" Value="#FFF8FAFC" />
+                <Setter Property="Foreground" Value="#FF334155" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="#FF2563EB" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#EFF6FF" BlurRadius="2" ShadowDepth="0" Opacity="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#FFF1F5F9" />
+                <Setter Property="Foreground" Value="#FF94A3B8" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource CardBaseStyle}" TargetType="hc:Card">
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource SGammaLightPanelCornerRadius}" />
+    </Style>
+    <Style x:Key="SGammaLightDataGridHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="#FFF1F5F9" />
+        <Setter Property="Foreground" Value="#FF64748B" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Padding" Value="8,0" />
+    </Style>
+    <Style x:Key="SGammaLightDataGridRow" BasedOn="{StaticResource DataGridRowStyle}" TargetType="DataGridRow">
+        <Setter Property="Background" Value="White" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FFF8FAFC" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#FFEFF6FF" />
+                <Setter Property="BorderBrush" Value="#FF2563EB" />
+                <Setter Property="BorderThickness" Value="3,0,0,0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style BasedOn="{StaticResource DataGridBaseStyle}" TargetType="DataGrid">
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="RowHeight" Value="40" />
+        <Setter Property="RowStyle" Value="{StaticResource SGammaLightDataGridRow}" />
+        <Setter Property="ColumnHeaderHeight" Value="32" />
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource SGammaLightDataGridHeader}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+    </Style>
+    <Style BasedOn="{StaticResource ListViewBaseStyle}" TargetType="ListView">
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+    </Style>
+    <Style
+        x:Key="SGammaLightTreeViewItemStyle"
+        BasedOn="{StaticResource BaseStyle}"
+        TargetType="TreeViewItem">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisualRadius0Margin0}" />
+        <Setter Property="FontSize" Value="{StaticResource TreeViewFontSize}" />
+        <Setter Property="Background" Value="{DynamicResource TreeViewBaseBackgroundToken1}" />
+        <Setter Property="Padding" Value="{StaticResource TreeViewItemPadding}" />
+        <Setter Property="BorderThickness" Value="{StaticResource TreeViewBaseBorderThicknessToken1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="MinHeight" Value="{StaticResource ListRowHeight}" />
+        <Setter Property="Margin" Value="{StaticResource TreeViewBaseMarginToken1}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TreeViewItem">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="{TemplateBinding MinHeight}" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            x:Name="Bd"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                            SnapsToDevicePixels="true">
+                            <DockPanel Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, ConverterParameter={StaticResource TreeViewItemIndent}, RelativeSource={RelativeSource TemplatedParent}}" LastChildFill="True">
+                                <ToggleButton
+                                    x:Name="Expander"
+                                    ClickMode="Release"
+                                    IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Style="{StaticResource ExpandCollapseToggleStyle}" />
+                                <ContentPresenter
+                                    x:Name="PART_Header"
+                                    VerticalAlignment="Center"
+                                    ContentSource="Header"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </DockPanel>
+                        </Border>
+                        <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Bd" Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Bd" Property="Background" Value="#FFF1F5F9" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="#FFF1F5F9" />
+                        </Trigger>
+                        <Trigger Property="IsExpanded" Value="false">
+                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TreeViewBaseCornerRadiusToken1}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding IsSelected}" Value="true">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TreeViewBaseCornerRadiusToken1}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+                        </DataTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true" />
+                                <Condition Property="IsSelectionActive" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource LightPrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="3,0,0,0" />
+                            <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource TreeViewBaseCornerRadiusToken1}" />
+                            <Setter Property="Foreground" Value="{DynamicResource DarkPrimaryBrush}" />
+
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value=".4" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource TreeViewBaseStyle}" TargetType="TreeView">
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SGammaLightTreeViewItemStyle}" />
+    </Style>
+    <Style BasedOn="{StaticResource MenuBaseStyle}" TargetType="Menu">
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+    </Style>
+    <Style BasedOn="{StaticResource ContextMenuBaseStyle}" TargetType="ContextMenu">
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+    </Style>
+
+    <!--  Narrow inspector: 96px labels, 32px rows, grouped and scrollable content.  -->
+    <Style x:Key="SGammaLightPropertyItemStyle" TargetType="hc:PropertyItem">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="hc:PropertyItem">
+                    <Grid MinHeight="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Background="{DynamicResource SecondaryRegionBrush}"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="0,0,1,1">
+                            <TextBlock
+                                Margin="10,0,8,0"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="{DynamicResource SecondaryTextBrush}"
+                                Text="{TemplateBinding DisplayName}"
+                                TextTrimming="CharacterEllipsis" />
+                        </Border>
+                        <Border
+                            Grid.Column="1"
+                            Padding="0,0"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="0,0,0,1">
+                            <ContentPresenter VerticalAlignment="Center" ContentSource="EditorElement" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SGammaLightPropertyItemsControlStyle" TargetType="hc:PropertyItemsControl">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SGammaLightPropertyItemStyle}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="hc:PropertyItemsControl">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SGammaLightPropertyGroupStyle" TargetType="GroupItem">
+        <Setter Property="Margin" Value="0,4,0,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupItem">
+                    <Expander
+                        Background="{DynamicResource RegionBrush}"
+                        BorderBrush="{DynamicResource BorderBrush}"
+                        IsExpanded="True">
+                        <Expander.Header>
+                            <TextBlock
+                                Padding="8,4"
+                                FontSize="12"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource PrimaryTextBrush}"
+                                Text="{Binding Name}" />
+                        </Expander.Header>
+                        <Border
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1,0,1,1"
+                            CornerRadius="0">
+                            <ItemsPresenter />
+                        </Border>
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="hc:PropertyGrid">
+        <Setter Property="MaxTitleWidth" Value="200" />
+        <Setter Property="MinTitleWidth" Value="60" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="hc:PropertyGrid">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{StaticResource SGammaLightLargeCornerRadius}">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <hc:SearchBar
+                                x:Name="PART_SearchBar"
+                                MinHeight="32"
+                                Margin="0,0,0,8"
+                                hc:InfoElement.ShowClearButton="True"
+                                IsRealTime="True"
+                                Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                            <hc:PropertyItemsControl
+                                x:Name="PART_ItemsControl"
+                                Grid.Row="1"
+                                Style="{StaticResource SGammaLightPropertyItemsControlStyle}">
+                                <hc:PropertyItemsControl.GroupStyle>
+                                    <GroupStyle ContainerStyle="{StaticResource SGammaLightPropertyGroupStyle}" />
+                                </hc:PropertyItemsControl.GroupStyle>
+                            </hc:PropertyItemsControl>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Context-specific variants do not impose page layout on every control. -->
+    <Style x:Key="SGammaLightDenseDataGrid" BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="DataGrid">
+        <Setter Property="RowHeight" Value="32" />
+    </Style>
+    <Style x:Key="SGammaLightTableTextBox" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+        <Setter Property="Padding" Value="8,0" />
+    </Style>
+    <Style x:Key="SGammaLightTableNumberTextBox" BasedOn="{StaticResource SGammaLightTableTextBox}" TargetType="TextBox">
+        <Setter Property="TextAlignment" Value="Right" />
+    </Style>
+    <Style x:Key="SGammaLightTableComboBox" BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
+        <Setter Property="Padding" Value="8,0" />
+    </Style>
+    <Style x:Key="SGammaLightDialogButton" BasedOn="{StaticResource ButtonDefault}" TargetType="Button">
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="6" />
+    </Style>
+    <Style x:Key="SGammaLightDialogPrimaryButton" BasedOn="{StaticResource ButtonPrimary}" TargetType="Button">
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="hc:BorderElement.CornerRadius" Value="6" />
+    </Style>
+    <Style x:Key="SGammaLightSwitch" TargetType="ToggleButton">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="Track" Background="#FFCBD5E1" CornerRadius="10">
+                        <Ellipse x:Name="Thumb" Width="16" Height="16" Margin="2" Fill="White" HorizontalAlignment="Left" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Track" Property="Background" Value="#FF2563EB" />
+                            <Setter TargetName="Thumb" Property="HorizontalAlignment" Value="Right" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SGammaLightTabItem" TargetType="TabItem">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource SGammaLightButtonFocusVisual}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border x:Name="Panel" Background="White" BorderBrush="#FF2563EB" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center" RecognizesAccessKey="True" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="#FFF1F5F9" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="#FFEFF6FF" />
+                            <Setter TargetName="Panel" Property="BorderThickness" Value="0,0,0,3" />
+                            <Setter Property="Foreground" Value="#FF1D4ED8" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#FF94A3B8" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource TabControlBaseStyle}" TargetType="TabControl">
+        <Setter Property="Foreground" Value="#FF0F172A" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SGammaLightTabItem}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei, Segoe UI" />
+    </Style>
+    <system:Double x:Key="SGammaLightDialogSmallWidth">480</system:Double>
+    <system:Double x:Key="SGammaLightDialogSmallHeight">300</system:Double>
+    <system:Double x:Key="SGammaLightDialogMediumWidth">640</system:Double>
+    <system:Double x:Key="SGammaLightDialogMediumHeight">480</system:Double>
+    <system:Double x:Key="SGammaLightDialogLargeWidth">960</system:Double>
+    <system:Double x:Key="SGammaLightDialogLargeHeight">680</system:Double>
+
+    <Style x:Key="ToggleButtonSwitch" BasedOn="{StaticResource SGammaLightSwitch}" TargetType="ToggleButton" />
+</ResourceDictionary>

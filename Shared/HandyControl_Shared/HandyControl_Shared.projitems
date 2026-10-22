@@ -1124,4 +1124,22 @@
     <None Include="$(MSBuildThisFileDirectory)Themes\Theme_40.txt" />
     <None Include="$(MSBuildThisFileDirectory)Themes\Theme_GE45.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Basic\Colors\ColorsSGammaLight.xaml">
+      <Link>Themes\Basic\Colors\ColorsSGammaLight.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\SkinSGammaLight.xaml">
+      <Link>Themes\SkinSGammaLight.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\SkinSGammaLightStyles.xaml">
+      <Link>Themes\SkinSGammaLightStyles.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\SkinSGammaLightButtonColors.xaml">
+      <Link>Themes\SkinSGammaLightButtonColors.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

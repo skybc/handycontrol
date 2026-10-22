@@ -67,12 +67,25 @@ for path in FILES:
             if re.fullmatch(r'#[0-9a-fA-F]{3,8}', value):
                 errors.append(f'{path}: literal color {prop}={value}')
             match = re.fullmatch(r'\{StaticResource (\w+Token\d+)\}', value)
-            if match:
+            if match and match[1] in resources:
                 actual = E.QName(resources[match[1]]).localname
-                if tag in {'RowDefinition', 'ColumnDefinition'} and attr in {'Width', 'Height', 'MinWidth', 'MaxWidth', 'MinHeight', 'MaxHeight'}:
-                    expected = 'GridLength' if (tag, attr) in {('RowDefinition', 'Height'), ('ColumnDefinition', 'Width')} else 'Double'
+                target_tag, target_prop = tag, attr
+                if tag == 'Setter' and attr == 'Value' and e.get('TargetName'):
+                    # Resolve names within this template, never across templates.
+                    template = next((a for a in e.iterancestors()
+                                     if E.QName(a).localname in {'ControlTemplate', 'DataTemplate', 'ItemsPanelTemplate'}), None)
+                    if template is not None:
+                        targets = template.xpath('.//*[@x:Name=$name or @Name=$name]',
+                                                 namespaces={'x': NS[1:-1]}, name=e.get('TargetName'))
+                        targets = [t for t in targets if next((a for a in t.iterancestors()
+                                   if E.QName(a).localname in {'ControlTemplate', 'DataTemplate', 'ItemsPanelTemplate'}), None) is template]
+                        if len(targets) == 1:
+                            target_tag = E.QName(targets[0]).localname
+                            target_prop = e.get('Property', '').split('.')[-1]
+                if target_tag in {'RowDefinition', 'ColumnDefinition'} and target_prop in {'Width', 'Height', 'MinWidth', 'MaxWidth', 'MinHeight', 'MaxHeight'}:
+                    expected = 'GridLength' if (target_tag, target_prop) in {('RowDefinition', 'Height'), ('ColumnDefinition', 'Width')} else 'Double'
                     if expected != actual:
-                        errors.append(f'{path}: {tag}.{attr}: {actual}, expected {expected}')
+                        errors.append(f'{path}:{e.sourceline}: {target_tag}.{target_prop}: {actual}, expected {expected}')
 
 color_keys = {k for k, e in resources.items() if E.QName(e).localname == 'Color'}
 for palette in (ROOT / 'Basic/Colors').glob('Colors*.xaml'):
