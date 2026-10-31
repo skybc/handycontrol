@@ -1,0 +1,26 @@
+<UserControl x:Class="HandyControlDemo.UserControl.FormDemoCtl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:enums="clr-namespace:HandyControl.Data.Enum;assembly=HandyControl"
+             Background="{DynamicResource RegionBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32" MaxWidth="640" HorizontalAlignment="Left">
+            <TextBlock Margin="0,0,0,16" FontSize="16" Text="Form 统一标题设置" />
+            <hc:Form TitleWidth="110" TitleAlignment="Left" TitleVerticalAlignment="Center">
+                <hc:FormItem Title="用户名">
+                    <TextBox Text="Alice" />
+                </hc:FormItem>
+                <hc:FormItem Title="邮箱">
+                    <TextBox Text="alice@example.com" />
+                </hc:FormItem>
+                <hc:FormItem Title="联系方式">
+                    <TextBox Text="统一标题宽度与对齐方式" />
+                </hc:FormItem>
+                <hc:FormItem Title="备注" Layout="{x:Static enums:FormItemLayout.Vertical}">
+                    <TextBox AcceptsReturn="True" Height="80" Text="纵向布局仍使用 Form 的标题属性" TextWrapping="Wrap" />
+                </hc:FormItem>
+            </hc:Form>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

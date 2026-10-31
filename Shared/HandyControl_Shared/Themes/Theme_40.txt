@@ -31,6 +31,8 @@ Styles\Base\ButtonBaseBaseStyle.xaml
 Styles\Base\ButtonBaseStyle.xaml
 Styles\Base\TextBlockBaseStyle.xaml
 Styles\Base\LabelBaseStyle.xaml
+Styles\Base\FormBaseStyle.xaml
+Styles\Base\FormItemBaseStyle.xaml
 Styles\Base\SliderBaseStyle.xaml
 Styles\Base\ToggleButtonBaseStyle.xaml
 Styles\Base\ScrollViewerBaseStyle.xaml

@@ -1,4 +1,7 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:hc="clr-namespace:HandyControl.Controls">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hc="clr-namespace:HandyControl.Controls">
 
     <ControlTemplate x:Key="GroupBoxBaseTopTemplate" TargetType="GroupBox">
         <Grid>
@@ -6,10 +9,28 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border MinHeight="{Binding Path=(hc:TitleElement.MinHeight), RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Margin="{StaticResource GroupBoxBaseMarginToken1}">
-                <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            <Border
+                MinHeight="{Binding Path=(hc:TitleElement.MinHeight), RelativeSource={RelativeSource TemplatedParent}}"
+                Margin="{StaticResource GroupBoxBaseMarginToken1}"
+                Background="{Binding Path=(hc:TitleElement.Background), RelativeSource={RelativeSource TemplatedParent}}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                <ContentPresenter
+                    Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                    TextElement.Foreground="{TemplateBinding Foreground}" />
             </Border>
-            <Border Grid.Row="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Border
+                Grid.Row="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                 <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
         </Grid>
@@ -21,8 +42,23 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border MinWidth="{Binding Path=(hc:TitleElement.MinWidth), RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="{TemplateBinding BorderThickness}" ClipToBounds="False" BorderBrush="{TemplateBinding BorderBrush}" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Margin="{StaticResource GroupBoxBaseMarginToken2}">
-                <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" RenderTransformOrigin="0.5,0.5">
+            <Border
+                MinWidth="{Binding Path=(hc:TitleElement.MinWidth), RelativeSource={RelativeSource TemplatedParent}}"
+                Margin="{StaticResource GroupBoxBaseMarginToken2}"
+                Background="{Binding Path=(hc:TitleElement.Background), RelativeSource={RelativeSource TemplatedParent}}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                ClipToBounds="False"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                <ContentPresenter
+                    Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    RenderTransformOrigin="0.5,0.5"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                    TextElement.Foreground="{TemplateBinding Foreground}">
                     <ContentPresenter.LayoutTransform>
                         <TransformGroup>
                             <RotateTransform Angle="-90" />
@@ -30,7 +66,12 @@
                     </ContentPresenter.LayoutTransform>
                 </ContentPresenter>
             </Border>
-            <Border Grid.Column="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Border
+                Grid.Column="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                 <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
         </Grid>
@@ -65,11 +106,27 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Margin="{StaticResource GroupBoxBaseMarginToken3}">
-                <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" Margin="{StaticResource GroupBoxBaseMarginToken4}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                <ContentPresenter TextElement.Foreground="{DynamicResource DangerBrush}" Margin="{StaticResource GroupBoxBaseMarginToken5}" Content="{Binding Path=(hc:InfoElement.Symbol),RelativeSource={RelativeSource TemplatedParent}}" Visibility="{Binding Path=(hc:InfoElement.Necessary),RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" />
+            <StackPanel Margin="{StaticResource GroupBoxBaseMarginToken3}" Orientation="Horizontal">
+                <ContentPresenter
+                    Margin="{StaticResource GroupBoxBaseMarginToken4}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter
+                    Margin="{StaticResource GroupBoxBaseMarginToken5}"
+                    Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
+                    TextElement.Foreground="{DynamicResource DangerBrush}"
+                    Visibility="{Binding Path=(hc:InfoElement.Necessary), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
             </StackPanel>
-            <Border Grid.Row="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Border
+                Grid.Row="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                 <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
         </Grid>
@@ -78,20 +135,40 @@
     <ControlTemplate x:Key="GroupBoxOriginalLeftTemplate" TargetType="GroupBox">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding Path=(hc:InfoElement.TitleWidth),RelativeSource={RelativeSource TemplatedParent}}" />
+                <ColumnDefinition Width="{Binding Path=(hc:InfoElement.TitleWidth), RelativeSource={RelativeSource TemplatedParent}}" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{StaticResource GroupBoxBaseMarginToken6}">
-                <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                <ContentPresenter TextElement.Foreground="{DynamicResource DangerBrush}" Margin="{StaticResource GroupBoxBaseMarginToken5}" Content="{Binding Path=(hc:InfoElement.Symbol),RelativeSource={RelativeSource TemplatedParent}}" Visibility="{Binding Path=(hc:InfoElement.Necessary),RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Boolean2VisibilityConverter}}" />
+            <StackPanel
+                Margin="{StaticResource GroupBoxBaseMarginToken6}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Orientation="Horizontal">
+                <ContentPresenter
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter
+                    Margin="{StaticResource GroupBoxBaseMarginToken5}"
+                    Content="{Binding Path=(hc:InfoElement.Symbol), RelativeSource={RelativeSource TemplatedParent}}"
+                    TextElement.Foreground="{DynamicResource DangerBrush}"
+                    Visibility="{Binding Path=(hc:InfoElement.Necessary), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
             </StackPanel>
-            <Border Grid.Column="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Border
+                Grid.Column="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                 <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="GroupBoxOriginalBaseStyle" BasedOn="{StaticResource GroupBoxBaseStyle}" TargetType="GroupBox">
+    <Style
+        x:Key="GroupBoxOriginalBaseStyle"
+        BasedOn="{StaticResource GroupBoxBaseStyle}"
+        TargetType="GroupBox">
         <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource GroupBoxBaseCornerRadiusToken1}" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Background" Value="{DynamicResource GroupBoxBaseBackgroundToken1}" />
@@ -111,11 +188,29 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border Grid.Row="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource CornerRadiusSplitConverter},ConverterParameter='0,0,1,1'}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Border
+                Grid.Row="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='0,0,1,1'}">
                 <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
-            <Border Grid.Row="0" MinHeight="{Binding Path=(hc:TitleElement.MinHeight), RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="{Binding BorderThickness,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource ThicknessSplitConverter},ConverterParameter='1,1,1,0'}" BorderBrush="{TemplateBinding BorderBrush}" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource CornerRadiusSplitConverter},ConverterParameter='1,1,0,0'}">
-                <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            <Border
+                Grid.Row="0"
+                MinHeight="{Binding Path=(hc:TitleElement.MinHeight), RelativeSource={RelativeSource TemplatedParent}}"
+                Background="{Binding Path=(hc:TitleElement.Background), RelativeSource={RelativeSource TemplatedParent}}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='1,1,1,0'}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='1,1,0,0'}">
+                <ContentPresenter
+                    Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                    TextElement.Foreground="{TemplateBinding Foreground}" />
             </Border>
         </Grid>
     </ControlTemplate>
@@ -126,11 +221,29 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource CornerRadiusSplitConverter},ConverterParameter='0,1,1,0'}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+            <Border
+                Grid.Column="1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='0,1,1,0'}">
                 <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
             </Border>
-            <Border Grid.Column="0" MinWidth="{Binding Path=(hc:TitleElement.MinWidth), RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="{Binding BorderThickness,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource ThicknessSplitConverter},ConverterParameter='1,1,0,1'}" BorderBrush="{TemplateBinding BorderBrush}" Background="{Binding Path=(hc:TitleElement.Background),RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource CornerRadiusSplitConverter},ConverterParameter='1,0,0,1'}">
-                <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <Border
+                Grid.Column="0"
+                MinWidth="{Binding Path=(hc:TitleElement.MinWidth), RelativeSource={RelativeSource TemplatedParent}}"
+                Background="{Binding Path=(hc:TitleElement.Background), RelativeSource={RelativeSource TemplatedParent}}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{Binding BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ThicknessSplitConverter}, ConverterParameter='1,1,0,1'}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusSplitConverter}, ConverterParameter='1,0,0,1'}">
+                <ContentPresenter
+                    Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ContentSource="Header"
+                    RecognizesAccessKey="True"
+                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                    TextElement.Foreground="{TemplateBinding Foreground}">
                     <ContentPresenter.LayoutTransform>
                         <TransformGroup>
                             <RotateTransform Angle="-90" />
@@ -141,7 +254,10 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="GroupBoxTabBaseStyle" BasedOn="{StaticResource GroupBoxBaseStyle}" TargetType="GroupBox">
+    <Style
+        x:Key="GroupBoxTabBaseStyle"
+        BasedOn="{StaticResource GroupBoxBaseStyle}"
+        TargetType="GroupBox">
         <Setter Property="Template" Value="{StaticResource GroupBoxTabTopTemplate}" />
         <Style.Triggers>
             <Trigger Property="hc:TitleElement.TitlePlacement" Value="Left">
@@ -153,36 +269,41 @@
 
     <ControlTemplate x:Key="GroupBoxCardAlwaysTemplate" TargetType="GroupBox">
         <Grid>
-            <Border x:Name="ShadowBorder"
-                    Background="{TemplateBinding Background}"
-                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
-                    Effect="{StaticResource EffectShadow2}"
-                    Opacity="1" />
-            <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <Border
+                x:Name="ShadowBorder"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                Effect="{StaticResource EffectShadow2}"
+                Opacity="1" />
+            <Border
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Border x:Name="HeaderBorder"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{StaticResource GroupBoxBaseBorderThicknessToken3}"
-                            Visibility="{Binding Header,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Object2VisibilityConverter}}">
-                        <ContentPresenter ContentSource="Header"
-                                          Margin="{Binding Path=(hc:TitleElement.Padding),RelativeSource={RelativeSource TemplatedParent}}"
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <Border
+                        x:Name="HeaderBorder"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource GroupBoxBaseBorderThicknessToken3}"
+                        Visibility="{Binding Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Object2VisibilityConverter}}">
+                        <ContentPresenter
+                            Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                            ContentSource="Header"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
                     </Border>
-                    <ContentPresenter Grid.Row="1"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    <ContentPresenter
+                        Grid.Row="1"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 </Grid>
             </Border>
         </Grid>
@@ -190,36 +311,41 @@
 
     <ControlTemplate x:Key="GroupBoxCardHoverTemplate" TargetType="GroupBox">
         <Grid>
-            <Border x:Name="ShadowBorder"
-                    Background="{TemplateBinding Background}"
-                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
-                    Effect="{StaticResource EffectShadow2}"
-                    Opacity="0" />
-            <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <Border
+                x:Name="ShadowBorder"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                Effect="{StaticResource EffectShadow2}"
+                Opacity="0" />
+            <Border
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Border x:Name="HeaderBorder"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{StaticResource GroupBoxBaseBorderThicknessToken3}"
-                            Visibility="{Binding Header,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Object2VisibilityConverter}}">
-                        <ContentPresenter ContentSource="Header"
-                                          Margin="{Binding Path=(hc:TitleElement.Padding),RelativeSource={RelativeSource TemplatedParent}}"
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <Border
+                        x:Name="HeaderBorder"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource GroupBoxBaseBorderThicknessToken3}"
+                        Visibility="{Binding Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Object2VisibilityConverter}}">
+                        <ContentPresenter
+                            Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                            ContentSource="Header"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
                     </Border>
-                    <ContentPresenter Grid.Row="1"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    <ContentPresenter
+                        Grid.Row="1"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 </Grid>
             </Border>
         </Grid>
@@ -232,38 +358,42 @@
 
     <ControlTemplate x:Key="GroupBoxCardNoShadowTemplate" TargetType="GroupBox">
         <Grid>
-            <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
-                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <Border
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Border x:Name="HeaderBorder"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{StaticResource GroupBoxBaseBorderThicknessToken3}"
-                            Visibility="{Binding Header,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource Object2VisibilityConverter}}">
-                        <ContentPresenter ContentSource="Header"
-                                          Margin="{Binding Path=(hc:TitleElement.Padding),RelativeSource={RelativeSource TemplatedParent}}"
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <Border
+                        x:Name="HeaderBorder"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{StaticResource GroupBoxBaseBorderThicknessToken3}"
+                        Visibility="{Binding Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Object2VisibilityConverter}}">
+                        <ContentPresenter
+                            Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}"
+                            ContentSource="Header"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            TextElement.Foreground="{TemplateBinding Foreground}" />
                     </Border>
-                    <ContentPresenter Grid.Row="1"
-                                      Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    <ContentPresenter
+                        Grid.Row="1"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                 </Grid>
             </Border>
         </Grid>
     </ControlTemplate>
 
     <Style x:Key="GroupBoxCardBaseStyle" TargetType="GroupBox">
-        <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="Background" Value="{DynamicResource DefaultBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="{StaticResource GroupBoxBaseBorderThicknessToken1}" />
         <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />

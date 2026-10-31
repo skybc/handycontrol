@@ -18,7 +18,7 @@
     <CornerRadius x:Key="DefaultCornerRadius">2</CornerRadius>
     <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">30</sys:Double>
 
-    <!-- Styles resource migration: preserve original appearance. -->
+    <!--  Styles resource migration: preserve original appearance.  -->
     <Thickness x:Key="AutoCompleteTextBoxBaseBorderThicknessToken1">0</Thickness>
     <Thickness x:Key="AutoCompleteTextBoxBaseBorderThicknessToken2">1</Thickness>
     <Thickness x:Key="AutoCompleteTextBoxBaseMarginToken1">1</Thickness>
@@ -262,8 +262,8 @@
     <Thickness x:Key="GroupBoxBaseBorderThicknessToken2">0</Thickness>
     <Thickness x:Key="GroupBoxBasePaddingToken2">0</Thickness>
     <Thickness x:Key="GroupBoxBaseBorderThicknessToken3">0,0,0,1</Thickness>
-    <Thickness x:Key="GroupBoxBasePaddingToken3">20,18</Thickness>
-    <Thickness x:Key="GroupBoxBasePaddingToken4">20</Thickness>
+    <Thickness x:Key="GroupBoxBasePaddingToken3">12,8</Thickness>
+    <Thickness x:Key="GroupBoxBasePaddingToken4">12</Thickness>
     <Thickness x:Key="ImageSelectorBaseBorderThicknessToken1">1</Thickness>
     <sys:Double x:Key="ImageSelectorBaseStrokeThicknessToken1">1</sys:Double>
     <sys:Double x:Key="ImageSelectorBaseWidthToken1">30</sys:Double>

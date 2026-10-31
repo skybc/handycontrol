@@ -33,6 +33,7 @@
       [ "ToolBar", "ToolBarDemoCtl", "Brush.ToolBar", "", "" ],
       [ "Border", "BorderDemoCtl", "Brush.BorderElement", "", "" ],
       [ "Label", "LabelDemoCtl", "Brush.Label", "", "" ],
+      [ "Form", "FormDemoCtl", "Brush.PropertyGridEditorPart", "", "DataEntry" ],
       [ "Frame", "FrameDemoCtl", "Brush.FrameBorder", "", "" ],
       [ "Window", "NativeWindowDemoCtl", "Brush.WindowsForm", "", "" ],
       [ "Geometry", "GeometryDemoCtl", "Brush.Path", "", "" ]

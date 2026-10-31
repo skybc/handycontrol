@@ -353,6 +353,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\FlowDocumentDemoCtl.xaml.cs">
       <DependentUpon>FlowDocumentDemoCtl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\FormDemoCtl.xaml.cs">
+      <DependentUpon>FormDemoCtl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControl\Styles\FrameDemoCtl.xaml.cs">
       <DependentUpon>FrameDemoCtl.xaml</DependentUpon>
     </Compile>
@@ -965,6 +968,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControl\Styles\FrameDemoCtl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControl\Styles\FormDemoCtl.xaml">
+      <Link>UserControl\Styles\FormDemoCtl.xaml</Link>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

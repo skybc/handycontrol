@@ -27,7 +27,7 @@
     <Color x:Key="BorderColor">#E2E8F0</Color>
     <Color x:Key="SecondaryBorderColor">#CBD5E1</Color>
     <Color x:Key="BackgroundColor">#F8FAFC</Color>
-    <Color x:Key="RegionColor">#F1F5F9</Color>
+    <Color x:Key="RegionColor">#FFFFFF</Color>
     <Color x:Key="SecondaryRegionColor">#fffFFF</Color>
     <Color x:Key="ThirdlyRegionColor">#F1F5F9</Color>
     <Color x:Key="TitleColor">#2563EB</Color>
@@ -66,7 +66,7 @@
     <Color x:Key="DarkOpacityColor">#66000000</Color>
     <system:UInt32 x:Key="BlurGradientValue">0x99FFFFFF</system:UInt32>
 
-    <!-- Styles resource migration: preserve original appearance. -->
+    <!--  Styles resource migration: preserve original appearance.  -->
     <Color x:Key="AutoCompleteTextBoxBaseBackgroundToken1Color">Transparent</Color>
     <Color x:Key="AutoCompleteTextBoxBaseBorderBrushToken1Color">Transparent</Color>
     <Color x:Key="BadgeBaseColorToken1">Transparent</Color>
