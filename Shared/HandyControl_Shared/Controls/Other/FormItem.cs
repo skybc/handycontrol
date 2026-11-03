@@ -6,6 +6,15 @@ namespace HandyControl.Controls;
 
 public class FormItem : ContentControl
 {
+    public static readonly DependencyProperty GroupProperty = DependencyProperty.Register(
+        nameof(Group), typeof(string), typeof(FormItem), new PropertyMetadata(null));
+
+    public string Group
+    {
+        get => (string)GetValue(GroupProperty);
+        set => SetValue(GroupProperty, value);
+    }
+
     public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
         nameof(Title), typeof(object), typeof(FormItem), new PropertyMetadata(default(object)));
 

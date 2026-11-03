@@ -1491,7 +1491,21 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="hc:Form">
-          <ItemsPresenter />
+          <StackPanel>
+            <hc:SearchBar x:Name="PART_SearchBar" Margin="0,0,0,8" Visibility="Collapsed" />
+            <ItemsControl x:Name="PART_ItemsHost"
+                ItemsPanel="{TemplateBinding ItemsPanel}"
+                ItemTemplate="{TemplateBinding ItemTemplate}"
+                ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                ItemStringFormat="{TemplateBinding ItemStringFormat}"
+                ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}" />
+          </StackPanel>
+          <ControlTemplate.Triggers>
+            <Trigger Property="ShowSearch" Value="True">
+              <Setter TargetName="PART_SearchBar" Property="Visibility" Value="Visible" />
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

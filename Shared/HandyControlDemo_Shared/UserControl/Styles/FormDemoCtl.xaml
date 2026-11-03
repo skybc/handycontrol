@@ -7,14 +7,14 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="32" MaxWidth="640" HorizontalAlignment="Left">
             <TextBlock Margin="0,0,0,16" FontSize="16" Text="Form 统一标题设置" />
-            <hc:Form TitleWidth="110" TitleAlignment="Left" TitleVerticalAlignment="Center">
-                <hc:FormItem Title="用户名">
+            <CheckBox Content="自动分组" IsChecked="{Binding AutoGroup, ElementName=DemoForm}" /><CheckBox Content="显示搜索" IsChecked="{Binding ShowSearch, ElementName=DemoForm}" Margin="0,8" /><hc:Form x:Name="DemoForm" TitleWidth="110" TitleAlignment="Left" TitleVerticalAlignment="Center">
+                <hc:FormItem Title="用户名" Group="基本信息">
                     <TextBox Text="Alice" />
                 </hc:FormItem>
-                <hc:FormItem Title="邮箱">
+                <hc:FormItem Title="邮箱" Group="联系方式">
                     <TextBox Text="alice@example.com" />
                 </hc:FormItem>
-                <hc:FormItem Title="联系方式">
+                <hc:FormItem Title="联系方式" Group="基本信息">
                     <TextBox Text="统一标题宽度与对齐方式" />
                 </hc:FormItem>
                 <hc:FormItem Title="备注" Layout="{x:Static enums:FormItemLayout.Vertical}">
@@ -24,3 +24,4 @@
         </StackPanel>
     </ScrollViewer>
 </UserControl>
+
