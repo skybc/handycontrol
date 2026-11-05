@@ -279,25 +279,31 @@ public class PropertyGrid : Control
     protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor, TitleWidthAttribute titleWidth)
     {
 
+        return CreatePropertyItemCore(propertyDescriptor, titleWidth, SelectedObject, PropertyResolver);
+    }
+
+    internal static PropertyItem CreatePropertyItemCore(PropertyDescriptor propertyDescriptor,
+        TitleWidthAttribute titleWidth, object selectedObject, PropertyResolver resolver)
+    {
         PropertyAttribute property = propertyDescriptor.Attributes.OfType<PropertyAttribute>().FirstOrDefault() as PropertyAttribute;
 
-        var editor = PropertyResolver.ResolveEditor(propertyDescriptor);
+        var editor = resolver.ResolveEditor(propertyDescriptor);
 
         var propertyItem = new PropertyItem()
         {
             Property = property,
-            Category = (property?.Category ?? PropertyResolver.ResolveCategory(propertyDescriptor)).ToLanguage(),
-            DisplayName = (property?.DisplayName ?? PropertyResolver.ResolveDisplayName(propertyDescriptor)).ToLanguage(),
+            Category = (property?.Category ?? resolver.ResolveCategory(propertyDescriptor)).ToLanguage(),
+            DisplayName = (property?.DisplayName ?? resolver.ResolveDisplayName(propertyDescriptor)).ToLanguage(),
 
-            IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),
-            DefaultValue = property?.DefaultValue ?? PropertyResolver.ResolveDefaultValue(propertyDescriptor),
+            IsReadOnly = resolver.ResolveIsReadOnly(propertyDescriptor),
+            DefaultValue = property?.DefaultValue ?? resolver.ResolveDefaultValue(propertyDescriptor),
             Editor = editor,
-            Value = SelectedObject,
+            Value = selectedObject,
             EnableName = property?.EnableProperty ?? "",
             VisiableName = property?.VisibleProperty ?? "",
             CommandPropertyName = property?.CommandProperty ?? "",
             CommandContent = property?.CommandContentName ?? "",
-            ButtonWidth = PropertyResolver.ResolveButtonWidth(propertyDescriptor),
+            ButtonWidth = resolver.ResolveButtonWidth(propertyDescriptor),
             PropertyName = propertyDescriptor.Name,
             PropertyType = propertyDescriptor.PropertyType,
             PropertyTypeName = $"{propertyDescriptor.PropertyType.Namespace}.{propertyDescriptor.PropertyType.Name}",

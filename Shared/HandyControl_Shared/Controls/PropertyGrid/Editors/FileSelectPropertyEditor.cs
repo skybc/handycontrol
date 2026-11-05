@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -100,7 +100,7 @@ namespace HandyControl.Controls
                 };
 
                 // 设置文件过滤器
-                string filter = GetFileFilter(textBox.Text);
+                string filter = GetFileFilter(_fileAttribute?.Extension, textBox.Text);
                 dialog.Filter = filter;
 
                 if (dialog.ShowDialog() == true)
@@ -157,12 +157,12 @@ namespace HandyControl.Controls
         /// 2. 从当前值提取的扩展名
         /// 3. 默认"所有文件"过滤器
         /// </remarks>
-        private string GetFileFilter(string currentValue)
+        internal static string GetFileFilter(string extension, string currentValue)
         {
             // 优先使用 PropertyFileAttribute 的 Extension
-            if (_fileAttribute != null && !string.IsNullOrWhiteSpace(_fileAttribute.Extension))
+            if (!string.IsNullOrWhiteSpace(extension))
             {
-                return BuildFilterString(_fileAttribute.Extension);
+                return BuildFilterString(extension);
             }
 
             // 其次从当前值获取扩展名
@@ -197,7 +197,7 @@ namespace HandyControl.Controls
         /// - 多个扩展名：".txt|.json" 或 ".txt;.json" 或 ".txt,.json"
         /// 输出格式："TXT 文件 (*.txt)|*.txt|JSON 文件 (*.json)|*.json|所有文件 (*.*)|*.*"
         /// </remarks>
-        private string BuildFilterString(string extensions)
+        private static string BuildFilterString(string extensions)
         {
             if (string.IsNullOrWhiteSpace(extensions))
             {

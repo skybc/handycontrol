@@ -124,6 +124,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\NumberPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\Editors\PlainTextPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\PropertyGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\FastPropertyGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\PropertyItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\PropertyItemsControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PropertyGrid\PropertyResolver.cs" />
@@ -531,6 +532,8 @@
     <None Include="$(MSBuildThisFileDirectory)Themes\Styles\Base\ImageSelectorBaseStyle.xaml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)Themes\Styles\FastPropertyGrid.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Themes\Styles\Base\FastPropertyGridBaseStyle.xaml" />
     <None Include="$(MSBuildThisFileDirectory)Themes\Styles\PropertyGrid.xaml">
       <SubType>Designer</SubType>
     </None>

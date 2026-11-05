@@ -109,6 +109,7 @@ Styles\Base\PinBoxBaseStyle.xaml
 Styles\Base\PoptipBaseStyle.xaml
 Styles\Base\ProgressButtonBaseStyle.xaml
 Styles\Base\PropertyGridBaseStyle.xaml
+Styles\Base\FastPropertyGridBaseStyle.xaml
 Styles\Base\RateBaseStyle.xaml
 Styles\Base\RunningBlockBaseStyle.xaml
 Styles\Base\SeparatorBaseStyle.xaml
@@ -180,6 +181,7 @@ Styles\Poptip.xaml
 Styles\PopupWindow.xaml
 Styles\ProgressButton.xaml
 Styles\PropertyGrid.xaml
+Styles\FastPropertyGrid.xaml
 Styles\Rate.xaml
 Styles\Ribbon.xaml
 Styles\RichTextBox.xaml

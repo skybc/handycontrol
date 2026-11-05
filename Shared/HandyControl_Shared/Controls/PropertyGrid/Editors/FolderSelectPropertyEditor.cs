@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -92,23 +92,7 @@ namespace HandyControl.Controls
             // 按钮点击事件
             button.Click += (sender, e) =>
             {
-                var dialog = new OpenFolderDialog();
-
-                // 设置描述文本
-                if (_folderAttribute != null && !string.IsNullOrWhiteSpace(_folderAttribute.Description))
-                {
-                    dialog.Title = _folderAttribute.Description;
-                }
-                else
-                {
-                    dialog.Title = "请选择文件夹";
-                }
-
-                // 设置初始路径
-                if (!string.IsNullOrWhiteSpace(textBox.Text) && System.IO.Directory.Exists(textBox.Text))
-                {
-                    dialog.DefaultDirectory = textBox.Text;
-                }
+                var dialog = CreateDialog(_folderAttribute?.Description, textBox.Text);
 
                 if (dialog.ShowDialog() ==  true)
                 {
@@ -151,6 +135,20 @@ namespace HandyControl.Controls
         /// 获取编辑器绑定的依赖属性。
         /// </summary>
         /// <returns>返回TextBox.TextProperty，用于数据绑定。</returns>
+        internal static OpenFolderDialog CreateDialog(string description, string currentValue)
+        {
+            var dialog = new OpenFolderDialog { Title = "请选择文件夹" };
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                dialog.Title = description;
+            }
+            if (!string.IsNullOrWhiteSpace(currentValue) && System.IO.Directory.Exists(currentValue))
+            {
+                dialog.DefaultDirectory = currentValue;
+            }
+            return dialog;
+        }
+
         public override DependencyProperty GetDependencyProperty() => TextBox.TextProperty;
     }
 }

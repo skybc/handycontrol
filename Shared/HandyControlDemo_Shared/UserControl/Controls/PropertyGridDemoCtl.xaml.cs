@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Threading;
 using System.Windows;
 using HandyControlDemo.Data;
 
@@ -11,48 +15,73 @@ public partial class PropertyGridDemoCtl
     public PropertyGridDemoCtl()
     {
         InitializeComponent();
+        Loaded += (_, _) => ScheduleMeasurement();
+        Unloaded += (_, _) => _measurementVersion++;
 
-        DemoModel = new PropertyGridDemoModel
-        {
-            String = "TestString",
-            Enum = Gender.Female,
-            Boolean = true,
-            Integer = 98,
-            VerticalAlignment = VerticalAlignment.Stretch,
-            MediaColor = System.Windows.Media.Colors.Red,
-            DrawingColor = System.Drawing.Color.Blue,
-            Persons = new ObservableCollection<PersonItem>
-            {
-                new PersonItem { Name = "张三", Age = 30, Type = PersonType.Manager, IsActive = true, Salary = 8000.50 },
-                new PersonItem { Name = "李四", Age = 25, Type = PersonType.Employee, IsActive = true, Salary = 5000.00 },
-                new PersonItem { Name = "王五", Age = 35, Type = PersonType.Director, IsActive = false, Salary = 12000.75 }
-            },
-            Tags = new ObservableCollection<string>
-            {
-                "标签1",
-                "标签2",
-                "标签3"
-            },
-            Products = new ObservableCollection<ProductItem>
-            {
-                new ProductItem { Name = "笔记本电脑", Category = "电子产品", Price = 5999.99, Stock = 50, IsAvailable = true, Status = ProductStatus.Normal },
-                new ProductItem { Name = "机械键盘", Category = "外设", Price = 399.00, Stock = 0, IsAvailable = false, Status = ProductStatus.OutOfStock },
-                new ProductItem { Name = "显示器", Category = "电子产品", Price = 1999.00, Stock = 30, IsAvailable = true, Status = ProductStatus.Normal },
-                new ProductItem { Name = "鼠标垫", Category = "配件", Price = 59.90, Stock = 100, IsAvailable = true, Status = ProductStatus.PreOrder }
-            }
-        };
+        DemoModel = new PropertyGridPerformanceModel();
 
         // 保存原始对象用于测试
         _originalModel = DemoModel;
     }
 
     public static readonly DependencyProperty DemoModelProperty = DependencyProperty.Register(
-        nameof(DemoModel), typeof(object), typeof(PropertyGridDemoCtl), new PropertyMetadata(default(object)));
+        nameof(DemoModel), typeof(object), typeof(PropertyGridDemoCtl), new PropertyMetadata(default(object), OnDemoModelChanged));
 
     public object DemoModel
     {
         get => (object) GetValue(DemoModelProperty);
         set => SetValue(DemoModelProperty, value);
+    }
+
+    private int _measurementVersion;
+
+    private static void OnDemoModelChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        var page = (PropertyGridDemoCtl)sender;
+        if (page.IsLoaded) { page.ScheduleMeasurement(); }
+    }
+
+    private async void ScheduleMeasurement()
+    {
+        var version = ++_measurementVersion;
+        var model = DemoModel;
+        LegacyTiming.Text = "PropertyGrid：测量中…";
+        FastTiming.Text = "FastPropertyGrid：测量中…";
+        await MeasureAsync("PropertyGrid", () => LegacyGrid.SelectedObject = model,
+            text => LegacyTiming.Text = text, version);
+        if (version != _measurementVersion || !IsLoaded) { return; }
+        await MeasureAsync("FastPropertyGrid", () => FastGrid.SelectedObject = model,
+            text => FastTiming.Text = text, version);
+    }
+
+    private async Task MeasureAsync(string name, Action select, Action<string> report, int version)
+    {
+        await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.ApplicationIdle);
+        if (version != _measurementVersion || !IsLoaded) { return; }
+        var watch = Stopwatch.StartNew();
+        select();
+        var loadMilliseconds = watch.Elapsed.TotalMilliseconds;
+        var rendered = new TaskCompletionSource<bool>();
+        EventHandler handler = null;
+        RoutedEventHandler unloaded = null;
+        handler = (_, _) =>
+        {
+            CompositionTarget.Rendering -= handler;
+            Unloaded -= unloaded;
+            rendered.TrySetResult(true);
+        };
+        unloaded = (_, _) =>
+        {
+            CompositionTarget.Rendering -= handler;
+            Unloaded -= unloaded;
+            rendered.TrySetResult(false);
+        };
+        CompositionTarget.Rendering += handler;
+        Unloaded += unloaded;
+        if (!await rendered.Task || version != _measurementVersion || !IsLoaded) { return; }
+        var totalMilliseconds = watch.Elapsed.TotalMilliseconds;
+        var renderMilliseconds = totalMilliseconds - loadMilliseconds;
+        report($"{name}：加载 {loadMilliseconds:F2} ms ｜布局/渲染等待 {renderMilliseconds:F2} ms ｜首帧总计 {totalMilliseconds:F2} ms");
     }
 
     /// <summary>
@@ -61,29 +90,11 @@ public partial class PropertyGridDemoCtl
     /// </summary>
     private void OnUpdateSameType(object sender, RoutedEventArgs e)
     {
-        // 创建同类型的新对象
-        var newModel = new PropertyGridDemoModel
+        DemoModel = new PropertyGridPerformanceModel
         {
-            String = "Updated String - " + System.DateTime.Now.ToString("HH:mm:ss"),
-            Enum = Gender.Male,
-            Boolean = false,
-            Integer = 4112,
-            VerticalAlignment = VerticalAlignment.Center,
-            MediaColor = System.Windows.Media.Colors.Green,
-            DrawingColor = System.Drawing.Color.Yellow,
-            Persons = new ObservableCollection<PersonItem>
-            {
-                new PersonItem { Name = "测试者", Age = 2118, Type = PersonType.Manager, IsActive = true, Salary = 9000.00 }
-            },
-            Tags = new ObservableCollection<string> { "新标签" },
-            Products = new ObservableCollection<ProductItem>
-            {
-                new ProductItem { Name = "测试产品", Category = "测试", Price = 99.99, Stock = 10, IsAvailable = true, Status = ProductStatus.Normal }
-            }
+            Property0000 = "Updated " + DateTime.Now.ToString("HH:mm:ss.fff"),
+            Property0001 = Environment.TickCount
         };
-
-        DemoModel = newModel;
-        MessageBox.Show("已更新同类型对象！\n（缓存应该被使用，只更新数据不重建界面）", "缓存测试");
     }
 
     /// <summary>
