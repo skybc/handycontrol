@@ -71,9 +71,14 @@ namespace HandyControl.Controls
 
         // DataGrid相关属性
         /// <summary>
-        /// 集合编辑器高度，用于集合属性（适用于DataGrid和ListBox）
+        /// 集合编辑器或多行文本框的高度，单位为设备无关像素。
         /// </summary>
         public int Height { get; set; } = 150;
+
+        /// <summary>
+        /// 是否允许普通字符串编辑器输入多行文本。
+        /// </summary>
+        public bool IsMultiline { get; set; }
 
         /// <summary>
         /// DataGrid高度，用于集合属性（已弃用，请使用Height）

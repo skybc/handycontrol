@@ -27,8 +27,6 @@ public class PropertyGrid : Control
 
     private SearchBar _searchBar;
 
-    private string _searchKey;
-
     private Type _lastObjectType;
 
     private List<PropertyItem> _cachedPropertyItems;
@@ -123,6 +121,34 @@ public class PropertyGrid : Control
         set => SetValue(ShowSearchBarProperty, ValueBoxes.BooleanBox(value));
     }
 
+    /// <summary>
+    /// 获取或设置是否按分类显示属性；否则按属性的排序索引显示。
+    /// </summary>
+    public static readonly DependencyProperty IsCategorizedProperty = DependencyProperty.Register(
+        nameof(IsCategorized), typeof(bool), typeof(PropertyGrid),
+        new FrameworkPropertyMetadata(ValueBoxes.TrueBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+            (d, e) => ((PropertyGrid)d).ApplySort()));
+
+    public bool IsCategorized
+    {
+        get => (bool)GetValue(IsCategorizedProperty);
+        set => SetValue(IsCategorizedProperty, ValueBoxes.BooleanBox(value));
+    }
+
+    /// <summary>
+    /// 获取或设置用于匹配属性名称或显示名称的搜索文本。
+    /// </summary>
+    public static readonly DependencyProperty SearchTextProperty = DependencyProperty.Register(
+        nameof(SearchText), typeof(string), typeof(PropertyGrid),
+        new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+            (d, e) => ((PropertyGrid)d).ApplySearch()));
+
+    public string SearchText
+    {
+        get => (string)GetValue(SearchTextProperty);
+        set => SetValue(SearchTextProperty, value);
+    }
+
     public override void OnApplyTemplate()
     {
         if (_searchBar != null)
@@ -182,7 +208,8 @@ public class PropertyGrid : Control
                 r.InitElement();
             });
             _dataView = CollectionViewSource.GetDefaultView(items);
-            SortByCategory(null, null);
+            ApplySort();
+            ApplySearch();
             _itemsControl.ItemsSource = _dataView;
             _lastObjectType = null;
             _cachedPropertyItems = null;
@@ -199,6 +226,7 @@ public class PropertyGrid : Control
                     propertyItem.Value = obj;
                     propertyItem.InitElement(); 
                 }
+                ApplySearch();
                 _itemsControl.ItemsSource = _dataView;
                 return;
             }
@@ -221,25 +249,23 @@ public class PropertyGrid : Control
                 .ToList();
 
             _dataView = CollectionViewSource.GetDefaultView(_cachedPropertyItems);
-            SortByCategory(null, null);
+            ApplySort();
+            ApplySearch();
             _itemsControl.ItemsSource = _dataView;
         }
     }
 
     private void SortByCategory(object sender, ExecutedRoutedEventArgs e)
     {
-        if (_dataView == null) return;
-
-        using (_dataView.DeferRefresh())
-        {
-            _dataView.GroupDescriptions.Clear();
-            _dataView.SortDescriptions.Clear();
-            _dataView.SortDescriptions.Add(new SortDescription(PropertyItem.SortIndexProperty.Name, ListSortDirection.Ascending));
-            _dataView.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.CategoryProperty.Name));
-        }
+        SetCurrentValue(IsCategorizedProperty, ValueBoxes.TrueBox);
     }
 
     private void SortByName(object sender, ExecutedRoutedEventArgs e)
+    {
+        SetCurrentValue(IsCategorizedProperty, ValueBoxes.FalseBox);
+    }
+
+    private void ApplySort()
     {
         if (_dataView == null) return;
 
@@ -248,27 +274,27 @@ public class PropertyGrid : Control
             _dataView.GroupDescriptions.Clear();
             _dataView.SortDescriptions.Clear();
             _dataView.SortDescriptions.Add(new SortDescription(PropertyItem.SortIndexProperty.Name, ListSortDirection.Ascending));
+            if (IsCategorized)
+            {
+                _dataView.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.CategoryProperty.Name));
+            }
         }
     }
 
     private void SearchBar_SearchStarted(object sender, FunctionEventArgs<string> e)
     {
+        SetCurrentValue(SearchTextProperty, e.Info);
+    }
+
+    private void ApplySearch()
+    {
         if (_dataView == null) return;
 
-        _searchKey = e.Info;
-        if (string.IsNullOrEmpty(_searchKey))
+        foreach (PropertyItem item in _dataView)
         {
-            foreach (UIElement item in _dataView)
-            {
-                item.Show();
-            }
-        }
-        else
-        {
-            foreach (PropertyItem item in _dataView)
-            {
-                item.Show(item.PropertyName.ToLower().Contains(_searchKey) || item.DisplayName.ToLower().Contains(_searchKey));
-            }
+            item.Show(string.IsNullOrEmpty(SearchText)
+                || item.PropertyName?.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0
+                || item.DisplayName?.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0);
         }
     }
     /// <summary>

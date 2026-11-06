@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:hc="clr-namespace:HandyControl.Controls"
+    xmlns:interactivity="clr-namespace:HandyControl.Interactivity"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml" />
@@ -763,13 +764,26 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <hc:SearchBar
-                                x:Name="PART_SearchBar"
-                                MinHeight="32"
-                                Margin="0,0,0,8"
-                                hc:InfoElement.ShowClearButton="True"
-                                IsRealTime="True"
-                                Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                            <DockPanel Margin="0,0,0,8" LastChildFill="True">
+                                <hc:ButtonGroup Margin="0,0,8,0" Style="{DynamicResource ButtonGroupSolid}"
+                                    Visibility="{Binding ShowSortButton, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}">
+                                    <RadioButton Command="interactivity:ControlCommands.SortByCategory"
+                                        IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
+                                        <Rectangle Width="16" Height="16" Fill="{DynamicResource SortByCategoryDrawingBrush}" />
+                                    </RadioButton>
+                                    <RadioButton Command="interactivity:ControlCommands.SortByName"
+                                        IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource Boolean2BooleanReConverter}}">
+                                        <Rectangle Width="16" Height="16" Fill="{DynamicResource SortByNameDrawingBrush}" />
+                                    </RadioButton>
+                                </hc:ButtonGroup>
+                                <hc:SearchBar
+                                    x:Name="PART_SearchBar"
+                                    MinHeight="32"
+                                    hc:InfoElement.ShowClearButton="True"
+                                    IsRealTime="True"
+                                    Text="{Binding SearchText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                            </DockPanel>
                             <hc:PropertyItemsControl
                                 x:Name="PART_ItemsControl"
                                 Grid.Row="1"

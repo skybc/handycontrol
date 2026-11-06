@@ -46,13 +46,15 @@
                                     Margin="{StaticResource PropertyGridBaseMarginToken5}"
                                     Style="{StaticResource ButtonGroupSolid}"
                                     Visibility="{Binding ShowSortButton, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}">
-                                    <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="True">
+                                    <RadioButton Command="interactivity:ControlCommands.SortByCategory"
+                                        IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                                         <Rectangle
                                             Width="{StaticResource PropertyGridBaseWidthToken1}"
                                             Height="{StaticResource PropertyGridBaseHeightToken1}"
                                             Fill="{StaticResource SortByCategoryDrawingBrush}" />
                                     </RadioButton>
-                                    <RadioButton Command="interactivity:ControlCommands.SortByName">
+                                    <RadioButton Command="interactivity:ControlCommands.SortByName"
+                                        IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource Boolean2BooleanReConverter}}">
                                         <Rectangle
                                             Width="{StaticResource PropertyGridBaseWidthToken1}"
                                             Height="{StaticResource PropertyGridBaseHeightToken1}"
@@ -62,7 +64,7 @@
                                 <hc:SearchBar
                                     x:Name="PART_SearchBar"
                                     Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}"
-                                    Text="{Binding SearchText, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding SearchText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     hc:InfoElement.ShowClearButton="True"
                                     IsRealTime="True"
                                     Style="{StaticResource SearchBarPlus}" />

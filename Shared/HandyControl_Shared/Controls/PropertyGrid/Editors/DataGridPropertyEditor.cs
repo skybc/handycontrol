@@ -89,10 +89,16 @@ public class DataGridPropertyEditor : PropertyEditorBase
                 if (dataGrid.SelectedItem != null)
                 {
                     // deep                    
-                    ShowEditDialog(dataGrid.SelectedItem, propertyItem, "编辑", false);
+                    if (ShowEditDialog(dataGrid.SelectedItem, propertyItem, "编辑", false))
+                    {
+                        dataGrid.Items.Refresh();
+                    }
                 }
             };
         }
+
+        dataGrid.SelectionChanged += (s, e) => UpdateDefaultButtons(propertyItem, dataGrid);
+        dataGrid.TargetUpdated += (s, e) => UpdateDefaultButtons(propertyItem, dataGrid);
 
         return container;
     }
@@ -150,7 +156,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
             addButton.Click += (s, e) =>
            {
                var elementType = GetCollectionElementType(propertyItem.PropertyType);
-               if (elementType != null)
+               if (elementType != null && CanChangeCollection(propertyItem, true))
                {
                    object newItem;
                    // 如果有选中项，复制选中项的值
@@ -158,15 +164,19 @@ public class DataGridPropertyEditor : PropertyEditorBase
                    {
                        newItem = HandyControl.Tools.DeepCopy.DeepCopier.Copy(dataGrid.SelectedItem);
                    }
-                   else
+                   else if (CanCreateInstance(elementType))
                    {
                        newItem = Activator.CreateInstance(elementType);
+                   }
+                   else
+                   {
+                       return;
                    }
 
                    if (ShowEditDialog(newItem, propertyItem, "新增", true))
                    {
                        AddItemToCollection(propertyItem, newItem);
-                       dataGrid.Items.Refresh();
+                       RefreshCollection(propertyItem, dataGrid);
                    }
                }
            };
@@ -192,15 +202,15 @@ public class DataGridPropertyEditor : PropertyEditorBase
             // 没有配置命令，使用默认的删除逻辑
             deleteButton.Click += (s, e) =>
                 {
-                    if (dataGrid.SelectedItem != null)
+                    if (dataGrid.SelectedItem != null && CanChangeCollection(propertyItem, false))
                     {
                         var result = System.Windows.MessageBox.Show("确定要删除选中的项吗？", "确认删除",
                       MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            RemoveItemFromCollection(propertyItem, dataGrid.SelectedItem);
-                            dataGrid.Items.Refresh();
+                            RemoveItemFromCollection(propertyItem, dataGrid.SelectedItem, dataGrid.SelectedIndex);
+                            RefreshCollection(propertyItem, dataGrid);
                         }
                     }
                 };
@@ -296,7 +306,7 @@ public class DataGridPropertyEditor : PropertyEditorBase
         var props = GetProps(target.GetType());
         foreach (var prop in props)
         {
-            if (!prop.CanRead || !prop.CanWrite)
+            if (prop.GetIndexParameters().Length != 0 || prop.GetMethod?.IsPublic != true || prop.SetMethod?.IsPublic != true)
                 continue;
 
             var value = prop.GetValue(source);
@@ -311,41 +321,131 @@ public class DataGridPropertyEditor : PropertyEditorBase
     /// </summary>
     private void AddItemToCollection(PropertyItem propertyItem, object item)
     {
-        var collection = GetCollectionFromPropertyItem(propertyItem);
-        if (collection != null)
+        var property = GetCollectionProperty(propertyItem);
+        var collection = property?.GetValue(propertyItem.Value);
+        if (collection == null)
         {
-            collection.Add(item);
+            collection = CreateCollection(propertyItem.PropertyType);
+            if (collection == null || property.IsReadOnly) return;
+            if (collection is IList newList && (newList.IsReadOnly || newList.IsFixedSize) && !(collection is Array)) return;
+            var collectionInterface = GetCollectionInterface(collection.GetType());
+            if (!(collection is IList) && (collectionInterface == null || (bool)collectionInterface.GetProperty("IsReadOnly").GetValue(collection))) return;
+            property.SetValue(propertyItem.Value, collection);
+        }
+
+        if (collection is Array array)
+        {
+            var replacement = Array.CreateInstance(array.GetType().GetElementType(), array.Length + 1);
+            Array.Copy(array, replacement, array.Length);
+            replacement.SetValue(item, array.Length);
+            property.SetValue(propertyItem.Value, replacement);
+        }
+        else if (collection is IList list)
+        {
+            list.Add(item);
+        }
+        else
+        {
+            GetCollectionInterface(collection.GetType())?.GetMethod("Add").Invoke(collection, new[] { item });
         }
     }
 
     /// <summary>
     /// 从集合删除项
     /// </summary>
-    private void RemoveItemFromCollection(PropertyItem propertyItem, object item)
+    private void RemoveItemFromCollection(PropertyItem propertyItem, object item, int selectedIndex)
     {
-        var collection = GetCollectionFromPropertyItem(propertyItem);
-        if (collection != null)
+        var property = GetCollectionProperty(propertyItem);
+        var collection = property?.GetValue(propertyItem.Value);
+        if (collection is Array array)
         {
-            collection.Remove(item);
+            if (selectedIndex < 0 || selectedIndex >= array.Length || !Equals(array.GetValue(selectedIndex), item))
+                selectedIndex = Array.IndexOf(array, item);
+            if (selectedIndex < 0) return;
+            var replacement = Array.CreateInstance(array.GetType().GetElementType(), array.Length - 1);
+            Array.Copy(array, 0, replacement, 0, selectedIndex);
+            Array.Copy(array, selectedIndex + 1, replacement, selectedIndex, array.Length - selectedIndex - 1);
+            property.SetValue(propertyItem.Value, replacement);
+        }
+        else if (collection is IList list)
+        {
+            if (selectedIndex >= 0 && selectedIndex < list.Count && Equals(list[selectedIndex], item))
+                list.RemoveAt(selectedIndex);
+            else
+                list.Remove(item);
+        }
+        else if (collection != null)
+        {
+            GetCollectionInterface(collection.GetType())?.GetMethod("Remove").Invoke(collection, new[] { item });
         }
     }
 
-    /// <summary>
-    /// 从 PropertyItem 获取集合对象
-    /// </summary>
-    private IList GetCollectionFromPropertyItem(PropertyItem propertyItem)
+    private static PropertyDescriptor GetCollectionProperty(PropertyItem propertyItem)
     {
         if (propertyItem?.Value == null || string.IsNullOrEmpty(propertyItem.PropertyName))
             return null;
 
-        var property = propertyItem.Value.GetType().GetProperty(propertyItem.PropertyName);
-        if (property != null)
-        {
-            var collection = property.GetValue(propertyItem.Value) as IList;
-            return collection;
-        }
+        return TypeDescriptor.GetProperties(propertyItem.Value)[propertyItem.PropertyName];
+    }
 
-        return null;
+    private static Type GetCollectionInterface(Type type) =>
+        type.GetInterfaces().Concat(new[] { type })
+            .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICollection<>));
+
+    private static bool CanCreateInstance(Type type) =>
+        type != null && !type.IsAbstract && !type.IsInterface &&
+        (type.IsValueType || type.GetConstructor(Type.EmptyTypes) != null);
+
+    private static Type GetNewCollectionType(Type type)
+    {
+        if (type.IsArray) return type.GetArrayRank() == 1 ? type : null;
+        if (CanCreateInstance(type) && (typeof(IList).IsAssignableFrom(type) || GetCollectionInterface(type) != null)) return type;
+        var enumerableInterface = type.GetInterfaces().Concat(new[] { type })
+            .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+        if (enumerableInterface == null) return null;
+        var elementType = enumerableInterface.GetGenericArguments()[0];
+        var listType = typeof(List<>).MakeGenericType(elementType);
+        if (type.IsAssignableFrom(listType)) return listType;
+        var setType = typeof(HashSet<>).MakeGenericType(elementType);
+        return type.IsAssignableFrom(setType) ? setType : null;
+    }
+
+    private static object CreateCollection(Type type)
+    {
+        var newType = GetNewCollectionType(type);
+        if (newType == null) return null;
+        return newType.IsArray ? Array.CreateInstance(newType.GetElementType(), 0) : Activator.CreateInstance(newType);
+    }
+
+    private static bool CanChangeCollection(PropertyItem propertyItem, bool adding)
+    {
+        var property = GetCollectionProperty(propertyItem);
+        if (property == null) return false;
+        var collection = property.GetValue(propertyItem.Value);
+        if (collection == null)
+            return adding && !property.IsReadOnly && GetNewCollectionType(propertyItem.PropertyType) != null;
+        if (collection is Array array)
+            return array.Rank == 1 && !property.IsReadOnly;
+        if (collection is IList list)
+            return !list.IsReadOnly && !list.IsFixedSize;
+        var collectionInterface = GetCollectionInterface(collection.GetType());
+        return collectionInterface != null && !(bool)collectionInterface.GetProperty("IsReadOnly").GetValue(collection);
+    }
+
+    private void UpdateDefaultButtons(PropertyItem propertyItem, DataGrid grid)
+    {
+        if (!hasAddCommand)
+            addButton.IsEnabled = CanChangeCollection(propertyItem, true) &&
+                (grid.SelectedItem != null || CanCreateInstance(GetCollectionElementType(propertyItem.PropertyType)));
+        if (!hasDeleteCommand)
+            deleteButton.IsEnabled = grid.SelectedItem != null && CanChangeCollection(propertyItem, false);
+    }
+
+    private void RefreshCollection(PropertyItem propertyItem, DataGrid grid)
+    {
+        BindingOperations.GetBindingExpression(grid, DataGrid.ItemsSourceProperty)?.UpdateTarget();
+        grid.Items.Refresh();
+        UpdateDefaultButtons(propertyItem, grid);
     }
 
     private void GenerateColumns(DataGrid dataGrid, PropertyItem propertyItem)
@@ -405,16 +505,25 @@ public class DataGridPropertyEditor : PropertyEditorBase
         {
             var propAttr = property.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
 
-            // 检查是否可见
-            if (!string.IsNullOrWhiteSpace(propAttr?.VisibleProperty))
-            {
-                // 暂不支持动态可见性，跳过
-                continue;
-            }
-
             var column = CreateColumn(property, propAttr, propertyItem);
             if (column != null)
             {
+                if (!string.IsNullOrWhiteSpace(propAttr?.VisibleProperty) || !string.IsNullOrWhiteSpace(propAttr?.EnableProperty))
+                {
+                    var cellStyle = new Style(typeof(DataGridCell), dataGrid.TryFindResource(typeof(DataGridCell)) as Style);
+                    if (!string.IsNullOrWhiteSpace(propAttr.VisibleProperty))
+                    {
+                        cellStyle.Setters.Add(new Setter(UIElement.VisibilityProperty, new Binding(propAttr.VisibleProperty)
+                        {
+                            Converter = new System.Windows.Controls.BooleanToVisibilityConverter()
+                        }));
+                    }
+                    if (!string.IsNullOrWhiteSpace(propAttr.EnableProperty))
+                    {
+                        cellStyle.Setters.Add(new Setter(UIElement.IsEnabledProperty, new Binding(propAttr.EnableProperty)));
+                    }
+                    column.CellStyle = cellStyle;
+                }
                 dataGrid.Columns.Add(column);
             }
         }
@@ -440,11 +549,9 @@ public class DataGridPropertyEditor : PropertyEditorBase
     private DataGridColumn CreateColumn(PropertyDescriptor property, PropertyAttribute propAttr, PropertyItem propertyItem)
     {
         var displayName = propAttr?.DisplayName ?? property.DisplayName ?? property.Name;
-        var isReadOnly = propAttr != null && !string.IsNullOrWhiteSpace(propAttr.EnableProperty)
-                   ? false
-            : property.IsReadOnly;
+        var isReadOnly = property.IsReadOnly;
         IValueConverter valueConverter = null;
-        if (propAttr.ConverterType != null)
+        if (propAttr?.ConverterType != null)
         {
             valueConverter = Activator.CreateInstance(propAttr.ConverterType) as IValueConverter;
         }
@@ -468,12 +575,11 @@ public class DataGridPropertyEditor : PropertyEditorBase
             }
             else
             {
-                var propertySouce = propertyItem.Value.GetType().GetProperty(propAttr.ComboBoxItemsSourceProperty);
-                if (propertySouce != null)
+                BindingOperations.SetBinding(comboColumn, DataGridComboBoxColumn.ItemsSourceProperty, new Binding($"{nameof(PropertyItem.Value)}.{propAttr.ComboBoxItemsSourceProperty}")
                 {
-                    var itemsSource = propertySouce.GetValue(propertyItem.Value);
-                    comboColumn.ItemsSource = itemsSource as IEnumerable;
-                }
+                    Source = propertyItem,
+                    Mode = BindingMode.OneWay
+                });
             }
             if (!string.IsNullOrWhiteSpace(propAttr.DisplayMemberPathProperty))
             {
@@ -583,14 +689,13 @@ public class DataGridPropertyEditor : PropertyEditorBase
                     Binding = new Binding(property.Name)
                     {
                         Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
-                        StringFormat = "N0",
                         Converter = valueConverter
                     },
                     IsReadOnly = isReadOnly
                 };
             }
 
-            if (propAttr.GridColumnConverter != null)
+            if (propAttr?.GridColumnConverter != null)
             {
                 valueConverter = Activator.CreateInstance(propAttr.GridColumnConverter) as IValueConverter;
             }
@@ -621,18 +726,8 @@ public class DataGridPropertyEditor : PropertyEditorBase
             return collectionType.GetElementType();
         }
 
-        // 处理泛型集合
-        if (collectionType.IsGenericType)
-        {
-            var genericArgs = collectionType.GetGenericArguments();
-            if (genericArgs.Length == 1)
-            {
-                return genericArgs[0];
-            }
-        }
-
         // 处理实现了IEnumerable<T>的类型
-        var enumerableInterface = collectionType.GetInterfaces()
+        var enumerableInterface = collectionType.GetInterfaces().Concat(new[] { collectionType })
             .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
         if (enumerableInterface != null)
@@ -657,8 +752,10 @@ public class DataGridPropertyEditor : PropertyEditorBase
                 {
                     Source = propertyItem.Value,
                     Mode = GetBindingMode(propertyItem),
-                    UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem)
+                    UpdateSourceTrigger = GetUpdateSourceTrigger(propertyItem),
+                    NotifyOnTargetUpdated = true
                 });
+            UpdateDefaultButtons(propertyItem, dataGrid);
         }
         if (hasAddCommand)
         {

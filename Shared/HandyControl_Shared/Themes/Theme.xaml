@@ -588,11 +588,11 @@
   <system:Double x:Key="ProgressBarBaseHeightToken4">250</system:Double>
   <Thickness x:Key="ProgressBarBaseMarginToken2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0,0,-400,-20</Thickness>
   <Thickness x:Key="ProgressBarBaseMarginToken3" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0,10,0,0</Thickness>
-  <Thickness x:Key="PropertyGridBasePaddingToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">10</Thickness>
-  <Thickness x:Key="PropertyGridBaseMarginToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">8</Thickness>
+  <Thickness x:Key="PropertyGridBasePaddingToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0</Thickness>
+  <Thickness x:Key="PropertyGridBaseMarginToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">4</Thickness>
   <Thickness x:Key="PropertyGridBaseBorderThicknessToken1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">1</Thickness>
   <Thickness x:Key="PropertyGridBaseMarginToken2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0,0,0,2</Thickness>
-  <Thickness x:Key="PropertyGridBaseMarginToken3" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">6,0,0,0</Thickness>
+  <Thickness x:Key="PropertyGridBaseMarginToken3" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">4,0,0,0</Thickness>
   <Thickness x:Key="PropertyGridBasePaddingToken2" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0,0,4,0</Thickness>
   <Thickness x:Key="PropertyGridBaseMarginToken4" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">0,0,0,4</Thickness>
   <Thickness x:Key="PropertyGridBasePaddingToken3" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">10,6,6,0</Thickness>
@@ -11823,14 +11823,14 @@
               </Grid.RowDefinitions>
               <DockPanel Margin="{StaticResource PropertyGridBaseMarginToken2}" LastChildFill="True">
                 <hc:ButtonGroup Margin="{StaticResource PropertyGridBaseMarginToken5}" Style="{StaticResource ButtonGroupSolid}" Visibility="{Binding ShowSortButton, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}">
-                  <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="True">
+                  <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                     <Rectangle Width="{StaticResource PropertyGridBaseWidthToken1}" Height="{StaticResource PropertyGridBaseHeightToken1}" Fill="{StaticResource SortByCategoryDrawingBrush}" />
                   </RadioButton>
-                  <RadioButton Command="interactivity:ControlCommands.SortByName">
+                  <RadioButton Command="interactivity:ControlCommands.SortByName" IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource Boolean2BooleanReConverter}}">
                     <Rectangle Width="{StaticResource PropertyGridBaseWidthToken1}" Height="{StaticResource PropertyGridBaseHeightToken1}" Fill="{StaticResource SortByNameDrawingBrush}" />
                   </RadioButton>
                 </hc:ButtonGroup>
-                <hc:SearchBar x:Name="PART_SearchBar" hc:InfoElement.ShowClearButton="True" IsRealTime="True" Style="{StaticResource SearchBarPlus}" />
+                <hc:SearchBar x:Name="PART_SearchBar" hc:InfoElement.ShowClearButton="True" IsRealTime="True" Text="{Binding SearchText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" Style="{StaticResource SearchBarPlus}" />
               </DockPanel>
               <hc:PropertyItemsControl x:Name="PART_ItemsControl" Grid.Row="1" Style="{StaticResource PropertyItemsControlBaseStyle}">
                 <hc:PropertyItemsControl.GroupStyle>
@@ -11887,14 +11887,14 @@
               </Grid.RowDefinitions>
               <DockPanel Margin="{StaticResource PropertyGridBaseMarginToken2}" LastChildFill="True">
                 <hc:ButtonGroup Margin="{StaticResource PropertyGridBaseMarginToken5}" Style="{StaticResource ButtonGroupSolid}" Visibility="{Binding ShowSortButton, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}">
-                  <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="True">
+                  <RadioButton Command="interactivity:ControlCommands.SortByCategory" IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
                     <Rectangle Width="{StaticResource PropertyGridBaseWidthToken1}" Height="{StaticResource PropertyGridBaseHeightToken1}" Fill="{StaticResource SortByCategoryDrawingBrush}" />
                   </RadioButton>
-                  <RadioButton Command="interactivity:ControlCommands.SortByName">
+                  <RadioButton Command="interactivity:ControlCommands.SortByName" IsChecked="{Binding IsCategorized, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Converter={StaticResource Boolean2BooleanReConverter}}">
                     <Rectangle Width="{StaticResource PropertyGridBaseWidthToken1}" Height="{StaticResource PropertyGridBaseHeightToken1}" Fill="{StaticResource SortByNameDrawingBrush}" />
                   </RadioButton>
                 </hc:ButtonGroup>
-                <hc:SearchBar x:Name="PART_SearchBar" Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" Text="{Binding SearchText, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.ShowClearButton="True" IsRealTime="True" Style="{StaticResource SearchBarPlus}" />
+                <hc:SearchBar x:Name="PART_SearchBar" Visibility="{Binding ShowSearchBar, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Boolean2VisibilityConverter}}" Text="{Binding SearchText, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" hc:InfoElement.ShowClearButton="True" IsRealTime="True" Style="{StaticResource SearchBarPlus}" />
               </DockPanel>
               <hc:ScrollViewer Grid.Row="1" Focusable="False" CanContentScroll="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />

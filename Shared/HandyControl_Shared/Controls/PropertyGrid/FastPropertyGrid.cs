@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Data;
+using HandyControl.Data;
 using HandyControl.Interactivity;
 using HandyControl.Tools.Extension;
 
@@ -30,13 +31,13 @@ public class FastPropertyGrid : ListBox
     public bool ShowSortButton
     {
         get => (bool)GetValue(ShowSortButtonProperty);
-        set => SetValue(ShowSortButtonProperty, value);
+        set => SetValue(ShowSortButtonProperty, ValueBoxes.BooleanBox(value));
     }
     public static readonly DependencyProperty ShowSearchBarProperty = PropertyGrid.ShowSearchBarProperty.AddOwner(typeof(FastPropertyGrid));
     public bool ShowSearchBar
     {
         get => (bool)GetValue(ShowSearchBarProperty);
-        set => SetValue(ShowSearchBarProperty, value);
+        set => SetValue(ShowSearchBarProperty, ValueBoxes.BooleanBox(value));
     }
     public static readonly DependencyProperty DescriptionProperty = PropertyGrid.DescriptionProperty.AddOwner(typeof(FastPropertyGrid));
     public string Description
@@ -61,7 +62,18 @@ public class FastPropertyGrid : ListBox
         get;
     }
     = new();
-    private bool _grouped = true;
+    /// <summary>
+    /// 获取或设置是否按分类显示属性；否则按属性的排序索引显示。
+    /// </summary>
+    public static readonly DependencyProperty IsCategorizedProperty = DependencyProperty.Register(
+        nameof(IsCategorized), typeof(bool), typeof(FastPropertyGrid),
+        new FrameworkPropertyMetadata(ValueBoxes.TrueBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+            (d, e) => ((FastPropertyGrid)d).UpdateVisibleRows()));
+    public bool IsCategorized
+    {
+        get => (bool)GetValue(IsCategorizedProperty);
+        set => SetValue(IsCategorizedProperty, ValueBoxes.BooleanBox(value));
+    }
     private readonly Dictionary<ListBoxItem, Action> _detach = new();
     private readonly Dictionary<ListBoxItem, Action> _commit = new();
     private readonly Queue<TextBox> _textPool = new();
@@ -85,8 +97,13 @@ public class FastPropertyGrid : ListBox
     public int PooledEditorCount => _textPool.Count + _choicePool.Count;
     private List<Row> _rows = new();
     private readonly HashSet<string> _collapsed = new();
+    /// <summary>
+    /// 获取或设置用于匹配属性名称或显示名称的搜索文本。
+    /// </summary>
     public static readonly DependencyProperty SearchTextProperty = DependencyProperty.Register(
-    nameof(SearchText), typeof(string), typeof(FastPropertyGrid), new PropertyMetadata(string.Empty, (d, e) => ((FastPropertyGrid)d).UpdateVisibleRows()));
+    nameof(SearchText), typeof(string), typeof(FastPropertyGrid),
+    new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+        (d, e) => ((FastPropertyGrid)d).UpdateVisibleRows()));
     public string SearchText
     {
         get => (string)GetValue(SearchTextProperty);
@@ -113,11 +130,11 @@ public class FastPropertyGrid : ListBox
             commit();
         }
         ReleaseEditors();
+        var filtered = _rows.Where(row => string.IsNullOrEmpty(SearchText)
+            || row.Name?.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0
+            || row.Properties[0].Name.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
         if (_selection.Length == 1)
         {
-            var filtered = _rows.Where(row => string.IsNullOrEmpty(SearchText)
-            || row.Name.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0
-            || row.Properties[0].Name.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
             var view = new ListCollectionView(filtered);
             if (GroupStyle.Count == 0)
             {
@@ -127,21 +144,21 @@ public class FastPropertyGrid : ListBox
                 }
                 );
             }
-            if (_grouped)
+            if (IsCategorized)
             {
                 view.GroupDescriptions.Add(new PropertyGroupDescription(nameof(Row.Category)));
             }
             ItemsSource = view;
             return;
         }
-        var visible = new List<Row>();
-        foreach (var group in _rows.Where(row => string.IsNullOrEmpty(SearchText) || row.Name.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0).GroupBy(row => row.Category))
+        if (!IsCategorized)
         {
-            if (!_grouped)
-            {
-                visible.AddRange(group);
-                continue;
-            }
+            ItemsSource = filtered;
+            return;
+        }
+        var visible = new List<Row>();
+        foreach (var group in filtered.GroupBy(row => row.Category))
+        {
             visible.Add(new Row
             {
                 Name = group.Key,
@@ -174,12 +191,12 @@ public class FastPropertyGrid : ListBox
     {
         CommandBindings.Add(new CommandBinding(ControlCommands.SortByCategory, (_, _) =>
         {
-            _grouped = true; UpdateVisibleRows();
+            SetCurrentValue(IsCategorizedProperty, ValueBoxes.TrueBox);
         }
         ));
         CommandBindings.Add(new CommandBinding(ControlCommands.SortByName, (_, _) =>
         {
-            _grouped = false; UpdateVisibleRows();
+            SetCurrentValue(IsCategorizedProperty, ValueBoxes.FalseBox);
         }
         ));
         VirtualizingPanel.SetIsVirtualizing(this, true);
@@ -243,8 +260,13 @@ public class FastPropertyGrid : ListBox
             var descriptors = _selection.Select(TypeDescriptor.GetProperties).ToArray();
             foreach (PropertyDescriptor first in descriptors[0])
             {
+                var metadata = first.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+                if (metadata == null)
+                {
+                    continue;
+                }
                 var properties = descriptors.Select(set => set[first.Name]).ToArray();
-                if (properties.Any(p => p == null || !PropertyResolver.ResolveIsBrowsable(p) || p.PropertyType != first.PropertyType))
+                if (properties.Any(p => p == null || !p.Attributes.OfType<PropertyAttribute>().Any() || !PropertyResolver.ResolveIsBrowsable(p) || p.PropertyType != first.PropertyType))
                 {
                     continue;
                 }
@@ -256,13 +278,12 @@ public class FastPropertyGrid : ListBox
                 {
                     continue;
                 }
-                var metadata = first.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
                 rows.Add(new Row
                 {
                     Properties = properties,
-                    Name = (metadata?.DisplayName ?? PropertyResolver.ResolveDisplayName(first)).ToLanguage(),
-                    Category = (metadata?.Category ?? PropertyResolver.ResolveCategory(first)).ToLanguage(),
-                    SortIndex = first.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? (metadata?.Index ?? 0)
+                    Name = (metadata.DisplayName ?? PropertyResolver.ResolveDisplayName(first)).ToLanguage(),
+                    Category = (metadata.Category ?? PropertyResolver.ResolveCategory(first)).ToLanguage(),
+                    SortIndex = first.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? metadata.Index
                 }
                 );
             }
@@ -382,6 +403,22 @@ public class FastPropertyGrid : ListBox
             }
             ;
             EditorsCreated++;
+        }
+        var textSettings = row.Properties[0].Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+        bool isMultiline = row.Properties[0].PropertyType == typeof(string) && textSettings?.IsMultiline == true;
+        editor.AcceptsReturn = isMultiline;
+        editor.TextWrapping = TextWrapping.NoWrap;
+        editor.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+        editor.Height = double.NaN;
+        if (isMultiline)
+        {
+            editor.TextWrapping = TextWrapping.Wrap;
+            editor.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            editor.Height = 150;
+            if (textSettings.Height > 0)
+            {
+                editor.Height = textSettings.Height;
+            }
         }
         var cleanup = new List<Action>();
         panel.Children.Add(editor);
@@ -584,7 +621,7 @@ public class FastPropertyGrid : ListBox
         KeyboardFocusChangedEventHandler focusHandler = (_, _) => Commit();
         KeyEventHandler keyHandler = (_, args) =>
         {
-            if (args.Key == Key.Enter)
+            if (args.Key == Key.Enter && !isMultiline)
             {
                 Commit();
                 args.Handled = true;

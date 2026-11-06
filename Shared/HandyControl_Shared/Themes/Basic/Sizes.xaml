@@ -349,11 +349,11 @@
     <sys:Double x:Key="ProgressBarBaseHeightToken4">250</sys:Double>
     <Thickness x:Key="ProgressBarBaseMarginToken2">0,0,-400,-20</Thickness>
     <Thickness x:Key="ProgressBarBaseMarginToken3">0,10,0,0</Thickness>
-    <Thickness x:Key="PropertyGridBasePaddingToken1">10</Thickness>
-    <Thickness x:Key="PropertyGridBaseMarginToken1">8</Thickness>
+    <Thickness x:Key="PropertyGridBasePaddingToken1">0</Thickness>
+    <Thickness x:Key="PropertyGridBaseMarginToken1">4</Thickness>
     <Thickness x:Key="PropertyGridBaseBorderThicknessToken1">1</Thickness>
     <Thickness x:Key="PropertyGridBaseMarginToken2">0,0,0,2</Thickness>
-    <Thickness x:Key="PropertyGridBaseMarginToken3">6,0,0,0</Thickness>
+    <Thickness x:Key="PropertyGridBaseMarginToken3">4,0,0,0</Thickness>
     <Thickness x:Key="PropertyGridBasePaddingToken2">0,0,4,0</Thickness>
     <Thickness x:Key="PropertyGridBaseMarginToken4">0,0,0,4</Thickness>
     <Thickness x:Key="PropertyGridBasePaddingToken3">10,6,6,0</Thickness>

@@ -28,6 +28,18 @@ public class PlainTextPropertyEditor : PropertyEditorBase
             IsReadOnly = propertyItem.IsReadOnly
         };
 
+        if (propertyItem.Property?.IsMultiline == true)
+        {
+            textBox.AcceptsReturn = true;
+            textBox.TextWrapping = TextWrapping.Wrap;
+            textBox.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            textBox.Height = 150;
+            if (propertyItem.Property.Height > 0)
+            {
+                textBox.Height = propertyItem.Property.Height;
+            }
+        }
+
         // 如果没有命令属性，直接返回文本框
         if (string.IsNullOrWhiteSpace(propertyItem.Property?.CommandProperty))
         {
