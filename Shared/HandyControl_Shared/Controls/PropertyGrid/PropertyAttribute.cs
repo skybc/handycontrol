@@ -69,6 +69,11 @@ namespace HandyControl.Controls
 
         public Type ConverterType { get; set; } = null;
 
+        /// <summary>
+        /// FastPropertyGrid 使用的自定义编辑控件类型。
+        /// </summary>
+        public Type CustomControlType { get; set; }
+
         // DataGrid相关属性
         /// <summary>
         /// 集合编辑器或多行文本框的高度，单位为设备无关像素。

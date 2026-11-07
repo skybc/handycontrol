@@ -1,6 +1,6 @@
-﻿# FastPropertyGrid 使用与二次开发
+# FastPropertyGrid 使用与二次开发
 
-本文对应当前仓库实现（2026-11-05 源码核对）。命名空间为 `HandyControl.Controls`，程序集为 `HandyControl.dll`。使用方无需引用示例工程或复制控件源码。
+本文对应当前仓库实现（2026-11-07 源码核对）。命名空间为 `HandyControl.Controls`，程序集为 `HandyControl.dll`。使用方无需引用示例工程或复制控件源码。
 
 ## 1. 引用 DLL 并加载资源
 
@@ -536,3 +536,110 @@ DataGrid 会根据元素属性生成列，并有自己的列类型、下拉及�
 - `Themes/Styles/FastPropertyGrid.xaml`、`Themes/Styles/Base/FastPropertyGridBaseStyle.xaml`：默认样式和模板。
 
 源码发生变更时优先重新核对这些入口。本文记录了当前实现缺口，不能用类注释中尚未实现的意图替代实际行为。
+
+## 14. FastPropertyGrid 自定义值控件
+
+自定义控件适用于需要专用交互、但仍只编辑一个属性值的场景。通过 `PropertyAttribute.CustomControlType` 指定控件类型。配置只由 `FastPropertyGrid` 使用；普通 `PropertyGrid` 忽略此配置，继续沿用原有编辑器解析规则。自定义控件不会进入文本框或选择器编辑器池。
+
+### 控件契约
+
+控件必须满足以下要求：
+
+- 是非抽象 `FrameworkElement`，实现 `IFastPropertyGridEditor`，并提供公共无参构造函数。
+- `ValueProperty` 返回控件自身可读写的依赖属性。未配置转换器时，该依赖属性类型须与被编辑属性类型一致。
+- `IsMixedValue` 接收网格传入的多选混合状态。控件负责显示该状态；网格不会为混合值造一个可写的占位值。
+- `ValueCommitted` 只在用户完成一次编辑后触发。控件初始化、网格回填值和设置 `IsMixedValue` 时不可触发此事件。
+- 控件自行管理其内部资源的加载和卸载。网格负责清除自己添加的值绑定和提交事件订阅。
+
+`IFastPropertyGridEditor.ValueProperty` 是实例属性，因此示例中依赖属性字段命名为 `EditorValueProperty`，避免与接口成员重名：
+
+```csharp
+public sealed class PercentEditor : TextBox, IFastPropertyGridEditor
+{
+    public static readonly DependencyProperty EditorValueProperty = DependencyProperty.Register(
+        nameof(Value), typeof(double), typeof(PercentEditor), new PropertyMetadata(0d));
+
+    public double Value
+    {
+        get => (double)GetValue(EditorValueProperty);
+        set => SetValue(EditorValueProperty, value);
+    }
+
+    public DependencyProperty ValueProperty => EditorValueProperty;
+    public bool IsMixedValue { get; set; }
+    public event EventHandler ValueCommitted;
+
+    private void OnUserEditCompleted()
+    {
+        ValueCommitted?.Invoke(this, EventArgs.Empty);
+    }
+}
+```
+
+控件应在真实的用户提交动作中调用 `OnUserEditCompleted`。例如，单行输入框可以在 Enter 或失去焦点时提交；多行输入框可以用 Ctrl+Enter 或专用按钮提交，普通 Enter 保留为换行。程序更新 `Value` 时应只更新控件显示，不应触发 `ValueCommitted`。
+
+属性通过 Attribute 配置：
+
+```csharp
+public class DeviceOptions
+{
+    [Property(CustomControlType = typeof(PercentEditor))]
+    public double Threshold { get; set; }
+}
+```
+
+### 类型转换
+
+当编辑器依赖属性类型与目标属性类型不同，可通过现有 `ConverterType` 指定 `IValueConverter`。转换器需实现双向转换：单对象绑定时由 WPF 调用 `Convert` 和 `ConvertBack`；多对象读取和提交时网格分别调用这两个方法。
+
+```csharp
+public sealed class PercentConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return System.Convert.ToDouble(value, culture) * 100d;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return System.Convert.ToDouble(value, culture) / 100d;
+    }
+}
+
+[Property(
+    CustomControlType = typeof(PercentEditor),
+    ConverterType = typeof(PercentConverter))]
+public double Threshold { get; set; }
+```
+
+### 单对象和多对象行为
+
+单对象模式将编辑器 `ValueProperty` 绑定到目标属性。可写属性使用双向绑定；只读属性使用单向绑定并禁用控件。自定义分支目前不调用普通 `PropertyItem.InitElement`，因此启用/可见绑定和命令按钮不会自动附加；需要这些行为时，应在自定义控件中自行提供对应绑定或交互。
+
+多对象模式先读取所有目标的实际属性值：
+
+- 值一致时，网格把该值显示在控件中并将 `IsMixedValue` 设为 `false`。
+- 值不一致时，网格将 `IsMixedValue` 设为 `true`，控件显示混合状态。
+- 只有收到 `ValueCommitted` 才逐个写入当前选择。写入结束后网格重新读取实际值，并通过 `EditCompleted` 报告成功数量和失败对象；部分失败不会回滚成功项。
+- 选择中的属性必须具有相同类型、兼容的自定义控件配置且均可写，编辑才启用。存在只读目标或控件配置不一致时，该控件显示为禁用。
+
+选择刷新、容器回收和控件卸载时，网格会移除其绑定并取消 `ValueCommitted` 订阅。提交回调还会核对选择快照，避免旧容器向新选择写入。
+
+### 错误呈现和布局
+
+指定类型无效、控件构造失败、`ValueProperty` 不可读写或值类型/转换器配置错误时，该行显示明确错误并禁用编辑，不会静默切换到默认编辑器。其余属性行照常工作。
+
+自定义编辑器行启用 `PropertyItem.EditorOnNewLine` 布局：标题跨满整行并顶部对齐，控件位于下一行并水平拉伸。多行或高控件可设置自身 `Height`；例如 demo 中的自定义输入框使用 `Height = 200`。此布局复用 `PropertyItemBaseStyle` 的 `EditorOnNewLine` 模板触发器，不影响未启用该属性的普通行。
+
+### 演示与验证
+
+打开 PropertyGrid demo 页面，使用“单对象自定义控件”和“多对象自定义控件”按钮切换用例。示例编辑器高 200 像素并支持多行输入，使用 Ctrl+Enter 提交。多对象用例包含混合值、只读属性和拒绝写入的目标，可观察 `EditCompleted` 中的成功/失败数量；“查看自定义控件结果”会重新读取并显示对象上的实际值。
+
+源码入口：
+
+- `Controls/PropertyGrid/IFastPropertyGridEditor.cs`：编辑器接口。
+- `Controls/PropertyGrid/PropertyAttribute.cs`：`CustomControlType` 配置。
+- `Controls/PropertyGrid/FastPropertyGrid.cs`：创建、同步、提交及回收清理。
+- `Themes/Styles/Base/PropertyGridBaseStyle.xaml`：标题换行与编辑器铺满布局。
+- `HandyControlDemo_Shared/UserControl/Controls/PropertyGridDemoCtl.xaml.cs`：可运行示例及测试模型。
+

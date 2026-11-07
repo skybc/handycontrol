@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -133,7 +133,6 @@ public class FastPropertyGrid : ListBox
         var filtered = _rows.Where(row => string.IsNullOrEmpty(SearchText)
             || row.Name?.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0
             || row.Properties[0].Name.IndexOf(SearchText, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
-        if (_selection.Length == 1)
         {
             var view = new ListCollectionView(filtered);
             if (GroupStyle.Count == 0)
@@ -151,26 +150,6 @@ public class FastPropertyGrid : ListBox
             ItemsSource = view;
             return;
         }
-        if (!IsCategorized)
-        {
-            ItemsSource = filtered;
-            return;
-        }
-        var visible = new List<Row>();
-        foreach (var group in filtered.GroupBy(row => row.Category))
-        {
-            visible.Add(new Row
-            {
-                Name = group.Key,
-                Category = group.Key
-            }
-            );
-            if (!_collapsed.Contains(group.Key))
-            {
-                visible.AddRange(group);
-            }
-        }
-        ItemsSource = visible;
     }
     private bool _committing;
     private object[] _selection = Array.Empty<object>();
@@ -261,29 +240,26 @@ public class FastPropertyGrid : ListBox
             foreach (PropertyDescriptor first in descriptors[0])
             {
                 var metadata = first.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
-                if (metadata == null)
-                {
-                    continue;
-                }
                 var properties = descriptors.Select(set => set[first.Name]).ToArray();
                 if (properties.Any(p => p == null || !p.Attributes.OfType<PropertyAttribute>().Any() || !PropertyResolver.ResolveIsBrowsable(p) || p.PropertyType != first.PropertyType))
                 {
                     continue;
                 }
-                if (_selection.Length > 1 && (first.IsReadOnly || !first.Converter.CanConvertFrom(typeof(string))))
+                var firstAttribute = first.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+                if (_selection.Length > 1 && firstAttribute?.CustomControlType == null && (first.IsReadOnly || !first.Converter.CanConvertFrom(typeof(string))))
                 {
                     continue;
                 }
-                if (properties.Any(p => p.Converter.GetType() != first.Converter.GetType()))
+                if (metadata?.CustomControlType == null && properties.Any(p => p.Converter.GetType() != first.Converter.GetType()))
                 {
                     continue;
                 }
                 rows.Add(new Row
                 {
                     Properties = properties,
-                    Name = (metadata.DisplayName ?? PropertyResolver.ResolveDisplayName(first)).ToLanguage(),
-                    Category = (metadata.Category ?? PropertyResolver.ResolveCategory(first)).ToLanguage(),
-                    SortIndex = first.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? metadata.Index
+                    Name = (metadata?.DisplayName ?? PropertyResolver.ResolveDisplayName(first)).ToLanguage(),
+                    Category = (metadata?.Category ?? PropertyResolver.ResolveCategory(first)).ToLanguage(),
+                    SortIndex = first.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? metadata?.Index ?? 0
                 }
                 );
             }
@@ -369,6 +345,12 @@ public class FastPropertyGrid : ListBox
             container.Content = header;
             return;
         }
+        var customAttribute = row.Properties[0].Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+        if (customAttribute?.CustomControlType != null)
+        {
+            PrepareCustomEditor(container, row, customAttribute);
+            return;
+        }
         if (_selection.Length == 1)
         {
             var width = _selection[0].GetType().GetCustomAttributes(typeof(TitleWidthAttribute), true)
@@ -380,15 +362,6 @@ public class FastPropertyGrid : ListBox
             return;
         }
         var panel = new DockPanel();
-        panel.SetResourceReference(StyleProperty, "FastPropertyGridRowStyle");
-        var label = new TextBlock
-        {
-            Text = row.Name,
-            ToolTip = row.Name
-        }
-        ;
-        label.SetResourceReference(StyleProperty, "FastPropertyGridLabelStyle");
-        panel.Children.Add(label);
         TextBox editor;
         if (IsEditorPoolingEnabled && _textPool.Count > 0)
         {
@@ -423,7 +396,12 @@ public class FastPropertyGrid : ListBox
         var cleanup = new List<Action>();
         panel.Children.Add(editor);
         container.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-        container.Content = panel;
+        var titleWidth = _selection[0].GetType().GetCustomAttributes(typeof(TitleWidthAttribute), true)
+            .OfType<TitleWidthAttribute>().FirstOrDefault() ?? new TitleWidthAttribute(80, GridUnitType.Pixel);
+        var multiItem = PropertyGrid.CreatePropertyItemCore(row.Properties[0], titleWidth, _selection[0], PropertyResolver);
+        multiItem.SetResourceReference(StyleProperty, "PropertyItemBaseStyle");
+        multiItem.EditorElement = panel;
+        container.Content = multiItem;
         // 捕获选择数组引用，避免旧容器把未完成的编辑写入后来选中的对象。
         var snapshot = _selection;
         var dirty = false;
@@ -656,6 +634,147 @@ public class FastPropertyGrid : ListBox
             }
         }
         ;
+    }
+
+    private void PrepareCustomEditor(ListBoxItem container, Row row, PropertyAttribute attribute)
+    {
+        var titleWidth = _selection[0].GetType().GetCustomAttributes(typeof(TitleWidthAttribute), true)
+            .OfType<TitleWidthAttribute>().FirstOrDefault() ?? new TitleWidthAttribute(80, GridUnitType.Pixel);
+        var item = PropertyGrid.CreatePropertyItemCore(row.Properties[0], titleWidth, _selection[0], PropertyResolver);
+        item.SetResourceReference(StyleProperty, "PropertyItemBaseStyle");
+        item.EditorOnNewLine = true;
+        var panel = new DockPanel();
+        item.EditorElement = panel;
+        container.Content = item;
+        container.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        var snapshot = _selection;
+        var readOnly = row.Properties.Any(property => property.IsReadOnly);
+        var configMatches = row.Properties.All(property => property.Attributes.OfType<PropertyAttribute>()
+            .FirstOrDefault()?.CustomControlType == attribute.CustomControlType);
+        IFastPropertyGridEditor customEditor = null;
+        DependencyProperty valueProperty = null;
+        IValueConverter converter = null;
+        string error = null;
+        try
+        {
+            var editorType = attribute.CustomControlType;
+            if (editorType == null || editorType.IsAbstract || !typeof(FrameworkElement).IsAssignableFrom(editorType)
+                || !typeof(IFastPropertyGridEditor).IsAssignableFrom(editorType)
+                || editorType.GetConstructor(Type.EmptyTypes) == null)
+            {
+                throw new InvalidOperationException("自定义控件必须是实现 IFastPropertyGridEditor 的非抽象 FrameworkElement，并具有公共无参构造函数。");
+            }
+            customEditor = (IFastPropertyGridEditor)Activator.CreateInstance(editorType);
+            if (customEditor.ValueProperty == null || customEditor.ValueProperty.ReadOnly)
+            {
+                throw new InvalidOperationException("自定义控件 ValueProperty 必须是可读写的依赖属性。");
+            }
+            valueProperty = customEditor.ValueProperty;
+            if (attribute.ConverterType != null)
+            {
+                converter = Activator.CreateInstance(attribute.ConverterType) as IValueConverter;
+                if (converter == null)
+                {
+                    throw new InvalidOperationException("ConverterType 必须实现 IValueConverter。");
+                }
+            }
+            else if (valueProperty.PropertyType != row.Properties[0].PropertyType)
+            {
+                throw new InvalidOperationException("ValueProperty 类型必须与被编辑属性类型一致，或配置双向 ConverterType。");
+            }
+        }
+        catch (Exception exception)
+        {
+            error = exception.GetBaseException().Message;
+        }
+        if (error != null)
+        {
+            var errorText = new TextBlock { Text = "自定义编辑器配置错误：" + error, ToolTip = error, TextWrapping = TextWrapping.Wrap };
+            panel.Children.Add(errorText);
+            return;
+        }
+        var element = (FrameworkElement)customEditor;
+        panel.Children.Add(element);
+        var enabled = !readOnly && configMatches;
+        element.IsEnabled = enabled;
+        customEditor.IsMixedValue = false;
+        var binding = new Binding(row.Properties[0].Name)
+        {
+            Source = snapshot[0],
+            Mode = _selection.Length == 1 && !readOnly ? BindingMode.TwoWay : BindingMode.OneWay,
+            Converter = converter,
+            UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+        };
+        if (_selection.Length == 1)
+        {
+            BindingOperations.SetBinding(element, valueProperty, binding);
+            _detach[container] = () =>
+            {
+                BindingOperations.ClearBinding(element, valueProperty);
+                panel.Children.Remove(element);
+            };
+            return;
+        }
+        var committed = false;
+        void ReadValues()
+        {
+            try
+            {
+                var values = row.Properties.Select((property, index) => property.GetValue(snapshot[index])).ToArray();
+                var mixed = values.Skip(1).Any(value => !Equals(value, values[0]));
+                customEditor.IsMixedValue = mixed;
+                if (!mixed)
+                {
+                    var converted = converter == null ? values[0] : converter.Convert(values[0], valueProperty.PropertyType, null, CultureInfo.CurrentCulture);
+                    element.SetValue(valueProperty, converted);
+                }
+            }
+            catch (Exception exception)
+            {
+                element.ToolTip = exception.GetBaseException().Message;
+            }
+        }
+        EventHandler handler = (_, _) =>
+        {
+            if (!enabled || committed || !ReferenceEquals(snapshot, _selection))
+            {
+                return;
+            }
+            committed = true;
+            var failures = new List<FastPropertyEditFailure>();
+            var succeeded = 0;
+            _committing = true;
+            foreach (var (property, index) in row.Properties.Select((property, index) => (property, index)))
+            {
+                try
+                {
+                    var value = element.GetValue(valueProperty);
+                    if (converter != null)
+                    {
+                        value = converter.ConvertBack(value, property.PropertyType, null, CultureInfo.CurrentCulture);
+                    }
+                    property.SetValue(snapshot[index], value);
+                    succeeded++;
+                }
+                catch (Exception exception)
+                {
+                    failures.Add(new FastPropertyEditFailure(snapshot[index], property.Name, exception.GetBaseException()));
+                }
+            }
+            _committing = false;
+            committed = false;
+            ReadValues();
+            EditCompleted?.Invoke(this, new FastPropertyEditCompletedEventArgs(succeeded, failures.AsReadOnly()));
+        };
+        customEditor.ValueCommitted += handler;
+        ReadValues();
+        _detach[container] = () =>
+        {
+            customEditor.ValueCommitted -= handler;
+            BindingOperations.ClearBinding(element, valueProperty);
+            customEditor.IsMixedValue = false;
+            panel.Children.Remove(element);
+        };
     }
 
     /// <summary>

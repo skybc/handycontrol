@@ -135,10 +135,12 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="EditorOnNewLine" Value="True">
                             <Setter TargetName="PART_TitleTextBlock" Property="Grid.ColumnSpan" Value="2" />
-                            <Setter TargetName="PART_TitleTextBlock" Property="Margin" Value="{StaticResource PropertyGridBaseMarginToken4}" />
+                            <Setter TargetName="PART_TitleTextBlock" Property="Margin" Value="0,0,0,4" />
+                            <Setter TargetName="PART_TitleTextBlock" Property="VerticalAlignment" Value="Top" />
                             <Setter TargetName="PART_ContentPresenter" Property="Grid.Row" Value="1" />
                             <Setter TargetName="PART_ContentPresenter" Property="Grid.Column" Value="0" />
                             <Setter TargetName="PART_ContentPresenter" Property="Grid.ColumnSpan" Value="2" />
+                            <Setter TargetName="PART_ContentPresenter" Property="HorizontalAlignment" Value="Stretch" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                     <!--<GroupBox hc:TitleElement.TitlePlacement="Left" Style="{StaticResource GroupBoxOriginal}">
