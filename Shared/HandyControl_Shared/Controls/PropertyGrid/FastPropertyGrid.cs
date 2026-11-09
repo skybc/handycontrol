@@ -245,6 +245,20 @@ public class FastPropertyGrid : ListBox
                 {
                     continue;
                 }
+                string DisplayName(PropertyDescriptor property)
+                {
+                    var propertyAttribute = property.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+                    var displayName = propertyAttribute?.DisplayName;
+                    if (string.IsNullOrEmpty(displayName))
+                    {
+                        displayName = PropertyResolver.ResolveDisplayName(property);
+                    }
+                    return displayName.ToLanguage();
+                }
+                if (properties.Any(property => !string.Equals(DisplayName(property), DisplayName(first), StringComparison.CurrentCulture)))
+                {
+                    continue;
+                }
                 var firstAttribute = first.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
                 if (_selection.Length > 1 && firstAttribute?.CustomControlType == null && (first.IsReadOnly || !first.Converter.CanConvertFrom(typeof(string))))
                 {
@@ -257,7 +271,7 @@ public class FastPropertyGrid : ListBox
                 rows.Add(new Row
                 {
                     Properties = properties,
-                    Name = (metadata?.DisplayName ?? PropertyResolver.ResolveDisplayName(first)).ToLanguage(),
+                    Name = DisplayName(first),
                     Category = (metadata?.Category ?? PropertyResolver.ResolveCategory(first)).ToLanguage(),
                     SortIndex = first.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault()?.Index ?? metadata?.Index ?? 0
                 }
@@ -649,8 +663,12 @@ public class FastPropertyGrid : ListBox
         container.HorizontalContentAlignment = HorizontalAlignment.Stretch;
         var snapshot = _selection;
         var readOnly = row.Properties.Any(property => property.IsReadOnly);
-        var configMatches = row.Properties.All(property => property.Attributes.OfType<PropertyAttribute>()
-            .FirstOrDefault()?.CustomControlType == attribute.CustomControlType);
+        var configMatches = row.Properties.All(property =>
+        {
+            var configuration = property.Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+            return configuration?.CustomControlType == attribute.CustomControlType
+                && configuration?.ConverterType == attribute.ConverterType;
+        });
         IFastPropertyGridEditor customEditor = null;
         DependencyProperty valueProperty = null;
         IValueConverter converter = null;
@@ -695,8 +713,61 @@ public class FastPropertyGrid : ListBox
         }
         var element = (FrameworkElement)customEditor;
         panel.Children.Add(element);
-        var enabled = !readOnly && configMatches;
-        element.IsEnabled = enabled;
+        var multiEditor = customEditor as IFastPropertyGridMultiEditor;
+        var targets = Array.AsReadOnly(snapshot);
+        var reasonText = new TextBlock { TextWrapping = TextWrapping.Wrap, Visibility = Visibility.Collapsed };
+        DockPanel.SetDock(reasonText, Dock.Bottom);
+        panel.Children.Insert(0, reasonText);
+        bool CheckCanEdit()
+        {
+            if (snapshot.Length == 1)
+            {
+                element.IsEnabled = !readOnly;
+                return !readOnly;
+            }
+            string reason = null;
+            if (readOnly)
+            {
+                reason = "所选对象中存在只读属性。";
+            }
+            else if (!configMatches)
+            {
+                reason = "所选对象的自定义编辑器配置不一致。";
+            }
+            else if (multiEditor != null)
+            {
+                try
+                {
+                    if (!multiEditor.CanEdit(targets, row.Properties[0].Name, out reason))
+                    {
+                        if (string.IsNullOrWhiteSpace(reason))
+                        {
+                            reason = "当前选择不允许编辑。";
+                        }
+                    }
+                    else
+                    {
+                        reason = null;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    reason = exception.GetBaseException().Message;
+                }
+            }
+            element.IsEnabled = reason == null;
+            reasonText.Text = reason;
+            if (reason == null)
+            {
+                reasonText.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                reasonText.Visibility = Visibility.Visible;
+            }
+            return reason == null;
+        }
+        CheckCanEdit();
         customEditor.IsMixedValue = false;
         var binding = new Binding(row.Properties[0].Name)
         {
@@ -736,7 +807,7 @@ public class FastPropertyGrid : ListBox
         }
         EventHandler handler = (_, _) =>
         {
-            if (!enabled || committed || !ReferenceEquals(snapshot, _selection))
+            if (committed || !ReferenceEquals(snapshot, _selection) || !CheckCanEdit())
             {
                 return;
             }
@@ -753,8 +824,14 @@ public class FastPropertyGrid : ListBox
                     {
                         value = converter.ConvertBack(value, property.PropertyType, null, CultureInfo.CurrentCulture);
                     }
+                    if (multiEditor != null)
+                    {
                         multiEditor.ApplyValue(targets, snapshot[index], property.Name, value);
-                    property.SetValue(snapshot[index], value);
+                    }
+                    else
+                    {
+                        property.SetValue(snapshot[index], value);
+                    }
                     succeeded++;
                 }
                 catch (Exception exception)
@@ -765,6 +842,11 @@ public class FastPropertyGrid : ListBox
             _committing = false;
             committed = false;
             ReadValues();
+            if (failures.Count > 0)
+            {
+                element.ToolTip = string.Join(Environment.NewLine, failures.Select(failure => failure.Exception.Message));
+            }
+            CheckCanEdit();
             EditCompleted?.Invoke(this, new FastPropertyEditCompletedEventArgs(succeeded, failures.AsReadOnly()));
         };
         customEditor.ValueCommitted += handler;

@@ -229,12 +229,14 @@ public partial class PropertyGridDemoCtl
 
         private string _customText;
         public bool RejectCustomText { get; set; }
+        public bool BlockMultiEdit { get; set; }
 
         [HandyControl.Controls.Property(CustomControlType = typeof(CustomTextEditor), TitleVerticalAlignment = VerticalAlignment.Top)]
         public string ReadOnlyText { get; private set; }
     }
 
-    public sealed class CustomTextEditor : TextBox, HandyControl.Controls.IFastPropertyGridEditor
+    public sealed class CustomTextEditor : TextBox, HandyControl.Controls.IFastPropertyGridEditor,
+        HandyControl.Controls.IFastPropertyGridMultiEditor
     {
         public static readonly DependencyProperty EditorValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(string), typeof(CustomTextEditor), new PropertyMetadata(string.Empty, OnValueChanged));
@@ -286,6 +288,23 @@ public partial class PropertyGridDemoCtl
 
         private bool _isMixedValue;
         public event EventHandler ValueCommitted;
+
+        public bool CanEdit(System.Collections.Generic.IReadOnlyList<object> targets, string propertyName, out string reason)
+        {
+            reason = null;
+            if (targets.OfType<CustomEditorModel>().Any(model => model.BlockMultiEdit))
+            {
+                reason = "当前对象禁止批量编辑此属性。";
+                return false;
+            }
+            return true;
+        }
+
+        public void ApplyValue(System.Collections.Generic.IReadOnlyList<object> targets, object target,
+            string propertyName, object value)
+        {
+            ((CustomEditorModel)target).CustomText = (string)value;
+        }
 
         private static void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
