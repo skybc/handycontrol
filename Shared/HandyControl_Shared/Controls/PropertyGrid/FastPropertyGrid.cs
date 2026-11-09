@@ -753,6 +753,7 @@ public class FastPropertyGrid : ListBox
                     {
                         value = converter.ConvertBack(value, property.PropertyType, null, CultureInfo.CurrentCulture);
                     }
+                        multiEditor.ApplyValue(targets, snapshot[index], property.Name, value);
                     property.SetValue(snapshot[index], value);
                     succeeded++;
                 }
