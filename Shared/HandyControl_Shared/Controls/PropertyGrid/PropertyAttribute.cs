@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 
 namespace HandyControl.Controls
@@ -73,6 +73,23 @@ namespace HandyControl.Controls
         /// FastPropertyGrid 使用的自定义编辑控件类型。
         /// </summary>
         public Type CustomControlType { get; set; }
+
+        private bool _editorOnNewLine;
+
+        /// <summary>
+        /// 是否将编辑器显示在标题的下一行。
+        /// </summary>
+        public bool EditorOnNewLine
+        {
+            get => _editorOnNewLine;
+            set
+            {
+                _editorOnNewLine = value;
+                IsEditorOnNewLineSpecified = true;
+            }
+        }
+
+        internal bool IsEditorOnNewLineSpecified { get; private set; }
 
         // DataGrid相关属性
         /// <summary>

@@ -656,7 +656,6 @@ public class FastPropertyGrid : ListBox
             .OfType<TitleWidthAttribute>().FirstOrDefault() ?? new TitleWidthAttribute(80, GridUnitType.Pixel);
         var item = PropertyGrid.CreatePropertyItemCore(row.Properties[0], titleWidth, _selection[0], PropertyResolver);
         item.SetResourceReference(StyleProperty, "PropertyItemBaseStyle");
-        item.EditorOnNewLine = true;
         var panel = new DockPanel();
         item.EditorElement = panel;
         container.Content = item;

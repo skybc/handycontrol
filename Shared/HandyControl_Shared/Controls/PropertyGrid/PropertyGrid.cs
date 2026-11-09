@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -343,6 +343,11 @@ public class PropertyGrid : Control
         if (editor is ListBoxPropertyEditor || editor is DataGridPropertyEditor)
         {
             propertyItem.EditorOnNewLine = true;
+        }
+
+        if (property?.IsEditorOnNewLineSpecified == true)
+        {
+            propertyItem.EditorOnNewLine = property.EditorOnNewLine;
         }
 
         return propertyItem;

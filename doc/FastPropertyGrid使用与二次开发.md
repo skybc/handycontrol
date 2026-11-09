@@ -633,7 +633,7 @@ public double Threshold { get; set; }
 
 指定类型无效、控件构造失败、`ValueProperty` 不可读写或值类型/转换器配置错误时，该行显示明确错误并禁用编辑，不会静默切换到默认编辑器。其余属性行照常工作。
 
-自定义编辑器行启用 `PropertyItem.EditorOnNewLine` 布局：标题跨满整行并顶部对齐，控件位于下一行并水平拉伸。多行或高控件可设置自身 `Height`；例如 demo 中的自定义输入框使用 `Height = 200`。此布局复用 `PropertyItemBaseStyle` 的 `EditorOnNewLine` 模板触发器，不影响未启用该属性的普通行。
+通过 `[Property(EditorOnNewLine = true)]` 可为任意编辑器启用换行布局，自定义编辑器默认不换行；ListBox 和 DataGrid 默认换行，也可显式设置为 `false`。启用后：标题跨满整行并顶部对齐，控件位于下一行并水平拉伸。多行或高控件可设置自身 `Height`；例如 demo 中的自定义输入框使用 `Height = 200`。此布局复用 `PropertyItemBaseStyle` 的 `EditorOnNewLine` 模板触发器，不影响未启用该属性的普通行。
 
 ### 演示与验证
 
