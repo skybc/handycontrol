@@ -102,15 +102,14 @@ public class DeviceOptions
 窗口构造函数中，在 `InitializeComponent()` 后设置：
 
 ```csharp
-PropertyPanel.SelectedObject = new DeviceOptions();
+PropertyPanel.SelectedObjects = new[] { new DeviceOptions() };
 ```
 
-MVVM 中可替换为 `SelectedObject="{Binding CurrentOptions}"`。编辑直接修改模型属性，不自动保存文件或数据库；持久化由应用处理。
+MVVM 中 SelectedOptions 也须提供集合（单对象使用单元素集合），可替换为 `SelectedObjects="{Binding SelectedOptions}"`。编辑直接修改模型属性，不自动保存文件或数据库；持久化由应用处理。
 
 ## 3. 单对象与多对象行为
 
 ```csharp
-PropertyPanel.SelectedObject = null;
 PropertyPanel.SelectedObjects = new[]
 {
     new DeviceOptions { Name = "设备 A" },
@@ -118,7 +117,7 @@ PropertyPanel.SelectedObjects = new[]
 };
 ```
 
-`SelectedObjects` 中的有效对象优先，忽略 null 并按引用去重；没有有效对象时回退到 `SelectedObject`。去重后只有一个对象仍走单对象编辑路径。返回单对象时先清空 `SelectedObjects`。
+`SelectedObjects` 忽略 null 并按引用去重；没有有效对象时清空面板，只有一个对象时走单对象编辑路径，多个对象时批量编辑。返回单对象时赋值单元素集合。
 
 | 项目 | 单对象 | 多对象 |
 | --- | --- | --- |
@@ -255,10 +254,10 @@ public class ProcessOptions
 使用方 XAML 添加 `xmlns:local="clr-namespace:Demo"`，将控件替换为：
 
 ```xml
-<local:DevicePropertyGrid SelectedObject="{Binding CurrentOptions}" />
+<local:DevicePropertyGrid SelectedObjects="{Binding SelectedOptions}" />
 ```
 
-CurrentOptions 应为 ProcessOptions 实例。此方案无需同时执行上一节的全局 double 注册，否则其他 double 仍受全局注册影响。也可在解析器中检查自己定义的 Attribute，按属性元数据选择不同编辑器。
+SelectedOptions 应为包含 ProcessOptions 实例的集合，单对象使用单元素集合。此方案无需同时执行上一节的全局 double 注册，否则其他 double 仍受全局注册影响。也可在解析器中检查自己定义的 Attribute，按属性元数据选择不同编辑器。
 
 当前 `ResolveEditor` 并非 virtual。`EditorAttribute` 只在默认结果为 `ReadOnlyTextPropertyEditor` 时尝试覆盖，因此不能用它可靠替换已有 string/double 等内置编辑器；请使用上述注册或解析器方式。
 
@@ -282,7 +281,7 @@ CurrentOptions 应为 ProcessOptions 实例。此方案无需同时执行上一�
 | --- | --- |
 | XAML 找不到 FastPropertyGrid | DLL 是否来自当前分支；程序集名 HandyControl；项目目标兼容 |
 | 控件空白或提示资源缺失 | Theme.xaml、皮肤资源是否加载，是否混用了不同版本 DLL/资源 |
-| SelectedObject 设置后仍显示批量内容 | SelectedObjects 中仍有有效对象，先将其清空 |
+| 清空选择 | 将 SelectedObjects 设为 null 或空集合 |
 | 集合增删后面板不变 | 调用 UI 线程 Refresh，或替换 SelectedObjects 引用 |
 | 自定义编辑器不出现 | 是否为多对象模式；是否注册了精确属性类型；是否已 Refresh |
 | 值显示但不能写入 | setter、ReadOnly、依赖属性类型、绑定错误和类型转换器 |

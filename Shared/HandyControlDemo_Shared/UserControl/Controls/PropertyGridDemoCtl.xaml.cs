@@ -50,13 +50,12 @@ public partial class PropertyGridDemoCtl
     {
         var version = ++_measurementVersion;
         var model = DemoModel;
-        FastGrid.SelectedObjects = null;
         LegacyTiming.Text = "PropertyGrid：测量中…";
         FastTiming.Text = "FastPropertyGrid：测量中…";
         await MeasureAsync("PropertyGrid", () => LegacyGrid.SelectedObject = model,
             text => LegacyTiming.Text = text, version);
         if (version != _measurementVersion || !IsLoaded) { return; }
-        await MeasureAsync("FastPropertyGrid", () => FastGrid.SelectedObject = model,
+        await MeasureAsync("FastPropertyGrid", () => FastGrid.SelectedObjects = new[] { model },
             text => FastTiming.Text = text, version);
     }
 
@@ -156,17 +155,15 @@ public partial class PropertyGridDemoCtl
     private void OnCustomEditorTest(object sender, RoutedEventArgs e)
     {
         _measurementVersion++;
-        FastGrid.SelectedObjects = null;
         var model = new CustomEditorModel("只读值") { CustomText = "单对象初始值" };
         _customModels = new[] { model };
-        FastGrid.SelectedObject = model;
+        FastGrid.SelectedObjects = new[] { model };
         FastTiming.Text = "单对象：编辑自定义文本，按 Enter 提交；只读行应禁用。";
     }
 
     private void OnCustomMultiTest(object sender, RoutedEventArgs e)
     {
         _measurementVersion++;
-        FastGrid.SelectedObject = null;
         _customModels = new[]
         {
             new CustomEditorModel("只读 A") { CustomText = "一致值" },
@@ -195,14 +192,19 @@ public partial class PropertyGridDemoCtl
 
     public class SimpleModel
     {
+        [HandyControl.Controls.Property]
         public string Name { get; set; }
+        [HandyControl.Controls.Property]
         public int Value { get; set; }
+        [HandyControl.Controls.Property]
         public string Description { get; set; }
     }
 
     public class MultiSelectionModel
     {
+        [HandyControl.Controls.Property]
         public string Name { get; set; }
+        [HandyControl.Controls.Property]
         public int Count { get; set; }
     }
 

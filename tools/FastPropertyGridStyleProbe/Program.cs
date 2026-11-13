@@ -11,7 +11,7 @@ class Program
   var app = new Application();
   app.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml") });
   app.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/HandyControl;component/Themes/SkinSGammaLight.xaml") });
-  var grid = new FastPropertyGrid { SelectedObject = new Model() };
+  var grid = new FastPropertyGrid { SelectedObjects = new[] { new Model() } };
   var window = new System.Windows.Window { Content = grid, Width = 700, Height = 500, ShowInTaskbar = false };
   window.Show(); grid.UpdateLayout();
   if (grid.Items.Count != 3) throw new Exception("Missing properties");

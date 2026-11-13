@@ -19,7 +19,7 @@ class Program
         for (int i = 0; i < 200; i++)
         {
             var watch = Stopwatch.StartNew();
-            grid.SelectedObject = new Model();
+            grid.SelectedObjects = new[] { new Model() };
             grid.UpdateLayout();
             var frame = new DispatcherFrame();
             grid.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() => frame.Continue = false));
@@ -32,7 +32,7 @@ class Program
         if (grid.Items.Count != 2) { throw new Exception("Search failed"); }
         grid.ToggleCategory("Misc");
         grid.SearchText = "";
-        grid.SelectedObject = null;
+        grid.SelectedObjects = null;
         window.Close();
         times.Sort();
         Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new { Samples = times.Count, P50 = times[100], P95 = times[190], grid.EditorsCreated, grid.EditorsReused, grid.PooledEditorCount, Machine = Environment.MachineName }));

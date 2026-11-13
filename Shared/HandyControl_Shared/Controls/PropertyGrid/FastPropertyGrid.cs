@@ -23,8 +23,6 @@ namespace HandyControl.Controls;
 /// </remarks>
 public class FastPropertyGrid : ListBox
 {
-    public static readonly DependencyProperty SelectedObjectProperty = DependencyProperty.Register(
-    nameof(SelectedObject), typeof(object), typeof(FastPropertyGrid), new PropertyMetadata(null, SelectionChanged));
     public static readonly DependencyProperty SelectedObjectsProperty = DependencyProperty.Register(
     nameof(SelectedObjects), typeof(IEnumerable), typeof(FastPropertyGrid), new PropertyMetadata(null, SelectionChanged));
     public static readonly DependencyProperty ShowSortButtonProperty = PropertyGrid.ShowSortButtonProperty.AddOwner(typeof(FastPropertyGrid));
@@ -154,11 +152,6 @@ public class FastPropertyGrid : ListBox
     private bool _committing;
     private object[] _selection = Array.Empty<object>();
     private readonly List<INotifyPropertyChanged> _subscriptions = new();
-    public object SelectedObject
-    {
-        get => GetValue(SelectedObjectProperty);
-        set => SetValue(SelectedObjectProperty, value);
-    }
     public IEnumerable SelectedObjects
     {
         get => (IEnumerable)GetValue(SelectedObjectsProperty);
@@ -204,8 +197,8 @@ public class FastPropertyGrid : ListBox
     /// 重建所选对象的公共属性描述及通知订阅，属性值在可见容器准备时按需读取。
     /// </summary>
     /// <remarks>
-    /// 必须在 UI 线程调用。优先使用非空的 SelectedObjects，按引用去重；
-    /// 未得到有效对象时回退到 SelectedObject。刷新前提交当前待写入的编辑内容。
+    /// 必须在 UI 线程调用。使用 SelectedObjects，忽略 null 并按引用去重。
+    /// 没有有效对象时清空面板。刷新前提交当前待写入的编辑内容。
     /// </remarks>
     public void Refresh()
     {
@@ -226,10 +219,6 @@ public class FastPropertyGrid : ListBox
                     objects.Add(item);
                 }
             }
-        }
-        if (objects.Count == 0 && SelectedObject != null)
-        {
-            objects.Add(SelectedObject);
         }
         _selection = objects.ToArray();
         var rows = new List<Row>();
