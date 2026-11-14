@@ -101,7 +101,7 @@ public class EnumPropertyEditor : PropertyEditorBase
         return cb;
     }
 
-    private static DataTemplate CreateEnumDescriptionTemplate()
+    internal static DataTemplate CreateEnumDescriptionTemplate()
     {
         var textBlock = new FrameworkElementFactory(typeof(TextBlock));
         textBlock.SetBinding(TextBlock.TextProperty, new Binding

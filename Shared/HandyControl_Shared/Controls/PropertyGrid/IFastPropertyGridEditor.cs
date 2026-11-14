@@ -31,3 +31,17 @@ public interface IFastPropertyGridMultiEditor
     /// </summary>
     void ApplyValue(IReadOnlyList<object> targets, object target, string propertyName, object value);
 }
+
+/// <summary>可选的值等价判断和草稿、副本创建契约；复制策略由编辑器决定。</summary>
+public interface IFastPropertyGridValueFactory
+{
+    bool AreValuesEquivalent(object left, object right);
+    object CreateEditingValue(object value);
+    object CreateCommitValue(object editingValue);
+}
+
+/// <summary>允许保留每个目标原值中特有的数据。</summary>
+public interface IFastPropertyGridTargetValueFactory : IFastPropertyGridValueFactory
+{
+    object CreateCommitValue(object editingValue, object originalValue);
+}

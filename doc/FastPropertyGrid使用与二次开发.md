@@ -1,6 +1,6 @@
-# FastPropertyGrid 使用与二次开发
+﻿# FastPropertyGrid 使用与二次开发
 
-本文对应当前仓库实现（2026-11-07 源码核对）。命名空间为 `HandyControl.Controls`，程序集为 `HandyControl.dll`。使用方无需引用示例工程或复制控件源码。
+本文对应当前仓库实现（2026-11-14 源码核对；本轮优化尚未完成全部验收）。命名空间为 `HandyControl.Controls`，程序集为 `HandyControl.dll`。使用方无需引用示例工程或复制控件源码。
 
 ## 1. 引用 DLL 并加载资源
 
@@ -125,7 +125,7 @@ PropertyPanel.SelectedObjects = new[]
 | 水平/垂直对齐 | 图标选择 | 枚举文字下拉 |
 | TextAlignment | 枚举文字下拉 | 枚举文字下拉 |
 | 提交 | 由具体编辑器绑定决定 | 文本失焦或 Enter；下拉选择、浏览确认立即提交 |
-| 不同初始值 | 显示当前值 | 文本显示“多个值”；下拉不选中 |
+| 不同初始值 | 显示当前值 | 文本显示第一个对象值；下拉不选中 |
 | 失败报告 | 普通 WPF 绑定机制 | EditCompleted，逐对象执行，成功项不回滚 |
 
 多对象只保留每个对象均存在、可浏览，且属性名、显示名称和属性类型一致的属性。普通编辑器还要求转换器类型一致；第一个对象的只读属性和不能从字符串转换的属性会被排除。类别及顺序取第一个对象。不要将多对象模式理解为所有单对象编辑器功能的合集。
@@ -145,7 +145,7 @@ PropertyPanel.EditCompleted += (_, e) =>
 };
 ```
 
-该事件仅针对多对象提交，不应作为单对象通用保存事件。
+该事件用于网格的显式提交路径，包括实现值工厂接口的单对象自定义控件；普通单对象绑定不保证触发，不应作为通用保存事件。
 
 ### 路径选择
 
@@ -167,7 +167,7 @@ PropertyPanel.EditCompleted += (_, e) =>
 | IsEditorPoolingEnabled | 多对象文本/下拉编辑器池开关，普通 CLR 属性 |
 | EditorsCreated / EditorsReused / PooledEditorCount | 编辑器创建、复用和池数量诊断 |
 
-模型可实现 `INotifyPropertyChanged` 以反映外部修改。控件只处理 UI 线程通知，后台通知会忽略；请通过 Dispatcher 更新模型或调用 Refresh。SelectedObjects 集合内部增删不会自动重建选择快照，修改后调用 Refresh 或替换集合引用。
+模型可实现 `INotifyPropertyChanged` 以反映外部修改。通知通过 Dispatcher 合并处理，后台线程通知也会进入队列；属性名为空或 null 表示刷新全部已登记行，否则按属性名刷新。多对象文本存在未提交输入时保留输入，按 Esc 后重新读取模型最新值。通知不再通过重新准备容器重建编辑器。普通单对象编辑器仍依赖原有 WPF 绑定；当前下拉通知同步尚待补齐与验证。切换选择、Refresh 或卸载后旧队列任务失效。此机制不使模型本身具备线程安全性。SelectedObjects 集合内部增删不会自动重建选择快照，修改后调用 Refresh 或替换集合引用。
 
 属性元数据常用 `[Category]`、`[DisplayName]`、`[ReadOnly]`、`[Browsable]`、`[PropertyOrder]` 和 HandyControl 的 `[Property]`。`Property` 的非空显示名/类别优先；避免同时给出冲突配置。
 
@@ -613,11 +613,11 @@ public double Threshold { get; set; }
 
 ### 单对象和多对象行为
 
-需要由业务代码决定多对象写入规则时，自定义控件可额外实现 `IFastPropertyGridMultiEditor`。`CanEdit(targets, propertyName, out reason)` 在显示行及提交前调用；返回 `false` 时控件保留但禁用，原因显示在行内。`ApplyValue(targets, target, propertyName, value)` 在提交时对每个目标调用，`value` 是经过 `ConverterType.ConvertBack` 后的属性值。实现者负责写入包括第一个对象在内的每个目标；网格不会再为它调用 `PropertyDescriptor.SetValue`。某个目标抛出异常时，其余目标继续处理，结果仍由 `EditCompleted` 报告。只实现 `IFastPropertyGridEditor` 的旧控件仍使用网格的逐对象写入方式。单对象不调用这两个方法。
+需要由业务代码决定多对象写入规则时，自定义控件可额外实现 `IFastPropertyGridMultiEditor`。`CanEdit(targets, propertyName, out reason)` 在显示行及提交前调用；返回 `false` 时控件保留但禁用，原因显示在行内。`ApplyValue(targets, target, propertyName, value)` 在提交时对每个目标调用，`value` 是经过 `ConverterType.ConvertBack` 后的属性值。实现者负责写入包括第一个对象在内的每个目标；网格不会再为它调用 `PropertyDescriptor.SetValue`。某个目标抛出异常时，其余目标继续处理，结果仍由 `EditCompleted` 报告。只实现 `IFastPropertyGridEditor` 的旧控件仍使用网格的逐对象写入方式。旧控件的单对象绑定路径不调用这两个方法；实现值工厂后走显式提交路径，ApplyValue 也可用于单个目标，CanEdit 的单对象路径仍只检查只读状态。
 
 多对象属性行要求所有目标的显示名称、属性名及属性类型一致；不一致的属性不显示。业务校验失败、只读或自定义控件配置不一致时，属性行显示禁用原因。
 
-单对象模式将编辑器 `ValueProperty` 绑定到目标属性。可写属性使用双向绑定；只读属性使用单向绑定并禁用控件。自定义分支目前不调用普通 `PropertyItem.InitElement`，因此启用/可见绑定和命令按钮不会自动附加；需要这些行为时，应在自定义控件中自行提供对应绑定或交互。
+未实现值工厂接口的单对象控件将 `ValueProperty` 绑定到目标属性。可写属性使用双向绑定；只读属性使用单向绑定并禁用控件。自定义分支目前不调用普通 `PropertyItem.InitElement`，其中 `VisibleProperty` 由容器绑定各目标自身配置的路径；多选时所有已配置条件均为 true 才显示，任一为 false 或路径无法解析则隐藏，未配置条件的目标不限制显示。源实现 INotifyPropertyChanged 后可动态更新，容器回收时清除旧绑定；启用绑定和命令按钮不会自动附加；需要这些行为时，应在自定义控件中自行提供对应绑定或交互。
 
 多对象模式先读取所有目标的实际属性值：
 
@@ -627,6 +627,43 @@ public double Threshold { get; set; }
 - 选择中的属性必须具有相同类型、兼容的自定义控件配置且均可写，编辑才启用。存在只读目标或控件配置不一致时，该控件显示为禁用。
 
 选择刷新、容器回收和控件卸载时，网格会移除其绑定并取消 `ValueCommitted` 订阅。提交回调还会核对选择快照，避免旧容器向新选择写入。
+
+### 可选的草稿与提交副本接口
+
+可变引用值建议额外实现 `IFastPropertyGridValueFactory`。网格不执行通用深拷贝，旧接口签名保持不变：
+
+```csharp
+public interface IFastPropertyGridValueFactory
+{
+    bool AreValuesEquivalent(object left, object right);
+    object CreateEditingValue(object value);
+    object CreateCommitValue(object editingValue);
+}
+
+public interface IFastPropertyGridTargetValueFactory : IFastPropertyGridValueFactory
+{
+    object CreateCommitValue(object editingValue, object originalValue);
+}
+```
+
+调用顺序如下：
+
+1. 读取各目标属性，以 `AreValuesEquivalent` 判断混合状态；未实现接口时使用 `Equals`。
+2. 非混合值先经 `CreateEditingValue` 创建草稿，再经 `Converter.Convert` 回填。混合值清除依赖属性旧值，并设置 `IsMixedValue`；控件的默认值也应避免共享可变对象。
+3. 收到用户 `ValueCommitted` 后，对每个目标分别调用 `ConvertBack`，再创建提交副本。目标感知接口优先，`originalValue` 是该目标提交时读取的属性值。
+4. 将副本交给 `ApplyValue`，未实现该接口时调用属性 setter。某个目标失败后继续处理其他目标，最后重新读取实际结果。
+
+工厂方法中的值均属于模型值域：草稿创建发生在 Convert 之前，提交副本创建发生在 ConvertBack 之后。实现者应处理 null，并按业务内容判断等价。`CreateEditingValue` 不得返回会被编辑操作直接修改的原始引用；每次 `CreateCommitValue` 应返回独立副本，嵌套可变成员也应按业务需要复制。目标感知版本可从原值保留标识、来源等不参与本次编辑的字段，不能直接修改原值来代替创建副本。
+
+实现工厂的单对象控件也走显式提交，取消或放弃草稿不会自动调用 setter；具体取消交互由控件实现。未实现工厂的旧控件继续使用原契约，引用隔离由控件或业务层负责，不能假设网格已经复制值。
+
+回填期间网格抑制 `ValueCommitted`，防止控件依赖属性变化导致递归提交；控件仍应只在用户提交时发出事件。读取、等价判断及草稿创建异常显示在行提示中；逐目标转换、复制和写入异常进入 `EditCompleted.Failures`。
+
+### 本轮验证范围
+
+本轮构建通过，现有回归程序中的选择归一化、选择切换、待提交处理以及编辑器和订阅释放检查通过；随后单多对象布局一致性检查失败，不能视为整套回归通过。新增工厂回调、后台通知与焦点保持尚未完成专项自动回归和实际窗口验收，Demo 尚未增加复制回调用例，也没有性能对比数据。
+
+150ms 搜索防抖、统一分类折叠状态、移除下拉隐藏文本载体以及布局元数据缓存仍属于待完成计划。`ToggleCategory` 当前不能作为分类 API 与界面展开状态同步已完成的承诺。
 
 ### 错误呈现和布局
 
@@ -646,3 +683,5 @@ public double Threshold { get; set; }
 - `Themes/Styles/Base/PropertyGridBaseStyle.xaml`：标题换行与编辑器铺满布局。
 - `HandyControlDemo_Shared/UserControl/Controls/PropertyGridDemoCtl.xaml.cs`：可运行示例及测试模型。
 
+
+VisibleProperty 对 FastPropertyGrid 的所有属性行统一生效，包括普通多选行和 CustomControlType 自定义行；无需在自定义控件内重复实现整行可见性。条件路径相对于各个所选模型，模型应提供 bool 属性及变化通知。

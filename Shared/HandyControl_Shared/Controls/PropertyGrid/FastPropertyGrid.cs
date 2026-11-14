@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -149,6 +149,11 @@ public class FastPropertyGrid : ListBox
             return;
         }
     }
+    private readonly Dictionary<ListBoxItem, Action> _read = new();
+    private readonly HashSet<string> _pendingNotifications = new();
+    private readonly object _notificationLock = new();
+    private int _selectionVersion;
+    private bool _notificationScheduled;
     private bool _committing;
     private object[] _selection = Array.Empty<object>();
     private readonly List<INotifyPropertyChanged> _subscriptions = new();
@@ -281,16 +286,37 @@ public class FastPropertyGrid : ListBox
     /// </summary>
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
     {
-        if (!Dispatcher.CheckAccess() || _committing)
+        lock (_notificationLock)
         {
-            return;
-        }
-        foreach (var item in Items)
-        {
-            if (ItemContainerGenerator.ContainerFromItem(item) is ListBoxItem container)
+            _pendingNotifications.Add(args.PropertyName ?? string.Empty);
+            if (_notificationScheduled)
             {
-                PrepareContainerForItemOverride(container, item);
+                return;
             }
+            _notificationScheduled = true;
+            var version = _selectionVersion;
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                string[] names;
+                lock (_notificationLock)
+                {
+                    if (version != _selectionVersion)
+                    {
+                        return;
+                    }
+                    names = _pendingNotifications.ToArray();
+                    _pendingNotifications.Clear();
+                    _notificationScheduled = false;
+                }
+                foreach (var pair in _read.ToArray())
+                {
+                    if (pair.Key.DataContext is Row row &&
+                        (names.Contains(string.Empty) || names.Contains(row.Properties[0].Name)))
+                    {
+                        pair.Value();
+                    }
+                }
+            }));
         }
     }
 
@@ -304,6 +330,12 @@ public class FastPropertyGrid : ListBox
             item.PropertyChanged -= OnPropertyChanged;
         }
         _subscriptions.Clear();
+        lock (_notificationLock)
+        {
+            _selectionVersion++;
+            _pendingNotifications.Clear();
+            _notificationScheduled = false;
+        }
     }
 
     /// <summary>
@@ -317,8 +349,11 @@ public class FastPropertyGrid : ListBox
             detach();
         }
         _commit.Remove(oldContainer);
+        _read.Remove(oldContainer);
         base.PrepareContainerForItemOverride(element, item);
         var container = (ListBoxItem)element;
+        BindingOperations.ClearBinding(container, VisibilityProperty);
+        container.Visibility = Visibility.Visible;
         var row = (Row)item;
         if (row.Properties == null)
         {
@@ -349,6 +384,29 @@ public class FastPropertyGrid : ListBox
             return;
         }
         var customAttribute = row.Properties[0].Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+        {
+            var visibility = new MultiBinding
+            {
+                Mode = BindingMode.OneWay,
+                Converter = new SelectionVisibilityConverter()
+            };
+            for (var index = 0; index < _selection.Length; index++)
+            {
+                var configuration = row.Properties[index].Attributes.OfType<PropertyAttribute>().FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(configuration?.VisibleProperty))
+                {
+                    visibility.Bindings.Add(new Binding(configuration.VisibleProperty)
+                    {
+                        Source = _selection[index],
+                        Mode = BindingMode.OneWay
+                    });
+                }
+            }
+            if (visibility.Bindings.Count > 0)
+            {
+                BindingOperations.SetBinding(container, VisibilityProperty, visibility);
+            }
+        }
         if (customAttribute?.CustomControlType != null)
         {
             PrepareCustomEditor(container, row, customAttribute);
@@ -417,10 +475,11 @@ public class FastPropertyGrid : ListBox
             {
                 var values = row.Properties.Select((p, i) => p.GetValue(snapshot[i])).ToArray();
                 editor.Text = row.Properties[0].Converter.ConvertToString(null, CultureInfo.CurrentCulture, values[0]);
-                if (values.Any(value => !Equals(value, values[0])))
-                {
-                    editor.Text = "多个值";
-                }
+                /*不用显示多个值，显示第一个即可*/
+                //if (values.Any(value => !(factory?.AreValuesEquivalent(value, values[0]) ?? Equals(value, values[0]))))
+                //{
+                //    editor.Text = "多个值";
+                //}
                 editor.ToolTip = null;
             }
             catch (Exception exception)
@@ -487,6 +546,7 @@ public class FastPropertyGrid : ListBox
             }
             if (type.IsEnum)
             {
+                choices.ItemTemplate = EnumPropertyEditor.CreateEnumDescriptionTemplate();
                 options.AddRange(Enum.GetValues(type).Cast<object>());
             }
             else
@@ -530,6 +590,7 @@ public class FastPropertyGrid : ListBox
                 choices.SelectionChanged -= selectionHandler;
                 choices.IsDropDownOpen = false;
                 choices.ItemsSource = null;
+                choices.ItemTemplate = null;
                 choices.ToolTip = null;
                 panel.Children.Remove(choices);
                 if (IsEditorPoolingEnabled && PooledEditorCount < Math.Max(2, _detach.Count * 2))
@@ -617,6 +678,14 @@ public class FastPropertyGrid : ListBox
         editor.TextChanged += textHandler;
         editor.LostKeyboardFocus += focusHandler;
         editor.KeyDown += keyHandler;
+        _read[container] = () =>
+        {
+            if (!dirty)
+            {
+                Read();
+            }
+        };
+        editor.IsEnabled = row.Properties.All(property => !property.IsReadOnly);
         _commit[container] = Commit;
         // 回收前清理事件、文本和父子关系；池大小随当前已登记容器数量限制。
         _detach[container] = () =>
@@ -764,7 +833,7 @@ public class FastPropertyGrid : ListBox
             Converter = converter,
             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
         };
-        if (_selection.Length == 1)
+        if (_selection.Length == 1 && customEditor is not IFastPropertyGridValueFactory)
         {
             BindingOperations.SetBinding(element, valueProperty, binding);
             _detach[container] = () =>
@@ -775,27 +844,48 @@ public class FastPropertyGrid : ListBox
             return;
         }
         var committed = false;
+        var filling = false;
+        var factory = customEditor as IFastPropertyGridValueFactory;
         void ReadValues()
         {
+            filling = true;
             try
             {
                 var values = row.Properties.Select((property, index) => property.GetValue(snapshot[index])).ToArray();
-                var mixed = values.Skip(1).Any(value => !Equals(value, values[0]));
+                var mixed = values.Skip(1).Any(value => !(factory?.AreValuesEquivalent(value, values[0]) ?? Equals(value, values[0])));
                 customEditor.IsMixedValue = mixed;
                 if (!mixed)
                 {
-                    var converted = converter == null ? values[0] : converter.Convert(values[0], valueProperty.PropertyType, null, CultureInfo.CurrentCulture);
+                    var draft = values[0];
+                    if (factory != null)
+                    {
+                        draft = factory.CreateEditingValue(draft);
+                    }
+                    var converted = draft;
+                    if (converter != null)
+                    {
+                        converted = converter.Convert(draft, valueProperty.PropertyType, null, CultureInfo.CurrentCulture);
+                    }
                     element.SetValue(valueProperty, converted);
+                }
+                else
+                {
+                    element.ClearValue(valueProperty);
                 }
             }
             catch (Exception exception)
             {
                 element.ToolTip = exception.GetBaseException().Message;
             }
+            finally
+            {
+                filling = false;
+            }
         }
+        _read[container] = ReadValues;
         EventHandler handler = (_, _) =>
         {
-            if (committed || !ReferenceEquals(snapshot, _selection) || !CheckCanEdit())
+            if (filling || committed || !ReferenceEquals(snapshot, _selection) || !CheckCanEdit())
             {
                 return;
             }
@@ -811,6 +901,14 @@ public class FastPropertyGrid : ListBox
                     if (converter != null)
                     {
                         value = converter.ConvertBack(value, property.PropertyType, null, CultureInfo.CurrentCulture);
+                    }
+                    if (factory is IFastPropertyGridTargetValueFactory targetFactory)
+                    {
+                        value = targetFactory.CreateCommitValue(value, property.GetValue(snapshot[index]));
+                    }
+                    else if (factory != null)
+                    {
+                        value = factory.CreateCommitValue(value);
                     }
                     if (multiEditor != null)
                     {
@@ -859,6 +957,7 @@ public class FastPropertyGrid : ListBox
         }
         _detach.Clear();
         _commit.Clear();
+        _read.Clear();
     }
 
     /// <summary>
@@ -875,6 +974,9 @@ public class FastPropertyGrid : ListBox
         {
             detach();
         }
+        _read.Remove(container);
+        BindingOperations.ClearBinding(container, VisibilityProperty);
+        container.ClearValue(VisibilityProperty);
         container.Content = null;
         base.ClearContainerForItemOverride(element, item);
     }
@@ -882,6 +984,27 @@ public class FastPropertyGrid : ListBox
     /// <summary>
     /// 保存行元数据；Properties 为空表示批量编辑视图的分类标题行。
     /// </summary>
+    private sealed class SelectionVisibilityConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            // 批量行只有在所有配置了可见性条件的目标均允许显示时才显示。
+            foreach (var value in values)
+            {
+                if (value is not bool visible || !visible)
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+            return Visibility.Visible;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
     private sealed class Row
     {
         public PropertyDescriptor[] Properties;

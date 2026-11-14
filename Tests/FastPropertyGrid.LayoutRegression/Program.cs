@@ -20,6 +20,7 @@ internal static class Program
         window.Show();
         grid.UpdateLayout();
         VerifySelection(grid);
+        VerifyVisibility(grid);
         if (args.Contains("--selection-only"))
         {
             window.Close();
@@ -84,6 +85,64 @@ internal static class Program
         grid.Refresh();
         Require(grid.Items.Count == 0 && first.SubscriberCount == 0, "Refresh must rebuild mutable collection snapshots");
         Console.WriteLine("PASS: selection normalization, switching, pending commit, editor and subscription release");
+    }
+
+    private static void VerifyVisibility(FastPropertyGrid grid)
+    {
+        foreach (var custom in new[] { false, true })
+        {
+            var first = new VisibilityModel { Show = true };
+            var second = new VisibilityModel { Show = false };
+            grid.SelectedObjects = new[] { first, second };
+            grid.UpdateLayout();
+            var index = 0;
+            if (custom)
+            {
+                index = 1;
+            }
+            var container = (ListBoxItem)grid.ItemContainerGenerator.ContainerFromIndex(index);
+            Require(container != null && container.Visibility == Visibility.Collapsed,
+                "A false condition on the second target must hide the complete row");
+            second.Show = true;
+            container.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+            container = (ListBoxItem)grid.ItemContainerGenerator.ContainerFromIndex(index);
+            Require(container.Visibility == Visibility.Visible, "Visibility notification must reveal the row");
+            first.Show = false;
+            container.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+            container = (ListBoxItem)grid.ItemContainerGenerator.ContainerFromIndex(index);
+            Require(container.Visibility == Visibility.Collapsed, "First target must also control visibility");
+            grid.SelectedObjects = new[] { new VisibilityModel { Show = true } };
+            grid.UpdateLayout();
+            container = (ListBoxItem)grid.ItemContainerGenerator.ContainerFromIndex(index);
+            Require(container.Visibility == Visibility.Visible, "Selection switch must replace old visibility bindings");
+        }
+        Console.WriteLine("PASS: ordinary and custom row visibility, notifications and selection switching");
+    }
+
+    public sealed class VisibilityModel : System.ComponentModel.INotifyPropertyChanged
+    {
+        private bool _show;
+        public bool Show
+        {
+            get => _show;
+            set
+            {
+                _show = value;
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(Show)));
+            }
+        }
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [Property(VisibleProperty = nameof(Show)), PropertyOrder(0)]
+        public string Ordinary { get; set; } = "ordinary";
+        [Property(VisibleProperty = nameof(Show), CustomControlType = typeof(VisibilityEditor)), PropertyOrder(1)]
+        public string Custom { get; set; } = "custom";
+    }
+
+    public sealed class VisibilityEditor : System.Windows.Controls.TextBox, IFastPropertyGridEditor
+    {
+        public DependencyProperty ValueProperty => TextProperty;
+        public bool IsMixedValue { get; set; }
+        public event EventHandler ValueCommitted;
     }
 
     private static void Require(bool condition, string message)
